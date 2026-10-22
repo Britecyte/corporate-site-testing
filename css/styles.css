@@ -519,22 +519,69 @@ textarea:disabled,
     z-index: 90;
   }
 
+  .site-header-inner {
+    position: relative;
+    z-index: 2;
+  }
+
+  .mobile-nav-backdrop {
+    display: none;
+    position: fixed;
+    top: var(--site-header-h);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 88;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(35, 48, 81, 0.28);
+    cursor: default;
+  }
+
+  .mobile-nav-backdrop.is-visible {
+    display: block;
+  }
+
   .site-nav-mobile.is-open {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     position: fixed;
-    top: 0;
+    top: var(--site-header-h);
     right: 0;
-    bottom: 0;
     left: 0;
-    z-index: 85;
-    padding: var(--site-header-h) 1.25rem 1.5rem;
-    border-top: 0;
-    background: rgba(255, 251, 247, 0.98);
+    z-index: 89;
+    width: 100%;
+    max-width: 100vw;
+    max-height: min(70dvh, calc(100dvh - var(--site-header-h) - 0.5rem));
+    padding: 0.35rem 1.25rem 1rem;
+    border: 0;
+    border-bottom: 1px solid var(--color-hairline);
+    background: #fffbf7;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    box-shadow: 0 16px 40px -20px rgba(35, 48, 81, 0.45);
+  }
+
+  .site-header-actions .btn-primary {
+    display: none;
+  }
+
+  .site-nav-mobile a {
+    display: block;
+    padding: 0.95rem 0.35rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-ink);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .site-nav-mobile a.is-active {
+    color: var(--color-bronze-deep);
   }
 
   html.is-menu-open .site-header::after {
@@ -3077,10 +3124,7 @@ a.news-card:focus-visible {
   --site-footer-h: 3.25rem;
 }
 
-html.is-menu-open,
-html.is-menu-open body {
-  overflow: hidden;
-}
+/* Mobile menu uses backdrop click-to-dismiss; page scroll stays available. */
 
 html.is-panel-app {
   scroll-behavior: auto;

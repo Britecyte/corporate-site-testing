@@ -84,21 +84,10 @@ export function initPipelineMap() {
   const nodes = Array.from(root.querySelectorAll("[data-pipe-node]"));
   if (!detail || !nodes.length) return;
 
-  const mobile = window.matchMedia("(max-width: 1023px)");
-  const slot = root.querySelector(".pipe-map-controls") || detail.nextElementSibling;
-
-  const placeDetail = (key) => {
-    const node = nodes.find((item) => item.dataset.pipeNode === key);
-    if (mobile.matches && node) {
-      node.insertAdjacentElement("afterend", detail);
-      return;
-    }
-    if (slot) {
-      root.insertBefore(detail, slot);
-    } else {
-      root.prepend(detail);
-    }
-  };
+  detail.innerHTML = nodes
+    .map((node) => `<div class="pipe-detail-item" data-pipe-item="${esc(node.dataset.pipeNode)}">${detailHtml(node.dataset.pipeNode)}</div>`)
+    .join("");
+  const items = Array.from(detail.querySelectorAll("[data-pipe-item]"));
 
   const setActive = (key) => {
     nodes.forEach((node) => {
@@ -107,10 +96,12 @@ export function initPipelineMap() {
       node.setAttribute("aria-pressed", String(on));
     });
     detail.classList.remove("is-updating");
-    detail.innerHTML = detailHtml(key);
+    items.forEach((item) => {
+      const on = item.dataset.pipeItem === key;
+      item.classList.toggle("is-active", on);
+      item.setAttribute("aria-hidden", String(!on));
+    });
     detail.dataset.active = key;
-    detail.scrollTop = 0;
-    placeDetail(key);
     requestAnimationFrame(() => detail.classList.add("is-updating"));
   };
 
@@ -118,10 +109,6 @@ export function initPipelineMap() {
     const key = node.dataset.pipeNode;
     node.addEventListener("click", () => setActive(key));
     node.addEventListener("focus", () => setActive(key));
-  });
-
-  mobile.addEventListener("change", () => {
-    placeDetail(detail.dataset.active || nodes[0].dataset.pipeNode);
   });
 
   setActive(nodes[0].dataset.pipeNode);

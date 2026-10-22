@@ -1,6 +1,6 @@
 import { initSectionMotifs } from './section-motifs.js?v=20260710l';
 import { initNewsGrid } from './news.js?v=20260821c';
-import { initPipelineMap } from './pipeline-map.js?v=20260822t';
+import { initPipelineMap } from './pipeline-map.js?v=20261022e';
 import { initPanelNav } from './panel-nav.js?v=20260822b';
 import { initHeroField } from './hero-field.js?v=20260822aj';
 import { initTeamBios } from './team-bios.js?v=20260822z';
@@ -76,10 +76,23 @@ function initMobileNav() {
   const iconPath = toggle?.querySelector('.menu-icon-path');
   if (!toggle || !nav) return;
 
+  let backdrop = document.querySelector('[data-mobile-nav-backdrop]');
+  if (!backdrop) {
+    backdrop = document.createElement('button');
+    backdrop.type = 'button';
+    backdrop.className = 'mobile-nav-backdrop';
+    backdrop.setAttribute('data-mobile-nav-backdrop', '');
+    backdrop.setAttribute('aria-label', 'Close menu');
+    backdrop.hidden = true;
+    nav.before(backdrop);
+  }
+
   const setExpanded = (expanded) => {
     toggle.setAttribute('aria-expanded', String(expanded));
     nav.classList.toggle('is-open', expanded);
     document.documentElement.classList.toggle('is-menu-open', expanded);
+    backdrop.hidden = !expanded;
+    backdrop.classList.toggle('is-visible', expanded);
     if (iconPath) {
       iconPath.setAttribute('d', expanded
         ? 'M6 18L18 6M6 6l12 12'
@@ -92,6 +105,8 @@ function initMobileNav() {
     event.stopPropagation();
     setExpanded(toggle.getAttribute('aria-expanded') !== 'true');
   });
+
+  backdrop.addEventListener('click', () => setExpanded(false));
 
   nav.querySelectorAll('a, button').forEach((link) => {
     link.addEventListener('click', () => setExpanded(false));

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Britecyte (V3 · Hybrid Scroll) — Biorestoration Therapies</title>
+  <meta name="description" content="Britecyte develops innovative therapies designed to restore structure, function, and quality of life by working with the body's natural biology." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Britecyte" />
+  <meta property="og:title" content="Britecyte—Biorestoration Therapies" />
+  <meta property="og:description" content="Britecyte develops innovative therapies designed to restore structure, function, and quality of life by working with the body's natural biology." />
+  <meta property="og:url" content="https://britecyte.com/variant-hybrid.html" />
+  <meta property="og:image" content="https://britecyte.com/assets/products/og-withdrawal-syringe.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Blue-gloved hands withdrawing Lipoderma adipose allograft from a jar into a syringe" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Britecyte—Biorestoration Therapies" />
+  <meta name="twitter:description" content="Britecyte develops innovative therapies designed to restore structure, function, and quality of life by working with the body's natural biology." />
+  <meta name="twitter:image" content="https://britecyte.com/assets/products/og-withdrawal-syringe.jpg" />
+  <link rel="preload" as="image" href="assets/logos/britecyte-logo.png" />
+  <link rel="stylesheet" href="css/styles.css?v=20260909a" />
+  <style>
+    /* V3 hybrid: scroll-mode refinements on top of the base stylesheet */
+    html { scroll-behavior: smooth; }
+    main > section[id], main span#products { scroll-margin-top: calc(var(--site-header-h, 4.5rem) + 12px); }
+    .site-nav a.is-active { color: var(--color-bronze-deep); }
+    /* Rich footer (styles retired when the slim footer shipped) */
+    .footer-inner { padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
+    .footer-grid { display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); margin-top: 1.5rem; }
+    .footer-nav { display: grid; }
+    .footer-nav-col { display: grid; gap: 0.4rem; align-content: start; }
+    .footer-nav-heading { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink); margin-bottom: 0.35rem; }
+    .footer-nav a { color: var(--color-ink-soft); text-decoration: none; }
+    .footer-nav a:hover { color: var(--color-bronze-deep); }
+    .team-detail { align-self: start; }
+    @media (max-width: 767px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+    /* Pipeline: launchpad language — hard edges, glass surfaces, ghost controls */
+    .pipe-map { align-items: start; }
+    .pipe-detail { height: 25.25rem; overflow: visible; padding: clamp(1.25rem, 2.5vw, 1.9rem); border: 1px solid var(--color-border-warm); border-radius: 0; background: var(--surface-fill); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); box-shadow: var(--shadow-lift); }
+    .pipe-node { border-radius: 0; background: rgba(255,255,255,0.72); border-color: rgba(35,48,81,0.22); }
+    .pipe-node:hover { border-color: var(--color-flame); background: rgba(234,241,251,0.95); box-shadow: none; }
+    .pipe-node.is-active { background: #fff; box-shadow: 0 0 0 1px var(--color-accent-ring); }
+    .pipe-branch--structure .pipe-node.is-active { border-color: var(--pipe-structure); }
+    .pipe-branch--function .pipe-node.is-active { border-color: var(--pipe-function); }
+    .pipe-branch-kicker { color: var(--color-bronze-deep); }
+    @media (max-width: 860px) {
+      .pipe-detail { height: auto; max-height: none; overflow: visible; }
+    }
+    /* About: carousel + stats side column */
+    .about-stage { display: grid; gap: clamp(1.75rem, 4vw, 3rem); grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: start; margin-top: clamp(2rem, 4vw, 3rem); }
+    @media (max-width: 900px) { .about-stage { grid-template-columns: 1fr; } }
+    .about-aside .section-title { margin-top: 0; }
+    .about-aside .proof-stats { display: grid; grid-template-columns: 1fr; margin-top: 1.75rem; padding-top: 0; background: transparent; border: 0; box-shadow: none; overflow: visible; border-top: 1px solid var(--color-hairline); }
+    .about-aside .proof-stats li { min-height: 0; padding: 0.85rem 0.25rem; text-align: left; align-items: flex-start; border-bottom: 1px solid var(--color-hairline); }
+    .about-aside .proof-stats li:last-child { border-bottom: 0; }
+    .about-aside .proof-stats strong { font-size: 1.5rem; }
+    .about-aside .proof-stats span { white-space: normal; margin-top: 0.15rem; font-size: 0.8rem; color: var(--color-ink-soft); }
+    .journey-slides { display: grid; }
+    .journey-slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(0.4rem); transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out), visibility 0s linear 0.45s; border: 1px solid var(--color-border-warm); border-radius: 0; background: var(--surface-fill); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); box-shadow: var(--shadow-lift); padding: clamp(1.5rem, 3vw, 2.25rem); min-height: 22rem; }
+    .journey-slide.is-active { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+    .journey-slide-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .journey-slide .journey-year { color: var(--color-flame); font-weight: 700; letter-spacing: 0.1em; font-size: 0.85rem; }
+    .journey-slide h3 { margin: 0 0 0.75rem; font-size: clamp(1.35rem, 2.2vw, 1.7rem); line-height: 1.15; }
+    .journey-slide p { margin: 0 0 0.75rem; color: var(--color-ink-soft); line-height: 1.65; font-size: 0.95rem; }
+    .journey-controls { display: flex; align-items: center; gap: 1rem; margin-top: 1.25rem; }
+    .journey-arrow { width: 2.5rem; height: 2.5rem; border: 1px solid rgba(35,48,81,0.22); border-radius: 0; background: rgba(255,255,255,0.72); color: var(--color-ink); font-size: 1.3rem; line-height: 1; cursor: pointer; transition: background 0.15s var(--ease-out), border-color 0.15s, color 0.15s; }
+    .journey-arrow:hover { border-color: var(--color-flame); color: var(--color-flame); background: rgba(234,241,251,0.95); }
+    .journey-arrow:active { transform: translateY(1px); background: rgba(30,68,140,0.12); }
+    .journey-dots { display: flex; gap: 0.5rem; margin-inline: auto; }
+    .journey-dot { width: 0.65rem; height: 0.65rem; padding: 0; border: 1px solid rgba(35,48,81,0.22); border-radius: 0; background: rgba(255,255,255,0.72); cursor: pointer; }
+    .journey-dot:hover { border-color: var(--color-flame); }
+    .journey-dot.is-active { background: var(--color-ink); border-color: var(--color-ink); }
+    /* Team: detail pane + mobile bio overlay (styles retired when panel app shipped) */
+    .team-detail { display: grid; grid-template-columns: minmax(9rem, 0.8fr) minmax(0, 1.2fr); padding: 0; overflow: hidden; border-radius: 0; }
+    .team-detail-credit { display: none; }
+    .team-detail-media { background: #ece7df; overflow: hidden; min-height: 0; }
+    .team-detail-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .team-detail-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(1rem, 2vw, 1.75rem); }
+    .team-card-bio { display: none; }
+    @media (max-width: 1023px) {
+      .team-stage { grid-template-columns: 1fr; }
+      .team-detail { display: none; }
+      .team-card-bio { display: block; position: absolute; inset: 0; z-index: 1; padding: 3.25rem 1rem 1rem; background: linear-gradient(to bottom, rgba(20,12,6,0.92), rgba(20,12,6,0.78)); color: #fff8f0; font-size: 0.8rem; line-height: 1.5; opacity: 0; transition: opacity 0.25s var(--ease-out); pointer-events: none; }
+      .team-card-bio p { margin: 0; }
+      .team-card.is-active .team-card-bio { opacity: 1; }
+    }
+    .team-card.is-active { border-color: var(--color-flame); box-shadow: 0 0 0 1px var(--color-accent-ring); }
+    /* News + publications: columns, pagination */
+    @media (min-width: 768px) {
+      .news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .news-split { position: relative; }
+    .news-pager-btn { position: absolute; top: 42%; z-index: 3; width: 2.5rem; height: 2.5rem; border: 1px solid rgba(35,48,81,0.22); border-radius: 0; background: rgba(255,255,255,0.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--color-ink); font-size: 1.3rem; line-height: 1; cursor: pointer; transition: background 0.15s var(--ease-out), border-color 0.15s, color 0.15s; }
+    .news-pager-btn:hover { border-color: var(--color-flame); color: var(--color-flame); background: rgba(234,241,251,0.95); }
+    .news-pager-btn:active { transform: translateY(1px); background: rgba(30,68,140,0.12); }
+    .news-pager-btn--prev { left: -0.65rem; }
+    .news-pager-btn--next { right: -0.65rem; }
+    .news-pager-btn.is-disabled { opacity: 0.35; pointer-events: none; }
+    .news-pager-btn.is-hidden, .news-pager-count.is-hidden { display: none; }
+    .news-pager-count { margin: 1.25rem 0 0; text-align: center; color: var(--color-ink-soft); }
+    /* Mobile polish */
+    @media (max-width: 640px) {
+      .journey-slide { min-height: 17rem; padding: 1.15rem 1.1rem; }
+      .journey-slide h3 { font-size: 1.2rem; }
+      .journey-slide p { font-size: 0.9rem; }
+      .journey-slide .journey-photo { width: 3.5rem; height: 3.5rem; }
+      .journey-controls { gap: 0.6rem; }
+      .news-grid { gap: 1rem; }
+      .news-pager-btn { top: 38%; }
+      .pipe-detail { padding: 1.1rem; }
+      .about-stage { gap: 1.5rem; }
+    }
+    @media (max-width: 520px) {
+      .news-pager-btn--prev { left: 0.25rem; }
+      .news-pager-btn--next { right: 0.25rem; }
+    }
+    @media (max-width: 1023px) {
+      .ab-pill { bottom: 84px !important; }
+    }
+  </style>
+<style>.hero{min-height:760px!important}</style></head>
+<body>
+  <div class="site-surface">
+    <header class="site-header" id="site-header">
+      <div class="site-header-inner">
+        <a href="#hero" class="site-logo" aria-label="Britecyte home">
+          <img src="assets/logos/britecyte-logo.png" alt="Britecyte" width="140" height="45" />
+        </a>
+        <nav class="site-nav microtype" aria-label="Primary">
+          <a href="#about">Who We Are</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#platform">Science</a>
+          <a href="#team">Team</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="site-header-actions">
+          <a href="#pipeline" class="btn btn-primary">Products</a>
+          <button type="button" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" data-menu-toggle>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path class="menu-icon-path" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav class="site-nav-mobile microtype" data-mobile-nav aria-label="Mobile">
+        <a href="#about">Who We Are</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#platform">Science</a>
+        <a href="#team">Team</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="site-main">
+      <!-- Hero -->
+      <section id="hero" class="hero section-motif-host" data-motif-key="hero">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <h1 class="hero-headline font-display">
+              Restore What's Yours™<br />
+              <span class="hero-belief">At Britecyte, we believe the future of medicine isn't about simply replacing what's missing—it's about restoring what's yours.</span>
+            </h1>
+            <div class="hero-lede">
+              <p>Whether that means restoring structure, function, or quality of life, we develop innovative therapies designed to help people regain what has been lost. We call this approach Biorestoration—working with the body's natural biology to restore, rather than replace.</p>
+              <p>By advancing therapies that work with the body's natural biology, we aim to move beyond symptom management toward solutions designed to repair, rebuild, and restore.</p>
+            </div>
+            <div class="hero-cta-row">
+              <a href="#pipeline" class="btn btn-primary">Explore Our Products</a>
+              <a href="#platform" class="btn btn-ghost">Our Science</a>
+            </div>
+            <p class="microtype hero-byline">650+ patients treated · Patent-protected technology</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Who We Are: journey carousel + proof stats -->
+      <section id="about" class="section section-cream section-motif-host" data-motif-key="about">
+        <div class="container">
+          <div class="about-stage reveal">
+            <div class="about-aside">
+              <h2 class="section-title font-display">
+                Building the Future of<br />
+                <span class="text-bronze-deep">Biorestoration.</span>
+              </h2>
+              <ul class="about-stats proof-stats" aria-label="Britecyte experience and proof points">
+                <li><strong class="font-display">60+</strong><span class="proof-stat-line">years of experience in regenerative medicine</span></li>
+                <li><strong class="font-display">20+</strong><span class="proof-stat-line">therapies developed and launched</span></li>
+                <li><strong class="font-display">55+</strong><span class="proof-stat-line">clinical trials conducted</span></li>
+                <li><strong class="font-display">215+</strong><span class="proof-stat-line">patents and patent applications</span></li>
+                <li><strong class="font-display">80+</strong><span class="proof-stat-line">peer-reviewed publications</span></li>
+              </ul>
+            </div>
+
+            <div class="journey-carousel" data-journey-carousel>
+              <div class="journey-slides" aria-live="polite" aria-label="Britecyte journey">
+                <article class="journey-slide is-active" data-journey-slide>
+                  <div class="journey-slide-top">
+                    <span class="journey-photo journey-photo--lab"><img src="assets/journey/alla-lab-2020.png" alt="" /></span>
+                    <span class="journey-year">2020</span>
+                  </div>
+                  <h3 class="font-display">A Mission Begins</h3>
+                  <p>Britecyte is founded with a simple belief: the future of medicine isn't about replacing what's missing—it's about restoring what has been lost.</p>
+                </article>
+                <article class="journey-slide" data-journey-slide>
+                  <div class="journey-slide-top">
+                    <span class="journey-photo journey-photo--contain journey-photo--mscrf"><img src="assets/logos/mscrf-logo.png" alt="" /></span>
+                    <span class="journey-year">2022</span>
+                  </div>
+                  <h3 class="font-display">Turning Vision into Innovation</h3>
+                  <p>Building on that mission, Britecyte develops its proprietary adipose tissue technology platform, opening new possibilities for restoring structure and function across a broad range of clinical applications.</p>
+                  <p>The Maryland Stem Cell Research Fund (MSCRF) awards Britecyte a grant supporting development of a therapy for liver fibrosis.</p>
+                </article>
+                <article class="journey-slide" data-journey-slide>
+                  <div class="journey-slide-top">
+                    <span class="journey-photo journey-photo--contain"><img src="assets/logos/liposana-logo.png" alt="" /></span>
+                    <span class="journey-year">2023</span>
+                  </div>
+                  <h3 class="font-display">From Research to Patients</h3>
+                  <p>Liposana® becomes Britecyte's first commercial product, helping restore cushioning and protection to the underlying structures of the foot for patients with fat pad loss and other soft tissue deficiencies that cause pain and chronic ulceration.</p>
+                </article>
+                <article class="journey-slide" data-journey-slide>
+                  <div class="journey-slide-top">
+                    <span class="journey-photo journey-photo--contain"><img src="assets/logos/lipoderma-logo.svg" alt="" /></span>
+                    <span class="journey-year">2024</span>
+                  </div>
+                  <h3 class="font-display">Expanding into Aesthetics</h3>
+                  <p>Building on the same platform technology, Lipoderma® is introduced to naturally restore the structural tissue beneath the skin that helps maintain the face's soft, natural contours and youthful appearance.</p>
+                </article>
+                <article class="journey-slide" data-journey-slide>
+                  <div class="journey-slide-top">
+                    <span class="journey-photo"><img src="assets/products/withdrawal-syringe.jpg" alt="" /></span>
+                    <span class="journey-year">2025</span>
+                  </div>
+                  <h3 class="font-display">Continuing to Advance</h3>
+                  <p>Clinical research expands with FDA Investigational New Drug (IND) clearance and the launch of a MSCRF-supported osteoarthritis clinical trial.</p>
+                </article>
+                <article class="journey-slide" data-journey-slide>
+                  <div class="journey-slide-top">
+                    <span class="journey-photo"><img src="assets/products/hand-vial-wide.png" alt="" /></span>
+                    <span class="journey-year">2026</span>
+                  </div>
+                  <h3 class="font-display">Platform Technology Patented</h3>
+                  <p>Britecyte reaches another milestone as the U.S. Patent and Trademark Office (USPTO) awards its first two patents covering the company's adipose tissue platform technology.</p>
+                </article>
+              </div>
+              <div class="journey-controls">
+                <button type="button" class="journey-arrow" data-journey-prev aria-label="Previous milestone">‹</button>
+                <div class="journey-dots" data-journey-dots></div>
+                <button type="button" class="journey-arrow" data-journey-next aria-label="Next milestone">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pipeline: interactive map -->
+      <section id="pipeline" class="section section-motif-host products-section section-with-photo" data-motif-key="products">
+        <span id="products" aria-hidden="true"></span>
+        <div class="products-bg" aria-hidden="true">
+          <div class="products-bg-frame">
+            <img src="assets/products/withdrawal-syringe.jpg" alt="" class="products-bg-photo" width="2400" height="2084" />
+          </div>
+        </div>
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title font-display">Our Pipeline</h2>
+            <p class="section-intro">Britecyte is advancing a pipeline of innovative therapies designed to restore structure and function across multiple clinical applications. Guided by decades of experience, our platform continues to expand into areas of significant unmet clinical need.</p>
+          </div>
+
+          <div class="pipe-map reveal" data-pipe-map>
+            <div class="pipe-detail" data-pipe-detail aria-live="polite">
+              <!-- Filled by js/pipeline-map.js -->
+            </div>
+            <div class="pipe-map-controls">
+              <div class="pipe-map-branches">
+                <div class="pipe-branch pipe-branch--structure">
+                  <div class="pipe-branch-head">
+                    <p class="pipe-branch-kicker">Restoring Structure</p>
+                  </div>
+                  <div class="pipe-branch-cards">
+                    <button type="button" class="pipe-node is-active" data-pipe-node="lipoderma" aria-pressed="true"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M28 10c-4 0-8 5-8 12 0 8 5 16 10 16s8-6 8-14c0-8-4-14-10-14Z" stroke="currentColor" stroke-width="1.6"/><path d="M18 30c-3 1-6 4-6 8h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Cosmetic &amp; Reconstructive</span><span class="pipe-node-name">Lipoderma®</span></span><span class="pipe-node-stage pipe-node-stage--commercial">Commercial</span></button>
+                    <button type="button" class="pipe-node" data-pipe-node="liposana" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M14 18c4-8 16-8 20 0l4 18H10l4-18Z" stroke="currentColor" stroke-width="1.6"/><path d="M18 36v4M30 36v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Foot &amp; Ankle</span><span class="pipe-node-name">Liposana®</span></span><span class="pipe-node-stage pipe-node-stage--commercial">Commercial</span></button>
+                  </div>
+                </div>
+                <div class="pipe-branch pipe-branch--function">
+                  <div class="pipe-branch-head"><p class="pipe-branch-kicker">Restoring Function</p></div>
+                  <div class="pipe-branch-cards">
+                    <button type="button" class="pipe-node" data-pipe-node="brc-oa" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M24 8v9M24 31v9M8 24h9M31 24h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Orthopedics</span><span class="pipe-node-name">BRC-OA</span></span><span class="pipe-node-stage pipe-node-stage--clinical">Clinical</span></button>
+                    <button type="button" class="pipe-node" data-pipe-node="brc-liver" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M12 20c0-6 6-10 14-10s12 6 12 12c0 10-6 16-14 16-6 0-10-3-12-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18 28c2 2 5 3 8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Liver Disease</span><span class="pipe-node-name">BRC-Liver</span></span><span class="pipe-node-stage pipe-node-stage--preclinical">Preclinical</span></button>
+                    <button type="button" class="pipe-node" data-pipe-node="brc-wound" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="10" y="18" width="28" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M18 18v14M30 18v14M10 25h28" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Chronic Wounds</span><span class="pipe-node-name">BRC-Wound</span></span><span class="pipe-node-stage pipe-node-stage--preclinical">Preclinical</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Science: adipose platform pathway -->
+      <section id="platform" class="section section-cream section-motif-host" data-motif-key="platform">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title font-display">A Breakthrough in <span class="text-bronze-deep">Adipose Science.</span></h2>
+            <p class="section-intro platform-intro">A new era of adipose restoration begins with technology that makes native adipose tissue available when and where it's needed.</p>
+          </div>
+
+          <ol class="pathway-grid reveal" aria-label="Britecyte technology pathway">
+            <li class="pathway-step pathway-step--1 surface surface-lg">
+              <span class="pathway-num font-display" aria-hidden="true">01</span>
+              <div>
+                <h3 class="pathway-title font-display">Native Structure &amp; Function Preserved</h3>
+                <p class="pathway-body">Britecyte's proprietary processing technology preserves the native architecture of adipose tissue, including intact adipocytes and extracellular matrix, maintaining the structural and functional characteristics that make adipose tissue unique.</p>
+              </div>
+            </li>
+            <li class="pathway-step pathway-step--2 surface surface-lg">
+              <span class="pathway-num font-display" aria-hidden="true">02</span>
+              <div>
+                <h3 class="pathway-title font-display">Immunogenic Components Removed</h3>
+                <p class="pathway-body">The technology selectively removes immunogenic components that have historically limited adipose tissue to autologous use, enabling allogeneic transplantation while preserving native tissue architecture.</p>
+              </div>
+            </li>
+            <li class="pathway-step pathway-step--3 surface surface-lg">
+              <span class="pathway-num font-display" aria-hidden="true">03</span>
+              <div>
+                <h3 class="pathway-title font-display">Ready When You Need It</h3>
+                <p class="pathway-body">Unlike fresh autologous fat, our technology allows for convenient storage and immediate clinical use. Stable refrigerated storage (0–10°C) simplifies logistics while providing an off-the-shelf solution when patients need treatment.</p>
+              </div>
+            </li>
+            <li class="pathway-step pathway-step--4 surface surface-lg">
+              <span class="pathway-num font-display" aria-hidden="true">04</span>
+              <div>
+                <h3 class="pathway-title font-display">Designed for Minimally Invasive Delivery</h3>
+                <p class="pathway-body">The preserved tissue is formulated for minimally invasive implantation using standard cannulas or needles, allowing physicians to restore lost structure through a familiar clinical workflow.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section id="team" class="section section-motif-host" data-motif-key="team">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title font-display">Meet the team.</h2>
+          </div>
+          <div class="team-stage reveal">
+            <div class="team-grid" data-team-grid>
+                <button type="button" class="team-card is-active" data-team-card aria-pressed="true">
+                  <span class="team-card-inner">
+                    <img src="assets/team/samson-tom.jpg" alt="" class="team-card-photo" width="393" height="390" />
+                    <span class="team-card-name">
+                      <span class="team-card-name-text font-display">Samson Tom, PhD, MBA</span>
+                      <span class="team-card-title microtype">President and CEO, Co-Founder</span>
+                    </span>
+                  </span>
+                  <template>
+                    <p>Dr. Tom became President and CEO of Britecyte in June 2022. He brings more than 25 years of experience developing and commercializing advanced biologics, devices, and tissue-based products—including as President and CEO of Osiris Therapeutics through its acquisition by Smith+Nephew.</p>
+                  </template>
+                </button>
+                <button type="button" class="team-card" data-team-card aria-pressed="false">
+                  <span class="team-card-inner">
+                    <img src="assets/team/alla-danilkovitch.jpg" alt="" class="team-card-photo" width="393" height="390" />
+                    <span class="team-card-name">
+                      <span class="team-card-name-text font-display">Alla Danilkovitch, PhD</span>
+                      <span class="team-card-title microtype">Founder and Chief Scientific Officer</span>
+                    </span>
+                  </span>
+                  <template>
+                    <p>Dr. Danilkovitch founded Britecyte in 2020 and leads its scientific vision in regenerative medicine. At Osiris Therapeutics she helped develop Prochymal®, BIO4™, Cartiform®, Grafix®, and Stravix™—with 30+ years of experience, 55 patents, and 60 publications across academia, government, and industry.</p>
+                  </template>
+                </button>
+                <button type="button" class="team-card" data-team-card aria-pressed="false">
+                  <span class="team-card-inner">
+                    <img src="assets/team/molly-saunders.jpg" alt="" class="team-card-photo" width="393" height="390" />
+                    <span class="team-card-name">
+                      <span class="team-card-name-text font-display">Molly Saunders</span>
+                      <span class="team-card-title microtype">Vice President, Sales and Marketing</span>
+                    </span>
+                  </span>
+                  <template>
+                    <p>Molly Saunders joined Britecyte in January 2024. Previously Senior Manager of Clinical Operations at Osiris Therapeutics, she managed multi-center tissue-based studies and co-authored publications supporting market access and reimbursement before consulting in life sciences at Alvarez & Marsal.</p>
+                  </template>
+                </button>
+                <button type="button" class="team-card" data-team-card aria-pressed="false">
+                  <span class="team-card-inner">
+                    <img src="assets/team/lisa-rodemann.jpg" alt="" class="team-card-photo" width="393" height="390" />
+                    <span class="team-card-name">
+                      <span class="team-card-name-text font-display">Lisa Rodemann</span>
+                      <span class="team-card-title microtype">Director, Customer Experience</span>
+                    </span>
+                  </span>
+                  <template>
+                    <p>Lisa Rodemann joined Britecyte in January 2026. She spent 25 years at Osiris Therapeutics and Smith+Nephew across Human Resources, Clinical Programs, Marketing, and project management—including Advanced Wound Care and white-glove support for key accounts during the pandemic.</p>
+                  </template>
+                </button>
+                <button type="button" class="team-card" data-team-card aria-pressed="false">
+                  <span class="team-card-inner">
+                    <img src="assets/team/peter-friedli.jpg" alt="" class="team-card-photo" width="393" height="390" />
+                    <span class="team-card-name">
+                      <span class="team-card-name-text font-display">Peter Friedli</span>
+                      <span class="team-card-title microtype">Chairman and Co-Founder</span>
+                    </span>
+                  </span>
+                  <template>
+                    <p>Peter Friedli has led Swiss venture capital firm Friedli Corporate Finance AG since 1986, investing in more than 170 high-tech and biotechnology companies. He co-founded and chaired Osiris Therapeutics and was its major shareholder.</p>
+                  </template>
+                </button>
+            </div>
+            <article class="team-detail surface surface-lg" data-team-bio aria-live="polite"></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- News -->
+      <section id="news" class="section section-cream section-motif-host" data-motif-key="news">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title font-display">In the News.</h2>
+          </div>
+          <div class="news-split reveal" data-news-split="news"></div>
+        </div>
+      </section>
+
+      <!-- Publications -->
+      <section id="publications" class="section section-motif-host">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title font-display">Publications.</h2>
+          </div>
+          <div class="news-split reveal" data-news-split="publication"></div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section section-motif-host section-with-photo" data-motif-key="contact">
+        <div class="products-bg" aria-hidden="true">
+          <div class="products-bg-frame">
+            <img src="assets/products/lipoderma-10cc-jar-45.jpg" alt="" class="products-bg-photo" width="1280" height="1600" />
+          </div>
+        </div>
+        <div class="container">
+          <div class="contact-block reveal">
+            <h2 class="section-title font-display">Get in touch.</h2>
+            <form class="contact-form surface surface-lg" data-contact-form action="https://formsubmit.co/ajax/needthefat@britecyte.com" method="POST">
+              <input type="hidden" name="_subject" value="Britecyte website contact form" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_url" value="https://britecyte.com/" />
+              <input type="hidden" name="_captcha" value="false" />
+              <div class="form-row">
+                <label class="form-label microtype" for="contact-name">Name</label>
+                <input type="text" id="contact-name" name="name" required class="form-input" autocomplete="name" />
+              </div>
+              <div class="form-row">
+                <label class="form-label microtype" for="contact-email">Email</label>
+                <input type="email" id="contact-email" name="email" required class="form-input" autocomplete="email" />
+              </div>
+              <div class="form-row">
+                <label class="form-label microtype" for="contact-subject">Subject</label>
+                <select id="contact-subject" name="subject" class="form-input">
+                  <option value="product-lipoderma">Product Inquiry - Lipoderma</option>
+                  <option value="product-liposana">Product Inquiry - Liposana</option>
+                  <option value="clinical">Clinical / physician</option>
+                  <option value="media">Media</option>
+                  <option value="partnership">Partnership</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label class="form-label microtype" for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" rows="4" required class="form-input form-textarea"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">Send message</button>
+              <p class="form-success microtype" data-form-success hidden>Thank you—we'll be in touch shortly.</p>
+              <p class="form-error microtype" data-form-error hidden>Something went wrong. Please try again or email us directly.</p>
+            </form>
+            <address class="contact-address">
+              <strong class="font-display">Britecyte, Inc.</strong><br />
+              Frederick, MD<br />
+              <a href="mailto:brighterlives@britecyte.com">brighterlives@britecyte.com</a>
+            </address>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-motif-host" data-motif-key="footer">
+      <div class="footer-gradient" aria-hidden="true"></div>
+      <div class="container footer-inner">
+        <div class="footer-lead">
+          <p class="font-display footer-headline">
+            Native adipose therapies for restoration and repair.
+            <span class="text-bronze-deep">Built on science. Proven in patients.</span>
+          </p>
+        </div>
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="assets/logos/britecyte-logo.png" alt="Britecyte" width="140" height="45" class="footer-logo" />
+            <p class="footer-tagline">Pioneering allogeneic adipose tissue transplantation for regenerative medicine.</p>
+            <div class="footer-audience">
+              <div class="footer-patients">
+                <span class="footer-patients-label microtype">For patients</span>
+                <a href="https://lipoderma.com" target="_blank" rel="noopener noreferrer">lipoderma.com</a>
+              </div>
+              <div class="footer-clinicians">
+                <span class="footer-clinicians-label microtype">For clinicians</span>
+                <a href="https://launchpad.lipoderma.com" target="_blank" rel="noopener noreferrer">Clinician portal</a>
+              </div>
+            </div>
+          </div>
+          <nav class="footer-nav microtype" aria-label="Footer">
+            <div class="footer-nav-col">
+              <span class="footer-nav-heading">Company</span>
+              <a href="#about">Who We Are</a>
+              <a href="#pipeline">Pipeline</a>
+              <a href="#platform">Science</a>
+              <a href="#team">Team</a>
+              <a href="#news">News</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </nav>
+        </div>
+        <p class="footer-disclaimer microtype">
+          © <span data-year></span> Britecyte, Inc. All rights reserved. Lipoderma and Liposana are trademarks of Britecyte, Inc. This site is for informational purposes and is not medical advice.
+        </p>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="js/main.js?v=20260901a"></script>
+  <script type="module" src="js/news-split.js"></script>
+  <script type="module" src="js/journey-carousel.js"></script>
+  <script type="module" src="js/scroll-spy.js"></script>
+  <script type="module" src="js/copy-diff.js"></script>
+  <a class="ab-pill" href="variants.html" style="position:fixed;right:14px;bottom:14px;z-index:999;background:#1d3a5f;color:#fff;padding:10px 16px;border-radius:999px;font:600 13px/1 system-ui;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">◂ Variants</a>
+</body>
+</html>
