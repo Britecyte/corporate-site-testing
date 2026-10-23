@@ -188,7 +188,14 @@ textarea:disabled,
   background-image: url(../assets/backgrounds/gradO.png);
   background-position: calc(50% - 5vw) center;
   background-repeat: no-repeat;
-  background-size: 120vw auto;
+  background-size: 350vw auto;
+}
+
+@media (min-width: 1024px) {
+  .site-surface::before {
+    background-position: 95% 50%;
+    background-size: 160vw auto;
+  }
 }
 
 .site-main,
