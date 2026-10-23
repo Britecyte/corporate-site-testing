@@ -10,21 +10,23 @@
 }
 
 html {
-  scroll-behavior: auto;
-  overflow-x: clip;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--site-header-h);
 }
 
 body,
 .site-surface {
-  overflow-x: clip;
   max-width: 100%;
 }
 
-/* ── Sections: min one screen, grow with content, no sideways bleed ── */
+/* The window is the only scroller. A section with overflow-x clipped and
+   overflow-y visible becomes its own scroll area, so a nav click scrolls twice. */
 main > section[data-section] {
   box-sizing: border-box;
-  overflow-x: clip;
-  overflow-y: visible;
+}
+
+.site-main {
+  --section-padding: clamp(2rem, 4vh, 3.25rem);
 }
 
 main > section[data-section] > .container,
@@ -36,20 +38,8 @@ main > section[data-section] > .hero-grid {
   box-sizing: border-box;
 }
 
-.site-main [data-section="about"] {
-  background-color: var(--color-cream);
-  isolation: isolate;
-  z-index: 2;
-  padding-bottom: max(var(--section-padding), 14vh);
-  box-shadow: 0 8px 0 0 var(--color-cream);
-}
-
-.site-main [data-section="pipeline"] {
-  z-index: 1;
-  overflow-x: clip;
-  overflow-y: visible;
-  margin-top: 0;
-  isolation: isolate;
+.site-main > section[data-section] {
+  background-color: transparent;
 }
 
 .site-main .hero + .section,
@@ -178,8 +168,9 @@ main > section[data-section] > .hero-grid {
 .journey-controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1.25rem;
+  gap: 0.9rem;
+  width: min(100%, 32.4rem);
+  margin: 0.75rem auto 0;
 }
 
 .journey-arrow,
@@ -314,12 +305,16 @@ main > section[data-section] > .hero-grid {
   min-width: 0;
 }
 
+/* Every product stays in the grid so the section keeps the tallest card's
+   height. Only the active card is visible, and it stays as tall as its text. */
 .site-main .products-section .pipe-detail-item {
   grid-area: 1 / 1;
-  min-width: 0;
+  align-self: start;
   visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  overflow: visible;
   padding: clamp(1.25rem, 2.5vw, 1.9rem);
   border: 1px solid var(--color-border-warm);
   background: var(--hybrid-card-fill);
@@ -329,8 +324,7 @@ main > section[data-section] > .hero-grid {
 
 .site-main .products-section .pipe-detail-item.is-active {
   visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
+  z-index: 1;
 }
 
 .site-main .products-section .pipe-detail-body,
@@ -340,7 +334,6 @@ main > section[data-section] > .hero-grid {
   word-break: normal;
 }
 
-/* Desktop: one card size = tallest product (stacked grid); no inner scroll */
 @media (min-width: 1024px) {
   .site-main .products-section .pipe-map {
     align-items: start !important;
@@ -351,13 +344,10 @@ main > section[data-section] > .hero-grid {
     min-height: 0 !important;
     max-height: none !important;
     overflow: visible !important;
-    align-items: stretch !important;
   }
 
   .site-main .products-section .pipe-detail-item {
-    align-self: stretch;
     height: auto;
-    min-height: 100%;
     max-height: none;
     overflow: visible;
   }
@@ -456,28 +446,32 @@ main > section[data-section] > .hero-grid {
   line-height: 1.75;
 }
 
+[data-section="team"] .team-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 [data-section="team"] .team-controls {
   display: flex;
   align-items: center;
   gap: 0.9rem;
   width: min(100%, 32.4rem);
-  margin: 1.125rem auto 0;
+  margin: 0.75rem auto 0;
 }
 
 /* ── News / publications pager ── */
 .news-split {
-  overflow-x: clip;
+  overflow: visible;
 }
 
 .news-pager-bar {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem 1.25rem;
-  margin-top: 1.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--color-hairline);
+  gap: 0.9rem;
+  width: min(100%, 32.4rem);
+  margin: 0.75rem auto 0;
 }
 
 .news-pager-bar.is-hidden {
@@ -488,66 +482,66 @@ main > section[data-section] > .hero-grid {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 6.5rem;
-  padding: 0.55rem 1rem;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
   border: 1px solid var(--control-border);
   border-radius: 0;
   background: var(--control-fill);
   color: var(--color-ink);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 1.35rem;
+  line-height: 1;
   cursor: pointer;
   transition: background 0.15s var(--ease-out), border-color 0.15s, color 0.15s;
 }
 
-.news-pager-btn:hover:not(:disabled) {
+.news-pager-btn:hover {
   border-color: var(--color-flame);
   color: var(--color-flame);
   background: var(--control-hover-fill);
 }
 
-.news-pager-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.news-pager-count {
-  margin: 0;
-  min-width: 5.5rem;
-  text-align: center;
-  color: var(--color-ink-soft);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .news-pager-dots {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.35rem;
+  gap: 0.15rem;
+  margin-inline: auto;
 }
 
 .news-pager-dot {
-  width: 0.5rem;
-  height: 0.5rem;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
   padding: 0;
-  border: 1px solid var(--control-border);
-  background: var(--control-fill);
+  border: 0;
+  background: none;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
 }
 
-.news-pager-dot.is-active {
-  background: var(--color-flame);
-  border-color: var(--color-flame);
+.news-pager-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0.45rem;
+  border: 1px solid var(--control-border);
+  background: var(--control-fill);
+  transition: background 0.15s var(--ease-out), border-color 0.15s;
+}
+
+.news-pager-dot.is-active::after {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+@media (min-width: 768px) {
+  .news-pager-bar {
+    margin-top: 0.85rem;
+  }
 }
 
 @media (min-width: 768px) {
   .news-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 }
 
@@ -733,6 +727,20 @@ main > section[data-section] > .hero-grid {
     min-width: 0;
   }
 
+  .pipe-branch--structure .pipe-node {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+
+  .pipe-branch--function .pipe-branch-cards {
+    flex-wrap: nowrap;
+  }
+
+  .pipe-branch--function .pipe-node {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+  }
+
   .pipe-node {
     flex: 1 1 calc(50% - 0.5rem);
     min-width: min(100%, 8.75rem);
@@ -817,22 +825,13 @@ main > section[data-section] > .hero-grid {
     height: 3.5rem;
   }
 
-  .journey-controls {
+  .journey-controls,
+  .news-pager-bar {
     gap: 0.6rem;
   }
 
   .news-grid {
     gap: 1rem;
-  }
-
-  .news-pager-bar {
-    gap: 0.5rem;
-  }
-
-  .news-pager-btn {
-    min-width: 5rem;
-    padding: 0.5rem 0.65rem;
-    font-size: 0.62rem;
   }
 
   .site-main .products-section .pipe-detail-item {
@@ -841,5 +840,101 @@ main > section[data-section] > .hero-grid {
 
   .about-stage {
     gap: 1.5rem;
+  }
+}
+
+/* Desktop sections are one window tall. Backgrounds stay inside the section,
+   and the content is centered in that frame instead of running into the next one. */
+@media (min-width: 1024px) {
+  main.site-main > section[data-section] {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    box-sizing: border-box;
+    height: calc(100svh - var(--site-header-h));
+    min-height: calc(100svh - var(--site-header-h));
+    max-height: calc(100svh - var(--site-header-h));
+    margin: 0;
+    padding: 1.5rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  main.site-main > section[data-section] > .container,
+  main.site-main > section[data-section] > .hero-grid {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  main.site-main > section[data-section] > .products-bg {
+    z-index: 0;
+  }
+
+  main.site-main .section-header,
+  main.site-main .news-pager-bar,
+  main.site-main .journey-controls,
+  main.site-main [data-section="team"] .team-controls {
+    flex: none;
+  }
+
+  main.site-main .about-stage,
+  main.site-main .pipe-map,
+  main.site-main .pathway-grid,
+  main.site-main .news-split,
+  main.site-main [data-section="team"] .team-stage {
+    flex: 0 1 auto;
+    min-height: 0;
+    max-height: 100%;
+  }
+
+  main.site-main [data-section="team"] .team-feature {
+    width: min(100%, 78%);
+    max-width: 78%;
+    padding: 1.15rem 1.35rem;
+  }
+
+  main.site-main .pathway-step.surface-lg,
+  main.site-main a.news-card.surface-lg {
+    padding: 1rem 1.15rem;
+  }
+
+  main.site-main .pathway-grid,
+  main.site-main .news-grid {
+    gap: 0.85rem;
+  }
+
+  main.site-main .news-split {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  main.site-main .news-grid {
+    align-items: stretch;
+  }
+
+  main.site-main a.news-card {
+    height: 100%;
+  }
+
+  main.site-main > section[data-section="pipeline"] {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  main.site-main > section[data-section="pipeline"] > .container,
+  main.site-main > section[data-section="pipeline"] .pipe-map,
+  main.site-main > section[data-section="pipeline"] .pipe-detail,
+  main.site-main > section[data-section="pipeline"] .pipe-detail-item {
+    max-height: none;
+    overflow: visible;
   }
 }

@@ -30,6 +30,7 @@ jobs:
             --exclude '.github/' \
             --exclude '_site/' \
             --exclude '_archive/' \
+            --exclude '_shots/' \
             --exclude 'scripts/' \
             --exclude 'content/' \
             --exclude 'news/_article-template.html' \

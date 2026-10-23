@@ -2,8 +2,8 @@
 """
 Validate news data and remove legacy per-article pages.
 
-Cards on the homepage and news/index.html load from data/news.json and link
-straight to each item's first source URL (publication PDF, press release, etc.).
+Homepage cards load from data/news.json and link straight to each item's
+first source URL (publication PDF, press release, etc.).
 
 Non-engineers: edit data/news.json only — no rebuild required for the listing.
 Optional cleanup:
@@ -35,16 +35,17 @@ def main() -> None:
             raise SystemExit(f"Missing source link for {slug}")
 
     removed = 0
-    for child in NEWS_DIR.iterdir():
-        if child.is_dir():
-            shutil.rmtree(child)
-            removed += 1
-            print(f"  removed news/{child.name}/")
-        elif child.name == "_article-template.html":
-            child.unlink()
-            print("  removed news/_article-template.html")
+    if NEWS_DIR.is_dir():
+        for child in NEWS_DIR.iterdir():
+            if child.is_dir():
+                shutil.rmtree(child)
+                removed += 1
+                print(f"  removed news/{child.name}/")
+            elif child.name == "_article-template.html":
+                child.unlink()
+                print("  removed news/_article-template.html")
 
-    print(f"Validated {len(items)} news items. Listing is driven by data/news.json + js/news.js.")
+    print(f"Validated {len(items)} news items. Listing is driven by data/news.json.")
     if removed:
         print(f"Cleaned {removed} legacy article folder(s).")
 

@@ -1,17 +1,10 @@
-import { initSectionMotifs } from './section-motifs.js?v=20260710l';
-import { initNewsGrid } from './news.js?v=20260821c';
-import { initPipelineMap } from './pipeline-map.js?v=20261022e';
-import { initHeroField } from './hero-field.js?v=20260822aj';
-import { initTeamBios } from './team-bios.js?v=20260822z';
-import { initJourneySelect } from './journey-select.js?v=20260822r';
+import { initPipelineMap } from "./pipeline-map.js";
+import "./news-split.js?v=20261023r";
+import "./journey-carousel.js";
+import "./team-spotlight.js";
+import "./scroll-spy.js?v=20261023m";
 
-document.addEventListener('DOMContentLoaded', () => {
-  initHeroField();
-  initTeamBios();
-  initJourneySelect();
-  initBackgroundVideos();
-  initSectionMotifs();
-  initNewsGrid();
+document.addEventListener("DOMContentLoaded", () => {
   initPipelineMap();
   initBritecyteAnalytics();
   initMobileNav();
@@ -203,34 +196,7 @@ function initContactForm() {
 }
 
 function initYear() {
-  document.querySelectorAll('[data-year]').forEach((el) => {
+  document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = String(new Date().getFullYear());
   });
-}
-
-function initBackgroundVideos() {
-  const videos = Array.from(document.querySelectorAll("[data-bg-video]"));
-  if (!videos.length) return;
-
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const sync = (panelId) => {
-    videos.forEach((video) => {
-      const onScience = panelId === "platform";
-      if (reduced || !onScience) {
-        video.pause();
-        return;
-      }
-      video.muted = true;
-      const play = video.play();
-      if (play && typeof play.catch === "function") play.catch(() => {});
-    });
-  };
-
-  document.addEventListener("britecyte:panelchange", (event) => {
-    sync(event.detail?.panel);
-  });
-
-  const active = document.querySelector("[data-panel].is-active")?.dataset.panel;
-  sync(active);
 }

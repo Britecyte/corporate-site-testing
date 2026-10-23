@@ -47,9 +47,8 @@ Put **newest items first** in the file.
 With the local server running (`python3 serve.py`), open:
 
 - http://127.0.0.1:8002/#news
-- http://127.0.0.1:8002/news/
 
-Homepage and the all-news page both load from `data/news.json`. Clicking a card opens the source link directly.
+The homepage loads news and publications from `data/news.json`. Clicking a card opens the source link directly.
 
 ## Don’t break the JSON
 
