@@ -1,0 +1,27 @@
+{
+  "canonicalOrder": [
+    "hero",
+    "about",
+    "pipeline",
+    "platform",
+    "team",
+    "news",
+    "publications",
+    "contact"
+  ],
+  "aliases": {
+    "home": "hero",
+    "products": "pipeline",
+    "product": "pipeline",
+    "science": "platform",
+    "who": "about"
+  },
+  "scrollContract": {
+    "selector": "main > section[id][data-section]",
+    "header": "#site-header",
+    "offset": "html scroll-padding-top = header height + 1rem",
+    "hashBehavior": "instant, deterministic",
+    "clickBehavior": "smooth unless prefers-reduced-motion",
+    "api": "window.Britecyte.scrollToSection(id)"
+  }
+}

@@ -1,18 +1,14 @@
 import { initSectionMotifs } from './section-motifs.js?v=20260710l';
 import { initNewsGrid } from './news.js?v=20260821c';
 import { initPipelineMap } from './pipeline-map.js?v=20261022e';
-import { initPanelNav } from './panel-nav.js?v=20260822b';
 import { initHeroField } from './hero-field.js?v=20260822aj';
 import { initTeamBios } from './team-bios.js?v=20260822z';
 import { initJourneySelect } from './journey-select.js?v=20260822r';
-import { initPathwayPager } from './pathway-pager.js?v=20260822w';
 
 document.addEventListener('DOMContentLoaded', () => {
-  initPanelNav();
   initHeroField();
   initTeamBios();
   initJourneySelect();
-  initPathwayPager();
   initBackgroundVideos();
   initSectionMotifs();
   initNewsGrid();

@@ -5,7 +5,7 @@
  * so they must be queried via tpl.content — not tpl.querySelector().
  */
 document.addEventListener("DOMContentLoaded", () => {
-  const templates = Array.from(document.querySelectorAll("#team [data-team-data] template"));
+  const templates = Array.from(document.querySelectorAll('[data-section="team"] [data-team-data] template'));
   const feature = document.querySelector("[data-team-spotlight]");
   if (!templates.length || !feature) return;
 

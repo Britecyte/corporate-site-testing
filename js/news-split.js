@@ -146,4 +146,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       : items.filter((i) => (i.tag || "") !== "Publication");
     new NewsPager(host, filtered).render();
   });
+
+  document.dispatchEvent(new CustomEvent("britecyte:contentchange"));
 });

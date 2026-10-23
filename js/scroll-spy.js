@@ -1,123 +1,258 @@
 /**
- * Section nav: scroll each <section id> to sit flush under the fixed header,
- * highlight the section that owns the line just below the header.
+ * Homepage section nav — CSS-first, no scroll hijacking.
+ *
+ * Browser-native `#section` links handle all scrolling. The only offset is
+ * `scroll-margin-top: var(--site-header-h)` on every navigable section, so a
+ * section top always rests flush under the fixed header. Smooth scrolling is
+ * intentionally disabled so hash navigation lands at a deterministic Y.
+ *
+ * Public API for agents/tests:
+ *   window.Britecyte.scrollToSection("pipeline")
+ *   window.Britecyte.getActiveSection()
+ *   window.Britecyte.sections() // [{ id, top }]
+ *   window.Britecyte.sectionIds
+ *
+ * Canonical list also lives in data/sections.json.
  */
-const SECTION_IDS = ["hero", "about", "pipeline", "platform", "team", "news", "publications", "contact"];
+const SECTION_ORDER = [
+  "hero",
+  "about",
+  "pipeline",
+  "platform",
+  "team",
+  "news",
+  "publications",
+  "contact",
+];
 
-const HASH_ALIASES = {
+const SECTION_ALIASES = {
   products: "pipeline",
+  product: "pipeline",
+  science: "platform",
+  who: "about",
+  home: "hero",
 };
 
-function headerScrollOffset() {
+const NAV_LINK_SELECTOR =
+  '.site-nav a[href^="#"], .site-nav-mobile a[href^="#"], .footer-nav a[href^="#"], .site-logo[href^="#"]';
+
+function normalizeId(raw) {
+  const id = String(raw || "")
+    .replace(/^#/, "")
+    .trim()
+    .toLowerCase();
+  return SECTION_ALIASES[id] || id;
+}
+
+function isKnownSection(id) {
+  return SECTION_ORDER.includes(id);
+}
+
+function headerHeight() {
   const header = document.getElementById("site-header");
   if (header) {
-    const h = header.getBoundingClientRect().height;
-    if (h > 0) return h;
+    const measured = header.getBoundingClientRect().height;
+    if (measured > 0) return measured;
   }
-  const root = getComputedStyle(document.documentElement).getPropertyValue("--site-header-h").trim();
-  const fromVar = parseFloat(root);
-  if (Number.isFinite(fromVar) && fromVar > 0) return fromVar;
-  return 64;
+  const cssValue = getComputedStyle(document.documentElement)
+    .getPropertyValue("--site-header-h")
+    .trim();
+  const parsed = parseFloat(cssValue);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 64;
 }
 
-function resolveSectionId(raw) {
-  const id = (raw || "").replace(/^#/, "").toLowerCase();
-  return HASH_ALIASES[id] || id;
+
+
+function sectionById(id) {
+  const section = document.querySelector('main > section[data-section="' + id + '"]');
+  return section || null;
 }
 
-/** Document Y of element top (layout top edge). */
-function documentTop(el) {
-  return el.getBoundingClientRect().top + window.scrollY;
+/** Document Y where a section rests, just below the fixed header. */
+function sectionTop(section) {
+  const id = section.dataset.section;
+  const anchor = document.getElementById(id);
+  if (anchor) {
+    return Math.max(0, Math.round(window.scrollY + anchor.getBoundingClientRect().top));
+  }
+  return Math.max(
+    0,
+    Math.round(window.scrollY + section.getBoundingClientRect().top - headerHeight())
+  );
+}
+
+let programmaticUntil = 0;
+
+function jumpTo(top) {
+  programmaticUntil = Date.now() + 600;
+  window.scrollTo({ top, left: 0, behavior: "auto" });
+}
+
+function jumpToSection(section) {
+  jumpTo(sectionTop(section));
+}
+
+function revealWithin(section) {
+  section.classList.add("is-direct-target");
+  section.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+}
+
+function revealInViewport() {
+  const y = window.scrollY;
+  const bottom = y + window.innerHeight;
+  document.querySelectorAll(".reveal").forEach((el) => {
+    const top = y + el.getBoundingClientRect().top;
+    if (top < bottom + 200 && top + el.offsetHeight > y - 200) {
+      el.classList.add("is-visible");
+    }
+  });
+}
+
+function setActive(id) {
+  document.querySelectorAll(NAV_LINK_SELECTOR).forEach((link) => {
+    const target = normalizeId(link.getAttribute("href"));
+    const on = target === id;
+    link.classList.toggle("is-active", on);
+    if (on) link.setAttribute("aria-current", "true");
+    else link.removeAttribute("aria-current");
+  });
+  document.documentElement.dataset.activeSection = id;
+}
+
+function getActiveSection() {
+  const sections = SECTION_ORDER.map(sectionById).filter(Boolean);
+  if (!sections.length) return null;
+
+  const anchorLine = window.scrollY + headerHeight() + 1;
+  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+    return sections[sections.length - 1].id;
+  }
+
+  let current = sections[0];
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top + window.scrollY <= anchorLine) {
+      current = section;
+    }
+  }
+  return current.id;
 }
 
 /**
- * Scroll so the section's top (CSS scroll-margin-top clears the fixed header) aligns under the bar.
+ * Explicit jump used by agents/tests and alias hashes. Never smooth.
  */
-function scrollToSection(id, { behavior = "smooth" } = {}) {
-  const section = document.getElementById(id);
+function scrollToSection(id, { pushHistory = false } = {}) {
+  const targetId = normalizeId(id);
+  const section = sectionById(targetId);
   if (!section) return false;
 
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const scrollBehavior = prefersReduced ? "auto" : behavior;
+  revealWithin(section);
+  jumpToSection(section);
+  if (window.location.hash !== `#${targetId}`) {
+    const method = pushHistory ? "pushState" : "replaceState";
+    history[method](null, "", `#${targetId}`);
+  }
+  setActive(targetId);
+  return true;
+}
 
-  section.scrollIntoView({ behavior: scrollBehavior, block: "start" });
+function getSections() {
+  return SECTION_ORDER.map(sectionById)
+    .filter(Boolean)
+    .map((section) => ({ id: section.id, top: sectionTop(section) }));
+}
+
+function currentHashId() {
+  return normalizeId(window.location.hash);
+}
+
+/** Support legacy aliases (#products, #science) without a duplicate DOM id. */
+function applyAliasHash() {
+  const raw = normalizeId(window.location.hash);
+  if (!isKnownSection(raw)) return false;
+  const section = sectionById(raw);
+  if (!section) return false;
+  revealWithin(section);
+  const top = sectionTop(section);
+  if (Math.abs(top - window.scrollY) > 2) jumpTo(top);
+  setActive(raw);
   return true;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const links = Array.from(
-    document.querySelectorAll('.site-nav a[href^="#"], .site-nav-mobile a[href^="#"], .footer-nav a[href^="#"]')
-  );
-  if (!links.length) return;
-
-  const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
+  const sections = SECTION_ORDER.map(sectionById).filter(Boolean);
   if (!sections.length) return;
 
-  let activeId = sections[0].id;
-  let scrollTick = false;
-
-  const setActive = (id) => {
-    if (!id) return;
-    activeId = id;
-    links.forEach((link) => {
-      const target = resolveSectionId(link.getAttribute("href"));
-      const on = target === id;
-      link.classList.toggle("is-active", on);
-      if (on) link.setAttribute("aria-current", "true");
-      else link.removeAttribute("aria-current");
-    });
-  };
-
-  links.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const id = resolveSectionId(link.getAttribute("href"));
-      if (!SECTION_IDS.includes(id)) return;
-      if (!document.getElementById(id)) return;
-      event.preventDefault();
-      setActive(id);
-      history.pushState(null, "", `#${id}`);
-      scrollToSection(id);
-    });
+  // Own every same-page section link so Safari/Chrome cannot apply their own
+  // scroll anchoring or offset. Always lands at the exact computed Y.
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = normalizeId(link.getAttribute("href"));
+    if (!isKnownSection(id) || !sectionById(id)) return;
+    event.preventDefault();
+    scrollToSection(id, { pushHistory: true });
   });
 
-  const updateActiveFromScroll = () => {
-    scrollTick = false;
-    const header = headerScrollOffset();
-    /** Y in document: a point just under the fixed header (which section "owns" the viewport top). */
-    const anchorLine = window.scrollY + header + 1;
+  let userHasScrolled = false;
+  let tick = false;
 
-    const docHeight = document.documentElement.scrollHeight;
-    const viewBottom = window.scrollY + window.innerHeight;
-    if (viewBottom >= docHeight - 2) {
-      setActive(sections[sections.length - 1].id);
-      return;
-    }
-
-    let current = sections[0];
-    for (const section of sections) {
-      const top = documentTop(section);
-      if (top <= anchorLine) current = section;
-    }
-    setActive(current.id);
+  const updateActive = () => {
+    tick = false;
+    const id = getActiveSection();
+    if (id) setActive(id);
   };
 
-  const onScroll = () => {
-    if (!scrollTick) {
-      scrollTick = true;
-      requestAnimationFrame(updateActiveFromScroll);
-    }
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (Date.now() > programmaticUntil) userHasScrolled = true;
+      if (tick) return;
+      tick = true;
+      requestAnimationFrame(updateActive);
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", updateActive);
+
+  window.addEventListener("hashchange", () => {
+    if (applyAliasHash()) updateActive();
+  });
+
+  let alignFrame = 0;
+  const alignHash = () => {
+    if (userHasScrolled) return;
+    const id = currentHashId();
+    const section = sectionById(id);
+    if (!section) return;
+    const top = sectionTop(section);
+    if (Math.abs(top - window.scrollY) <= 2) return;
+    jumpTo(top);
+    setActive(id);
+  };
+  const scheduleAlign = () => {
+    cancelAnimationFrame(alignFrame);
+    alignFrame = requestAnimationFrame(alignHash);
   };
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", updateActiveFromScroll);
+  window.addEventListener("load", scheduleAlign);
+  document.addEventListener("britecyte:contentchange", scheduleAlign);
 
-  const hash = resolveSectionId(window.location.hash);
-  if (hash && SECTION_IDS.includes(hash)) {
-    requestAnimationFrame(() => {
-      scrollToSection(hash, { behavior: "auto" });
-      updateActiveFromScroll();
-    });
-  } else {
-    updateActiveFromScroll();
+  if ("ResizeObserver" in window) {
+    const observer = new ResizeObserver(scheduleAlign);
+    sections.forEach((section) => observer.observe(section));
   }
+
+  window.Britecyte = {
+    scrollToSection,
+    getActiveSection,
+    sections: getSections,
+    sectionIds: [...SECTION_ORDER],
+  };
+
+  applyAliasHash();
+  revealInViewport();
+  updateActive();
 });
