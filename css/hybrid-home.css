@@ -938,3 +938,9 @@ main > section[data-section] > .hero-grid {
     overflow: visible;
   }
 }
+
+.review-change {
+  background: rgba(47, 158, 68, 0.22);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}

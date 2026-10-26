@@ -1036,20 +1036,17 @@ a.news-card:focus-visible {
   gap: 2rem;
 }
 
-.footer-patients,
-.footer-clinicians {
+.footer-patients {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
 }
 
-.footer-patients-label,
-.footer-clinicians-label {
+.footer-patients-label {
   color: var(--color-ink-soft);
 }
 
-.footer-patients a,
-.footer-clinicians a {
+.footer-patients a {
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 700;
@@ -1057,8 +1054,7 @@ a.news-card:focus-visible {
   text-decoration: none;
 }
 
-.footer-patients a:hover,
-.footer-clinicians a:hover {
+.footer-patients a:hover {
   color: var(--color-flame);
 }
 

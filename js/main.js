@@ -1,4 +1,4 @@
-import { initPipelineMap } from "./pipeline-map.js";
+import { initPipelineMap } from "./pipeline-map.js?v=20261026b";
 import "./news-split.js?v=20261023r";
 import "./journey-carousel.js";
 import "./team-spotlight.js";
