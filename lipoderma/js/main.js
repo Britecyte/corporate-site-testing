@@ -147,27 +147,12 @@ function initCrossSection() {
   const ease = (v) => 1 - Math.pow(1 - Math.min(1, Math.max(0, v)), 3);
   const seg = (p, a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
 
-  const vesselsGroup = document.getElementById('cs-vessels');
   const cannula = document.getElementById('cs-cannula');
   const stageLabel = document.getElementById('cs-stage-label');
 
   musclePath.setAttribute('d', smooth(surfacePts.map(([x]) => [x, floorY(x) + 46])));
 
-  // Story, by scroll progress p (0–1):
-  //  .0–.2  healthy layer
-  //  .2–.4  layer thins, surface sinks and roughens
-  //  .4–.6  donor tissue (intact cells + structure) appears
-  //  .6–.8  placed: layer refills, surface smooths
-  //  .8–1   host cells and vessels move in and replace it
-  const state = (p) => ({
-    thin: ease(seg(p, 0.12, 0.34)) * (1 - ease(seg(p, 0.6, 0.78))),
-    lost: ease(seg(p, 0.12, 0.34)),
-    graft: ease(seg(p, 0.42, 0.58)),
-    host: seg(p, 0.82, 0.98),
-    cannula: seg(p, 0.5, 0.64) * (1 - seg(p, 0.76, 0.84)),
-  });
-
-  // Cells: each has a normalised depth v, and two random thresholds.
+  // Cells: each has a normalised depth v and two random thresholds.
   const cells = [];
   (function fillCells() {
     const rnd = (() => {
@@ -188,109 +173,159 @@ function initCrossSection() {
   })();
   const LOST_FRAC = 0.4;   // share of cells that thin out and return as donor tissue
 
-  // Host vessels: three meandering paths through a healthy layer.
-  [[0.2, 0.35], [0.45, 0.6], [0.75, 0.45]].forEach(([fx, fv]) => {
-    const pts = [];
-    for (let i = 0; i <= 6; i++) {
-      const x = W * (fx + (i - 3) * 0.045);
-      const wob = Math.sin(i * 1.7 + fx * 9) * 0.1;
-      const v = Math.min(0.85, Math.max(0.12, fv + wob + i * 0.025));
-      pts.push([x, surfY(x) + 9 + bandDepth(x) * v]);
-    }
-    const path = document.createElementNS(NS, 'path');
-    path.setAttribute('d', smooth(pts));
-    path.setAttribute('pathLength', '1');
-    path.setAttribute('stroke-dasharray', '1');
-    path.setAttribute('stroke-dashoffset', '1');
-    vesselsGroup.appendChild(path);
-  });
-  const vessels = Array.from(vesselsGroup.children);
-
+  // Story, by scroll progress p (0–1):
+  //  .00–.18  healthy layer, skin above it
+  //  .12–.34  layer thins, skin sinks and roughens
+  //  .38–.62  cannula sweeps through; donor cells appear at its tip
+  //  .62–.80  layer is filled behind it, skin smooths
+  //  .80–1.0  host takes over: donor cells gradually turn into native-looking tissue
+  const STEP_AT = [0, 0.18, 0.38, 0.62, 0.8];
   const STAGES = ['Healthy layer', 'Layer thins', 'Donor tissue', 'Volume restored', 'Host takes over'];
+  // Time labels (data-timeline). Delete the #cs-time element in the HTML to remove them.
+  const TIMES = ['Baseline', 'Over the years', 'Day 0 · injection', 'Day 0 · placed', 'Weeks to months'];
+  const timeLabel = document.getElementById('cs-time');
+  const dermisPath = document.getElementById('cs-dermis-path');
+  const basementPath = document.getElementById('cs-basement');
+
+  const lost = (p) => ease(seg(p, 0.12, 0.34));
+  const tipPos = (p) => -40 + (W + 90) * seg(p, 0.42, 0.66);   // how far the cannula has reached
+  const host = (p) => seg(p, 0.8, 0.98);
+  const smoothstep = (v) => { const t = Math.min(1, Math.max(0, v)); return t * t * (3 - 2 * t); };
+
+  const lerpHex = (a, b, t) => {
+    const pa = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16));
+    const pb = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16));
+    return '#' + pa.map((v, i) => Math.round(v + (pb[i] - v) * t).toString(16).padStart(2, '0')).join('');
+  };
+  const GRAFT = '#ffb81c';    // yellow-orange, like the product
+  const PALE = '#ffd2ab';     // the pale orange of the native cells
+  const PALE_FILL = '#ffcf9f';
+
+  // Newborn cells: where a donor cell breaks down, a new native one forms nearby.
+  cells.slice().forEach((c) => {
+    c.grafted = c.a < LOST_FRAC;
+    // Uneven timing: partly random, partly a slow wave across the layer.
+    c.hb = 0.55 * c.b + 0.45 * (0.5 + 0.5 * Math.sin(c.x * 0.021 + c.v * 3.1));
+    if (c.grafted && c.b < 0.28) {
+      const el = document.createElementNS(NS, 'circle');
+      el.setAttribute('stroke-width', '1');
+      cellsGroup.appendChild(el);
+      c.twin = { el, dx: (c.b - 0.14) * 70, dv: 0.12 };
+      c.breaks = true;
+    }
+  });
 
   const draw = (p) => {
-    const s = state(p);
-    const thick = 1 - 0.62 * s.thin;   // band thickness vs healthy
+    const L = lost(p);
+    const tip = tipPos(p);
+    const H = host(p);
+    const finalSmooth = smoothstep(seg(p, 0.62, 0.8));
 
-    // Geometry: bottom fixed to muscle plane; top moves with thickness.
-    const bottom = surfacePts.map(([x]) => floorY(x));
-    const topAt = (x) => floorY(x) - bandDepth(x) * thick;
-    const rough = s.thin * 0.9 + (1 - thick) * 0.0;
-    const top = surfacePts.map(([x]) => {
-      const ripple = Math.sin(x * 0.21) * 2.6 + Math.sin(x * 0.53 + 1.2) * 1.8;
-      return [x, topAt(x) - 9 + ripple * rough];
+    // Local restoration: the layer refills behind the cannula tip.
+    const restored = (x) => smoothstep((tip - x) / 140);
+    const thickAt = (x) => 1 - 0.62 * L * (1 - restored(x));
+    const topAt = (x) => floorY(x) - bandDepth(x) * thickAt(x);
+
+    const bandTopPts = [], skinPts = [], bottomPts = [], basePts = [];
+    surfacePts.forEach(([x], i) => {
+      const th = thickAt(x);
+      const thinness = L * (1 - restored(x)) * (1 - 0.7 * finalSmooth);
+      const ripple = (Math.sin(x * 0.21) * 2.6 + Math.sin(x * 0.53 + 1.2) * 1.8) * thinness;
+      const bt = topAt(x) + ripple * 0.35;
+      const skinThick = 26 * (1 - 0.14 * L * (1 - restored(x)));
+      bandTopPts.push([x, bt]);
+      basePts.push([x, bt - 4]);
+      skinPts.push([x, bt - skinThick + ripple * 0.65]);
+      bottomPts.push([x, floorY(x)]);
     });
-    const bandTop = top.map(([x, y]) => [x, y + 9]);
-    const bandBottom = surfacePts.map(([x], i) => [x, bottom[i]]).reverse();
-    const closed = smooth([...bandTop, ...bandBottom], true);
-
-    skinPath.setAttribute('d', smooth(top));
+    const closed = smooth([...bandTopPts, ...bottomPts.slice().reverse()], true);
+    skinPath.setAttribute('d', smooth(skinPts));
+    dermisPath.setAttribute('d', smooth([...skinPts, ...bandTopPts.slice().reverse()], true));
+    basementPath.setAttribute('d', smooth(skinPts.map(([x, y], i) => [x, y + (bandTopPts[i][1] - y) * 0.22])));
     bandPath.setAttribute('d', closed);
     clipPath.setAttribute('d', closed);
-    bandPath.style.opacity = String(0.55 + 0.45 * thick);
+    const meanThick = thickAt(W * 0.6);
+    bandPath.style.opacity = String(0.55 + 0.45 * meanThick);
 
-    // Cells
-    const midTop = (x) => topAt(x);
-    cells.forEach((c) => {
-      const y0 = midTop(c.x);
-      const y1 = floorY(c.x);
-      const cy = y0 + (y1 - y0) * c.v;
-      const isLost = c.a < LOST_FRAC;
-      let alpha = 1, kind = 'native';
-      if (isLost) {
-        // Thinning removes these cells; donor tissue returns them.
-        alpha = (1 - s.lost) + s.lost * s.graft;
-        if (s.graft > 0.02) kind = 'graft';
-        if (s.host > c.b) kind = 'host';
-        if (s.lost < 0.98 && s.graft < 0.02) kind = 'native';
-      }
-      c.el.setAttribute('cx', c.x.toFixed(1));
-      c.el.setAttribute('cy', cy.toFixed(1));
-      c.el.setAttribute('r', (c.r * (0.7 + 0.3 * thick)).toFixed(1));
-      c.el.style.opacity = String(alpha);
-      if (kind === 'graft') {
-        c.el.setAttribute('stroke', '#fd893c'); c.el.setAttribute('stroke-opacity', '0.9');
-        c.el.setAttribute('fill', '#fd893c'); c.el.setAttribute('fill-opacity', String(0.12 + 0.3 * s.graft));
-      } else if (kind === 'host') {
-        c.el.setAttribute('stroke', '#f7f2eb'); c.el.setAttribute('stroke-opacity', '0.8');
-        c.el.setAttribute('fill', '#f7f2eb'); c.el.setAttribute('fill-opacity', '0.16');
-      } else {
-        c.el.setAttribute('stroke', '#ffd2ab'); c.el.setAttribute('stroke-opacity', '0.5');
-        c.el.setAttribute('fill', '#ffcf9f'); c.el.setAttribute('fill-opacity', '0.10');
-      }
-    });
-
-    // Vessels
-    vessels.forEach((v, i) => {
-      const k = seg(s.host, i * 0.18, 0.55 + i * 0.18);
-      v.setAttribute('stroke-dashoffset', String(1 - k));
-    });
-    vesselsGroup.style.opacity = String(s.host > 0 ? 1 : 0);
-
-    // Cannula slides in along the middle of the layer, then withdraws.
-    if (s.cannula > 0.01) {
-      const tipX = 20 + s.cannula * 330;
-      const mid = (topAt(tipX) + floorY(tipX)) / 2;
-      cannula.setAttribute('d', `M-30 ${(mid - 30).toFixed(1)} L ${tipX.toFixed(1)} ${mid.toFixed(1)}`);
-      cannula.style.opacity = '1';
+    // Cannula path (also gives us the tip location for cell deposit).
+    const tipClamp = Math.min(W - 6, Math.max(-30, tip));
+    const retract = seg(p, 0.66, 0.74);
+    const tipDraw = retract > 0 ? tipClamp * (1 - retract) - 30 * retract : tipClamp;
+    const tipMid = (x) => (topAt(Math.max(0, x)) + floorY(Math.max(0, x))) / 2;
+    const cannulaOn = seg(p, 0.38, 0.42) * (1 - seg(p, 0.72, 0.76));
+    if (cannulaOn > 0.01) {
+      const ty = tipMid(tipDraw);
+      cannula.setAttribute('d', `M-40 ${(ty - 34).toFixed(1)} L ${tipDraw.toFixed(1)} ${ty.toFixed(1)}`);
+      cannula.style.opacity = String(cannulaOn);
     } else {
       cannula.style.opacity = '0';
     }
+    const tipY = tipMid(tipClamp);
+
+    // Cells
+    cells.forEach((c) => {
+      const y0 = topAt(c.x);
+      const y1 = floorY(c.x);
+      const k = 0.7 + 0.3 * thickAt(c.x);
+      let cx = c.x, cy = y0 + (y1 - y0) * c.v, r = c.r * k, alpha = 1;
+      let stroke = PALE, fill = PALE_FILL, sOp = 0.5, fOp = 0.10;
+
+      if (c.grafted) {
+        // Native cells here fade as the layer thins; donor cells arrive from the cannula tip.
+        const native = 1 - L;
+        const e = smoothstep((tip - c.x) / 60);     // 0 until the tip passes, then emerges
+        const hh = smoothstep((H - c.hb * 0.55) / 0.45);   // gradual, uneven handover
+        if (e <= 0.001 && native < 0.02) { alpha = 0; }
+        else if (e <= 0.001) { alpha = native; }
+        else {
+          // Emerge from the tip and settle into place.
+          cx = tipClamp + (c.x - tipClamp) * e;
+          cy = tipY + (cy - tipY) * e;
+          r *= 0.35 + 0.65 * e;
+          alpha = Math.max(native, e);
+          const t = hh;
+          stroke = lerpHex(GRAFT, PALE, t); fill = lerpHex(GRAFT, PALE_FILL, t);
+          sOp = 0.95 - 0.45 * t; fOp = 0.42 - 0.32 * t;
+          if (c.breaks) { r *= 1 - 0.85 * t; alpha *= 1 - t * 0.9; }   // some donor cells break down
+        }
+        // Native cells that were thinned out: shown pale until they fade.
+        if (e <= 0.001) { stroke = PALE; fill = PALE_FILL; sOp = 0.5; fOp = 0.10; }
+      }
+
+      c.el.setAttribute('cx', cx.toFixed(1)); c.el.setAttribute('cy', cy.toFixed(1)); c.el.setAttribute('r', Math.max(0, r).toFixed(1));
+      c.el.setAttribute('stroke', stroke); c.el.setAttribute('stroke-opacity', String(sOp));
+      c.el.setAttribute('fill', fill); c.el.setAttribute('fill-opacity', String(fOp));
+      c.el.style.opacity = String(alpha);
+
+      if (c.twin) {
+        const t = smoothstep((H - c.hb * 0.55) / 0.45);
+        const tx = Math.min(W, Math.max(0, c.x + c.twin.dx));
+        const ty = topAt(tx) + (floorY(tx) - topAt(tx)) * Math.min(0.92, c.v + c.twin.dv);
+        c.twin.el.setAttribute('cx', tx.toFixed(1)); c.twin.el.setAttribute('cy', ty.toFixed(1));
+        c.twin.el.setAttribute('r', (c.r * k * t).toFixed(1));
+        c.twin.el.setAttribute('stroke', PALE); c.twin.el.setAttribute('stroke-opacity', '0.5');
+        c.twin.el.setAttribute('fill', PALE_FILL); c.twin.el.setAttribute('fill-opacity', '0.10');
+        c.twin.el.style.opacity = String(t);
+      }
+    });
 
     // Measure on the right edge
     const mx = 520;
-    const yt = topAt(mx) + 0, yb = floorY(mx);
+    const yt = topAt(mx), yb = floorY(mx);
     measure.setAttribute('d', `M${mx} ${yt.toFixed(1)}V${yb.toFixed(1)}M${mx - 5} ${yt.toFixed(1)}h10M${mx - 5} ${yb.toFixed(1)}h10`);
     measureLabel.setAttribute('x', String(mx + 4));
-    measureLabel.setAttribute('y', String((yt - 22).toFixed(1)));
+    measureLabel.setAttribute('y', String((yt - 48).toFixed(1)));
     measureLabel.setAttribute('text-anchor', 'end');
   };
+
+  const stepFor = (p) => STEP_AT.reduce((acc, t, i) => (p >= t - 0.0005 ? i : acc), 0);
 
   // Scroll driver.
   const setStep = (index) => {
     steps.forEach((s, i) => s.classList.toggle('is-active', i === index));
     if (stepLabel) stepLabel.textContent = `0${index + 1} / 05`;
     if (stageLabel) stageLabel.textContent = STAGES[index];
+    if (timeLabel) timeLabel.textContent = TIMES[index].toUpperCase();
   };
 
   let activeStep = -1;
@@ -309,7 +344,7 @@ function initCrossSection() {
     if (meter) meter.style.width = `${(p * 100).toFixed(1)}%`;
     draw(p);
 
-    const next = Math.min(4, Math.floor(p * 5 + 0.001));
+    const next = stepFor(p);
     if (next !== activeStep) { activeStep = next; setStep(next); }
   };
 

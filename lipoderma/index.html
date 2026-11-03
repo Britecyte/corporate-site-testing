@@ -164,6 +164,10 @@
                 <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.92"/>
                 <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.30"/>
               </linearGradient>
+              <linearGradient id="cs-dermis" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.20"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.05"/>
+              </linearGradient>
               <clipPath id="cs-clip"><path id="cs-clip-path" d=""/></clipPath>
             </defs>
 
@@ -172,6 +176,10 @@
               <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
               <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
             </g>
+
+            <!-- skin: dermis under the surface line -->
+            <path id="cs-dermis-path" d="" fill="url(#cs-dermis)"/>
+            <path id="cs-basement" d="" stroke="#f7f2eb" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
 
             <!-- adipose band -->
             <path id="cs-band-path" d="" fill="url(#cs-band)"/>
@@ -184,9 +192,6 @@
             <!-- muscle plane -->
             <path id="cs-muscle-path" d="" stroke="#f7f2eb" stroke-opacity="0.28" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
 
-            <!-- host vessels growing into the layer -->
-            <g id="cs-vessels" fill="none" stroke="#f7f2eb" stroke-opacity="0.75" stroke-width="1.4" stroke-linecap="round"></g>
-
             <!-- cannula -->
             <path id="cs-cannula" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
 
@@ -194,8 +199,11 @@
             <path id="cs-measure" d="" stroke="#f7f2eb" stroke-opacity="0.45" fill="none"/>
             <text id="cs-measure-label" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
 
+            <!-- timeline label (data-timeline): delete this element to remove it -->
+            <text id="cs-time" data-timeline x="560" y="470" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
+
             <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
-              <text x="0" y="242">SURFACE</text>
+              <text x="0" y="220">SKIN</text>
               <text x="0" y="446">MUSCLE / FASCIA</text>
             </g>
           </svg>
@@ -227,7 +235,7 @@
 
           <div class="structure-step" data-step="4">
             <h3>Then your body takes over.</h3>
-            <p>In studies, the body's own cells and blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The layer stops being something added.</p>
+            <p>In studies, the body's own cells move in and gradually replace the donor tissue with tissue that is theirs. The layer stops being something added.</p>
           </div>
 
           <div class="structure-meter" aria-hidden="true">

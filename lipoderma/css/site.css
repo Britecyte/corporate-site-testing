@@ -729,7 +729,7 @@ body.nav-open { overflow: hidden; }
 /* ---------- Structure (signature interaction) ---------- */
 .structure {
   position: relative;
-  height: 340vh;
+  height: 420vh;
   background: var(--ink);
   color: var(--on-dark);
 }
