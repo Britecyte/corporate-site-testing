@@ -285,19 +285,42 @@ function initCrossSection(section, detail = false) {
       el.setAttribute('width', '3.5'); el.setAttribute('height', '3.5'); el.setAttribute('fill', '#cfc7bc'); el.setAttribute('fill-opacity', '0.75');
       tray.frag.push({ el, x, y, d: 40 + rnd() * 90, rot: rnd() * 90 });
     }
-    // host vessels (muted rose, drawn in during the final step)
-    [[0.2, 0.35], [0.45, 0.6], [0.75, 0.45]].forEach(([fx, fv]) => {
-      const pts = [];
-      for (let i = 0; i <= 6; i++) {
-        const x = W * (fx + (i - 3) * 0.045);
-        const v = Math.min(0.85, Math.max(0.12, fv + Math.sin(i * 1.7 + fx * 9) * 0.1 + i * 0.025));
-        pts.push([x, surfY(x) + 9 + bandDepth(x) * v]);
+    // Vessel trees. Each grows up from the muscle side and forks into tapering
+    // branches at natural angles. Clipped to the fat layer so nothing leaves it.
+    const DEG = Math.PI / 180;
+    const grow = (x, y, ang, len, width, depth, order) => {
+      // slightly curved limb: 4 points with a gentle bend
+      const bend = (rnd() - 0.5) * 24 * DEG;
+      const pts = [[x, y]];
+      let cx = x, cy = y, a = ang;
+      for (let i = 0; i < 3; i++) {
+        a += bend / 3;
+        cx += Math.cos(a) * len / 3;
+        cy += Math.sin(a) * len / 3;
+        pts.push([cx, cy]);
       }
       const path = mk('path', vesselsGroup);
-      path.setAttribute('d', smooth(pts)); path.setAttribute('pathLength', '1');
-      path.setAttribute('stroke-dasharray', '1'); path.setAttribute('stroke-dashoffset', '1');
+      path.setAttribute('d', smooth(pts));
+      path.setAttribute('pathLength', '1');
+      path.setAttribute('stroke-dasharray', '1');
+      path.setAttribute('stroke-dashoffset', '1');
+      path.setAttribute('stroke-width', width.toFixed(2));
+      path.dataset.order = String(order);
       vessels.push(path);
+      if (depth === 0) return;
+      const spread = 24 + rnd() * 14;
+      grow(cx, cy, a - spread * DEG, len * 0.74, width * 0.68, depth - 1, order + 0.2);
+      grow(cx, cy, a + spread * DEG, len * 0.74, width * 0.68, depth - 1, order + 0.2);
+      // one short side sprout partway along the limb
+      if (depth >= 2) {
+        const m = pts[2];
+        grow(m[0], m[1], a + (rnd() < 0.5 ? -1 : 1) * (55 + rnd() * 20) * DEG, len * 0.4, width * 0.5, 0, order + 0.3);
+      }
+    };
+    [[95, -80], [290, -100], [470, -85]].forEach(([rx, deg], k) => {
+      grow(rx, floorY(rx) + 6, deg * DEG, 52, 2.2, 3, k * 0.05);
     });
+    vesselsGroup.setAttribute('clip-path', 'url(#cs-clip' + SFX + ')');
   }
 
   const drawDetail = (p, H) => {
@@ -314,7 +337,10 @@ function initCrossSection(section, detail = false) {
       o.el.setAttribute('transform', `translate(${(o.x + o.d * f * 0.6).toFixed(1)} ${(o.y + o.d * f).toFixed(1)}) rotate(${(o.rot + 120 * f).toFixed(0)})`);
       o.el.style.opacity = String(1 - Math.min(1, f * 1.15));
     });
-    vessels.forEach((v, i) => v.setAttribute('stroke-dashoffset', String(1 - seg(H, i * 0.14, 0.55 + i * 0.14))));
+    vessels.forEach((v) => {
+      const o = Number(v.dataset.order);
+      v.setAttribute('stroke-dashoffset', String(1 - seg(H, o * 0.15, Math.min(0.98, o * 0.15 + 0.42))));
+    });
     vesselsGroup.style.opacity = H > 0 ? '1' : '0';
   };
 
