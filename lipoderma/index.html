@@ -194,17 +194,14 @@
 
             <!-- cannula -->
             <path id="cs-cannula" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
-
-            <!-- measure -->
-            <path id="cs-measure" d="" stroke="#f7f2eb" stroke-opacity="0.45" fill="none"/>
             <text id="cs-measure-label" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
 
             <!-- timeline label (data-timeline): delete this element to remove it -->
-            <text id="cs-time" data-timeline x="560" y="470" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
+            <text id="cs-time" data-timeline x="560" y="545" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
 
             <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
-              <text x="0" y="220">SKIN</text>
-              <text x="0" y="446">MUSCLE / FASCIA</text>
+              <text id="cs-skin-label" x="0" y="220">SKIN</text>
+              <text id="cs-muscle-label" x="0" y="446">MUSCLE / FASCIA</text>
             </g>
           </svg>
         </div>
@@ -235,7 +232,7 @@
 
           <div class="structure-step" data-step="4">
             <h3>Then your body takes over.</h3>
-            <p>In studies, the body's own cells move in and gradually replace the donor tissue with tissue that is theirs. The layer stops being something added.</p>
+            <p>In studies, the body's own cells move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
           </div>
 
           <div class="structure-meter" aria-hidden="true">
@@ -244,6 +241,118 @@
             <span id="cs-stage-label">Healthy layer</span>
           </div>
           <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed variant: refinement + vessels. Decide later whether this ships. -->
+  <section class="structure" id="structure-detail" data-detail data-theme="dark" data-cross-section aria-labelledby="structure-title-2">
+    <div class="structure-sticky">
+      <div class="structure-inner">
+
+        <div class="structure-stage" aria-hidden="true">
+          <svg viewBox="0 0 560 700" id="cross-section-2" role="presentation">
+            <defs>
+              <linearGradient id="cs-band-2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
+                <stop offset="55%" stop-color="#fd893c" stop-opacity="0.30"/>
+                <stop offset="100%" stop-color="#fd893c" stop-opacity="0.12"/>
+              </linearGradient>
+              <linearGradient id="cs-skin-2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+                <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.92"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+              </linearGradient>
+              <linearGradient id="cs-dermis-2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.20"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.05"/>
+              </linearGradient>
+              <clipPath id="cs-clip-2"><path id="cs-clip-path-2" d=""/></clipPath>
+            </defs>
+
+            <!-- depth guides -->
+            <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.09" fill="none">
+              <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
+              <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
+            </g>
+
+            <!-- skin: dermis under the surface line -->
+            <path id="cs-dermis-path-2" d="" fill="url(#cs-dermis-2)"/>
+            <path id="cs-basement-2" d="" stroke="#f7f2eb" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+
+            <!-- adipose band -->
+            <path id="cs-band-path-2" d="" fill="url(#cs-band-2)"/>
+
+            <!-- adipocyte cells, clipped to band -->
+            <g clip-path="url(#cs-clip-2)" id="cs-cells-2" stroke="#ffd2ab" stroke-opacity="0.5" fill="#ffcf9f" fill-opacity="0.10"></g>
+
+            <!-- skin surface -->
+            <path id="cs-skin-path-2" d="" stroke="url(#cs-skin-2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- muscle plane -->
+            <path id="cs-muscle-path-2" d="" stroke="#f7f2eb" stroke-opacity="0.28" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
+
+            <!-- host vessels (detail) -->
+            <g id="cs-vessels-2" fill="none" stroke="#e08a7a" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"></g>
+
+            <!-- refinement tray (detail) -->
+            <g id="cs-tray-2" opacity="0"></g>
+
+            <!-- cannula -->
+            <path id="cs-cannula-2" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
+
+            <!-- timeline label (data-timeline): delete this element to remove it -->
+            <text id="cs-time-2" data-timeline x="560" y="545" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
+
+            <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
+              <text id="cs-skin-label-2" x="0" y="220">SKIN</text>
+              <text id="cs-muscle-label-2" x="0" y="446">MUSCLE / FASCIA</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="structure-copy">
+          <p class="label">Anatomy · detailed version</p>
+          <h2 class="visually-hidden" id="structure-title-2">The layer under everything</h2>
+
+          <div class="structure-step is-active" data-step="0">
+            <h3>A face is a stack of layers.<br>One of them does the shaping.</h3>
+            <p>Skin on top. Muscle and bone beneath. Between them, a layer of fat that holds the shape of everything above it.</p>
+          </div>
+
+          <div class="structure-step" data-step="1">
+            <h3>Age and weight loss<br>take that layer first.</h3>
+            <p>It thins, and the skin loses what it was resting on. The surface follows: hollows where there was curve, and a finer, less even texture.</p>
+          </div>
+
+          <div class="structure-step" data-step="2">
+            <h3>Refined, not rebuilt.</h3>
+            <p>Donated fat arrives with blood cells and immune cells that would be rejected. Washing and processing remove them. The fat cells stay intact, so what triggers inflammation stays locked inside them.</p>
+          </div>
+
+          <div class="structure-step" data-step="3">
+            <h3>Placed where it was lost.</h3>
+            <p>Through a cannula, into the layer beneath the skin. The tissue goes in as real structure, cell by cell, exactly where the layer thinned.</p>
+          </div>
+
+          <div class="structure-step" data-step="4">
+            <h3>Volume, right away.</h3>
+            <p>The layer refills behind the cannula, and the skin above has something to rest on again.</p>
+          </div>
+
+          <div class="structure-step" data-step="5">
+            <h3>Then your body takes over.</h3>
+            <p>In studies, the body's own cells and new blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
+          </div>
+
+          <div class="structure-meter" aria-hidden="true">
+            <span id="cs-step-label-2">01 / 06</span>
+            <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
+            <span id="cs-stage-label-2">Healthy layer</span>
+          </div>
+          <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026. Detailed variant for review.</p>
         </div>
 
       </div>

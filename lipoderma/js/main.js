@@ -85,21 +85,30 @@ function initReveal() {
 /* ── anatomy cross-section ──────────────────────────────────
    Builds the adipose band geometry, fills it with adipocytes,
    and drives four narrative steps from scroll progress.       */
-function initCrossSection() {
-  const section = document.querySelector('[data-cross-section]');
-  const svg = document.getElementById('cross-section');
+function initCrossSection(section, detail = false) {
+  const SFX = detail ? '-2' : '';
+  const $ = (id) => section.querySelector('#' + id + SFX);
+  const svg = section.querySelector('svg');
   if (!section || !svg) return;
 
-  const skinPath = document.getElementById('cs-skin-path');
-  const bandPath = document.getElementById('cs-band-path');
-  const musclePath = document.getElementById('cs-muscle-path');
-  const clipPath = document.getElementById('cs-clip-path');
-  const cellsGroup = document.getElementById('cs-cells');
-  const measure = document.getElementById('cs-measure');
-  const measureLabel = document.getElementById('cs-measure-label');
+  const skinPath = $('cs-skin-path');
+  const bandPath = $('cs-band-path');
+  const musclePath = $('cs-muscle-path');
+  const clipPath = $('cs-clip-path');
+  const cellsGroup = $('cs-cells');
+  const measureLabel = $('cs-measure-label');
+  measureLabel.textContent = '';
+  ['ADIPOSE', 'LAYER'].forEach((word, i) => {
+    const t = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+    t.textContent = word;
+    t.setAttribute('dy', i ? '13' : '0');
+    measureLabel.appendChild(t);
+  });
+  measureLabel.removeAttribute('stroke');
+  measureLabel.setAttribute('fill-opacity', '0.6');
   const steps = Array.from(section.querySelectorAll('.structure-step'));
-  const meter = document.getElementById('cs-meter');
-  const stepLabel = document.getElementById('cs-step-label');
+  const meter = $('cs-meter');
+  const stepLabel = $('cs-step-label');
 
   // Profile: x → surface y. Flat brow, dip at the temple, rise at the cheek.
   const W = 560;
@@ -137,9 +146,14 @@ function initCrossSection() {
   };
 
   const NS = 'http://www.w3.org/2000/svg';
+  // A closed strip between two edges: smooth along each edge, straight at the ends,
+  // so the corners can't overshoot and poke into neighbouring layers.
+  const strip = (upper, lower) => `${smooth(upper)} ${smooth(lower.slice().reverse()).replace(/^M/, 'L')} Z`;
+
   const BAND_BASE = 118;   // thickness of a healthy adipose layer
   const bandDepth = (x) => {
     const t = x / W;
+    // thicker at the midface, thinner at the edges
     return BAND_BASE * (0.62 + 0.5 * Math.exp(-Math.pow((t - 0.58) / 0.34, 2)));
   };
   // The muscle plane never moves. Everything above it is what changes.
@@ -147,10 +161,18 @@ function initCrossSection() {
   const ease = (v) => 1 - Math.pow(1 - Math.min(1, Math.max(0, v)), 3);
   const seg = (p, a, b) => Math.min(1, Math.max(0, (p - a) / (b - a)));
 
-  const cannula = document.getElementById('cs-cannula');
-  const stageLabel = document.getElementById('cs-stage-label');
+  const cannula = $('cs-cannula');
+  const stageLabel = $('cs-stage-label');
+  const skinLabel = $('cs-skin-label');
+  const muscleLabel = $('cs-muscle-label');
 
-  musclePath.setAttribute('d', smooth(surfacePts.map(([x]) => [x, floorY(x) + 46])));
+  const muscleLine = surfacePts.map(([x]) => [x, floorY(x)]);
+  musclePath.setAttribute('d', smooth(muscleLine));
+  musclePath.setAttribute('stroke', '#efb9bd'); musclePath.setAttribute('stroke-opacity', '0.4');
+  const muscleFill = document.createElementNS(NS, 'path');
+  muscleFill.setAttribute('d', strip(muscleLine, muscleLine.map(([x, y]) => [x, y + 48])));
+  muscleFill.setAttribute('fill', '#efb9bd'); muscleFill.setAttribute('fill-opacity', '0.15');
+  musclePath.parentNode.insertBefore(muscleFill, musclePath);
 
   // Cells: each has a normalised depth v and two random thresholds.
   const cells = [];
@@ -179,17 +201,30 @@ function initCrossSection() {
   //  .38–.62  cannula sweeps through; donor cells appear at its tip
   //  .62–.80  layer is filled behind it, skin smooths
   //  .80–1.0  host takes over: donor cells gradually turn into native-looking tissue
-  const STEP_AT = [0, 0.18, 0.38, 0.62, 0.8];
-  const STAGES = ['Healthy layer', 'Layer thins', 'Donor tissue', 'Volume restored', 'Host takes over'];
+  const T = detail ? {
+    loss: [0.1, 0.26], tip: [0.5, 0.7], cannulaIn: [0.46, 0.5], cannulaOut: [0.76, 0.8], retract: [0.7, 0.78],
+    smooth: [0.7, 0.86], host: [0.86, 0.99], filter: [0.3, 0.44], trayIn: [0.27, 0.31], trayOut: [0.5, 0.56],
+    stepAt: [0, 0.12, 0.28, 0.46, 0.7, 0.86],
+  } : {
+    loss: [0.12, 0.34], tip: [0.42, 0.66], cannulaIn: [0.38, 0.42], cannulaOut: [0.72, 0.76], retract: [0.66, 0.74],
+    smooth: [0.62, 0.8], host: [0.8, 0.98],
+    stepAt: [0, 0.18, 0.38, 0.62, 0.8],
+  };
+  const STEP_AT = T.stepAt;
+  const STAGES = detail
+    ? ['Healthy layer', 'Layer thins', 'Refined tissue', 'Donor tissue', 'Volume restored', 'Host takes over']
+    : ['Healthy layer', 'Layer thins', 'Donor tissue', 'Volume restored', 'Host takes over'];
   // Time labels (data-timeline). Delete the #cs-time element in the HTML to remove them.
-  const TIMES = ['Baseline', 'Over the years', 'Day 0 · injection', 'Day 0 · placed', 'Weeks to months'];
-  const timeLabel = document.getElementById('cs-time');
-  const dermisPath = document.getElementById('cs-dermis-path');
-  const basementPath = document.getElementById('cs-basement');
+  const TIMES = detail
+    ? ['Baseline', 'Over the years', 'Before treatment', 'Day 0 · injection', 'Day 0 · placed', 'Weeks to months']
+    : ['Baseline', 'Over the years', 'Day 0 · injection', 'Day 0 · placed', 'Weeks to months'];
+  const timeLabel = $('cs-time');
+  const dermisPath = $('cs-dermis-path');
+  const basementPath = $('cs-basement');
 
-  const lost = (p) => ease(seg(p, 0.12, 0.34));
-  const tipPos = (p) => -40 + (W + 90) * seg(p, 0.42, 0.66);   // how far the cannula has reached
-  const host = (p) => seg(p, 0.8, 0.98);
+  const lost = (p) => ease(seg(p, T.loss[0], T.loss[1]));
+  const tipPos = (p) => -40 + (W + 260) * seg(p, T.tip[0], T.tip[1]);   // how far the cannula has reached
+  const host = (p) => seg(p, T.host[0], T.host[1]);
   const smoothstep = (v) => { const t = Math.min(1, Math.max(0, v)); return t * t * (3 - 2 * t); };
 
   const lerpHex = (a, b, t) => {
@@ -215,44 +250,121 @@ function initCrossSection() {
     }
   });
 
+
+  // ── Detail variant extras: refinement tray and host vessels ──
+  const trayGroup = detail ? $('cs-tray') : null;
+  const vesselsGroup = detail ? $('cs-vessels') : null;
+  const tray = { cells: [], rbc: [], frag: [] };
+  const vessels = [];
+  if (detail) {
+    const rnd = (() => { let s = 777; return () => ((s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296); })();
+    const mk = (tag, parent) => { const el = document.createElementNS(NS, tag); parent.appendChild(el); return el; };
+    const frame = mk('rect', trayGroup);
+    frame.setAttribute('x', '150'); frame.setAttribute('y', '556'); frame.setAttribute('width', '260'); frame.setAttribute('height', '104');
+    frame.setAttribute('fill', 'none'); frame.setAttribute('stroke', '#f7f2eb'); frame.setAttribute('stroke-opacity', '0.22');
+    const cap = mk('text', trayGroup);
+    cap.setAttribute('x', '150'); cap.setAttribute('y', '546'); cap.setAttribute('fill', '#f7f2eb'); cap.setAttribute('fill-opacity', '0.5');
+    cap.setAttribute('font-size', '10'); cap.setAttribute('font-weight', '600'); cap.setAttribute('letter-spacing', '1.6');
+    tray.cap = cap;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++) {
+      const el = mk('circle', trayGroup);
+      const x = 176 + c * 42 + (r % 2 ? 18 : 0) + (rnd() - 0.5) * 6, y = 580 + r * 30 + (rnd() - 0.5) * 6;
+      el.setAttribute('cx', x.toFixed(1)); el.setAttribute('cy', y.toFixed(1)); el.setAttribute('r', (9 + rnd() * 3).toFixed(1));
+      el.setAttribute('stroke', GRAFT); el.setAttribute('stroke-opacity', '0.95'); el.setAttribute('fill', GRAFT); el.setAttribute('fill-opacity', '0.4');
+      tray.cells.push(el);
+    }
+    for (let i = 0; i < 12; i++) {
+      const el = mk('circle', trayGroup);
+      el.setAttribute('cx', (160 + rnd() * 240).toFixed(1)); el.setAttribute('cy', (566 + rnd() * 84).toFixed(1)); el.setAttribute('r', '3.4');
+      el.setAttribute('fill', '#d85f5f'); el.setAttribute('fill-opacity', '0.9');
+      tray.rbc.push({ el, x: +el.getAttribute('cx'), y: +el.getAttribute('cy'), d: 60 + rnd() * 120 });
+    }
+    for (let i = 0; i < 16; i++) {
+      const el = mk('rect', trayGroup);
+      const x = 158 + rnd() * 236, y = 564 + rnd() * 84;
+      el.setAttribute('width', '3.5'); el.setAttribute('height', '3.5'); el.setAttribute('fill', '#cfc7bc'); el.setAttribute('fill-opacity', '0.75');
+      tray.frag.push({ el, x, y, d: 40 + rnd() * 90, rot: rnd() * 90 });
+    }
+    // host vessels (muted rose, drawn in during the final step)
+    [[0.2, 0.35], [0.45, 0.6], [0.75, 0.45]].forEach(([fx, fv]) => {
+      const pts = [];
+      for (let i = 0; i <= 6; i++) {
+        const x = W * (fx + (i - 3) * 0.045);
+        const v = Math.min(0.85, Math.max(0.12, fv + Math.sin(i * 1.7 + fx * 9) * 0.1 + i * 0.025));
+        pts.push([x, surfY(x) + 9 + bandDepth(x) * v]);
+      }
+      const path = mk('path', vesselsGroup);
+      path.setAttribute('d', smooth(pts)); path.setAttribute('pathLength', '1');
+      path.setAttribute('stroke-dasharray', '1'); path.setAttribute('stroke-dashoffset', '1');
+      vessels.push(path);
+    });
+  }
+
+  const drawDetail = (p, H) => {
+    if (!detail) return;
+    const f = seg(p, T.filter[0], T.filter[1]);
+    const vis = seg(p, T.trayIn[0], T.trayIn[1]) * (1 - seg(p, T.trayOut[0], T.trayOut[1]));
+    trayGroup.style.opacity = String(vis);
+    tray.cap.textContent = f < 0.5 ? 'RAW DONOR TISSUE' : 'REFINED TISSUE';
+    tray.rbc.forEach((o) => {
+      o.el.setAttribute('cx', (o.x + o.d * f).toFixed(1)); o.el.setAttribute('cy', (o.y + 20 * f).toFixed(1));
+      o.el.style.opacity = String(1 - Math.min(1, f * 1.25));
+    });
+    tray.frag.forEach((o) => {
+      o.el.setAttribute('transform', `translate(${(o.x + o.d * f * 0.6).toFixed(1)} ${(o.y + o.d * f).toFixed(1)}) rotate(${(o.rot + 120 * f).toFixed(0)})`);
+      o.el.style.opacity = String(1 - Math.min(1, f * 1.15));
+    });
+    vessels.forEach((v, i) => v.setAttribute('stroke-dashoffset', String(1 - seg(H, i * 0.14, 0.55 + i * 0.14))));
+    vesselsGroup.style.opacity = H > 0 ? '1' : '0';
+  };
+
   const draw = (p) => {
     const L = lost(p);
     const tip = tipPos(p);
     const H = host(p);
-    const finalSmooth = smoothstep(seg(p, 0.62, 0.8));
+    const finalSmooth = smoothstep(seg(p, T.smooth[0], T.smooth[1]));
 
     // Local restoration: the layer refills behind the cannula tip.
     const restored = (x) => smoothstep((tip - x) / 140);
+    // Freshly placed tissue sits a little full, as an even lift so the contour
+    // keeps its shape, then settles back to exactly the baseline silhouette.
+    const lift = 12 * (1 - ease(H));
     const thickAt = (x) => 1 - 0.62 * L * (1 - restored(x));
-    const topAt = (x) => floorY(x) - bandDepth(x) * thickAt(x);
+    const topAt = (x) => floorY(x) - bandDepth(x) * thickAt(x) - lift * restored(x);
 
     const bandTopPts = [], skinPts = [], bottomPts = [], basePts = [];
     surfacePts.forEach(([x], i) => {
       const th = thickAt(x);
       const thinness = L * (1 - restored(x)) * (1 - 0.7 * finalSmooth);
-      const ripple = (Math.sin(x * 0.21) * 2.6 + Math.sin(x * 0.53 + 1.2) * 1.8) * thinness;
-      const bt = topAt(x) + ripple * 0.35;
+      // A few broad, smooth hollows in the skin. Low frequency so they read as
+      // wrinkles, not teeth.
+      const t = x / W;
+      const wrinkle = thinness * (
+        7 * Math.exp(-Math.pow((t - 0.28) / 0.09, 2)) +
+        5 * Math.exp(-Math.pow((t - 0.55) / 0.11, 2)) +
+        4 * Math.exp(-Math.pow((t - 0.78) / 0.07, 2)));
+      const bt = topAt(x);
       const skinThick = 26 * (1 - 0.14 * L * (1 - restored(x)));
       bandTopPts.push([x, bt]);
       basePts.push([x, bt - 4]);
-      skinPts.push([x, bt - skinThick + ripple * 0.65]);
+      skinPts.push([x, bt - skinThick + wrinkle]);
       bottomPts.push([x, floorY(x)]);
     });
-    const closed = smooth([...bandTopPts, ...bottomPts.slice().reverse()], true);
+    const closed = strip(bandTopPts, bottomPts);
     skinPath.setAttribute('d', smooth(skinPts));
-    dermisPath.setAttribute('d', smooth([...skinPts, ...bandTopPts.slice().reverse()], true));
+    dermisPath.setAttribute('d', strip(skinPts, bandTopPts));
     basementPath.setAttribute('d', smooth(skinPts.map(([x, y], i) => [x, y + (bandTopPts[i][1] - y) * 0.22])));
     bandPath.setAttribute('d', closed);
     clipPath.setAttribute('d', closed);
     const meanThick = thickAt(W * 0.6);
-    bandPath.style.opacity = String(0.55 + 0.45 * meanThick);
+    bandPath.style.opacity = String(Math.min(1, 0.55 + 0.45 * meanThick));
 
     // Cannula path (also gives us the tip location for cell deposit).
     const tipClamp = Math.min(W - 6, Math.max(-30, tip));
-    const retract = seg(p, 0.66, 0.74);
+    const retract = seg(p, T.retract[0], T.retract[1]);
     const tipDraw = retract > 0 ? tipClamp * (1 - retract) - 30 * retract : tipClamp;
     const tipMid = (x) => (topAt(Math.max(0, x)) + floorY(Math.max(0, x))) / 2;
-    const cannulaOn = seg(p, 0.38, 0.42) * (1 - seg(p, 0.72, 0.76));
+    const cannulaOn = seg(p, T.cannulaIn[0], T.cannulaIn[1]) * (1 - seg(p, T.cannulaOut[0], T.cannulaOut[1]));
     if (cannulaOn > 0.01) {
       const ty = tipMid(tipDraw);
       cannula.setAttribute('d', `M-40 ${(ty - 34).toFixed(1)} L ${tipDraw.toFixed(1)} ${ty.toFixed(1)}`);
@@ -266,7 +378,7 @@ function initCrossSection() {
     cells.forEach((c) => {
       const y0 = topAt(c.x);
       const y1 = floorY(c.x);
-      const k = 0.7 + 0.3 * thickAt(c.x);
+      const k = Math.min(1.04, 0.7 + 0.3 * thickAt(c.x));
       let cx = c.x, cy = y0 + (y1 - y0) * c.v, r = c.r * k, alpha = 1;
       let stroke = PALE, fill = PALE_FILL, sOp = 0.5, fOp = 0.10;
 
@@ -309,13 +421,18 @@ function initCrossSection() {
       }
     });
 
-    // Measure on the right edge
-    const mx = 520;
-    const yt = topAt(mx), yb = floorY(mx);
-    measure.setAttribute('d', `M${mx} ${yt.toFixed(1)}V${yb.toFixed(1)}M${mx - 5} ${yt.toFixed(1)}h10M${mx - 5} ${yb.toFixed(1)}h10`);
-    measureLabel.setAttribute('x', String(mx + 4));
-    measureLabel.setAttribute('y', String((yt - 48).toFixed(1)));
-    measureLabel.setAttribute('text-anchor', 'end');
+    drawDetail(p, H);
+
+    // Layer label sits to the right of the model, two lines, level with the middle of the fat layer.
+    const labY = (topAt(W) + floorY(W)) / 2 - 2;
+    measureLabel.setAttribute('x', '570');
+    measureLabel.setAttribute('y', labY.toFixed(1));
+    measureLabel.setAttribute('text-anchor', 'start');
+    Array.from(measureLabel.children).forEach((t) => t.setAttribute('x', '570'));
+
+    // SKIN and MUSCLE labels sit right beside the lines they name.
+    if (skinLabel) { skinLabel.setAttribute('x', '0'); skinLabel.setAttribute('y', (skinPts[0][1] - 12).toFixed(1)); }
+    if (muscleLabel) { muscleLabel.setAttribute('x', '0'); muscleLabel.setAttribute('y', (floorY(0) + 30).toFixed(1)); }
   };
 
   const stepFor = (p) => STEP_AT.reduce((acc, t, i) => (p >= t - 0.0005 ? i : acc), 0);
@@ -323,7 +440,7 @@ function initCrossSection() {
   // Scroll driver.
   const setStep = (index) => {
     steps.forEach((s, i) => s.classList.toggle('is-active', i === index));
-    if (stepLabel) stepLabel.textContent = `0${index + 1} / 05`;
+    if (stepLabel) stepLabel.textContent = `0${index + 1} / 0${STEP_AT.length}`;
     if (stageLabel) stageLabel.textContent = STAGES[index];
     if (timeLabel) timeLabel.textContent = TIMES[index].toUpperCase();
   };
@@ -458,7 +575,7 @@ function boot() {
   initHeader();
   initMobileNav();
   initReveal();
-  initCrossSection();
+  document.querySelectorAll('[data-cross-section]').forEach((s) => initCrossSection(s, s.hasAttribute('data-detail')));
   initDoors();
   initCompare();
   initFaq();
