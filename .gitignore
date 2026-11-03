@@ -5,3 +5,7 @@ __pycache__/
 .env
 .env.*
 _shots/
+
+# Local-only tooling
+.dev/
+node_modules/

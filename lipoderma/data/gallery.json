@@ -1,0 +1,126 @@
+{
+  "categories": [
+    {
+      "id": "midface",
+      "label": "Midface",
+      "desc": "Cheek and midface support—volume and surface, after weight change or time.",
+      "quizInterest": "Changes from GLP-1 weight loss",
+      "examples": [
+        {
+          "slug": "midface-cheek-beccio",
+          "title": "Texture that reads even again.",
+          "story": "Cheek surface smoothed and tone evened, with the contour left alone.",
+          "before": "images/gallery/case-04-cheek-beccio-before.png",
+          "after": "images/gallery/case-04-cheek-beccio-after.png",
+          "courtesy": "Michelle Beccio, FNP-BC"
+        },
+        {
+          "slug": "midface-platform",
+          "title": "Volume back where time took it.",
+          "story": "Midface support restored, softening the lines without adding weight.",
+          "before": "images/gallery/case-18-midface-platform-before.png",
+          "after": "images/gallery/case-18-midface-platform-after.png",
+          "courtesy": "Greg Chernoff, MD, FRCS(C)"
+        },
+        {
+          "slug": "midface-fearmonti",
+          "title": "Volume back where weight loss took it.",
+          "story": "Midface hollowing filled after weight reduction, contour left natural.",
+          "before": "images/gallery/case-03-midface-fearmonti-before.png",
+          "after": "images/gallery/case-03-midface-fearmonti-after.png",
+          "courtesy": "Dr. Regina Fearmonti"
+        },
+        {
+          "slug": "midface-front-beccio",
+          "title": "Tired look, refreshed.",
+          "story": "Support restored through the midface so the expression matches how she feels.",
+          "before": "images/gallery/case-11-midface-beccio-front-before.png",
+          "after": "images/gallery/case-11-midface-beccio-front-after.png",
+          "courtesy": "Michelle Beccio, FNP-BC"
+        }
+      ]
+    },
+    {
+      "id": "under-eyes",
+      "label": "Under-eyes",
+      "desc": "Under-eye hollowing that can make a face look tired or drawn.",
+      "quizInterest": "Facial volume",
+      "examples": [
+        {
+          "slug": "under-eyes-woodby",
+          "title": "A softer frame, nothing frozen.",
+          "story": "Under-eye hollowing eased for a balanced, rested look.",
+          "before": "images/gallery/case-02-temples-woodby-before.png",
+          "after": "images/gallery/case-02-temples-woodby-after.png",
+          "courtesy": "Carrie Woodby, NP"
+        }
+      ]
+    },
+    {
+      "id": "hands",
+      "label": "Hands",
+      "desc": "Lost cushion and visible structure across the back of the hand.",
+      "quizInterest": "Hands",
+      "examples": [
+        {
+          "slug": "hands-woodby",
+          "title": "Cushion restored, structure softened.",
+          "story": "Veins and tendons less prominent across the back of the hand.",
+          "before": "images/gallery/case-06-hands-woodby-before.png",
+          "after": "images/gallery/case-06-hands-woodby-after.png",
+          "courtesy": "Carrie Woodby, NP"
+        },
+        {
+          "slug": "hands-beccio-ring",
+          "title": "The cushion she had a decade ago.",
+          "story": "Hands look softer without losing their character.",
+          "before": "images/gallery/case-07-hands-beccio-ring-before.png",
+          "after": "images/gallery/case-07-hands-beccio-ring-after.png",
+          "courtesy": "Michelle Beccio, FNP-BC"
+        }
+      ]
+    },
+    {
+      "id": "hips",
+      "label": "Hips",
+      "desc": "Hip and buttock contour after fat loss or change in weight.",
+      "quizInterest": "Body contour",
+      "examples": [
+        {
+          "slug": "hips-contour",
+          "title": "Smoother where it shows.",
+          "story": "Hip contour restored with natural volume at three months.",
+          "before": "images/gallery/case-17-hips-before.png",
+          "after": "images/gallery/case-17-hips-after.png",
+          "courtesy": "Dr. Rian A. Maercks, MD",
+          "objectPosition": "50% 34%",
+          "photoScale": 1.28
+        }
+      ]
+    },
+    {
+      "id": "jawline",
+      "label": "Jawline",
+      "desc": "Lower-face support lost to aging or weight change.",
+      "quizInterest": "Facial volume",
+      "examples": [
+        {
+          "slug": "jawline-beccio-profile",
+          "title": "Familiar from every angle.",
+          "story": "Jawline support restored without changing the face you know.",
+          "before": "images/gallery/case-01-jawline-beccio-before.png",
+          "after": "images/gallery/case-01-jawline-beccio-after.png",
+          "courtesy": "Michelle Beccio, FNP-BC"
+        },
+        {
+          "slug": "jawline-fearmonti-male",
+          "title": "Restored, not reshaped.",
+          "story": "Lower-face volume replaced with restraint.",
+          "before": "images/gallery/case-05-jawline-fearmonti-male-before.png",
+          "after": "images/gallery/case-05-jawline-fearmonti-male-after.png",
+          "courtesy": "Dr. Regina Fearmonti"
+        }
+      ]
+    }
+  ]
+}
