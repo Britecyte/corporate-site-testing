@@ -82,6 +82,7 @@ function tagReveals() {
     const i = seen.get(parent) || 0;
     seen.set(parent, i + 1);
     el.style.setProperty('--d', Math.min(i, 6) * 80 + 'ms');
+    el.style.setProperty('--i', Math.min(i, 6));
   });
 }
 

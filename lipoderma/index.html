@@ -18,6 +18,107 @@
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
 <link rel="stylesheet" href="css/site.css?v=20261104a" />
 <link rel="stylesheet" href="css/glass.css?v=20261104a" />
+<link rel="stylesheet" href="css/motion.css?v=20261104b" />
+<link rel="stylesheet" href="css/layout.css?v=20261104a" />
+<link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Britecyte, Inc.",
+    "url": "https://britecyte.com",
+    "email": "brighterlives@britecyte.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Frederick",
+      "addressRegion": "MD",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.instagram.com/restorewithlipoderma/",
+      "https://www.linkedin.com/company/britecyte-inc"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Lipoderma — The fat worth keeping",
+    "url": "https://britecyte.github.io/corporate-site-testing/lipoderma/",
+    "description": "Lipoderma is a human adipose allograft that restores lost support and volume in the face, neck, and hands. Administered only by licensed physicians.",
+    "about": {
+      "@type": "Thing",
+      "name": "Lipoderma",
+      "description": "Donated human adipose tissue, processed to preserve native structure, placed by licensed physicians in the face, neck, and hands.",
+      "brand": {
+        "@type": "Organization",
+        "name": "Britecyte, Inc."
+      }
+    },
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What exactly is Lipoderma?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lipoderma is a human adipose allograft — donated fat tissue that has been screened, processed to preserve its native structure, and prepared for placement with a cannula or needle. It is used to restore lost support and volume in the face, neck, and hands."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is this different from filler?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fillers are engineered materials that add volume. Lipoderma is adipose tissue, which is what the face is built from in the first place. The distinction matters because the goal is restoring the layer, not occupying space inside it. Ask your provider which approach fits your face and your goals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it my own fat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Lipoderma is donated human adipose tissue from carefully screened donors, processed in an FDA-registered tissue establishment in accordance with applicable regulations for human tissue products. It is not harvested from your body."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I've lost weight on a GLP-1. Is this for me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rapid weight loss can reduce the fat that supports the face, contributing to hollowing, sagging, and changes in contour. That's a structural change, and it's the kind Lipoderma is designed to address. Whether it's right for you is a conversation for your provider."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lipoderma is made from screened donor tissue and processed in an FDA-registered tissue establishment. As with any aesthetic procedure, your provider will discuss potential risks and determine whether Lipoderma is appropriate for you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it cost, and does insurance cover it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lipoderma is an elective aesthetic product and is self-pay. Pricing is set by your provider based on your individual treatment plan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find a provider?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the provider finder above to search by name, city, state, or ZIP. Every listed practice is licensed and trained on Lipoderma."
+          }
+        }
+      ]
+    }
+  }
+]
+</script>
 </head>
 <body>
 
@@ -32,7 +133,7 @@
       <span class="brand-logo" role="img" aria-label="Lipoderma"></span>
     </a>
     <nav class="header-nav" aria-label="Primary">
-      <a href="#structure">The layer</a>
+      <a href="#structure-detail">The layer</a>
       <a href="#product">The product</a>
       <a href="#audience">Who it's for</a>
       <a href="#results">Results</a>
@@ -50,7 +151,7 @@
 </header>
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
-  <a href="#structure">The layer</a>
+  <a href="#structure-detail">The layer</a>
   <a href="#product">The product</a>
   <a href="#audience">Who it's for</a>
   <a href="#results">Results</a>
@@ -81,10 +182,14 @@
           the thing that makes a face read as yours.
         </p>
 
-        <div class="hero-actions">
-          <a class="btn" href="#providers">Find a provider</a>
-          <a class="btn btn--ghost" href="#structure">See how it works</a>
-        </div>
+        <form class="hero-find" data-hero-find role="search" aria-label="Find a provider">
+          <div class="hero-find-row">
+            <label class="visually-hidden" for="hero-find-q">City, state, or ZIP</label>
+            <input id="hero-find-q" type="search" name="q" placeholder="City, state, or ZIP" autocomplete="postal-code" />
+            <button class="btn" type="submit">Find a provider</button>
+          </div>
+          <p class="hero-find-sub"><a class="trust" href="#faq">Physician-placed only</a> · <a href="#structure-detail">See how it works</a></p>
+        </form>
       </div>
 
       <div class="hero-visual">
@@ -146,6 +251,8 @@
   </section>
 
   <!-- ── Structure: scroll-driven cross-section ───────────── -->
+  <!-- Kept off the page. Move this template’s contents back to restore the 5-step animation. -->
+  <template id="structure-simple-kept">
   <section class="structure" id="structure" data-theme="light" data-cross-section aria-labelledby="structure-title">
     <div class="structure-sticky">
       <div class="structure-inner">
@@ -247,6 +354,8 @@
   </section>
 
   <!-- Detailed variant: refinement + vessels. Decide later whether this ships. -->
+  </template>
+
   <section class="structure" id="structure-detail" data-detail data-theme="light" data-cross-section aria-labelledby="structure-title-2">
     <div class="structure-sticky">
       <div class="structure-inner">
@@ -359,7 +468,7 @@
   </section>
 
   <!-- ── Product ──────────────────────────────────────────── -->
-  <section class="section section--bone" id="product" data-theme="light" aria-labelledby="product-title">
+  <section class="section section--bone" id="product" data-theme="light" data-band="paper" aria-labelledby="product-title">
     <div class="wrap">
       <div class="product-grid">
         <div class="product-figure reveal">
@@ -425,7 +534,7 @@
   </section>
 
   <!-- ── Audience doors ───────────────────────────────────── -->
-  <section class="section section--dark" id="audience" data-theme="light" aria-labelledby="audience-title">
+  <section class="section section--dark" id="audience" data-theme="dark" data-band="navy" aria-labelledby="audience-title">
     <div class="wrap">
       <div class="doors">
         <div>
@@ -684,6 +793,7 @@
         <div class="closing-actions reveal">
           <a class="btn" href="#providers">Find a provider</a>
           <a class="btn btn--ghost" href="mailto:brighterlives@britecyte.com">Talk to our team</a>
+          <a class="trust" href="#faq">Physician-placed only</a>
         </div>
         <address class="contact-address reveal">
           <strong>Britecyte, Inc.</strong><br />
@@ -730,6 +840,8 @@
 
 </main>
 
+<div class="sticky-cta" data-sticky-cta><a class="btn" href="#providers">Find a provider</a><a class="trust" href="#faq">Physician-placed only</a></div>
+
 <!-- ── Footer ───────────────────────────────────────────────── -->
 <footer class="site-footer" data-theme="light">
   <div class="wrap">
@@ -741,7 +853,7 @@
 
       <div class="footer-col">
         <h3>Explore</h3>
-        <a href="#structure">The layer</a>
+        <a href="#structure-detail">The layer</a>
         <a href="#product">The product</a>
         <a href="#results">Results</a>
         <a href="gallery/">Gallery</a>
@@ -778,6 +890,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261104a"></script>
+<script type="module" src="js/main.js?v=20261104b"></script>
+<script type="module" src="js/motion.js?v=20261104b"></script>
 </body>
 </html>

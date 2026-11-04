@@ -116,8 +116,8 @@ export async function initProviders() {
     return L.divIcon({
       className: '',
       html: `<span class="ld-marker${active ? ' is-active' : ''}"></span>`,
-      iconSize: [12, 12],
-      iconAnchor: [6, 6],
+      iconSize: [24, 24],
+      iconAnchor: [0, 24],   // pin tip = bottom-left corner of the box
     });
   }
 
@@ -145,16 +145,18 @@ export async function initProviders() {
       .sort((a, b) => (a.d === b.d ? 0 : a.d - b.d) || 0);
 
     const list = filtered.map(({ p, d }) => `
-      <button type="button" class="provider-item${p.id === activeId ? ' is-active' : ''}" data-id="${escapeHtml(p.id)}">
-        <span class="p-name">${escapeHtml(p.doctor || p.practice)}</span>
-        <span class="p-place">${escapeHtml([p.practice, p.city, p.state].filter(Boolean).join(' · '))}${
-          Number.isFinite(d) ? ` · ${d.toFixed(0)} mi` : ''
-        }</span>
+      <article class="provider-item${p.id === activeId ? ' is-active' : ''}" data-id="${escapeHtml(p.id)}">
+        <button type="button" class="p-main">
+          <span class="p-name">${escapeHtml(p.doctor || p.practice)}</span>
+          <span class="p-place">${escapeHtml([p.practice, p.city, p.state].filter(Boolean).join(' · '))}${
+            Number.isFinite(d) ? ` · ${d.toFixed(0)} mi` : ''
+          }</span>
+        </button>
         <span class="p-actions">
-          ${p.phone ? `<a href="tel:${escapeHtml(p.phone.replace(/[^\d+]/g, ''))}">${escapeHtml(p.phone)}</a>` : ''}
-          ${p.website ? `<a href="${escapeHtml(p.website)}" target="_blank" rel="noopener">Website</a>` : ''}
+          ${p.phone ? `<a class="p-btn" href="tel:${escapeHtml(p.phone.replace(/[^\d+]/g, ''))}">Call</a>` : ''}
+          ${p.website ? `<a class="p-btn" href="${escapeHtml(p.website)}" target="_blank" rel="noopener">Website</a>` : ''}
         </span>
-      </button>
+      </article>
     `).join('');
 
     listEl.innerHTML = list || `<p class="provider-empty">${STATUS.empty}</p>`;
@@ -187,7 +189,8 @@ export async function initProviders() {
   listEl.addEventListener('click', (e) => {
     const item = e.target.closest('.provider-item');
     if (!item) return;
-    if (e.target.closest('a')) return; // let tel / website links through
+    if (e.target.closest('a')) return;
+    if (!e.target.closest('.p-main') && !e.target.closest('.provider-item')) return; // let tel / website links through
     const p = providers.find(x => x.id === item.dataset.id);
     if (p) focusProvider(p);
   });

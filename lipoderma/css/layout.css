@@ -1,0 +1,166 @@
+/* ==========================================================
+   layout.css — composition shake-up for the main page.
+   Pure CSS over the existing markup (display: contents lets
+   children of a column join the parent grid).
+   ========================================================== */
+
+.section { padding-block: clamp(5rem, 13vh, 10.5rem); }
+
+/* ---------- Hero: straight, readable, one clear action ---------- */
+.hero-lede { max-width: 44ch; }
+.hero-find {
+  margin-top: clamp(1.6rem, 3vh, 2.25rem);
+  display: grid;
+  gap: 0.6rem;
+  max-width: 34rem;
+}
+.hero-find-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--glass-fill);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+.hero-find input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--ink);
+  padding: 0.8rem 1rem;
+  outline: none;
+}
+.hero-find input::placeholder { color: rgba(14, 38, 82, 0.55); }
+.hero-find .btn { flex: none; }
+.hero-find-sub { font-size: 0.8125rem; color: var(--on-dark-soft); }
+.hero-find-sub a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Reframe: heading, then image beside copy (no tilt) ---------- */
+@media (min-width: 62rem) {
+  .reframe-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: start; }
+}
+
+/* ---------- Product: figure beside copy, facts as a card row ---------- */
+@media (min-width: 62rem) {
+  .product-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); column-gap: clamp(2rem, 5vw, 5rem); row-gap: 0; align-items: start; grid-template-rows: auto auto auto 1fr auto auto; }
+  .product-grid > div:not(.product-figure) { display: contents; }
+  .product-grid > .product-figure { grid-column: 2; grid-row: 1 / span 4; margin-top: 2rem; }
+  .product-grid > div > *:not(.fact-list):not(.note) { grid-column: 1; }
+  .product-grid .fact-list {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+    border-top: 0;
+  }
+  .product-grid .fact-list li {
+    display: block;
+    padding: 1.25rem;
+    border: var(--glass-border);
+    background: var(--glass-fill);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    backdrop-filter: blur(24px) saturate(170%);
+  }
+  .product-grid .fact-list .num { display: block; font-size: 1.6rem; margin-bottom: 1.25rem; }
+  .product-grid .note { grid-column: 1 / -1; margin-top: 1.5rem; }
+}
+
+/* ---------- Results: quote card overlaps the slider ---------- */
+@media (min-width: 62rem) {
+  .compare-layout { grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.75fr); align-items: end; }
+  .compare-layout > div:last-child {
+    position: relative;
+    z-index: 2;
+    margin-left: -7rem;
+    margin-bottom: 4rem;
+    padding: clamp(1.5rem, 2.6vw, 2.5rem);
+    background: linear-gradient(150deg, rgba(240, 246, 255, 0.92), rgba(214, 229, 255, 0.82));
+    border: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+  .compare-layout .result-quote { max-width: none; }
+}
+
+/* ---------- Mobile: persistent primary action ---------- */
+.sticky-cta { display: none; }
+@media (max-width: 47.99rem) {
+  .sticky-cta {
+    position: fixed;
+    inset: auto 0.75rem 0.75rem 0.75rem;
+    z-index: 55;
+    display: flex;
+    justify-content: center;
+    padding-block: 1rem;
+    box-shadow: 0 14px 30px -12px rgba(14, 38, 82, 0.55);
+    transition: transform 0.4s var(--ease-out), opacity 0.3s var(--ease);
+  }
+  .sticky-cta.is-hidden { transform: translateY(140%); opacity: 0; pointer-events: none; }
+  body { padding-bottom: 5rem; }
+}
+
+/* ---------- Rhythm: paper band and navy band ---------- */
+[data-band="paper"] { background: #eef3fb; }
+[data-band="navy"] { background: #0e2652; color: #f4f7ff; }
+[data-band="navy"] .label,
+[data-band="navy"] .muted,
+[data-band="navy"] .door,
+[data-band="navy"] .door-meta,
+[data-band="navy"] .door-panel > p,
+[data-band="navy"] .door-points li { color: rgba(244, 247, 255, 0.78); }
+[data-band="navy"] .door[aria-selected="true"],
+[data-band="navy"] .door:hover { color: #fff; }
+[data-band="navy"] .door-list,
+[data-band="navy"] .door,
+[data-band="navy"] .door-points { border-color: rgba(255, 255, 255, 0.18); }
+[data-band="navy"] .door-panels {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+}
+[data-band="navy"] .arrow-link { color: var(--peach); }
+
+.trust {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.closing-actions .trust { align-self: center; }
+.sticky-cta { gap: 0.85rem; align-items: center; }
+.sticky-cta .trust { color: var(--blue-deep); background: rgba(255,255,255,0.85); padding: 0.35rem 0.55rem; text-decoration: none; }
+
+.provider-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0.75rem; }
+.provider-item .p-main { display: grid; gap: 0.25rem; text-align: left; min-width: 0; }
+.provider-item .p-actions { display: flex; gap: 0.4rem; }
+.p-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5.5rem;
+  min-height: 2.6rem;
+  padding: 0.55rem 0.8rem;
+  background: var(--peach);
+  color: var(--blue-deep);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.p-btn:hover { background: var(--peach-soft); }
+@media (max-width: 40rem) {
+  .provider-item { grid-template-columns: 1fr; }
+  .provider-item .p-actions { width: 100%; }
+  .p-btn { flex: 1; }
+}
