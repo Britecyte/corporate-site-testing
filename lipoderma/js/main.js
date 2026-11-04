@@ -61,7 +61,32 @@ function initMobileNav() {
 }
 
 /* ── reveal on scroll ───────────────────────────────────── */
+const REVEAL_SELECTORS = [
+  '.section-head > *', '.label', '.display', '.lede', '.body-copy', '.reframe-copy p',
+  '.reframe-aside', '.product-figure', '.fact-list li', '.note', '.door-list .door',
+  '.door-panels', '.compare-layout > *', '.providers-head > *', '.provider-shell',
+  '.faq-layout > *', '.faq-item', '.footer-top > *', '.footer-bottom', '.footer-disclaimer',
+  '.page-head .wrap > *', '.hero-eyebrow', '.hero-title', '.hero-lede', '.hero-actions',
+  '.hero-visual', '.hero-foot',
+];
+
+function tagReveals() {
+  document.querySelectorAll(REVEAL_SELECTORS.join(',')).forEach(el => {
+    if (el.closest('.structure')) return;           // scroll-driven section handles itself
+    el.classList.add('reveal');
+  });
+  // stagger siblings that enter together
+  const seen = new Map();
+  document.querySelectorAll('.reveal').forEach(el => {
+    const parent = el.parentElement;
+    const i = seen.get(parent) || 0;
+    seen.set(parent, i + 1);
+    el.style.setProperty('--d', Math.min(i, 6) * 80 + 'ms');
+  });
+}
+
 function initReveal() {
+  tagReveals();
   const items = document.querySelectorAll('.reveal');
   if (!items.length) return;
 
@@ -590,6 +615,25 @@ function initFaq() {
 }
 
 /* ── year ───────────────────────────────────────────────── */
+/* ── contact form (preview: validates, never posts) ─────── */
+function initContactForm() {
+  const form = document.querySelector('[data-contact-form]');
+  if (!form) return;
+  const ok = form.querySelector('[data-form-success]');
+  const bad = form.querySelector('[data-form-error]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    ok.hidden = bad.hidden = true;
+    if (form.elements.company && form.elements.company.value) return;   // honeypot
+    const valid = form.elements.name.value.trim() &&
+      /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.elements.email.value.trim()) &&
+      form.elements.message.value.trim();
+    if (!valid) { bad.hidden = false; return; }
+    ok.hidden = false;
+    form.reset();
+  });
+}
+
 function initYear() {
   document.querySelectorAll('[data-year]').forEach(el => {
     el.textContent = String(new Date().getFullYear());
@@ -606,6 +650,7 @@ function boot() {
   initCompare();
   initFaq();
   initYear();
+  initContactForm();
 
   import('./providers.js?v=20261102a')
     .then(m => m.initProviders())

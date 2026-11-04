@@ -9,7 +9,7 @@ const fmt = (s) => s.replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 
-/* Files are keyed by slug: img/gallery/<slug>-before.webp */
+/* Photos are placeholders in this build; slugs kept for later. */
 function pairPaths(slug) {
   return {
     before: `../img/gallery/${slug}-before.webp`,
@@ -85,10 +85,8 @@ async function boot() {
               <div class="compare" data-case-compare
                    data-before="${fmt(before)}" data-after="${fmt(after)}"
                    data-title="${fmt(ex.title || '')}" data-credit="${fmt(ex.courtesy || '')}">
-                <img class="compare-before" src="${fmt(before)}" loading="lazy" decoding="async"
-                     alt="${fmt(cat.label)} before treatment" />
-                <img class="compare-after" src="${fmt(after)}" loading="lazy" decoding="async"
-                     alt="${fmt(cat.label)} after Lipoderma" />
+                <div class="ph compare-before" style="--ar:4 / 3" role="img" aria-label="Before photo placeholder"><span>Before photo<small>Image TBD</small></span></div>
+                <div class="ph compare-after" style="--ar:4 / 3" role="img" aria-label="After photo placeholder"><span>After photo<small>Image TBD</small></span></div>
                 <span class="compare-handle" aria-hidden="true"></span>
                 <span class="compare-tag compare-tag--before">Before</span>
                 <span class="compare-tag compare-tag--after">After</span>
@@ -138,8 +136,6 @@ async function boot() {
   render();
 
   /* ── lightbox ─────────────────────────────────────────── */
-  const lbBefore = lb.querySelector('[data-lb-before]');
-  const lbAfter = lb.querySelector('[data-lb-after]');
   const lbTitle = lb.querySelector('[data-lb-title]');
   const lbCredit = lb.querySelector('[data-lb-credit]');
   const lbCompare = lb.querySelector('[data-lightbox-compare]');
@@ -150,8 +146,6 @@ async function boot() {
     const compare = card.querySelector('[data-case-compare]');
     if (!compare) return;
     lastFocus = document.activeElement;
-    lbBefore.src = compare.dataset.before;
-    lbAfter.src = compare.dataset.after;
     lbTitle.textContent = compare.dataset.title || '';
     lbCredit.textContent = compare.dataset.credit ? `Courtesy of ${compare.dataset.credit}` : '';
     lb.classList.add('is-open');
