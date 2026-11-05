@@ -65,7 +65,7 @@ const REVEAL_SELECTORS = [
   '.section-head > *', '.label', '.display', '.lede', '.body-copy', '.reframe-copy p',
   '.reframe-aside', '.product-figure', '.fact-list li', '.note', '.door-list .door',
   '.door-panels', '.compare-layout > *', '.result-view', '.providers-head > *', '.provider-shell',
-  '.faq-layout > *', '.faq-item', '.footer-top > *', '.footer-bottom', '.footer-disclaimer',
+  '.faq-layout > *', '.faq-item', '.footer-top > *', '.footer-bottom',
   '.page-head .wrap > *', '.hero-eyebrow', '.hero-title', '.hero-lede', '.hero-actions',
   '.hero-visual', '.hero-foot', '.hero-find', '.contact-intro', '.contact-card',
 ];
@@ -757,12 +757,6 @@ function initFacts() {
   paint();
 }
 
-function initYear() {
-  document.querySelectorAll('[data-year]').forEach(el => {
-    el.textContent = String(new Date().getFullYear());
-  });
-}
-
 /* ── boot ───────────────────────────────────────────────── */
 function boot() {
   initHeader();
@@ -773,7 +767,6 @@ function boot() {
   initCompare();
   initFacts();
   initFaq();
-  initYear();
   initContactForm();
 
   import('./providers.js?v=20261105d')

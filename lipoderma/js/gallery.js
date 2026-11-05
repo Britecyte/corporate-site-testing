@@ -183,7 +183,6 @@ async function boot() {
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  document.querySelectorAll('[data-year]').forEach(el => { el.textContent = String(new Date().getFullYear()); });
 
   const toggle = document.querySelector('[data-menu-toggle]');
   const nav = document.querySelector('[data-mobile-nav]');

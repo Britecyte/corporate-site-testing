@@ -96,7 +96,6 @@ function boot() {
   initNav();
   initReveal();
   document.querySelectorAll('[data-compare]').forEach(bindCompare);
-  document.querySelectorAll('[data-year]').forEach(el => { el.textContent = String(new Date().getFullYear()); });
 }
 
 if (document.readyState === 'loading') {
