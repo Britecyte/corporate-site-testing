@@ -597,6 +597,168 @@ html { scroll-padding-top: var(--site-header-h); }
   margin-top: 0.55rem;
   line-height: 1.4;
 }
+
+/* Portrait is the mobile layout, even when the window is wide.
+   A window taller than it is wide stacks. Percentages stay tied
+   to the window (svh / vw), not a fixed phone width. */
+@media (max-aspect-ratio: 1/1) {
+  .header-nav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .sticky-cta {
+    position: fixed;
+    inset: auto 4vw 3svh 4vw;
+    z-index: 55;
+    display: flex;
+    justify-content: center;
+    padding-block: 2.5svh;
+    box-shadow: 0 14px 30px -12px rgba(14, 38, 82, 0.55);
+  }
+  .sticky-cta.is-hidden { transform: translateY(140%); opacity: 0; pointer-events: none; }
+  body { padding-bottom: 12svh; }
+
+  .section {
+    min-height: 0;
+    height: auto;
+    justify-content: flex-start;
+    padding-block: 6svh;
+    overflow: visible;
+  }
+  .hero {
+    min-height: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: var(--site-header-h);
+    padding-bottom: 4svh;
+    gap: 3svh;
+  }
+  .hero-visual {
+    position: relative;
+    height: 38svh;
+    order: 0;
+    margin-inline: 5vw;
+  }
+  .hero-visual-frame { border-radius: 0; }
+  .hero-visual::after { background: none; }
+  .hero-glow, .hero-grid-lines { display: none; }
+  .hero-inner { width: 100%; }
+  .hero-main { padding-top: 1svh; }
+  .hero-title { font-size: clamp(2.6rem, 11vw, 4.2rem); max-width: 12ch; }
+  .hero-lede { font-size: clamp(0.95rem, 3.6vw, 1.1rem); max-width: 36ch; }
+  .hero-find { max-width: none; margin-top: 2.5svh; }
+  .hero-find-row { flex-direction: column; align-items: stretch; }
+  .hero-find-row .btn { width: 100%; }
+  .hero-foot { margin-top: 2svh; }
+  .hero-foot-facts { gap: 0.4rem 1.25rem; font-size: 0.72rem; }
+  .h2, #reframe .h2, #product .h2, #providers .providers-intro h2, #audience .h2, #faq .h2 {
+    font-size: clamp(1.85rem, 8vw, 2.8rem);
+    max-width: 16ch;
+    margin-top: 0;
+  }
+
+  .reframe-grid,
+  .product-grid,
+  .structure-inner,
+  .doors,
+  .compare-layout,
+  .faq-layout,
+  .contact-layout,
+  .footer-top,
+  #providers .providers-head,
+  #providers .provider-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #reframe { height: auto; min-height: 0; padding-block: 5svh; }
+  #reframe .reframe-sticky { position: static; height: auto; display: block; overflow: visible; }
+  #reframe .reframe-grid { gap: 3svh; }
+  #reframe .h2 { margin-bottom: 1.25rem; }
+  #reframe .reframe-copy { max-width: none; font-size: clamp(1rem, 3.8vw, 1.15rem); }
+  #reframe .reframe-aside { justify-items: stretch; justify-self: stretch; }
+  #reframe .compare {
+    width: 100%;
+    max-height: none;
+    aspect-ratio: 4 / 5;
+    margin-inline: 0;
+    justify-self: stretch;
+  }
+  #reframe .reframe-caption { justify-self: start; max-width: none; }
+
+  .structure { height: 240svh; }
+  .structure-sticky {
+    height: calc(100svh - var(--site-header-h));
+    align-items: stretch;
+    overflow: hidden;
+    padding-block: 2svh;
+  }
+  .structure-inner { align-items: stretch; gap: 2svh; height: 100%; }
+  .structure-copy, .structure-visual { order: 0; min-height: 0; }
+  .structure-copy { align-content: start; }
+  .structure-visual { order: 1; }
+  .structure-stage { order: 0; padding: 0.6rem; }
+  .structure-stage svg { max-height: 34svh; }
+  .structure-step h3 { font-size: clamp(1.35rem, 5.5vw, 1.85rem); margin-top: 0.4rem; max-width: none; }
+  .structure-step p { margin-top: 0.55rem; font-size: 0.92rem; max-width: none; }
+  .structure-meter { margin-top: 1rem; }
+  .structure-note { margin-top: 0.6rem; }
+
+  .product-grid { gap: 3svh; }
+  .product-grid > div:not(.product-figure) { display: block; }
+  .product-grid > .product-figure,
+  .product-grid > div > *:not(.fact-list):not(.note),
+  .product-grid .fact-list,
+  .product-grid .note { grid-column: auto; grid-row: auto; }
+  .product-figure { width: min(72vw, 42svh); max-height: none; order: -1; }
+  #product .lede, #product .body-copy { max-width: none; }
+  #product .fact-list { height: 11.5rem; margin-top: 1.5rem; }
+  #product .fact-list li { right: 1.4rem; padding: 0.85rem 0.9rem; }
+  #product .fact-list li[data-depth="1"] { transform: translate(10px, 10px) scale(0.98); }
+  #product .fact-list li[data-depth="2"] { transform: translate(20px, 20px) scale(0.96); }
+  #product .fact-list li[data-depth="3"] { transform: translate(30px, 30px) scale(0.94); }
+
+  .doors { gap: 3svh; }
+  .door-list { margin-top: 2svh; }
+  .door { padding-block: 0.85rem; }
+  .door-name { font-size: clamp(1.35rem, 5vw, 1.8rem); }
+  .door-panels { min-height: 0; padding: 1.15rem; }
+
+  #results .section-head { gap: 0.6rem; }
+  #results .result-views { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3vw; }
+  #results .result-view .compare { aspect-ratio: 3 / 4; }
+  #results .result-view figcaption { letter-spacing: 0.08em; font-size: 0.62rem; }
+  #results .result-views-note { font-size: 0.8rem; }
+
+  #providers {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    padding-block: 4svh;
+  }
+  #providers .providers-head { flex-direction: column; align-items: stretch; gap: 2svh; margin-bottom: 2svh; }
+  #providers .provider-lead { flex: none; max-width: none; width: 100%; }
+  #providers .provider-shell {
+    height: 78svh;
+    grid-template-rows: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+  #providers .provider-list { border-left: 0; border-top: 1px solid var(--hair-light); }
+  #providers .provider-item { grid-template-columns: minmax(0, 1fr); align-items: stretch; gap: 0.55rem; }
+  #providers .provider-item .p-actions { width: 100%; }
+  #providers .provider-item .p-btn { flex: 1; }
+
+  #faq .faq-layout { gap: 3svh; }
+  #faq .faq-aside { width: min(100%, 70vw); margin-top: 2svh; aspect-ratio: 4 / 5; }
+  #faq .faq-q { gap: 1rem; font-size: clamp(1rem, 4vw, 1.2rem); padding-block: 0.9rem; }
+
+  #contact { height: auto; overflow: visible; padding-block: 5svh 8svh; }
+  #contact .contact-layout { align-items: stretch; }
+  #contact .contact-layout h2 { max-width: 14ch; }
+  #contact .closing-actions { flex-direction: column; align-items: stretch; }
+  #contact .closing-actions .btn { width: 100%; }
+  #contact .contact-form-split { grid-template-columns: minmax(0, 1fr); }
+  .footer-top { gap: 2svh; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
 @media (max-width: 40rem) {
   .provider-item { grid-template-columns: 1fr; }
   .provider-item .p-actions { width: 100%; }
