@@ -238,6 +238,62 @@ function initCrossSection(section, detail = false) {
   const timeLabel = $('cs-time');
   const dermisPath = $('cs-dermis-path');
   const basementPath = $('cs-basement');
+  let skinRipple = null;
+
+  // Same squish as the Britecyte hero field: the cell you touch pops,
+  // neighbors ripple out, and the skin gives with them. Works on every step.
+  if (!REDUCED) {
+    const stage = section.querySelector('.structure-stage');
+    const replay = (el, cls) => {
+      if (!el) return;
+      el.classList.remove('is-pop', 'is-ripple');
+      void el.getBoundingClientRect();
+      el.classList.add(cls);
+      el.addEventListener('animationend', () => el.classList.remove(cls), { once: true });
+    };
+    const poke = (x, y) => {
+      let best = null;
+      let bestD = Infinity;
+      const live = [];
+      cells.forEach((c) => {
+        const cx = Number(c.el.getAttribute('cx'));
+        const cy = Number(c.el.getAttribute('cy'));
+        const r = Number(c.el.getAttribute('r'));
+        if (!Number.isFinite(cx) || r < 1) return;
+        live.push({ el: c.el, x: cx, y: cy });
+        if (c.twin) {
+          const tx = Number(c.twin.el.getAttribute('cx'));
+          const ty = Number(c.twin.el.getAttribute('cy'));
+          const tr = Number(c.twin.el.getAttribute('r'));
+          if (Number.isFinite(tx) && tr > 1) live.push({ el: c.twin.el, x: tx, y: ty });
+        }
+      });
+      live.forEach((c) => {
+        const d = Math.hypot(c.x - x, c.y - y);
+        if (d < bestD) { bestD = d; best = c; }
+      });
+      if (best) {
+        replay(best.el, 'is-pop');
+        live.forEach((c) => {
+          if (c === best) return;
+          const d = Math.hypot(c.x - best.x, c.y - best.y);
+          if (d > 120) return;
+          window.setTimeout(() => replay(c.el, 'is-ripple'), d * 0.7);
+        });
+      }
+      skinRipple = { x, t0: performance.now() };
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+    stage?.addEventListener('pointerdown', (e) => {
+      const ctm = svg.getScreenCTM();
+      if (!ctm) return;
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const local = pt.matrixTransform(ctm.inverse());
+      poke(local.x, local.y);
+    });
+  }
 
   const lost = (p) => ease(seg(p, T.loss[0], T.loss[1]));
   const tipPos = (p) => -40 + (W + 260) * seg(p, T.tip[0], T.tip[1]);   // how far the cannula has reached
@@ -399,7 +455,16 @@ function initCrossSection(section, detail = false) {
       const skinThick = 26 * (1 - 0.14 * L * (1 - restored(x)));
       bandTopPts.push([x, bt]);
       basePts.push([x, bt - 4]);
-      skinPts.push([x, bt - skinThick + wrinkle]);
+      let dip = 0;
+      if (skinRipple) {
+        const age = (performance.now() - skinRipple.t0) / 850;
+        if (age < 1) {
+          const dist = Math.abs(x - skinRipple.x);
+          const ring = Math.exp(-Math.pow((dist - age * 90) / 24, 2));
+          dip = Math.sin(age * Math.PI) * 2.5 * ring;
+        }
+      }
+      skinPts.push([x, bt - skinThick + wrinkle + dip]);
       bottomPts.push([x, floorY(x)]);
     });
     const closed = strip(bandTopPts, bottomPts);
@@ -512,6 +577,9 @@ function initCrossSection(section, detail = false) {
     const p = measureProgress();
     if (meter) meter.style.width = `${(p * 100).toFixed(1)}%`;
     draw(p);
+    if (skinRipple && performance.now() - skinRipple.t0 < 900 && !raf) {
+      raf = requestAnimationFrame(frame);
+    }
 
     const next = stepFor(p);
     if (next !== activeStep) { activeStep = next; setStep(next); }
@@ -654,6 +722,41 @@ function initContactForm() {
   });
 }
 
+function initFacts() {
+  const list = document.querySelector('#product .fact-list');
+  if (!list) return;
+  const items = [...list.children];
+  if (items.length < 2) return;
+  let index = 0;
+  let originX = 0;
+  let tracking = false;
+  const paint = () => {
+    items.forEach((el, n) => {
+      el.dataset.depth = String((n - index + items.length) % items.length);
+    });
+  };
+  const step = (dir) => {
+    index = (index + dir + items.length) % items.length;
+    paint();
+  };
+  list.addEventListener('pointerdown', (e) => {
+    if (e.button != null && e.button !== 0) return;
+    tracking = true;
+    originX = e.clientX;
+    list.setPointerCapture?.(e.pointerId);
+  });
+  list.addEventListener('pointerup', (e) => {
+    if (!tracking) return;
+    tracking = false;
+    const dx = e.clientX - originX;
+    if (dx <= -36) step(1);
+    else if (dx >= 36) step(-1);
+    else step(1);
+  });
+  list.addEventListener('pointercancel', () => { tracking = false; });
+  paint();
+}
+
 function initYear() {
   document.querySelectorAll('[data-year]').forEach(el => {
     el.textContent = String(new Date().getFullYear());
@@ -668,6 +771,7 @@ function boot() {
   document.querySelectorAll('[data-cross-section]').forEach((s) => initCrossSection(s, s.hasAttribute('data-detail')));
   initDoors();
   initCompare();
+  initFacts();
   initFaq();
   initYear();
   initContactForm();
