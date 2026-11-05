@@ -64,25 +64,16 @@ function initMobileNav() {
 const REVEAL_SELECTORS = [
   '.section-head > *', '.label', '.display', '.lede', '.body-copy', '.reframe-copy p',
   '.reframe-aside', '.product-figure', '.fact-list li', '.note', '.door-list .door',
-  '.door-panels', '.compare-layout > *', '.providers-head > *', '.provider-shell',
+  '.door-panels', '.compare-layout > *', '.result-view', '.providers-head > *', '.provider-shell',
   '.faq-layout > *', '.faq-item', '.footer-top > *', '.footer-bottom', '.footer-disclaimer',
   '.page-head .wrap > *', '.hero-eyebrow', '.hero-title', '.hero-lede', '.hero-actions',
-  '.hero-visual', '.hero-foot',
+  '.hero-visual', '.hero-foot', '.hero-find', '.contact-intro', '.contact-card',
 ];
 
 function tagReveals() {
   document.querySelectorAll(REVEAL_SELECTORS.join(',')).forEach(el => {
     if (el.closest('.structure')) return;           // scroll-driven section handles itself
     el.classList.add('reveal');
-  });
-  // stagger siblings that enter together
-  const seen = new Map();
-  document.querySelectorAll('.reveal').forEach(el => {
-    const parent = el.parentElement;
-    const i = seen.get(parent) || 0;
-    seen.set(parent, i + 1);
-    el.style.setProperty('--d', Math.min(i, 6) * 80 + 'ms');
-    el.style.setProperty('--i', Math.min(i, 6));
   });
 }
 
@@ -103,7 +94,7 @@ function initReveal() {
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
 
   items.forEach(el => io.observe(el));
 }
@@ -349,11 +340,20 @@ function initCrossSection(section, detail = false) {
     vesselsGroup.setAttribute('clip-path', 'url(#cs-clip' + SFX + ')');
   }
 
+  const subjectGroup = detail ? $('cs-subject') : null;
   const drawDetail = (p, H) => {
     if (!detail) return;
     const f = seg(p, T.filter[0], T.filter[1]);
     const vis = seg(p, T.trayIn[0], T.trayIn[1]) * (1 - seg(p, T.trayOut[0], T.trayOut[1]));
     trayGroup.style.opacity = String(vis);
+    // Step 3: the face leaves and the processing tray takes its place, larger.
+    // Step 4: the tray leaves and the face comes back.
+    const homeX = 280, homeY = 608, destX = 300, destY = 360;
+    const scale = 1 + 0.55 * vis;
+    const x = homeX + (destX - homeX) * vis;
+    const y = homeY + (destY - homeY) * vis;
+    trayGroup.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${scale.toFixed(3)}) translate(${-homeX} ${-homeY})`);
+    if (subjectGroup) subjectGroup.style.opacity = String(1 - vis);
     tray.cap.textContent = f < 0.5 ? 'RAW DONOR TISSUE' : 'REFINED TISSUE';
     tray.rbc.forEach((o) => {
       o.el.setAttribute('cx', (o.x + o.d * f).toFixed(1)); o.el.setAttribute('cy', (o.y + 20 * f).toFixed(1));
@@ -563,42 +563,61 @@ function initDoors() {
 
 /* ── before / after compare ─────────────────────────────── */
 function initCompare() {
-  const el = document.querySelector('[data-compare]');
-  if (!el) return;
+  const els = Array.from(document.querySelectorAll('[data-compare]'));
+  if (!els.length) return;
 
-  const range = el.querySelector('[data-compare-range]');
-  let dragging = false;
+  els.forEach((el) => {
+    const range = el.querySelector('[data-compare-range]');
+    const scrollLinked = el.hasAttribute('data-scroll-compare');
+    let dragging = false;
 
-  const set = (pct) => {
-    const v = Math.min(100, Math.max(0, pct));
-    el.style.setProperty('--pos', `${v}%`);
-    if (range) range.value = String(Math.round(v));
-  };
+    const set = (pct) => {
+      const v = Math.min(100, Math.max(0, pct));
+      el.style.setProperty('--pos', `${v}%`);
+      if (range) range.value = String(Math.round(v));
+    };
 
-  const pctFromEvent = (e) => {
-    const r = el.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    return (x / r.width) * 100;
-  };
+    const pctFromEvent = (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      return (x / r.width) * 100;
+    };
 
-  const start = (e) => { dragging = true; set(pctFromEvent(e)); el.focus?.(); };
-  const move = (e) => { if (dragging) { set(pctFromEvent(e)); if (e.cancelable) e.preventDefault(); } };
-  const end = () => { dragging = false; };
+    // While the section is pinned, scroll only moves the slider (10% → 90%).
+    const fromScroll = () => {
+      const section = el.closest('section') || el;
+      const rect = section.getBoundingClientRect();
+      const headerH = document.querySelector('.site-header')?.getBoundingClientRect().height || 0;
+      const stickyH = window.innerHeight - headerH;
+      const travel = rect.height - stickyH;
+      const p = travel > 0 ? (headerH - rect.top) / travel : 0;
+      return 10 + Math.min(1, Math.max(0, p)) * 80;
+    };
 
-  el.addEventListener('pointerdown', (e) => { el.setPointerCapture?.(e.pointerId); start(e); });
-  el.addEventListener('pointermove', move);
-  el.addEventListener('pointerup', end);
-  el.addEventListener('pointercancel', end);
-  el.addEventListener('pointerleave', end);
+    const start = (e) => { dragging = true; set(pctFromEvent(e)); };
+    const move = (e) => { if (dragging) { set(pctFromEvent(e)); if (e.cancelable) e.preventDefault(); } };
+    const end = () => { dragging = false; };
 
-  range?.addEventListener('input', () => set(Number(range.value)));
+    el.addEventListener('pointerdown', (e) => { el.setPointerCapture?.(e.pointerId); start(e); });
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', end);
+    el.addEventListener('pointercancel', end);
+    el.addEventListener('pointerleave', end);
 
-  // Hover-follow on pointer devices feels alive without being gimmicky.
-  if (!REDUCED && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    el.addEventListener('pointermove', (e) => { if (!dragging && e.pointerType === 'mouse' && e.buttons === 1) set(pctFromEvent(e)); });
-  }
+    range?.addEventListener('input', () => set(Number(range.value)));
 
-  set(50);
+    if (scrollLinked && !REDUCED) {
+      const onScroll = () => {
+        if (dragging) return;
+        set(fromScroll());
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    } else {
+      set(range ? Number(range.value) : 50);
+    }
+  });
 }
 
 /* ── FAQ accordion ──────────────────────────────────────── */
@@ -653,7 +672,7 @@ function boot() {
   initYear();
   initContactForm();
 
-  import('./providers.js?v=20261102a')
+  import('./providers.js?v=20261105d')
     .then(m => m.initProviders())
     .catch(() => {});
 }

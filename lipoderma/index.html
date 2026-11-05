@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="css/site.css?v=20261104a" />
 <link rel="stylesheet" href="css/glass.css?v=20261104a" />
 <link rel="stylesheet" href="css/motion.css?v=20261104b" />
-<link rel="stylesheet" href="css/layout.css?v=20261104a" />
+<link rel="stylesheet" href="css/layout.css?v=20261105r" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
 [
@@ -163,6 +163,11 @@
 
   <!-- ── Hero ─────────────────────────────────────────────── -->
   <section class="hero" data-theme="light" aria-labelledby="hero-title">
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual-frame">
+        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Image placeholder: Hero image"><span>Hero image<small>Image TBD</small></span></div>
+      </div>
+    </div>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-grid-lines" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -188,39 +193,30 @@
             <input id="hero-find-q" type="search" name="q" placeholder="City, state, or ZIP" autocomplete="postal-code" />
             <button class="btn" type="submit">Find a provider</button>
           </div>
-          <p class="hero-find-sub"><a class="trust" href="#faq">Physician-placed only</a> · <a href="#structure-detail">See how it works</a></p>
+          <p class="hero-find-sub"><a href="#structure-detail">See how it works</a></p>
         </form>
       </div>
 
-      <div class="hero-visual">
-        <span class="hero-visual-caption">Human adipose allograft · Face, neck, hands</span>
-        <div class="hero-visual-frame">
-          <div class="ph" style="--ar:4 / 5" role="img" aria-label="Image placeholder: Hero image"><span>Hero image<small>Image TBD</small></span></div>
-          <span class="hero-visual-tag">Restore, don't reinvent</span>
-        </div>
-      </div>
     </div>
 
     <div class="hero-inner">
       <div class="hero-foot">
         <div class="hero-foot-facts">
           <span>Adipose allograft</span>
-          <span>Physician-placed</span>
           <span>Face · Neck · Hands</span>
         </div>
-        <span class="scroll-cue">Scroll <i aria-hidden="true"></i></span>
       </div>
     </div>
   </section>
 
   <!-- ── Reframe ──────────────────────────────────────────── -->
   <section class="section section--bone" id="reframe" data-theme="light" aria-labelledby="reframe-title">
+    <div class="reframe-sticky">
     <div class="wrap">
       <div class="reframe-grid">
         <div>
-          <p class="label reveal">The reframe</p>
           <h2 class="display h2 reveal" id="reframe-title" style="margin-top:1.5rem;max-width:20ch;margin-bottom:2.25rem">
-            Fat is not filler.<br><span class="serif-italic" style="color:var(--flame-deep)">It's structure.</span>
+            Fat is not filler.<br><span class="serif-italic" style="color:var(--peach)">It's structure.</span>
           </h2>
           <div class="reframe-copy reveal">
             <p>
@@ -238,15 +234,18 @@
         </div>
 
         <div class="reframe-aside reveal">
-          <figure>
-            <div class="ph" style="--ar:4 / 5" role="img" aria-label="Image placeholder: Portrait"><span>Portrait<small>Image TBD</small></span></div>
-          </figure>
-          <figcaption>
-            Fat loss rarely announces itself. It often registers as a change in how a face reads
-            before it registers as a number on a scale.
-          </figcaption>
+          <div class="compare" data-compare data-scroll-compare role="group" aria-label="Before and after, as the layer is restored">
+            <div class="ph compare-before" style="--ar:4 / 5" role="img" aria-label="Image placeholder: Before photo"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" style="--ar:4 / 5" role="img" aria-label="Image placeholder: After photo"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="10" step="1" class="visually-hidden" aria-label="Reveal before or after" data-compare-range />
+          </div>
+          <p class="reframe-caption">The comparison moves as you scroll. Drag it to look for yourself.</p>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -313,7 +312,6 @@
         </div>
 
         <div class="structure-copy">
-          <p class="label">Anatomy</p>
           <h2 class="visually-hidden" id="structure-title">The layer under everything</h2>
 
           <div class="structure-step is-active" data-step="0">
@@ -360,8 +358,9 @@
     <div class="structure-sticky">
       <div class="structure-inner">
 
+        <div class="structure-visual">
         <div class="structure-stage" aria-hidden="true">
-          <svg viewBox="-40 232 680 466" id="cross-section-2" role="presentation">
+          <svg viewBox="-15 166 630 398" id="cross-section-2" role="presentation">
             <defs>
               <linearGradient id="cs-band-2" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
@@ -380,6 +379,7 @@
               <clipPath id="cs-clip-2"><path id="cs-clip-path-2" d=""/></clipPath>
             </defs>
 
+            <g id="cs-subject-2">
             <!-- depth guides -->
             <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.09" fill="none">
               <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
@@ -404,25 +404,28 @@
             <!-- host vessels (detail) -->
             <g id="cs-vessels-2" fill="none" stroke="#e08a7a" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"></g>
 
-            <!-- refinement tray (detail) -->
-            <g id="cs-tray-2" opacity="0"></g>
-
-            <!-- cannula -->
-            <path id="cs-cannula-2" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
             <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
-
-            <!-- timeline label (data-timeline): delete this element to remove it -->
-            <text id="cs-time-2" data-timeline x="560" y="545" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
-
+            <text id="cs-time-2" data-timeline x="560" y="500" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
             <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
               <text id="cs-skin-label-2" x="0" y="220">SKIN</text>
               <text id="cs-muscle-label-2" x="0" y="446">MUSCLE / FASCIA</text>
             </g>
+            <path id="cs-cannula-2" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </g>
+
+            <!-- refinement tray: hidden under the face until step 3, when it takes the stage -->
+            <g id="cs-tray-2" opacity="0"></g>
           </svg>
+        </div>
+          <div class="structure-meter" aria-hidden="true">
+            <span id="cs-step-label-2">01 / 06</span>
+            <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
+            <span id="cs-stage-label-2">Healthy layer</span>
+          </div>
+          <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026. Detailed variant for review.</p>
         </div>
 
         <div class="structure-copy">
-          <p class="label">Anatomy · detailed version</p>
           <h2 class="visually-hidden" id="structure-title-2">The layer under everything</h2>
 
           <div class="structure-step is-active" data-step="0">
@@ -455,12 +458,6 @@
             <p>In studies, the body's own cells and new blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
           </div>
 
-          <div class="structure-meter" aria-hidden="true">
-            <span id="cs-step-label-2">01 / 06</span>
-            <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
-            <span id="cs-stage-label-2">Healthy layer</span>
-          </div>
-          <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026. Detailed variant for review.</p>
         </div>
 
       </div>
@@ -477,9 +474,8 @@
         </div>
 
         <div>
-          <p class="label reveal">The product</p>
           <h2 class="display h2 reveal" id="product-title" style="margin-top:1.5rem">
-            Lipoderma<span style="color:var(--flame-deep)">.</span>
+            Lipoderma<span style="color:var(--peach)">.</span>
           </h2>
           <p class="lede reveal" style="margin-top:1.5rem;max-width:38ch;color:var(--ink)">
             Donated human adipose tissue, processed to keep its native structure and prepared for
@@ -538,7 +534,6 @@
     <div class="wrap">
       <div class="doors">
         <div>
-          <p class="label reveal">Who it's for</p>
           <h2 class="display h2 reveal" id="audience-title" style="margin-top:1.5rem;max-width:14ch">
             One product.<br>Three <span class="serif-italic">conversations.</span>
           </h2>
@@ -614,9 +609,8 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <p class="label reveal">Outcomes</p>
           <h2 class="display h2 reveal" id="results-title" style="margin-top:1.5rem">
-            A result should read<br>as <span class="serif-italic" style="color:var(--flame-deep)">itself.</span>
+            A result should read<br>as <span class="serif-italic" style="color:var(--peach)">itself.</span>
           </h2>
         </div>
         <p class="muted reveal" style="max-width:44ch">
@@ -625,31 +619,53 @@
         </p>
       </div>
 
-      <div class="compare-layout">
-        <div class="reveal">
-          <div class="compare" data-compare role="group" aria-label="Before and after comparison, midface restoration">
-            <div class="ph compare-before" style="--ar:4 / 3" role="img" aria-label="Image placeholder: Before photo"><span>Before photo<small>Image TBD</small></span></div>
-            <div class="ph compare-after" style="--ar:4 / 3" role="img" aria-label="Image placeholder: After photo"><span>After photo<small>Image TBD</small></span></div>
+      <div class="result-views">
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, midface">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Midface before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Midface after"><span>After<small>Image TBD</small></span></div>
             <span class="compare-handle" aria-hidden="true"></span>
             <span class="compare-tag compare-tag--before">Before</span>
             <span class="compare-tag compare-tag--after">After</span>
-            <input type="range" min="0" max="100" value="50" step="1" class="visually-hidden"
-                   aria-label="Reveal before or after" data-compare-range />
+            <input type="range" min="0" max="100" value="50" step="1" class="visually-hidden" aria-label="Reveal before or after, midface" data-compare-range />
           </div>
-          <p class="compare-note">
-            Drag to compare. Individual results vary. Placeholder imagery.
-          </p>
-        </div>
-
-        <div class="reveal">
-          <p class="result-quote">
-            "I didn't want to look like I'd had something done. I wanted the mirror to catch up
-            with how I actually felt."
-          </p>
-          <p class="result-attr">Patient, midface restoration</p>
-          <a class="arrow-link" href="gallery/" style="margin-top:2rem">View the outcomes gallery <span aria-hidden="true">→</span></a>
-        </div>
+          <figcaption>Midface</figcaption>
+        </figure>
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, jawline">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Jawline before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Jawline after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="62" step="1" class="visually-hidden" aria-label="Reveal before or after, jawline" data-compare-range />
+          </div>
+          <figcaption>Jawline</figcaption>
+        </figure>
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, under-eyes">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Under-eyes before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Under-eyes after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="38" step="1" class="visually-hidden" aria-label="Reveal before or after, under-eyes" data-compare-range />
+          </div>
+          <figcaption>Under-eyes</figcaption>
+        </figure>
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, hands">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Hands before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Hands after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="55" step="1" class="visually-hidden" aria-label="Reveal before or after, hands" data-compare-range />
+          </div>
+          <figcaption>Hands</figcaption>
+        </figure>
       </div>
+      <p class="result-views-note">Drag any view. Individual results vary. Placeholder imagery. <a class="arrow-link" href="gallery/">View the outcomes gallery <span aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
@@ -657,25 +673,23 @@
   <section class="section section--dark" id="providers" data-theme="light" aria-labelledby="providers-title">
     <div class="wrap">
       <div class="providers-head">
-        <div>
-          <p class="label reveal">Access</p>
-          <h2 class="display h2 reveal" id="providers-title" style="margin-top:1.5rem;max-width:14ch">
+        <div class="providers-intro">
+          <h2 class="display h2 reveal" id="providers-title">
             A select network,<br><span class="serif-italic">by design.</span>
           </h2>
-        </div>
-        <div class="reveal">
-          <p class="muted" style="max-width:42ch">
-            Lipoderma is placed only by licensed physicians trained on the product. Search by name,
-            city, state, or ZIP to find one near you.
+          <p class="muted">
+            Lipoderma is placed only by licensed physicians trained on the product.
           </p>
+        </div>
+        <div class="provider-lead reveal">
           <div class="provider-search">
             <label class="visually-hidden" for="provider-search">Search providers</label>
-            <input id="provider-search" type="search" placeholder="Name, city, state, or ZIP"
+            <input id="provider-search" type="search" placeholder="Provider name, city, state, or ZIP"
                    autocomplete="off" data-provider-search />
             <button type="button" data-provider-locate>Use my location</button>
           </div>
-          <p class="provider-status" data-provider-status aria-live="polite"></p>
         </div>
+        <p class="provider-status" data-provider-status aria-live="polite"></p>
       </div>
 
       <div class="provider-shell reveal">
@@ -690,13 +704,15 @@
     <div class="wrap">
       <div class="faq-layout">
         <div>
-          <p class="label reveal">Questions</p>
           <h2 class="display h2 reveal" id="faq-title" style="margin-top:1.5rem">
-            Questions,<br><span class="serif-italic" style="color:var(--flame-deep)">welcome.</span>
+            Questions,<br><span class="serif-italic" style="color:var(--peach)">welcome.</span>
           </h2>
           <p class="muted reveal" style="margin-top:1.5rem;max-width:30ch;font-size:0.95rem">
             If something here isn't answered, the best next conversation is with a provider.
           </p>
+          <div class="ph faq-aside reveal" style="--ar:4 / 5" role="img" aria-label="Image placeholder: A provider in conversation">
+            <span>Provider<small>Image TBD</small></span>
+          </div>
         </div>
 
         <div class="faq-list reveal" data-faq>
@@ -771,7 +787,7 @@
               How do I find a provider? <i aria-hidden="true"></i>
             </button>
             <div class="faq-a"><div><p>
-              Use the <a href="#providers" style="color:var(--flame-deep);text-decoration:underline;text-underline-offset:3px">provider finder</a>
+              Use the <a href="#providers" style="color:var(--peach);text-decoration:underline;text-underline-offset:3px">provider finder</a>
               above to search by name, city, state, or ZIP. Every listed practice is licensed and trained
               on Lipoderma.
             </p></div></div>
@@ -793,7 +809,6 @@
         <div class="closing-actions reveal">
           <a class="btn" href="#providers">Find a provider</a>
           <a class="btn btn--ghost" href="mailto:brighterlives@britecyte.com">Talk to our team</a>
-          <a class="trust" href="#faq">Physician-placed only</a>
         </div>
         <address class="contact-address reveal">
           <strong>Britecyte, Inc.</strong><br />
@@ -808,13 +823,15 @@
           <label for="contact-company">Company</label>
           <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off" />
         </div>
-        <div class="contact-form-row">
-          <label class="contact-form-label" for="contact-name">Name</label>
-          <input type="text" id="contact-name" name="name" required class="contact-form-input" autocomplete="name" />
-        </div>
-        <div class="contact-form-row">
-          <label class="contact-form-label" for="contact-email">Email</label>
-          <input type="email" id="contact-email" name="email" required class="contact-form-input" autocomplete="email" />
+        <div class="contact-form-split">
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-name">Name</label>
+            <input type="text" id="contact-name" name="name" required class="contact-form-input" autocomplete="name" />
+          </div>
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-email">Email</label>
+            <input type="email" id="contact-email" name="email" required class="contact-form-input" autocomplete="email" />
+          </div>
         </div>
         <div class="contact-form-row">
           <label class="contact-form-label" for="contact-subject">Subject</label>
@@ -828,7 +845,7 @@
         </div>
         <div class="contact-form-row">
           <label class="contact-form-label" for="contact-message">Message</label>
-          <textarea id="contact-message" name="message" rows="4" required class="contact-form-input contact-form-textarea"></textarea>
+          <textarea id="contact-message" name="message" rows="2" required class="contact-form-input contact-form-textarea"></textarea>
         </div>
         <button type="submit" class="btn">Send message</button>
         <p class="contact-form-success" data-form-success role="status" hidden>Thank you — we’ll be in touch shortly.</p>
@@ -840,7 +857,7 @@
 
 </main>
 
-<div class="sticky-cta" data-sticky-cta><a class="btn" href="#providers">Find a provider</a><a class="trust" href="#faq">Physician-placed only</a></div>
+<div class="sticky-cta" data-sticky-cta><a class="btn" href="#providers">Find a provider</a></div>
 
 <!-- ── Footer ───────────────────────────────────────────────── -->
 <footer class="site-footer" data-theme="light">
@@ -890,7 +907,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261104b"></script>
+<script type="module" src="js/main.js?v=20261105d"></script>
 <script type="module" src="js/motion.js?v=20261104b"></script>
 </body>
 </html>

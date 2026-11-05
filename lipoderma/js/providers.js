@@ -105,6 +105,7 @@ export async function initProviders() {
     map.on('mouseout', () => map.scrollWheelZoom.disable());
 
     render();
+    requestAnimationFrame(() => map.invalidateSize());
   }).catch(() => {
     mapEl.innerHTML = '';
     mapEl.style.display = 'none';
@@ -148,9 +149,11 @@ export async function initProviders() {
       <article class="provider-item${p.id === activeId ? ' is-active' : ''}" data-id="${escapeHtml(p.id)}">
         <button type="button" class="p-main">
           <span class="p-name">${escapeHtml(p.doctor || p.practice)}</span>
-          <span class="p-place">${escapeHtml([p.practice, p.city, p.state].filter(Boolean).join(' · '))}${
+          <span class="p-place">${escapeHtml(p.practice || '')}</span>
+          <span class="p-where">${escapeHtml([p.city, p.state].filter(Boolean).join(' · '))}${
             Number.isFinite(d) ? ` · ${d.toFixed(0)} mi` : ''
           }</span>
+          ${p.phone ? `<span class="p-phone">${escapeHtml(p.phone)}</span>` : ''}
         </button>
         <span class="p-actions">
           ${p.phone ? `<a class="p-btn" href="tel:${escapeHtml(p.phone.replace(/[^\d+]/g, ''))}">Call</a>` : ''}

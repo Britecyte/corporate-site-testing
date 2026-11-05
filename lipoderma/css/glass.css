@@ -7,14 +7,15 @@
 :root {
   --blue: #1e448c;
   --blue-deep: #0e2652;
-  --accent: #c9573a;          /* coral-orange: accent text on the blue field */
-  --peach: #ffd0b6;           /* creamy peach-pink: accent fills */
-  --peach-soft: #ffe3d2;
+  --peach: #f6a56e;           /* orange, a step back toward cream */
+  --peach-soft: #f8bc90;
+  --accent: var(--peach);
+  --flame: var(--peach);
+  --flame-deep: var(--peach);
 
   /* everything that used to be "dark section" or "bone section" is now
      navy ink sitting on the shared blue field */
   --ink: #0e2652;
-  --flame-deep: #c9573a;
   --on-dark: #0e2652;
   --on-dark-soft: rgba(14, 38, 82, 0.76);
   --on-dark-faint: rgba(14, 38, 82, 0.56);
@@ -45,7 +46,7 @@ body {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(130% 70% at 50% -10%, #eef5ff 0%, rgba(238, 245, 255, 0) 60%),
+    radial-gradient(130% 70% at 50% 18%, #eef5ff 0%, rgba(238, 245, 255, 0) 60%),
     linear-gradient(180deg, #b7cffa 0%, #8fb2f0 48%, #6c95e4 100%);
 }
 
@@ -59,7 +60,7 @@ body {
 /* bright horizontal glow (the gradO idea, built from gradients) */
 .bg-field i:nth-child(1) {
   width: 90vmax; height: 34vmax;
-  left: -20vmax; top: 4vh;
+  left: -20vmax; top: 18vh;
   background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
   opacity: 0.8;
   animation: drift-a 42s ease-in-out infinite alternate;
@@ -324,7 +325,7 @@ body {
 .contact-form-input:focus {
   background: rgba(255, 255, 255, 0.9);
   border-bottom-color: var(--peach);
-  box-shadow: 0 0 0 3px rgba(255, 208, 182, 0.7);
+  box-shadow: 0 0 0 3px rgba(246, 165, 110, 0.5);
 }
 .contact-form-textarea { min-height: 7.5rem; resize: vertical; }
 .contact-card .btn { width: 100%; padding-block: 1.15rem; }
@@ -343,22 +344,8 @@ body {
 .filter-btn:hover { border-color: rgba(14, 38, 82, 0.4); }
 
 /* ---------- Scroll reveal (blur + rise + stagger) ---------- */
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  filter: blur(8px);
-  transition:
-    opacity 0.9s var(--ease) var(--d, 0ms),
-    transform 1.1s var(--ease-out) var(--d, 0ms),
-    filter 0.9s var(--ease) var(--d, 0ms);
-}
-.reveal.is-visible { opacity: 1; transform: none; filter: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; filter: none; transition: none; }
-}
-
-.structure-copy { min-height: 25rem; }
+/* Reveals use the timed transition in site.css, driven by the
+   intersection observer in main.js. Don't override that curve. */
 
 /* pages.css leftovers */
 .page-head::before { display: none; }

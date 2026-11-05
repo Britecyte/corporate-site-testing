@@ -4,7 +4,219 @@
    children of a column join the parent grid).
    ========================================================== */
 
-.section { padding-block: clamp(5rem, 13vh, 10.5rem); }
+/* Short sections fill the live window under the navbar. svh is read
+   from the browser, not a fixed pixel height. Taller content still
+   grows the section. The anatomy scroll is the one fixed exception. */
+html { scroll-padding-top: var(--site-header-h); }
+.section,
+.structure,
+.closing,
+.hero { scroll-margin-top: 0; }
+.section {
+  box-sizing: border-box;
+  min-height: calc(100svh - var(--site-header-h));
+  padding-block: clamp(1.25rem, 5svh, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero { min-height: 100svh; height: auto; }
+.closing {
+  box-sizing: border-box;
+  height: calc(100svh - var(--site-header-h));
+  min-height: 0;
+  padding-block: clamp(0.75rem, 2.5svh, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+#contact .contact-layout {
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  align-items: center;
+}
+#contact .contact-layout h2 {
+  font-size: clamp(1.7rem, min(3.6vw, 5.5svh), 3.15rem);
+  line-height: 1.05;
+  max-width: 18ch;
+}
+#contact .contact-layout p { margin-top: 0.65rem; }
+#contact .closing-actions { margin-top: 0.85rem; gap: 0.55rem; }
+#contact .contact-address { margin-top: 0.85rem; line-height: 1.45; }
+#contact .contact-card { padding: 0.85rem 1rem; gap: 0.4rem; }
+#contact .contact-card h3 { font-size: 1.25rem; }
+#contact .contact-form-split { display: grid; gap: 0.4rem; }
+#contact .contact-form-input { padding: 0.4rem 0.7rem; }
+#contact .contact-form-textarea { min-height: 3.25rem; }
+#contact .contact-card .btn { padding-block: 0.65rem; }
+@media (min-width: 40rem) {
+  #contact .contact-form-split { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+}
+.hero-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  pointer-events: none;
+}
+.hero-visual-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  margin: 0;
+}
+.hero-visual-frame .ph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(232, 240, 255, 0.88) 0%, rgba(232, 240, 255, 0.62) 38%, rgba(232, 240, 255, 0.18) 100%);
+}
+.hero-visual-tag { z-index: 2; top: auto; right: var(--gutter); bottom: 1.25rem; left: auto; }
+.hero-visual-caption { display: none; }
+.hero-main { position: relative; z-index: 2; display: block; }
+/* Scroll still plays the anatomy story, but the section is two windows
+   instead of four, and the pinned frame is exactly the space under the header. */
+.structure { min-height: 0; display: block; height: 200svh; }
+.structure-sticky {
+  top: var(--site-header-h);
+  height: calc(100svh - var(--site-header-h));
+}
+.structure-stage svg { max-height: min(48svh, 100%); }
+
+.hero-visual,
+.reframe-aside,
+.product-figure { width: 100%; max-width: 100%; justify-self: center; }
+.compare {
+  width: min(100%, calc(42svh * 0.8));
+  max-height: 42svh;
+  height: auto;
+  margin-inline: auto;
+}
+#results .section-head { margin-bottom: clamp(0.75rem, 2svh, 1.25rem); gap: 0.75rem; }
+#results .result-views {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (min-width: 62rem) {
+  #results .result-views { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+#results .result-view { margin: 0; }
+#results .result-view .compare {
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  margin: 0;
+}
+#results .result-view figcaption {
+  margin-top: 0.45rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+#results .result-view:nth-child(2) .compare-before.ph { background: #d5e4fb; }
+#results .result-view:nth-child(3) .compare-before.ph { background: #c3d4f4; }
+#results .result-view:nth-child(4) .compare-before.ph { background: #e4eefc; }
+#results .result-views-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  margin-top: 0.85rem;
+  font-size: 0.75rem;
+  color: var(--on-light-soft);
+}
+#results .result-views-note .arrow-link { font-size: 0.75rem; }
+#reframe {
+  display: block;
+  height: calc((100svh - var(--site-header-h)) + 90svh);
+  min-height: 0;
+  padding: 0;
+  justify-content: flex-start;
+}
+#reframe .reframe-sticky {
+  position: sticky;
+  top: var(--site-header-h);
+  height: calc(100svh - var(--site-header-h));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  #reframe { height: auto; min-height: calc(100svh - var(--site-header-h)); padding-block: clamp(1.25rem, 5svh, 4rem); }
+  #reframe .reframe-sticky { position: static; height: auto; overflow: visible; }
+}
+#reframe .reframe-aside {
+  align-content: center;
+  justify-items: end;
+  justify-self: end;
+  width: 100%;
+}
+#reframe .compare {
+  width: min(100%, calc((100svh - var(--site-header-h) - 9.4rem) * 0.92));
+  max-height: calc(100svh - var(--site-header-h) - 9.4rem);
+  aspect-ratio: 5 / 6;
+  margin-inline: 0;
+  justify-self: end;
+}
+.reframe-caption {
+  margin-top: 0.85rem;
+  max-width: 36ch;
+  justify-self: end;
+  text-align: left;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--on-light-soft);
+}
+/* The frame was capped, but the placeholder inside kept a 4:5 ratio
+   at full width and painted outside the frame. Size the frame from
+   the window, and lock the placeholder to that frame. */
+.product-figure {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, calc(46svh * 0.8));
+  max-height: 46svh;
+  aspect-ratio: 4 / 5;
+  align-self: center;
+  justify-self: center;
+}
+.product-figure .ph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.hero-find { max-width: 100%; }
+.hero-find-row { flex-wrap: wrap; }
+.hero-find-row .btn { flex: 1 1 auto; }
+.reframe-copy {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  letter-spacing: 0;
+  max-width: 46ch;
+}
+#reframe .h2,
+#product .h2 { font-size: clamp(4.5vh, 4vw, 9vh); }
 
 /* ---------- Hero: straight, readable, one clear action ---------- */
 .hero-lede { max-width: 44ch; }
@@ -42,44 +254,51 @@
 
 /* ---------- Reframe: heading, then image beside copy (no tilt) ---------- */
 @media (min-width: 62rem) {
-  .reframe-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: start; }
+  .reframe-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+    align-items: center;
+    gap: clamp(1.75rem, 3vw, 2.75rem);
+  }
+}
+#reframe .reframe-copy {
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  line-height: 1.45;
+  max-width: 38ch;
 }
 
 /* ---------- Product: figure beside copy, facts as a card row ---------- */
 @media (min-width: 62rem) {
-  .product-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); column-gap: clamp(2rem, 5vw, 5rem); row-gap: 0; align-items: start; grid-template-rows: auto auto auto 1fr auto auto; }
+  .product-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.7fr); column-gap: clamp(1.5rem, 3vw, 3rem); row-gap: 0.35rem; align-items: center; }
   .product-grid > div:not(.product-figure) { display: contents; }
-  .product-grid > .product-figure { grid-column: 2; grid-row: 1 / span 4; margin-top: 2rem; }
+  .product-grid > .product-figure { grid-column: 2; grid-row: 1 / span 5; margin-top: 0; }
   .product-grid > div > *:not(.fact-list):not(.note) { grid-column: 1; }
+  .product-grid .fact-list,
+  .product-grid .note { grid-column: 1; }
   .product-grid .fact-list {
-    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 3rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-top: 1rem;
     border-top: 0;
   }
   .product-grid .fact-list li {
     display: block;
-    padding: 1.25rem;
+    padding: 0.75rem 0.85rem;
     border: var(--glass-border);
     background: var(--glass-fill);
     box-shadow: var(--glass-shadow);
     -webkit-backdrop-filter: blur(24px) saturate(170%);
     backdrop-filter: blur(24px) saturate(170%);
   }
-  .product-grid .fact-list .num { display: block; font-size: 1.6rem; margin-bottom: 1.25rem; }
-  .product-grid .note { grid-column: 1 / -1; margin-top: 1.5rem; }
+  .product-grid .fact-list .num { display: block; font-size: 1.15rem; margin-bottom: 0.35rem; }
+  .product-grid .fact-list h4 { font-size: 0.9rem; }
+  .product-grid .fact-list p { font-size: 0.8rem; line-height: 1.4; }
+  .product-grid .note { margin-top: 0.75rem; padding: 0.75rem 0.9rem; }
 }
-
-/* ---------- Results: quote card overlaps the slider ---------- */
 @media (min-width: 62rem) {
-  .compare-layout { grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.75fr); align-items: end; }
   .compare-layout > div:last-child {
     position: relative;
     z-index: 2;
-    margin-left: -7rem;
-    margin-bottom: 4rem;
     padding: clamp(1.5rem, 2.6vw, 2.5rem);
     background: linear-gradient(150deg, rgba(240, 246, 255, 0.92), rgba(214, 229, 255, 0.82));
     border: var(--glass-border);
@@ -143,7 +362,7 @@
 .provider-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0.75rem; }
 .provider-item .p-main { display: grid; gap: 0.25rem; text-align: left; min-width: 0; }
 .provider-item .p-actions { display: flex; gap: 0.4rem; }
-.p-btn {
+.provider-item .p-actions .p-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -157,8 +376,172 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   border: 1px solid transparent;
+  border-bottom: 0;
 }
-.p-btn:hover { background: var(--peach-soft); }
+.provider-item .p-actions .p-btn:hover {
+  background: var(--peach-soft);
+  color: var(--blue-deep);
+  border-bottom-color: transparent;
+}
+
+.structure-visual {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
+.structure-visual .structure-stage { order: 0; }
+@media (min-width: 62rem) { .structure-visual { order: 1; } }
+
+.hero-title { font-size: clamp(2.4rem, min(6.2vw, 8.5svh), 6.5rem); }
+.h2 { font-size: clamp(1.7rem, min(3.6vw, 5.5svh), 3.6rem); }
+#providers {
+  justify-content: flex-start;
+  height: calc(100svh - var(--site-header-h));
+  min-height: 0;
+  overflow: hidden;
+  padding-block: 0.85rem 1.15rem;
+}
+#providers > .wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+#providers .h2 {
+  margin: 0;
+  font-size: clamp(2.15rem, min(4.2vw, 6.2svh), 3.35rem);
+  line-height: 0.95;
+}
+#providers .providers-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 0.85rem;
+}
+#providers .providers-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+#providers .providers-intro .muted {
+  margin: 0;
+  max-width: 36ch;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+#providers .provider-lead {
+  display: flex;
+  flex: 1 1 22rem;
+  max-width: 36rem;
+  margin: 0;
+}
+#providers .provider-search {
+  margin-top: 0;
+  flex: 1;
+  max-width: none;
+  width: 100%;
+  padding: 0.2rem;
+}
+#providers .provider-search input { padding: 0.45rem 0.8rem; }
+#providers .provider-search button { padding: 0.55rem 0.9rem; }
+#providers .provider-status { display: none; }
+#providers .provider-shell {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(22rem, 0.72fr);
+  grid-template-rows: minmax(0, 1fr);
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  width: auto;
+  overflow: hidden;
+  border: 1px solid var(--hair-light);
+  background: #fff;
+}
+#providers .provider-map,
+#providers .provider-list {
+  position: relative;
+  inset: auto;
+  width: auto;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  z-index: auto;
+}
+#providers .provider-map { overflow: hidden; border: 0; }
+#providers .provider-list {
+  overflow: auto;
+  overflow-anchor: none;
+  background: #fff;
+  border: 0;
+  border-left: 1px solid var(--hair-light);
+}
+#providers .provider-item {
+  height: auto;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  align-items: center;
+}
+#providers .provider-item .p-main { gap: 0.12rem; }
+#providers .provider-item .p-actions { margin-top: 0; flex-wrap: nowrap; }
+#providers .provider-item .p-actions .p-btn {
+  min-width: 4.4rem;
+  min-height: 2.05rem;
+  padding: 0.4rem 0.6rem;
+}
+#providers .provider-item .p-name,
+#providers .provider-item .p-place,
+#providers .provider-item .p-where,
+#providers .provider-item .p-phone {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#providers .provider-item .p-place,
+#providers .provider-item .p-where,
+#providers .provider-item .p-phone {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  color: var(--on-light-soft);
+}
+@media (max-width: 61.99rem) {
+  #providers .providers-head { flex-direction: column; align-items: stretch; }
+  #providers .provider-lead { max-width: none; }
+  #providers .provider-shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  #providers .provider-list { border-left: 0; border-top: 1px solid var(--hair-light); }
+}
+@media (max-width: 61.99rem) {
+  .structure { height: auto; min-height: 160svh; }
+  .structure-sticky { height: auto; min-height: calc(100svh - var(--site-header-h)); overflow: visible; }
+}
+
+/* Temporary edges so section bounds are visible. Remove when the overlap is fixed. */
+#hero, .hero { border: 2px solid #ff3b30; }
+#reframe { border: 2px solid #ff9f0a; }
+#structure { border: 2px solid #ffd60a; }
+#structure-detail { border: 2px solid #30d158; }
+#product { border: 2px solid #64d2ff; }
+#audience { border: 2px solid #0a84ff; }
+#results { border: 2px solid #bf5af2; }
+#providers { border: 2px solid #ff375f; }
+#faq .faq-aside {
+  margin-top: 1.5rem;
+  width: min(100%, 18rem);
+  background: #d7e4f8;
+}
+#contact { border: 2px solid #ffffff; }
+.site-footer { border: 2px solid #1c1c1e; }
 @media (max-width: 40rem) {
   .provider-item { grid-template-columns: 1fr; }
   .provider-item .p-actions { width: 100%; }
