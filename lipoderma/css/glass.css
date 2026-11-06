@@ -335,7 +335,7 @@ body {
 .contact-form-preview { font-size: 0.6875rem; color: var(--on-dark-faint); }
 
 /* ---------- Footer ---------- */
-.site-footer { margin: 0 clamp(0.5rem, 1.5vw, 1.25rem) clamp(0.5rem, 1.5vw, 1.25rem); border-top: var(--glass-border); }
+.site-footer { margin: 0; border-width: 1px 0 0; border-top: var(--glass-border); border-radius: 0; flex: 1 0 auto; }
 .footer-brand img { filter: none !important; }
 .footer-col a:hover { color: var(--accent); }
 .footer-disclaimer { color: rgba(14, 38, 82, 0.62); }

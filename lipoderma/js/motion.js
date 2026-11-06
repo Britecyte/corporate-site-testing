@@ -13,14 +13,3 @@ if (heroForm) {
     [300, 1200].forEach(ms => setTimeout(() => input?.dispatchEvent(new Event('input', { bubbles: true })), ms));
   });
 }
-
-/* ── mobile sticky CTA: hide where the page already has the action ── */
-const cta = document.querySelector('[data-sticky-cta]');
-if (cta && 'IntersectionObserver' in window) {
-  const covered = new Set();
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => en.isIntersecting ? covered.add(en.target) : covered.delete(en.target));
-    cta.classList.toggle('is-hidden', covered.size > 0);
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.hero, #providers, #contact').forEach(el => io.observe(el));
-}

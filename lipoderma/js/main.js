@@ -730,10 +730,12 @@ function initFacts() {
   let index = 0;
   let originX = 0;
   let tracking = false;
+  const images = [...document.querySelectorAll('#product [data-fact-img]')];
   const paint = () => {
     items.forEach((el, n) => {
       el.dataset.depth = String((n - index + items.length) % items.length);
     });
+    images.forEach((img, n) => img.classList.toggle('is-active', n === index));
   };
   const step = (dir) => {
     index = (index + dir + items.length) % items.length;

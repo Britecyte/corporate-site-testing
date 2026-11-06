@@ -455,6 +455,10 @@ ul, ol { padding: 0; list-style: none; }
 
 body.nav-open { overflow: hidden; }
 
+/* Short pages: the footer stretches to fill the rest of the window. */
+body { display: flex; flex-direction: column; min-height: 100svh; }
+body > main { flex: none; }
+
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
@@ -462,7 +466,7 @@ body.nav-open { overflow: hidden; }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-top: calc(var(--site-header-h) + 2rem);
+  padding-top: calc(var(--site-header-h) + 2svh);
   padding-bottom: clamp(2rem, 5vh, 3.5rem);
   overflow: hidden;
   background: var(--ink);
@@ -965,8 +969,10 @@ body.nav-open { overflow: hidden; }
   min-height: 22rem;
 }
 
-.door-panel { display: none; }
-.door-panel.is-active { display: block; animation: panelIn 0.5s var(--ease-out); }
+/* All panels share one grid cell, so the tallest sets the box size for every tab. */
+.door-panels { display: grid; align-content: start; }
+.door-panel { grid-area: 1 / 1; visibility: hidden; }
+.door-panel.is-active { visibility: visible; animation: panelIn 0.5s var(--ease-out); }
 
 @keyframes panelIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -1016,7 +1022,6 @@ body.nav-open { overflow: hidden; }
   flex: none;
 }
 
-.door-panel .arrow-link { margin-top: 1.9rem; }
 
 /* ---------- Compare (results) ---------- */
 .compare-layout {
@@ -1479,19 +1484,10 @@ body.nav-open { overflow: hidden; }
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* ---------- Small screens ---------- */
-@media (max-width: 47.99rem) {
-  .hero { min-height: auto; padding-top: calc(var(--site-header-h) + 4.5rem); }
-  .hero-grid-lines { display: none; }
-  .structure { height: 300vh; }
-  .structure-copy { min-height: 0; }
-  .structure-step h3 { max-width: none; }
-  .door-panels { min-height: 0; }
-}
-
 .structure-note {
   margin-top: 1.25rem;
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   opacity: 0.42;
 }
+.door-panel .arrow-link { margin-top: 1.9rem; }
