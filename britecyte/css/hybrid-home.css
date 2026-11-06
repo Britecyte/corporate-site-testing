@@ -42,17 +42,12 @@ main > section[data-section] > .hero-grid {
   background-color: transparent;
 }
 
-.site-main .hero + .section,
-.site-main .section.section-cream + .section.section-cream {
-  padding-top: var(--section-padding);
-}
-
 /* Hero: first screen */
 .site-main [data-section="hero"] {
   display: flex;
   align-items: center;
   min-height: calc(100svh - var(--site-header-h));
-  padding-block: clamp(2rem, 5vw, 3.5rem);
+  padding-block: 0;
 }
 
 .site-main [data-section="hero"] .hero-grid {
@@ -60,10 +55,7 @@ main > section[data-section] > .hero-grid {
 }
 
 .site-main .about-stage,
-.site-main .pipe-map,
 .site-main .pathway-grid,
-.site-main .news-grid,
-.site-main .team-feature,
 .site-main .contact-grid {
   min-width: 0;
   max-width: 100%;
@@ -79,8 +71,7 @@ main > section[data-section] > .hero-grid {
 }
 
 .site-nav.microtype a.is-active,
-.site-nav-mobile a.is-active,
-.footer-nav a.is-active {
+.site-nav-mobile a.is-active {
   color: var(--color-flame) !important;
   font-weight: 700;
 }
@@ -94,8 +85,7 @@ main > section[data-section] > .hero-grid {
 
 .hero-lede p,
 .section-intro,
-.team-feature-bio p,
-.news-excerpt {
+.team-feature-bio p {
   text-wrap: pretty;
 }
 
@@ -173,61 +163,6 @@ main > section[data-section] > .hero-grid {
   margin: 0.75rem auto 0;
 }
 
-.journey-arrow,
-[data-section="team"] .team-arrow {
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid var(--control-border);
-  border-radius: 0;
-  background: var(--control-fill);
-  color: var(--color-ink);
-  font-size: 1.35rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background 0.15s var(--ease-out), border-color 0.15s, color 0.15s;
-}
-
-.journey-arrow:hover,
-[data-section="team"] .team-arrow:hover {
-  border-color: var(--color-flame);
-  color: var(--color-flame);
-  background: var(--control-hover-fill);
-}
-
-.journey-dots,
-[data-section="team"] .team-dots {
-  display: flex;
-  gap: 0.15rem;
-  margin-inline: auto;
-}
-
-.journey-dot,
-[data-section="team"] .team-dot {
-  position: relative;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-
-.journey-dot::after,
-[data-section="team"] .team-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0.45rem;
-  border: 1px solid var(--control-border);
-  background: var(--control-fill);
-  transition: background 0.15s var(--ease-out), border-color 0.15s;
-}
-
-.journey-dot.is-active::after,
-[data-section="team"] .team-dot.is-active::after {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-}
-
 /* ── About ── */
 .about-stage {
   display: grid;
@@ -276,155 +211,6 @@ main > section[data-section] > .hero-grid {
   color: var(--color-ink-soft);
 }
 
-/* ── Pipeline: stacked detail panels (stable height on tab change), solid card ── */
-.site-main .products-section .pipe-map {
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  grid-template-areas: "detail controls";
-  align-items: start !important;
-  gap: 1.25rem;
-  min-height: 0 !important;
-}
-
-.site-main .products-section .pipe-detail {
-  grid-area: detail;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  padding: 0;
-  border: 0;
-  background: none;
-  box-shadow: none;
-}
-
-.site-main .products-section .pipe-map-controls {
-  grid-area: controls;
-  min-width: 0;
-}
-
-/* Every product stays in the grid so the section keeps the tallest card's
-   height. Only the active card is visible, and it stays as tall as its text. */
-.site-main .products-section .pipe-detail-item {
-  grid-area: 1 / 1;
-  align-self: start;
-  visibility: hidden;
-  min-width: 0;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  padding: clamp(1.25rem, 2.5vw, 1.9rem);
-  border: 1px solid var(--color-border-warm);
-  background: var(--hybrid-card-fill);
-  box-shadow: var(--shadow-lift);
-  color: var(--color-ink);
-}
-
-.site-main .products-section .pipe-detail-item.is-active {
-  visibility: visible;
-  z-index: 1;
-}
-
-.site-main .products-section .pipe-detail-body,
-.site-main .products-section .pipe-detail-lead,
-.site-main .products-section .pipe-detail-title {
-  overflow-wrap: break-word;
-  word-break: normal;
-}
-
-@media (min-width: 1024px) {
-  .site-main .products-section .pipe-map {
-    align-items: start !important;
-  }
-
-  .site-main .products-section .pipe-detail {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  .site-main .products-section .pipe-detail-item {
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-
-  .site-main .products-section .pipe-detail-lead {
-    margin-bottom: 0.65rem;
-    font-size: clamp(0.95rem, 1.35vw, 1.02rem);
-    line-height: 1.4;
-  }
-
-  .site-main .products-section .pipe-detail-body {
-    gap: 0.55rem;
-  }
-
-  .site-main .products-section .pipe-detail-body p {
-    font-size: 0.875rem;
-    line-height: 1.52;
-  }
-
-  .site-main .products-section .pipe-detail-link a {
-    margin-top: 0.65rem;
-  }
-}
-
-.pipe-node {
-  border-radius: 0;
-  background: var(--control-fill);
-  border-color: var(--control-border);
-}
-
-.pipe-node:hover {
-  border-color: var(--color-flame);
-  background: var(--control-hover-fill);
-  box-shadow: none;
-}
-
-.pipe-branch-kicker {
-  color: var(--color-bronze-deep);
-}
-
-/* ── Team (~10% smaller card) ── */
-[data-section="team"] .team-feature {
-  display: grid;
-  grid-template-columns: minmax(10.8rem, 37.8%) minmax(0, 1fr);
-  gap: clamp(1.35rem, 2.7vw, 2.475rem);
-  padding: clamp(1.35rem, 2.7vw, 2.25rem);
-  width: min(100%, 90%);
-  max-width: 90%;
-  margin-inline: auto;
-  border-radius: 0;
-  overflow: hidden;
-  background: var(--hybrid-card-fill);
-  border: 1px solid var(--color-border-warm);
-  box-shadow: var(--shadow-lift);
-}
-
-[data-section="team"] .team-feature-photo {
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: var(--photo-placeholder);
-}
-
-[data-section="team"] .team-feature-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 18%;
-  display: block;
-}
-
-[data-section="team"] .team-feature-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
 [data-section="team"] .team-feature-name {
   margin: 0 0 0.36rem;
   color: var(--color-ink);
@@ -453,96 +239,9 @@ main > section[data-section] > .hero-grid {
   width: 100%;
 }
 
-[data-section="team"] .team-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  width: min(100%, 32.4rem);
-  margin: 0.75rem auto 0;
-}
-
-/* ── News / publications pager ── */
+/* ── News / publications host ── */
 .news-split {
   overflow: visible;
-}
-
-.news-pager-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  width: min(100%, 32.4rem);
-  margin: 0.75rem auto 0;
-}
-
-.news-pager-bar.is-hidden {
-  display: none;
-}
-
-.news-pager-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  border: 1px solid var(--control-border);
-  border-radius: 0;
-  background: var(--control-fill);
-  color: var(--color-ink);
-  font-size: 1.35rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background 0.15s var(--ease-out), border-color 0.15s, color 0.15s;
-}
-
-.news-pager-btn:hover {
-  border-color: var(--color-flame);
-  color: var(--color-flame);
-  background: var(--control-hover-fill);
-}
-
-.news-pager-dots {
-  display: flex;
-  gap: 0.15rem;
-  margin-inline: auto;
-}
-
-.news-pager-dot {
-  position: relative;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-}
-
-.news-pager-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0.45rem;
-  border: 1px solid var(--control-border);
-  background: var(--control-fill);
-  transition: background 0.15s var(--ease-out), border-color 0.15s;
-}
-
-.news-pager-dot.is-active::after {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-}
-
-@media (min-width: 768px) {
-  .news-pager-bar {
-    margin-top: 0.85rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .news-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
-  }
 }
 
 /* ── Footer ── */
@@ -567,15 +266,6 @@ main > section[data-section] > .hero-grid {
   align-content: start;
 }
 
-.footer-nav-heading {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ink);
-  margin-bottom: 0.35rem;
-}
-
 .footer-nav a {
   color: var(--color-ink-soft);
   text-decoration: none;
@@ -586,9 +276,9 @@ main > section[data-section] > .hero-grid {
 }
 
 /* ── Hero desktop split ── */
-@media (min-width: 900px) {
+@media (min-aspect-ratio: 1/1) {
   .site-main [data-section="hero"] {
-    padding-block: clamp(3rem, 6vw, 5rem) clamp(2.5rem, 4.5vw, 4rem);
+    padding-block: 0;
   }
 
   .hero-grid {
@@ -647,22 +337,9 @@ main > section[data-section] > .hero-grid {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-aspect-ratio: 1/1) {
   .about-stage {
     grid-template-columns: 1fr;
-  }
-
-  [data-section="team"] .team-feature {
-    grid-template-columns: 1fr;
-    gap: 1.125rem;
-    padding: 1.125rem;
-    width: min(100%, 92%);
-    max-width: 92%;
-  }
-
-  [data-section="team"] .team-feature-photo {
-    aspect-ratio: 16 / 11;
-    max-height: 18rem;
   }
 
   [data-section="team"] .team-feature-name {
@@ -670,144 +347,14 @@ main > section[data-section] > .hero-grid {
   }
 }
 
-/* Pipeline mobile + tablet: wrapping product chips (option 3), detail card below */
-@media (max-width: 1023px) {
-  .site-main .products-section .pipe-map {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "controls"
-      "detail";
-    gap: 1.25rem;
-  }
-
-  .site-main .products-section .pipe-detail {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  .site-main .products-section .pipe-detail-item {
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-
-  .pipe-map-hub {
-    display: none;
-  }
-
-  .pipe-map-branches {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    min-width: 0;
-  }
-
-  .pipe-branch {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    min-width: 0;
-  }
-
-  .pipe-branch-head {
-    display: block;
-  }
-
-  .pipe-branch-kicker {
-    margin: 0 0 0.25rem;
-    font-size: 0.65rem;
-  }
-
-  .pipe-branch-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    min-width: 0;
-  }
-
-  .pipe-branch--structure .pipe-node {
-    flex: 1 1 calc(50% - 0.5rem);
-  }
-
-  .pipe-branch--function .pipe-branch-cards {
-    flex-wrap: nowrap;
-  }
-
-  .pipe-branch--function .pipe-node {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: none;
-  }
-
-  .pipe-node {
-    flex: 1 1 calc(50% - 0.5rem);
-    min-width: min(100%, 8.75rem);
-    max-width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-    padding: 0.55rem 0.65rem;
-    transform: none !important;
-    text-align: left;
-  }
-
-  .pipe-node-icon,
-  .pipe-node::after {
-    display: none;
-  }
-
-  .pipe-node-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    min-width: 0;
-    width: 100%;
-  }
-
-  .pipe-node-area {
-    display: none;
-  }
-
-  .pipe-node-name {
-    font-size: 0.82rem;
-    line-height: 1.2;
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
-
-  .pipe-node-stage {
-    align-self: flex-start;
-    font-size: 0.55rem;
-    padding: 0.1rem 0.35rem;
-    white-space: nowrap;
-  }
-
-  .pipe-node.is-active {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: #fff;
-    box-shadow: none;
-  }
-
-  .pipe-node.is-active .pipe-node-stage {
-    background: #fff;
-    color: var(--color-ink);
-    border-color: transparent;
-  }
-}
-
-@media (max-width: 767px) {
+@media (max-aspect-ratio: 4/5) {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 1.75rem;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-aspect-ratio: 2/3) {
   .journey-slide {
     padding: 1.15rem 1.1rem;
   }
@@ -825,17 +372,8 @@ main > section[data-section] > .hero-grid {
     height: 3.5rem;
   }
 
-  .journey-controls,
-  .news-pager-bar {
+  .journey-controls {
     gap: 0.6rem;
-  }
-
-  .news-grid {
-    gap: 1rem;
-  }
-
-  .site-main .products-section .pipe-detail-item {
-    padding: 1.1rem;
   }
 
   .about-stage {
@@ -843,19 +381,23 @@ main > section[data-section] > .hero-grid {
   }
 }
 
-/* Desktop sections are one window tall. Backgrounds stay inside the section,
-   and the content is centered in that frame instead of running into the next one. */
-@media (min-width: 1024px) {
+/* Every section is at least the window under the header, and can grow.
+   A window at least as wide as it is tall centers the content in that frame. */
+main.site-main > section[data-section] {
+  box-sizing: border-box;
+  min-height: calc(100svh - var(--site-header-h));
+}
+
+@media (min-aspect-ratio: 1/1) {
   main.site-main > section[data-section] {
     position: relative;
     isolation: isolate;
-    overflow: hidden;
-    box-sizing: border-box;
-    height: calc(100svh - var(--site-header-h));
+    overflow: visible;
+    height: auto;
+    max-height: none;
     min-height: calc(100svh - var(--site-header-h));
-    max-height: calc(100svh - var(--site-header-h));
     margin: 0;
-    padding: 1.5rem 0 2rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -878,14 +420,11 @@ main > section[data-section] > .hero-grid {
   }
 
   main.site-main .section-header,
-  main.site-main .news-pager-bar,
-  main.site-main .journey-controls,
-  main.site-main [data-section="team"] .team-controls {
+  main.site-main .journey-controls {
     flex: none;
   }
 
   main.site-main .about-stage,
-  main.site-main .pipe-map,
   main.site-main .pathway-grid,
   main.site-main .news-split,
   main.site-main [data-section="team"] .team-stage {
@@ -894,19 +433,11 @@ main > section[data-section] > .hero-grid {
     max-height: 100%;
   }
 
-  main.site-main [data-section="team"] .team-feature {
-    width: min(100%, 78%);
-    max-width: 78%;
-    padding: 1.15rem 1.35rem;
-  }
-
-  main.site-main .pathway-step.surface-lg,
-  main.site-main a.news-card.surface-lg {
+  main.site-main .pathway-step.surface-lg {
     padding: 1rem 1.15rem;
   }
 
-  main.site-main .pathway-grid,
-  main.site-main .news-grid {
+  main.site-main .pathway-grid {
     gap: 0.85rem;
   }
 
@@ -914,27 +445,5 @@ main > section[data-section] > .hero-grid {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  main.site-main .news-grid {
-    align-items: stretch;
-  }
-
-  main.site-main a.news-card {
-    height: 100%;
-  }
-
-  main.site-main > section[data-section="pipeline"] {
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-
-  main.site-main > section[data-section="pipeline"] > .container,
-  main.site-main > section[data-section="pipeline"] .pipe-map,
-  main.site-main > section[data-section="pipeline"] .pipe-detail,
-  main.site-main > section[data-section="pipeline"] .pipe-detail-item {
-    max-height: none;
-    overflow: visible;
   }
 }

@@ -1,21 +1,20 @@
 /**
- * Team feature card — manual arrows and dots only (no auto-advance).
+ * Team roster: every person is a named portrait in a row.
+ * Choosing one swaps the panel beside it.
  *
  * NOTE: <template> children live in template.content (a DocumentFragment),
  * so they must be queried via tpl.content — not tpl.querySelector().
  */
 document.addEventListener("DOMContentLoaded", () => {
   const templates = Array.from(document.querySelectorAll('[data-section="team"] [data-team-data] template'));
-  const feature = document.querySelector("[data-team-spotlight]");
-  if (!templates.length || !feature) return;
+  const panel = document.querySelector("[data-team-spotlight]");
+  const rosterHost = document.querySelector("[data-team-dots]");
+  if (!templates.length || !panel || !rosterHost) return;
 
-  const img = feature.querySelector("[data-spot-img]");
-  const name = feature.querySelector("[data-spot-name]");
-  const role = feature.querySelector("[data-spot-role]");
-  const bio = feature.querySelector("[data-spot-bio]");
-  const dotsHost = document.querySelector("[data-team-dots]");
-  const prevBtn = document.querySelector("[data-team-prev]");
-  const nextBtn = document.querySelector("[data-team-next]");
+  const img = panel.querySelector("[data-spot-img]");
+  const name = panel.querySelector("[data-spot-name]");
+  const role = panel.querySelector("[data-spot-role]");
+  const bio = panel.querySelector("[data-spot-bio]");
 
   const people = templates.map((tpl) => {
     const frag = tpl.content;
@@ -29,39 +28,82 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
-  let active = -1;
+  people.forEach((person, i) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "team-portrait";
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-label", person.name);
 
-  people.forEach((_, i) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "team-dot";
-    dot.setAttribute("aria-label", `Show team member ${i + 1} of ${people.length}`);
-    dot.addEventListener("click", () => show(i));
-    dotsHost.appendChild(dot);
+    const photo = document.createElement("span");
+    photo.className = "team-portrait-img";
+    const image = document.createElement("img");
+    image.src = person.photo;
+    image.alt = "";
+    photo.appendChild(image);
+
+    const label = document.createElement("span");
+    label.className = "team-portrait-name";
+    label.textContent = person.name.split(",")[0];
+
+    button.append(photo, label);
+
+    const fold = document.createElement("div");
+    fold.className = "team-fold";
+    const inner = document.createElement("div");
+    inner.className = "team-fold-inner";
+    const shot = document.createElement("div");
+    shot.className = "team-fold-photo";
+    const shotImg = document.createElement("img");
+    shotImg.src = person.photo;
+    shotImg.alt = person.alt;
+    shot.appendChild(shotImg);
+    const copy = document.createElement("div");
+    copy.innerHTML = `<p class="team-feature-role microtype">${person.role}</p><div class="team-feature-bio">${person.bio}</div>`;
+    inner.append(shot, copy);
+    fold.appendChild(inner);
+    button.appendChild(fold);
+
+    button.addEventListener("click", () => show(i));
+    rosterHost.appendChild(button);
   });
-  const dots = Array.from(dotsHost.children);
+
+  const buttons = Array.from(rosterHost.children);
 
   function show(i) {
     const next = (i + people.length) % people.length;
+    const narrow = window.matchMedia("(max-aspect-ratio: 1/1)").matches;
+    if (narrow && buttons[next]?.classList.contains("is-active")) {
+      buttons[next].classList.remove("is-active");
+      buttons[next].setAttribute("aria-selected", "false");
+      buttons[next].setAttribute("aria-expanded", "false");
+      return;
+    }
     const person = people[next];
     if (!person) return;
-    active = next;
 
     img.src = person.photo;
     img.alt = person.alt;
     name.textContent = person.name;
     role.textContent = person.role;
     bio.innerHTML = person.bio;
+    panel.classList.remove("is-swapping");
+    requestAnimationFrame(() => panel.classList.add("is-swapping"));
 
-    dots.forEach((dot, j) => {
-      dot.classList.toggle("is-active", j === next);
-      if (j === next) dot.setAttribute("aria-current", "true");
-      else dot.removeAttribute("aria-current");
+    buttons.forEach((button, j) => {
+      const on = j === next;
+      button.classList.toggle("is-active", on);
+      button.setAttribute("aria-selected", String(on));
+      button.setAttribute("aria-expanded", String(on));
+      button.tabIndex = on ? 0 : -1;
     });
   }
 
-  prevBtn?.addEventListener("click", () => show(active - 1));
-  nextBtn?.addEventListener("click", () => show(active + 1));
+  rosterHost.addEventListener("keydown", (event) => {
+    const current = buttons.findIndex((b) => b.classList.contains("is-active"));
+    if (event.key === "ArrowRight") { event.preventDefault(); show(current + 1); buttons[(current + 1) % buttons.length]?.focus(); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); show(current - 1); buttons[(current - 1 + buttons.length) % buttons.length]?.focus(); }
+  });
 
   show(0);
 });

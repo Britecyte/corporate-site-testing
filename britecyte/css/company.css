@@ -1,0 +1,984 @@
+/* Company-site displays. Warm glass as in glass.css, but the widgets are
+   built for history, people, a pipeline, and records. Everything scales in
+   window ratio (svh / vw / aspect-ratio), never fixed pixel breakpoints. */
+
+.section-title {
+  font-size: clamp(2rem, min(4.2vw, 6svh), 3.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.section-intro {
+  max-width: 58ch;
+  margin: 0.65rem 0 0;
+  font-size: var(--type-body);
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+}
+
+/* One size for the small labels above names, stages, and records. */
+.record-tag,
+.team-feature-role,
+.form-label,
+.contact-aside-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Tall windows: sections grow with their content, with room above the
+   heading and below the last line. Wide windows get it from the frame. */
+main.site-main > section[data-section],
+.site-main .hero + .section,
+.site-main .section.section-cream + .section.section-cream {
+  padding-block: clamp(2rem, 6svh, 3.5rem);
+}
+
+@media (min-aspect-ratio: 1/1) {
+  main.site-main > section[data-section],
+  .site-main .hero + .section,
+  .site-main .section.section-cream + .section.section-cream {
+    padding-block: 0;
+  }
+}
+
+/* ── About: same window-minus-header frame as every other section ── */
+.about-stage {
+  display: grid;
+  width: 100%;
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4svh, 3rem);
+  align-items: start;
+}
+
+#about .section-header {
+  margin-bottom: clamp(1.25rem, 3svh, 2rem);
+}
+
+#about .section-title {
+  margin: 0;
+  max-width: 14ch;
+}
+
+.about-aside .proof-stats {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 0;
+}
+
+.about-aside .proof-stats li {
+  display: grid;
+  grid-template-columns: 4.75rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--color-hairline);
+  text-align: left;
+}
+
+.about-aside .proof-stats strong {
+  font-size: clamp(1.65rem, 2.1vw, 2.15rem);
+  line-height: 1;
+  color: var(--color-orange-bright);
+  letter-spacing: -0.03em;
+}
+
+.about-aside .proof-stats span {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--color-ink-soft);
+  white-space: normal;
+}
+
+/* Wide windows: the frame stays put while the section is several
+   frames tall, so scrolling changes the year before the page moves on. */
+@media (min-aspect-ratio: 1/1) {
+  main.site-main > section#about {
+    height: calc(6 * (100svh - var(--site-header-h)));
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    justify-content: flex-start;
+  }
+  main.site-main > section#about > .container {
+    position: sticky;
+    top: var(--site-header-h);
+    height: calc(100svh - var(--site-header-h));
+    min-height: 0;
+    max-height: calc(100svh - var(--site-header-h));
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 0;
+    overflow: hidden;
+  }
+  #about .about-stage {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  main.site-main > section#about {
+    min-height: calc(4 * (100svh - var(--site-header-h)));
+  }
+  main.site-main > section#about > .container {
+    position: sticky;
+    top: var(--site-header-h);
+  }
+}
+
+/* Years on a vertical line, the photograph beside them, the story under the
+   photograph. The picture stays a picture. */
+/* Every story shares one box, sized by the longest one. The photograph is
+   always 16:9, so changing year only swaps the picture and the words. */
+#about .journey-carousel {
+  container-type: inline-size;
+  position: relative;
+  display: block;
+  height: auto;
+  overflow: visible;
+  background: none;
+  color: var(--color-ink);
+}
+
+#about .journey-slides { display: grid; }
+
+#about .journey-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100cqi * 9 / 16);
+  z-index: 2;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#about .journey-slide {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--color-ink);
+}
+
+#about .journey-slide.is-active { visibility: visible; }
+
+#about .journey-slide::after { content: none; }
+
+#about .journey-slide-top {
+  position: relative;
+  inset: auto;
+  display: block;
+  flex: none;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #f3eadf;
+}
+
+#about .journey-photo,
+#about .journey-photo--contain,
+#about .journey-photo--mscrf {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: hidden;
+}
+
+#about .journey-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+#about .journey-photo--contain { background: #f3eadf; }
+
+#about .journey-photo--contain img {
+  object-fit: contain;
+  object-position: center;
+  padding: 14%;
+}
+
+#about .journey-slide .journey-year { display: none; }
+
+#about .journey-slide h3,
+#about .journey-slide p {
+  position: static;
+  color: var(--color-ink);
+}
+
+#about .journey-slide h3 {
+  margin: 3.15rem 0 0.35rem;
+  font-size: clamp(1.45rem, 1.8vw, 1.8rem);
+  line-height: 1.15;
+}
+
+#about .journey-slide p {
+  max-width: none;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+
+#about .journey-slide p + p { margin-top: 0.55rem; }
+
+#about .journey-dots {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+#about .journey-dots::before,
+#about .journey-dots::after { content: none; }
+
+#about .journey-year-btn {
+  flex: 1 1 0;
+  padding: 0.7rem 0;
+  border: 0;
+  background: none;
+  color: var(--color-ink-soft);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1;
+  text-align: left;
+  cursor: pointer;
+}
+
+#about .journey-year-btn::before,
+#about .journey-year-btn.is-active::after { content: none; }
+
+#about .journey-year-btn:hover { color: var(--color-ink); }
+
+#about .journey-year-btn.is-active {
+  color: var(--color-orange-bright);
+  border: 0;
+  font-size: 1.05rem;
+}
+
+/* ── Pipeline: product table on top, the selected product's write-up below ── */
+.pipe-row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 0.7fr) minmax(0, 0.9fr) minmax(0, 1.6fr) 6.5rem;
+  align-items: center;
+  column-gap: 1rem;
+  width: 100%;
+  padding: 0.7rem 0.15rem;
+  border: 0;
+  border-bottom: 1px solid var(--color-hairline);
+  background: none;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.pipe-row-name { font-size: clamp(1.05rem, 1rem + 0.3vw, 1.25rem); line-height: 1.1; }
+.pipe-row-area { font-size: 0.78rem; line-height: 1.3; color: var(--color-ink-soft); }
+.pipe-row { transition: background-color 0.2s var(--ease-out), padding-left 0.2s var(--ease-out); }
+.pipe-row:hover { background: rgba(255, 251, 247, 0.7); padding-left: 0.6rem; }
+.pipe-row:hover .pipe-row-name { color: var(--color-flame); }
+.pipe-row:focus-visible { outline: 2px solid var(--color-flame); outline-offset: -2px; }
+.pipe-row.is-active .pipe-row-name { color: var(--color-orange-bright); }
+
+/* Three bars: preclinical, clinical, commercial. */
+.pipe-row-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.35rem; }
+.pipe-row-track i { height: 0.35rem; background: rgba(35, 48, 81, 0.12); }
+.pipe-row-track i.on { background: var(--color-orange-bright); }
+
+.pipe-row-stage {
+  justify-self: end;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-ink-soft);
+}
+.pipe-row-stage--commercial { color: var(--color-ink); }
+.pipe-row-stage--clinical { color: var(--color-flame); }
+.pipe-row-stage--preclinical { color: var(--color-bronze); }
+
+/* The card sizes to the selected write-up. The photo is fixed to the window
+   and painted only inside this section, so a taller or shorter card never
+   rescales it and never leaves the section uncovered. */
+main.site-main > section#pipeline {
+  padding-block: clamp(2.5rem, 7svh, 4.5rem);
+  background-image:
+    linear-gradient(rgba(255, 247, 239, 0.5), rgba(255, 247, 239, 0.5)),
+    url("../assets/products/withdrawal-syringe.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#pipeline .products-bg { display: none; }
+
+main.site-main > section#pipeline > .container {
+  flex: none;
+  max-height: none;
+}
+
+.pipe-detail { margin-top: 1.5rem; }
+.pipe-detail-item {
+  display: none;
+  max-width: 62ch;
+  padding: 1.15rem 1.25rem;
+  color: #f4f7ff;
+  background: rgba(14, 28, 58, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-left: 2px solid var(--color-orange-bright);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.pipe-detail-item.is-active { display: block; }
+
+.pipe-detail-title {
+  margin: 0 0 0.4rem;
+  font-size: var(--type-h3);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.pipe-detail-lead { margin: 0 0 0.75rem; font-size: 1.05rem; font-weight: 500; line-height: 1.45; }
+.pipe-detail-body { display: grid; gap: 0.75rem; }
+.pipe-detail-body p { margin: 0; font-size: 1rem; line-height: 1.6; }
+
+.pipe-detail-link { margin: 0.85rem 0 0; }
+.pipe-detail-link a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-orange-bright);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Wide windows (width > height): table on the left, write-up on the right. */
+@media (min-aspect-ratio: 1/1) {
+  .pipe-matrix {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+
+  .pipe-row {
+    grid-template-columns: minmax(0, 1fr) minmax(4.5rem, 0.8fr) auto;
+    grid-template-areas:
+      "name track stage"
+      "area track stage";
+    row-gap: 0.15rem;
+  }
+
+  .pipe-row-name { grid-area: name; }
+  .pipe-row-area { grid-area: area; }
+  .pipe-row-track { grid-area: track; }
+  .pipe-row-stage { grid-area: stage; min-width: 5.5rem; }
+
+  .pipe-detail { margin-top: 0; }
+}
+
+/* Narrow windows: name and stage on one line, bars underneath. */
+@media (max-aspect-ratio: 1/1) {
+  .pipe-row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.35rem; }
+  .pipe-row-stage { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .pipe-row-track { grid-column: 1 / -1; }
+}
+
+/* ── Science: one open step ── */
+.site-main .pathway-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.site-main .pathway-step {
+  cursor: pointer;
+  background: var(--surface-fill);
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(236, 217, 200, 0.7);
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.9rem;
+}
+
+.site-main .pathway-step .pathway-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+}
+
+.site-main .pathway-step.is-open {
+  border-color: var(--color-orange-bright);
+}
+
+.site-main .pathway-step.is-open .pathway-body {
+  max-height: 16rem;
+  opacity: 1;
+  margin-top: 0.4rem;
+  transition: max-height 0.35s var(--ease-out), opacity 0.3s var(--ease-out), margin 0.35s var(--ease-out);
+}
+
+.site-main .pathway-num {
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: var(--color-orange-bright);
+}
+
+.site-main .pathway-title { margin-bottom: 0; font-size: clamp(1rem, 0.95rem + 0.4vw, 1.25rem); }
+.site-main .pathway-body { font-size: clamp(0.82rem, 0.8rem + 0.15vw, 0.9rem); }
+
+/* ── Team: a name roster beside the person ── */
+[data-section="team"] .team-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 2.5svh, 1.6rem);
+}
+
+.team-roster {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  order: 2;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.team-portrait {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.45rem 0.35rem;
+  border: 0;
+  border-bottom: 1px solid var(--color-hairline);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+
+.team-portrait-img {
+  display: block;
+  width: 2.4rem;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.team-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+
+.team-portrait-name {
+  font-size: clamp(0.7rem, 0.66rem + 0.25vw, 0.86rem);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.team-portrait:hover { color: var(--color-ink); }
+
+.team-portrait.is-active { color: var(--color-ink); }
+.team-portrait.is-active .team-portrait-name { color: var(--color-ink); }
+
+[data-section="team"] .team-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.9rem;
+  order: 1;
+  align-items: start;
+}
+
+[data-section="team"] .team-panel-photo { display: none; }
+
+[data-section="team"] .team-feature-name {
+  margin: 0 0 0.15rem;
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.9rem);
+}
+
+[data-section="team"] .team-feature-role {
+  color: var(--color-orange-bright);
+}
+
+[data-section="team"] .team-feature-bio {
+  margin-top: 0.55rem;
+  font-size: clamp(0.85rem, 0.82rem + 0.18vw, 0.92rem);
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+  max-width: 46ch;
+}
+
+[data-section="team"] .team-panel.is-swapping .team-panel-copy {
+  animation: teamSwap 0.4s var(--ease-out);
+}
+
+@keyframes teamSwap {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Wide windows: the write-up with the portrait on its right, the people in a row underneath. */
+@media (min-aspect-ratio: 1/1) {
+  [data-section="team"] .team-stage {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(1.25rem, 3svh, 2rem);
+  }
+
+  .team-roster {
+    order: 2;
+    display: flex;
+    gap: clamp(0.6rem, 1.5vw, 1.25rem);
+    border-top: 0;
+  }
+
+  .team-portrait {
+    flex: 1 1 0;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 0.45rem;
+    padding: 0;
+    border-bottom: 0;
+    text-align: center;
+  }
+
+  .team-portrait-img {
+    width: min(100%, 5.5rem);
+  }
+
+  .team-portrait-name {
+    text-align: center;
+    font-size: 0.86rem;
+  }
+
+  .team-portrait.is-active .team-portrait-name { color: var(--color-orange-bright); }
+
+  [data-section="team"] .team-panel {
+    order: 1;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.2fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: center;
+  }
+
+  [data-section="team"] .team-panel-photo {
+    display: block;
+    order: -1;
+    aspect-ratio: 4 / 5;
+    max-height: 22rem;
+    overflow: hidden;
+    justify-self: start;
+    width: min(100%, 16rem);
+  }
+
+  [data-section="team"] .team-panel-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 18%;
+  }
+}
+
+/* Tall windows: each name opens its photograph and bio underneath. */
+@media (max-aspect-ratio: 1/1) {
+  [data-section="team"] .team-panel { display: none; }
+
+  .team-portrait {
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+  }
+
+  .team-portrait.is-active .team-portrait-img { display: none; }
+
+  .team-portrait.is-active {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .team-fold {
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease-out);
+  }
+
+  .team-portrait.is-active .team-fold { max-height: 32rem; }
+
+  .team-fold-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+    gap: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .team-fold-photo {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .team-fold-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%;
+  }
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .team-fold { display: none; }
+}
+
+/* ── News log and publication citations ── */
+.record-list { display: flex; flex-direction: column; }
+
+.record {
+  display: grid;
+  gap: 0.2rem 1.25rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--color-hairline);
+  color: inherit;
+  text-decoration: none;
+}
+
+.record:last-child { border-bottom: 1px solid var(--color-hairline); }
+
+.record--news {
+  grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
+  align-items: start;
+}
+
+.record-meta { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.record-tag { color: var(--color-orange-bright); }
+
+.record time { font-size: 0.72rem; color: var(--color-ink-soft); }
+
+.record-copy { display: flex; flex-direction: column; gap: 0.22rem; min-width: 0; }
+
+.record-title { font-size: clamp(1rem, 0.95rem + 0.4vw, 1.22rem); line-height: 1.25; }
+
+.record--cite .record-title {
+  font-family: var(--font-sans);
+  font-size: clamp(0.88rem, 0.86rem + 0.15vw, 0.95rem);
+  font-weight: 600;
+}
+
+.record-note { color: var(--color-ink-soft); font-size: 0.82rem; line-height: 1.45; }
+
+.record:hover .record-title { color: var(--color-flame); }
+
+/* ── Contact: form and direct contact, sized to the window ── */
+[data-section="contact"] .contact-block { max-width: 62rem; margin-inline: auto; }
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.15rem, 2.5svh, 1.75rem);
+  align-items: start;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem clamp(0.7rem, 1.5vw, 1rem);
+  margin: 0;
+  padding: clamp(1rem, 2.4svh, 1.6rem);
+  background: var(--surface-fill);
+  border: var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.contact-form .form-row--wide { grid-column: 1 / -1; }
+
+.form-row { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+
+.form-label { color: var(--color-ink-soft); }
+
+.form-input {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(35, 48, 81, 0.18);
+  background: rgba(255, 255, 255, 0.6);
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--color-ink);
+}
+
+.form-input:focus { outline: none; border-color: var(--color-orange-bright); }
+
+.form-textarea { min-height: clamp(4.2rem, 11svh, 7rem); resize: vertical; }
+
+.contact-form .btn { grid-column: 1 / -1; }
+
+.contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.35rem;
+}
+
+.contact-aside-label { color: var(--color-ink-soft); }
+
+.contact-email {
+  font-size: clamp(1rem, 0.9rem + 0.7vw, 1.35rem);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.contact-address {
+  display: flex;
+  flex-direction: column;
+  margin: 0.35rem 0 0;
+  font-style: normal;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  text-align: left;
+}
+
+.contact-aside-note {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  max-width: 32ch;
+}
+
+/* Wide windows: form beside the direct-contact block. */
+@media (min-aspect-ratio: 1/1) {
+  .contact-layout { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); }
+  .contact-aside { padding-top: 0.6rem; }
+}
+
+/* Narrow or short windows keep one column and let the section grow. */
+@media (max-aspect-ratio: 1/1) {
+  .contact-form { grid-template-columns: minmax(0, 1fr); }
+  .record--news { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Sitemap stays to the right of the brand block, including tall windows,
+   so the footer stays one band instead of stacking into a second page. */
+.footer-grid {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.footer-nav {
+  align-self: end;
+}
+
+.footer-nav-col {
+  justify-items: end;
+  text-align: right;
+}
+
+/* Tall windows are too narrow for a side column. Brand on top,
+   the links in one wrapping row underneath. */
+@media (max-aspect-ratio: 1/1) {
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+
+  .footer-nav { align-self: start; }
+
+  .footer-tagline { max-width: none; }
+
+  .footer-audience { margin-top: 0.75rem; }
+
+  .footer-nav-col {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.4rem 0.9rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-hairline);
+    text-align: left;
+  }
+}
+
+/* The link row stays only while the labels fit beside the logo and the
+   products button. When they don't, the full-screen menu takes over.
+   is-nav-collapsed is set from the measured widths, not a pixel cutoff. */
+html.is-nav-collapsed .site-nav {
+  position: absolute !important;
+  width: max-content;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+html.is-nav-collapsed .menu-toggle { display: flex !important; }
+html.is-nav-collapsed .site-header-actions .btn-primary { display: none !important; }
+
+.site-header {
+  transition: background-color 0.45s var(--ease), border-color 0.45s var(--ease), color 0.45s var(--ease), backdrop-filter 0.45s var(--ease);
+}
+
+.menu-toggle {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.menu-toggle-icon { display: block; }
+
+.menu-bars,
+.menu-x {
+  transform-origin: 9px 9px;
+  transition: opacity 0.3s var(--ease), transform 0.45s var(--ease-out);
+}
+
+.menu-x { opacity: 0; transform: rotate(-90deg); }
+
+html.is-menu-open .menu-bars { opacity: 0; transform: rotate(90deg); }
+html.is-menu-open .menu-x { opacity: 1; transform: none; }
+
+html.is-menu-open .menu-toggle {
+  color: #f4f7ff;
+  border-color: rgba(244, 247, 255, 0.45);
+}
+.site-nav { flex-wrap: nowrap; }
+.site-nav a { white-space: nowrap; }
+
+.site-nav-mobile,
+html.is-menu-open .site-nav-mobile.is-open {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 6.5rem clamp(1.5rem, 6vw, 4rem) 4rem;
+  border: 0;
+  box-shadow: none;
+  overflow: auto;
+  background: #233051;
+  color: #f4f7ff;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-2%);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out), visibility 0.4s;
+}
+
+html.is-menu-open .site-nav-mobile.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+}
+
+html.is-menu-open .site-nav-mobile a {
+  display: block;
+  padding: 0.45rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(244, 247, 255, 0.16);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-transform: none;
+  text-align: left;
+  color: #f4f7ff;
+  transition: color 0.3s var(--ease);
+}
+
+html.is-menu-open .site-nav-mobile a:hover,
+html.is-menu-open .site-nav-mobile a.is-active { color: var(--color-orange-bright); }
+
+html.is-menu-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav-mobile,
+  .site-nav-mobile a,
+  .menu-toggle-icon,
+  .menu-bars,
+  .menu-x,
+  .site-header { transition: none; }
+  .menu-x { opacity: 1; transform: none; }
+  html.is-menu-open .menu-bars { opacity: 0; }
+}
+
+html.is-menu-open .site-header {
+  z-index: 90;
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  color: #f4f7ff;
+}
+
+html.is-menu-open .site-header::after { display: none; }
+
+.site-logo img { transition: filter 0.4s var(--ease); }
+html.is-menu-open .site-logo img { filter: brightness(0) invert(1); }
+
+html.is-menu-open .menu-toggle { color: #f4f7ff; }
+
+.mobile-nav-backdrop { display: none !important; }
+
+@media (min-aspect-ratio: 1/1) {
+  html:not(.is-nav-collapsed) .menu-toggle,
+  html:not(.is-nav-collapsed) .site-nav-mobile { display: none !important; }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  #hero { overflow: visible; }
+
+  #hero .hero-grid,
+  #hero .hero-copy {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #hero .hero-headline,
+  #hero .hero-belief,
+  #hero .hero-lede,
+  #hero .hero-lede p,
+  #hero .hero-byline {
+    display: block;
+    max-width: 100%;
+    text-wrap: wrap;
+    overflow-wrap: anywhere;
+  }
+
+  #hero .hero-cta-row { flex-wrap: wrap; width: 100%; }
+}
+#hero { outline: 1px solid #ff3b30; }
+#about { outline: 1px solid #ff9f0a; }
+#pipeline { outline: 1px solid #ffd60a; }
+#platform { outline: 1px solid #30d158; }
+#team { outline: 1px solid #64d2ff; }
+#news { outline: 1px solid #0a84ff; }
+#publications { outline: 1px solid #bf5af2; }
+#contact { outline: 1px solid #ff375f; }
+.site-footer { outline: 1px solid #1c1c1e; }

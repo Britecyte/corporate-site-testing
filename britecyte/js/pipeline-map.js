@@ -68,7 +68,6 @@ function detailHtml(key) {
     ? `<p class="pipe-detail-link"><a href="${esc(item.link.href)}" target="_blank" rel="noopener noreferrer">${esc(item.link.label)}</a></p>`
     : "";
   return `
-    <p class="microtype pipe-detail-eyebrow">${esc(item.eyebrow)}</p>
     <h3 class="font-display pipe-detail-title">${esc(item.title)}</h3>
     <p class="pipe-detail-lead">${esc(item.lead)}</p>
     <div class="pipe-detail-body">${paras}</div>
@@ -95,14 +94,12 @@ export function initPipelineMap() {
       node.classList.toggle("is-active", on);
       node.setAttribute("aria-pressed", String(on));
     });
-    detail.classList.remove("is-updating");
     items.forEach((item) => {
       const on = item.dataset.pipeItem === key;
       item.classList.toggle("is-active", on);
       item.setAttribute("aria-hidden", String(!on));
     });
     detail.dataset.active = key;
-    requestAnimationFrame(() => detail.classList.add("is-updating"));
   };
 
   nodes.forEach((node) => {

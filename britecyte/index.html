@@ -20,11 +20,14 @@
   <meta name="twitter:image" content="https://britecyte.com/assets/products/og-withdrawal-syringe.jpg" />
   <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml" />
   <link rel="preload" as="image" href="assets/logos/britecyte-logo.png" />
-  <link rel="stylesheet" href="css/styles.css?v=20261023v" />
-  <link rel="stylesheet" href="css/hybrid-home.css?v=20261026b" />
+  <link rel="stylesheet" href="css/styles.css?v=20261107o" />
+  <link rel="stylesheet" href="css/hybrid-home.css?v=20261106g" />
+  <link rel="stylesheet" href="css/glass.css?v=20261106g" />
+  <link rel="stylesheet" href="css/company.css?v=20261107y" />
 </head>
 <body>
   <div class="site-surface">
+    <div class="bg-field" aria-hidden="true"><i></i><i></i><i></i></div>
     <header class="site-header" id="site-header">
       <div class="site-header-inner">
         <a href="#hero" class="site-logo" aria-label="Britecyte home">
@@ -41,14 +44,25 @@
         </nav>
         <div class="site-header-actions">
           <a href="#pipeline" class="btn btn-primary">Products</a>
-          <button type="button" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" data-menu-toggle>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path class="menu-icon-path" d="M4 6h16M4 12h16M4 18h16" />
+          <button type="button" class="menu-toggle" aria-label="Open menu" aria-expanded="false" data-menu-toggle>
+            <svg class="menu-toggle-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path class="menu-bars" d="M1 4.5h16M1 9h16M1 13.5h16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              <path class="menu-x" d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
             </svg>
           </button>
         </div>
       </div>
     </header>
+
+    <nav class="site-nav-mobile microtype" id="mobile-nav" data-mobile-nav aria-label="Mobile">
+      <a href="#about">Who We Are</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#platform">Science</a>
+      <a href="#team">Team</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
     <main class="site-main">
       <!-- Hero -->
@@ -64,7 +78,7 @@
               <p>By advancing therapies that work with the body's natural biology, we aim to move beyond symptom management toward solutions designed to repair, rebuild, and restore.</p>
             </div>
             <div class="hero-cta-row">
-              <a href="#pipeline" class="btn btn-primary">Explore Our Products</a>
+              <a href="#pipeline" class="btn btn-primary">Explore Products</a>
               <a href="#platform" class="btn btn-ghost">Our Science</a>
             </div>
             <p class="microtype hero-byline">650+ patients treated · Patent-protected technology</p>
@@ -75,12 +89,13 @@
       <!-- Who We Are: journey carousel + proof stats -->
       <section id="about" class="section section-cream section-motif-host" data-section="about" data-motif-key="about">
         <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title font-display">
+              Building the Future of <span class="text-bronze-deep">Biorestoration.</span>
+            </h2>
+          </div>
           <div class="about-stage reveal">
             <div class="about-aside">
-              <h2 class="section-title font-display">
-                Building the Future of<br />
-                <span class="text-bronze-deep">Biorestoration.</span>
-              </h2>
               <ul class="about-stats proof-stats" aria-label="Britecyte experience and proof points">
                 <li><strong class="font-display">60+</strong><span class="proof-stat-line">years of experience in regenerative medicine</span></li>
                 <li><strong class="font-display">20+</strong><span class="proof-stat-line">therapies developed and launched</span></li>
@@ -143,9 +158,7 @@
                 </article>
               </div>
               <div class="journey-controls">
-                <button type="button" class="journey-arrow" data-journey-prev aria-label="Previous milestone">‹</button>
-                <div class="journey-dots" data-journey-dots></div>
-                <button type="button" class="journey-arrow" data-journey-next aria-label="Next milestone">›</button>
+                <div class="journey-dots" data-journey-dots role="tablist" aria-label="Milestone years"></div>
               </div>
             </div>
           </div>
@@ -165,32 +178,42 @@
             <p class="section-intro">Britecyte is advancing a pipeline of innovative therapies designed to restore structure and function across multiple clinical applications. Guided by decades of experience, our platform continues to expand into areas of significant unmet clinical need.</p>
           </div>
 
-          <div class="pipe-map reveal reveal-delay-1" data-pipe-map>
+          <div class="pipe-matrix reveal reveal-delay-1" data-pipe-map>
+            <div class="pipe-rows">
+                <button type="button" class="pipe-row is-active" data-pipe-node="lipoderma" aria-pressed="true">
+                  <span class="pipe-row-name font-display">Lipoderma®</span>
+                  <span class="pipe-row-area">Cosmetic &amp; Reconstructive</span>
+                  <span class="pipe-row-track" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+                  <span class="pipe-row-stage pipe-row-stage--commercial">Commercial</span>
+                </button>
+                <button type="button" class="pipe-row" data-pipe-node="liposana" aria-pressed="false">
+                  <span class="pipe-row-name font-display">Liposana®</span>
+                  <span class="pipe-row-area">Foot &amp; Ankle</span>
+                  <span class="pipe-row-track" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span>
+                  <span class="pipe-row-stage pipe-row-stage--commercial">Commercial</span>
+                </button>
+                <button type="button" class="pipe-row" data-pipe-node="brc-oa" aria-pressed="false">
+                  <span class="pipe-row-name font-display">BRC-OA</span>
+                  <span class="pipe-row-area">Orthopedics</span>
+                  <span class="pipe-row-track" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span>
+                  <span class="pipe-row-stage pipe-row-stage--clinical">Clinical</span>
+                </button>
+                <button type="button" class="pipe-row" data-pipe-node="brc-liver" aria-pressed="false">
+                  <span class="pipe-row-name font-display">BRC-Liver</span>
+                  <span class="pipe-row-area">Liver Disease</span>
+                  <span class="pipe-row-track" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
+                  <span class="pipe-row-stage pipe-row-stage--preclinical">Preclinical</span>
+                </button>
+                <button type="button" class="pipe-row" data-pipe-node="brc-wound" aria-pressed="false">
+                  <span class="pipe-row-name font-display">BRC-Wound</span>
+                  <span class="pipe-row-area">Chronic Wounds</span>
+                  <span class="pipe-row-track" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
+                  <span class="pipe-row-stage pipe-row-stage--preclinical">Preclinical</span>
+                </button>
+            </div>
             <div class="pipe-detail" data-pipe-detail aria-live="polite">
               <!-- Filled by js/pipeline-map.js -->
             </div>
-            <div class="pipe-map-controls">
-              <div class="pipe-map-branches">
-                <div class="pipe-branch pipe-branch--structure">
-                  <div class="pipe-branch-head">
-                    <p class="pipe-branch-kicker">Restoring Structure</p>
-                  </div>
-                  <div class="pipe-branch-cards">
-                    <button type="button" class="pipe-node is-active" data-pipe-node="lipoderma" aria-pressed="true"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M28 10c-4 0-8 5-8 12 0 8 5 16 10 16s8-6 8-14c0-8-4-14-10-14Z" stroke="currentColor" stroke-width="1.6"/><path d="M18 30c-3 1-6 4-6 8h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Cosmetic &amp; Reconstructive</span><span class="pipe-node-name">Lipoderma®</span></span><span class="pipe-node-stage pipe-node-stage--commercial">Commercial</span></button>
-                    <button type="button" class="pipe-node" data-pipe-node="liposana" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M14 18c4-8 16-8 20 0l4 18H10l4-18Z" stroke="currentColor" stroke-width="1.6"/><path d="M18 36v4M30 36v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Foot &amp; Ankle</span><span class="pipe-node-name">Liposana®</span></span><span class="pipe-node-stage pipe-node-stage--commercial">Commercial</span></button>
-                  </div>
-                </div>
-                <div class="pipe-branch pipe-branch--function">
-                  <div class="pipe-branch-head"><p class="pipe-branch-kicker">Restoring Function</p></div>
-                  <div class="pipe-branch-cards">
-                    <button type="button" class="pipe-node" data-pipe-node="brc-oa" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M24 8v9M24 31v9M8 24h9M31 24h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Orthopedics</span><span class="pipe-node-name">BRC-OA</span></span><span class="pipe-node-stage pipe-node-stage--clinical">Clinical</span></button>
-                    <button type="button" class="pipe-node" data-pipe-node="brc-liver" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M12 20c0-6 6-10 14-10s12 6 12 12c0 10-6 16-14 16-6 0-10-3-12-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18 28c2 2 5 3 8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Liver Disease</span><span class="pipe-node-name">BRC-Liver</span></span><span class="pipe-node-stage pipe-node-stage--preclinical">Preclinical</span></button>
-                    <button type="button" class="pipe-node" data-pipe-node="brc-wound" aria-pressed="false"><span class="pipe-node-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="10" y="18" width="28" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M18 18v14M30 18v14M10 25h28" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="pipe-node-copy"><span class="pipe-node-area">Chronic Wounds</span><span class="pipe-node-name">BRC-Wound</span></span><span class="pipe-node-stage pipe-node-stage--preclinical">Preclinical</span></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -263,19 +286,15 @@
               </template>
           </div>
           <div class="team-stage reveal reveal-delay-1">
-          <div class="team-feature surface" data-team-spotlight>
-            <div class="team-feature-photo"><img data-spot-img src="" alt="" /></div>
-            <div class="team-feature-copy">
-              <h3 class="team-feature-name font-display" data-spot-name></h3>
-              <p class="team-feature-role microtype" data-spot-role></p>
-              <div class="team-feature-bio" data-spot-bio></div>
+            <div class="team-roster" data-team-dots role="tablist" aria-label="Team"></div>
+            <div class="team-panel" data-team-spotlight>
+              <div class="team-panel-copy">
+                <h3 class="team-feature-name font-display" data-spot-name></h3>
+                <p class="team-feature-role microtype" data-spot-role></p>
+                <div class="team-feature-bio" data-spot-bio></div>
+              </div>
+              <div class="team-panel-photo"><img data-spot-img src="" alt="" /></div>
             </div>
-          </div>
-          <div class="team-controls">
-            <button type="button" class="team-arrow" data-team-prev aria-label="Previous team member">&#8249;</button>
-            <div class="team-dots" data-team-dots></div>
-            <button type="button" class="team-arrow" data-team-next aria-label="Next team member">&#8250;</button>
-          </div>
           </div>
         </div>
       </section>
@@ -310,7 +329,8 @@
         <div class="container">
           <div class="contact-block reveal">
             <h2 class="section-title font-display">Get in touch.</h2>
-            <form class="contact-form surface surface-lg" data-contact-form action="https://formsubmit.co/ajax/needthefat@britecyte.com" method="POST">
+            <div class="contact-layout">
+            <form class="contact-form" data-contact-form action="https://formsubmit.co/ajax/needthefat@britecyte.com" method="POST">
               <input type="hidden" name="_subject" value="Britecyte website contact form" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_url" value="https://britecyte.com/" />
@@ -333,19 +353,24 @@
                   <option value="partnership">Partnership</option>
                 </select>
               </div>
-              <div class="form-row">
+              <div class="form-row form-row--wide">
                 <label class="form-label microtype" for="contact-message">Message</label>
-                <textarea id="contact-message" name="message" rows="4" required class="form-input form-textarea"></textarea>
+                <textarea id="contact-message" name="message" rows="3" required class="form-input form-textarea"></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-full">Send message</button>
               <p class="form-success microtype" data-form-success hidden>Thank you—we'll be in touch shortly.</p>
               <p class="form-error microtype" data-form-error hidden>Something went wrong. Please try again or email us directly.</p>
             </form>
-            <address class="contact-address">
-              <strong class="font-display">Britecyte, Inc.</strong><br />
-              Frederick, MD<br />
-              <a href="mailto:brighterlives@britecyte.com">brighterlives@britecyte.com</a>
-            </address>
+            <aside class="contact-aside">
+              <p class="microtype contact-aside-label">Direct</p>
+              <a class="contact-email font-display" href="mailto:brighterlives@britecyte.com">brighterlives@britecyte.com</a>
+              <address class="contact-address">
+                <span>Britecyte, Inc.</span>
+                <span>Frederick, MD</span>
+              </address>
+              <p class="contact-aside-note">For clinical, media, and partnership questions, tell us who you are and we'll route you to the right person.</p>
+            </aside>
+            </div>
           </div>
         </div>
       </section>
@@ -373,7 +398,6 @@
           </div>
           <nav class="footer-nav microtype" aria-label="Footer">
             <div class="footer-nav-col">
-              <span class="footer-nav-heading">Company</span>
               <a href="#about">Who We Are</a>
               <a href="#pipeline">Pipeline</a>
               <a href="#platform">Science</a>
@@ -390,15 +414,6 @@
       </div>
     </footer>
   </div>
-  <nav class="site-nav-mobile microtype" data-mobile-nav aria-label="Mobile">
-    <a href="#about">Who We Are</a>
-    <a href="#pipeline">Pipeline</a>
-    <a href="#platform">Science</a>
-    <a href="#team">Team</a>
-    <a href="#news">News</a>
-    <a href="#publications">Publications</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <script type="module" src="js/main.js?v=20261026b"></script>
+  <script type="module" src="js/main.js?v=20261107e"></script>
 </body>
 </html>

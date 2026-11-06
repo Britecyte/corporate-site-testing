@@ -1,0 +1,131 @@
+/* Same glass treatment as Lipoderma, in Britecyte's own colors:
+   navy ink, orange accent, a warm ivory field. Layout stays in hybrid-home.css. */
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../lipoderma/fonts/instrument-serif.woff2) format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../../lipoderma/fonts/instrument-serif-italic.woff2) format("woff2");
+}
+
+:root {
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --color-ink: #233051;
+  --color-ink-soft: #4a5470;
+  --color-flame: #1e448c;
+  --color-bronze: #c0782e;
+  --color-bronze-deep: #fd893c;
+  --color-orange-bright: #fd893c;
+  --color-hairline: rgba(35, 48, 81, 0.16);
+  --surface-fill: linear-gradient(150deg, rgba(255, 251, 247, 0.78), rgba(255, 255, 255, 0.42));
+  --glass-border: 1px solid rgba(236, 217, 200, 0.9);
+  --shadow-lift:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 28px 60px -30px rgba(35, 48, 81, 0.35);
+}
+
+html {
+  background: #f3e6d6;
+  overflow-x: clip;
+}
+
+body { background: transparent; color: var(--color-ink); }
+
+.font-display { font-weight: 400; letter-spacing: -0.015em; }
+
+.bg-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: clip;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 70% at 50% 12%, #fffbf7 0%, rgba(255, 251, 247, 0) 58%),
+    linear-gradient(180deg, #fff7ef 0%, #f6e7d6 52%, #ecd3b8 100%);
+}
+
+.bg-field i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+}
+
+.bg-field i:nth-child(1) {
+  width: 90vmax; height: 34vmax;
+  left: -20vmax; top: 18vh;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  opacity: 0.8;
+}
+.bg-field i:nth-child(2) {
+  width: 70vmax; height: 46vmax;
+  right: -24vmax; top: 38vh;
+  background: radial-gradient(closest-side, #fd893c, rgba(253, 137, 60, 0));
+  opacity: 0.28;
+}
+.bg-field i:nth-child(3) {
+  width: 80vmax; height: 40vmax;
+  left: -10vmax; bottom: -22vmax;
+  background: radial-gradient(closest-side, #1e448c, rgba(30, 68, 140, 0));
+  opacity: 0.22;
+}
+
+.site-surface { background: transparent; }
+
+.site-header {
+  background: rgba(255, 251, 247, 0.72);
+  border-bottom-color: rgba(236, 217, 200, 0.9);
+}
+
+.surface,
+.journey-slide,
+.pathway-step,
+.contact-form {
+  background: var(--surface-fill);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-lift);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.btn-primary { background: var(--color-orange-bright); color: #fffbf7; }
+.btn-primary:hover { background: var(--color-bronze); color: #fffbf7; }
+.btn-ghost {
+  background: #fffbf7;
+  border-color: var(--color-orange-bright);
+  color: #c05612;
+}
+.btn-ghost:hover {
+  background: var(--color-orange-bright);
+  border-color: var(--color-orange-bright);
+  color: #fffbf7;
+}
+
+.site-footer {
+  background: transparent;
+  border-top: 1px solid rgba(35, 48, 81, 0.12);
+  padding-block: 1.25rem 0.9rem;
+}
+.footer-gradient { display: none; }
+.footer-inner { padding-block: 0; }
+.footer-lead { margin-bottom: 0.85rem; }
+.footer-headline { font-size: clamp(1.15rem, 2.2vw, 1.45rem); }
+.footer-brand { margin-bottom: 0; }
+.footer-grid { margin-top: 0.85rem; gap: 1rem 1.5rem; align-items: start; }
+
+/* Wide enough to show the bar: a window at least as wide as it is tall. */
+@media (min-aspect-ratio: 1/1) {
+  .site-nav { display: flex; }
+  .menu-toggle,
+  .site-nav-mobile { display: none !important; }
+  .site-header-actions .btn-primary { display: inline-flex; }
+}
+
+::selection { background: #fd893c; color: #233051; }
