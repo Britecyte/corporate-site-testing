@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team profile designs — Britecyte lab</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="../britecyte/assets/logos/favicon.svg" type="image/svg+xml" />
+  <style>
+    @font-face {
+      font-family: "Plus Jakarta Sans";
+      font-style: normal;
+      font-weight: 200 800;
+      font-display: swap;
+      src: url(../britecyte/assets/fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2) format("woff2");
+    }
+  </style>
+  <style>
+    :root {
+      --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+      --font-display: "Iowan Old Style", Georgia, serif;
+      --ink: #233051;
+      --ink-soft: #4a5470;
+      --cream: #fffbf7;
+      --card: #fffbf7;
+      --flame: #1e448c;
+      --orange: #fd893c;
+      --hair: #2330511f;
+      --border-warm: #ecd9c8;
+      --shadow: 0 18px 50px -28px rgba(139, 69, 19, 0.28);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --pad: clamp(1rem, 3vw, 1.75rem);
+      --max: 72rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--ink);
+      background: linear-gradient(180deg, #fff7ef 0%, #f3e6d6 100%);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .lab-top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--hair);
+      background: rgba(255, 251, 247, 0.92);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+  <style>
+    .lab-top-inner {
+      max-width: var(--max);
+      margin-inline: auto;
+      padding: 0.75rem var(--pad);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.25rem;
+    }
+    .lab-top h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .lab-top p { margin: 0; font-size: 0.82rem; color: var(--ink-soft); }
+    .lab-jump {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-left: auto;
+    }
+    .lab-jump a {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid var(--hair);
+      color: var(--ink-soft);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .lab-jump a:hover { border-color: var(--orange); color: var(--ink); }
+
+    main { max-width: var(--max); margin-inline: auto; padding: 2rem var(--pad) 4rem; }
+
+    .lab-intro {
+      max-width: 62ch;
+      margin-bottom: 2.5rem;
+    }
+    .lab-intro h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .lab-intro p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+    .variant {
+      margin-bottom: clamp(2.5rem, 6vh, 4rem);
+      padding-bottom: clamp(2rem, 5vh, 3rem);
+      border-bottom: 1px solid var(--hair);
+    }
+    .variant:last-child { border-bottom: 0; }
+
+    .variant-head {
+      display: grid;
+      gap: 0.35rem;
+      margin-bottom: 1.25rem;
+    }
+    .variant-kicker {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .variant-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+      font-weight: 400;
+    }
+    .variant-note {
+      margin: 0;
+      max-width: 70ch;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .variant-note code {
+      font-size: 0.82em;
+      color: var(--flame);
+    }
+
+    .demo-frame {
+      padding: clamp(1rem, 2.5vw, 1.75rem);
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow);
+    }
+
+    /* —— A: Production carousel (britecyte-website) —— */
+    .demo-carousel { display: flex; flex-direction: column; align-items: center; }
+    .demo-carousel .team-feature {
+      display: grid;
+      grid-template-columns: minmax(10.8rem, 37.8%) minmax(0, 1fr);
+      gap: clamp(1.35rem, 2.7vw, 2rem);
+      padding: clamp(1.25rem, 2.5vw, 2rem);
+      width: min(100%, 90%);
+      border: 1px solid var(--border-warm);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .demo-carousel .team-feature-photo {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #ece7df;
+    }
+    .demo-carousel .team-feature-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 18%;
+    }
+    .demo-carousel .team-feature-name {
+      margin: 0 0 0.35rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      line-height: 1.05;
+    }
+    .demo-carousel .team-feature-role {
+      margin: 0 0 0.85rem;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .demo-carousel .team-feature-bio p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+    .demo-carousel .team-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.85rem;
+      width: min(100%, 20rem);
+    }
+    .demo-carousel .team-arrow {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid var(--hair);
+      background: #fff;
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+    .demo-carousel .team-dots { display: flex; gap: 0.35rem; margin-inline: auto; }
+    .demo-carousel .team-dot {
+      width: 0.65rem;
+      height: 0.65rem;
+      padding: 0;
+      border: 1px solid var(--ink);
+      background: transparent;
+      cursor: pointer;
+    }
+    .demo-carousel .team-dot.is-active { background: var(--ink); }
+
+    /* —— B: Corporate-site-testing roster + panel —— */
+    .demo-roster-wide .team-stage {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .demo-roster-wide .team-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.2fr);
+      gap: clamp(1rem, 3vw, 2rem);
+      align-items: center;
+    }
+    .demo-roster-wide .team-panel-photo {
+      aspect-ratio: 4 / 5;
+      max-width: 16rem;
+      overflow: hidden;
+    }
+    .demo-roster-wide .team-panel-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 18%;
+    }
+    .demo-roster-wide .team-feature-name {
+      margin: 0 0 0.15rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2vw, 1.75rem);
+    }
+    .demo-roster-wide .team-feature-role {
+      color: var(--orange);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .demo-roster-wide .team-feature-bio {
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      max-width: 46ch;
+    }
+    .demo-roster-wide .team-roster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .demo-roster-wide .team-portrait {
+      display: grid;
+      gap: 0.4rem;
+      justify-items: center;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      color: var(--ink-soft);
+      font: inherit;
+    }
+    .demo-roster-wide .team-portrait-img {
+      width: 4.5rem;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+    .demo-roster-wide .team-portrait-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .demo-roster-wide .team-portrait-name {
+      font-size: 0.78rem;
+      text-align: center;
+    }
+    .demo-roster-wide .team-portrait.is-active .team-portrait-name { color: var(--orange); }
+
+    .demo-roster-narrow {
+      margin-top: 1.5rem;
+      border-top: 1px dashed var(--hair);
+      padding-top: 1.25rem;
+    }
+    .demo-roster-narrow-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.75rem;
+    }
+    .narrow-sim {
+      max-width: 22rem;
+      margin-inline: auto;
+      border: 2px solid var(--flame);
+      padding: 0.5rem;
+      background: var(--cream);
+    }
+    .demo-roster-narrow .team-roster {
+      display: grid;
+      border-top: 1px solid var(--hair);
+    }
+    .demo-roster-narrow .team-portrait {
+      display: grid;
+      grid-template-columns: 3.4rem 1fr;
+      align-items: center;
+      gap: 0.65rem;
+      width: 100%;
+      padding: 0.5rem 0.25rem;
+      border: 0;
+      border-bottom: 1px solid var(--hair);
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      color: var(--ink-soft);
+    }
+    .demo-roster-narrow .team-portrait.is-active {
+      grid-template-columns: 1fr;
+      color: var(--ink);
+    }
+    .demo-roster-narrow .team-portrait.is-active .team-portrait-img { display: none; }
+    .demo-roster-narrow .team-portrait-img {
+      width: 3.4rem;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+    .demo-roster-narrow .team-portrait-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .demo-roster-narrow .team-fold {
+      grid-column: 1 / -1;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease);
+    }
+    .demo-roster-narrow .team-portrait.is-active .team-fold { max-height: 24rem; }
+    .demo-roster-narrow .team-fold-inner {
+      display: grid;
+      grid-template-columns: 0.42fr 1fr;
+      gap: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+    .demo-roster-narrow .team-fold-photo {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+    .demo-roster-narrow .team-fold-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .demo-roster-narrow .team-feature-role {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin: 0 0 0.35rem;
+    }
+    .demo-roster-narrow .team-feature-bio {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    /* —— C: Copytest panel grid + detail —— */
+    .demo-panel .team-stage {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+    .demo-panel .team-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    .demo-panel .team-card {
+      position: relative;
+      height: clamp(7rem, 18vw, 10rem);
+      padding: 0;
+      border: 1px solid var(--hair);
+      overflow: hidden;
+      cursor: pointer;
+      background: #ece7df;
+    }
+    .demo-panel .team-card.is-active {
+      outline: 2px solid var(--orange);
+      outline-offset: -1px;
+    }
+    .demo-panel .team-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .demo-panel .team-card-caption {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      padding: 1.5rem 0.4rem 0.35rem;
+      background: linear-gradient(to top, rgba(20, 12, 6, 0.85), transparent);
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: #fff8f0;
+      line-height: 1.2;
+    }
+    .demo-panel .team-detail {
+      display: grid;
+      grid-template-columns: minmax(8rem, 0.4fr) 1fr;
+      border: 1px solid var(--border-warm);
+      background: var(--card);
+      min-height: 11rem;
+    }
+    .demo-panel .team-detail-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 11rem;
+      object-fit: cover;
+    }
+    .demo-panel .team-detail-copy {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .demo-panel .team-bio-name {
+      margin: 0 0 0.25rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+    }
+    .demo-panel .team-bio-role {
+      margin: 0 0 0.65rem;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+    }
+    .demo-panel .team-bio-copy p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* —— OG: gradient caption + dark bio overlay on hover/click —— */
+    .demo-og .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    @media (min-width: 40rem) {
+      .demo-og .team-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 64rem) {
+      .demo-og .team-grid { grid-template-columns: repeat(5, 1fr); gap: 0.65rem; }
+    }
+    .demo-og .team-card {
+      position: relative;
+      padding: 0;
+      border: 1px solid var(--hair);
+      background: #ece7df;
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      color: inherit;
+      overflow: hidden;
+      transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+    }
+    .demo-og .team-card.is-active {
+      border-color: rgba(212, 137, 74, 0.7);
+      box-shadow: 0 0 0 1px rgba(212, 137, 74, 0.35);
+    }
+    .demo-og .team-card:hover {
+      border-color: rgba(212, 137, 74, 0.45);
+      box-shadow: 0 12px 28px -22px rgba(35, 48, 81, 0.7);
+    }
+    .demo-og .team-card-inner {
+      position: relative;
+      display: block;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+    @media (min-width: 64rem) {
+      .demo-og .team-card-inner {
+        aspect-ratio: auto;
+        height: clamp(10rem, 22vw, 13.5rem);
+      }
+    }
+    .demo-og .team-card-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    @media (max-width: 63.99rem) {
+      .demo-og .team-card-photo {
+        height: 120%;
+        transform: translateY(-10%);
+      }
+    }
+    .demo-og .team-card-name {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 2.1rem 0.65rem 0.85rem;
+      background: linear-gradient(to top, rgba(20, 12, 6, 0.9) 0%, rgba(20, 12, 6, 0.42) 58%, transparent 100%);
+      pointer-events: none;
+    }
+    .demo-og .team-card-name-text {
+      display: block;
+      color: #fff8f0;
+      font-family: var(--font-display);
+      font-size: clamp(0.78rem, 2vw, 0.95rem);
+      line-height: 1.2;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+    }
+    .demo-og .team-card-title {
+      display: block;
+      margin-top: 0.28rem;
+      color: #f0c48a;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+    .demo-og .team-card-bio {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      align-items: flex-start;
+      padding: 0.75rem;
+      background: rgba(28, 18, 10, 0.92);
+      color: rgba(255, 251, 247, 0.95);
+      opacity: 0;
+      overflow: auto;
+      pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+    .demo-og .team-card.is-active .team-card-bio,
+    .demo-og .team-card:hover .team-card-bio,
+    .demo-og .team-card:focus-within .team-card-bio {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .demo-og .team-card-bio p {
+      margin: 0;
+      font-size: clamp(0.68rem, 1.8vw, 0.78rem);
+      line-height: 1.45;
+    }
+
+    /* —— D: Copytest overlay cards (2-col grid) —— */
+    .demo-overlay .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    @media (min-width: 52rem) {
+      .demo-overlay .team-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .demo-overlay .team-card {
+      position: relative;
+      border: 1px solid var(--hair);
+      padding: 0;
+      cursor: pointer;
+      background: none;
+      font: inherit;
+      text-align: left;
+    }
+    .demo-overlay .team-card {
+      position: relative;
+    }
+    .demo-overlay .team-card-inner {
+      position: relative;
+      display: block;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+    .demo-overlay .team-card-photo {
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      object-position: center top;
+      transform: translateY(-8%);
+      display: block;
+    }
+    .demo-overlay .team-card-name {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      padding: 2rem 0.85rem 0.85rem;
+      background: linear-gradient(to top, rgba(20, 12, 6, 0.88), transparent 70%);
+    }
+    .demo-overlay .team-card-name-text {
+      display: block;
+      color: #fff8f0;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+    }
+    .demo-overlay .team-card-title {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .demo-overlay .team-bio-box {
+      margin-top: 1rem;
+      padding: 1.15rem;
+      border: 1px solid var(--border-warm);
+      background: var(--card);
+      min-height: 8rem;
+    }
+    .demo-overlay .team-bio-placeholder {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+
+    /* —— E: Expanded cards (new) —— */
+    .demo-expanded {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+      gap: 1rem;
+    }
+    .demo-expanded article {
+      border: 1px solid var(--border-warm);
+      background: var(--card);
+      padding: 0.85rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+    .demo-expanded .thumb {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #ece7df;
+    }
+    .demo-expanded .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .demo-expanded h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+    }
+    .demo-expanded .role {
+      margin: 0;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .demo-expanded p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    /* —— F: Filmstrip (new) —— */
+    .demo-filmstrip .detail {
+      display: grid;
+      grid-template-columns: minmax(0, 0.35fr) 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--hair);
+    }
+    .demo-filmstrip .detail-photo {
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 50%;
+      max-width: 7.5rem;
+    }
+    .demo-filmstrip .detail-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .demo-filmstrip .detail h3 {
+      margin: 0 0 0.2rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+    }
+    .demo-filmstrip .detail .role {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .demo-filmstrip .detail p {
+      margin: 0.5rem 0 0;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      max-width: 52ch;
+    }
+    .demo-filmstrip .strip {
+      display: flex;
+      gap: 0.65rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .demo-filmstrip .chip {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 4.25rem;
+      padding: 0;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      background: none;
+    }
+    .demo-filmstrip .chip.is-active { border-color: var(--orange); }
+    .demo-filmstrip .chip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* —— G: Directory rows (new) —— */
+    .demo-directory {
+      border: 1px solid var(--hair);
+      background: #fff;
+    }
+    .demo-directory button {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 0;
+      border-bottom: 1px solid var(--hair);
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+      color: var(--ink);
+      transition: background 0.15s;
+    }
+    .demo-directory button:hover { background: rgba(253, 137, 60, 0.06); }
+    .demo-directory button.is-active { background: rgba(30, 68, 140, 0.06); }
+    .demo-directory .name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+    }
+    .demo-directory .meta {
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      text-align: right;
+      max-width: 14rem;
+    }
+    .demo-directory .drawer {
+      display: none;
+      padding: 1rem 1.25rem 1.25rem;
+      border-bottom: 1px solid var(--hair);
+      background: var(--cream);
+    }
+    .demo-directory .drawer.is-open { display: block; }
+    .demo-directory .drawer p {
+      margin: 0;
+      max-width: 60ch;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 40rem) {
+      .demo-panel .team-grid { grid-template-columns: repeat(3, 1fr); }
+      .demo-panel .team-detail { grid-template-columns: 1fr; }
+      .demo-carousel .team-feature { grid-template-columns: 1fr; }
+      .demo-roster-wide .team-panel { grid-template-columns: 1fr; }
+      .demo-filmstrip .detail { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="lab-top">
+    <div class="lab-top-inner">
+      <div style="display:contents">
+        <h1>Team profile lab</h1>
+        <p>corporate-site-testing / labs</p>
+      </div>
+      <nav class="lab-jump" aria-label="Jump to variant">
+        <a href="#v-production">Production</a>
+        <a href="#v-og">OG overlay</a>
+        <a href="#v-testing">Testing</a>
+        <a href="#v-panel">Panel</a>
+        <a href="#v-overlay">Overlay</a>
+        <a href="#v-expanded">Expanded</a>
+        <a href="#v-filmstrip">Filmstrip</a>
+        <a href="#v-directory">Directory</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="lab-intro">
+      <h2>Meet the team — design lineage</h2>
+      <p>
+        Side-by-side references for team UI patterns used on
+        <code>britecyte-website</code> (production), <code>corporate-site-testing</code> (current dev),
+        and early <code>copytest</code> / panel prototypes—plus a few new directions.
+        Photos and copy match the live templates. Each block is interactive where the original was.
+      </p>
+    </div>
+
+    <!-- A: britecyte-website -->
+    <section class="variant" id="v-production">
+      <header class="variant-head">
+        <span class="variant-kicker">britecyte-website · production</span>
+        <h3 class="variant-title">Glass feature card + arrow / dot carousel</h3>
+        <p class="variant-note">
+          Single centered <code>.team-feature.surface</code> (photo left, copy right).
+          Prev / next and square dots below. Still the layout on britecyte.com.
+        </p>
+      </header>
+      <div class="demo-frame demo-carousel" data-demo="carousel">
+        <div class="team-feature surface" data-spotlight>
+          <div class="team-feature-photo">
+            <img data-img src="" alt="" />
+          </div>
+          <div class="team-feature-copy">
+            <h3 class="team-feature-name font-display" data-name></h3>
+            <p class="team-feature-role microtype" data-role></p>
+            <div class="team-feature-bio" data-bio></div>
+          </div>
+        </div>
+        <div class="team-controls">
+          <button type="button" class="team-arrow" data-prev aria-label="Previous">&#8249;</button>
+          <div class="team-dots" data-dots></div>
+          <button type="button" class="team-arrow" data-next aria-label="Next">&#8250;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OG: original portrait grid -->
+    <section class="variant" id="v-og">
+      <header class="variant-head">
+        <span class="variant-kicker">copytest / early Britecyte · likely ship candidate</span>
+        <h3 class="variant-title">Portrait grid — gradient caption + dark bio overlay</h3>
+        <p class="variant-note">
+          Names sit on a bottom shadow in white type; hover or click fills the portrait with a dark
+          scrim and bio in light text (<code>.team-card-bio</code> in copytest). Desktop used a
+          five-up strip; narrow viewports keep the same on-card overlay.
+        </p>
+      </header>
+      <div class="demo-frame demo-og" data-demo="og">
+        <div class="team-grid" data-grid></div>
+      </div>
+    </section>
+
+    <!-- B: corporate-site-testing -->
+    <section class="variant" id="v-testing">
+      <header class="variant-head">
+        <span class="variant-kicker">corporate-site-testing · current dev</span>
+        <h3 class="variant-title">Portrait roster + spotlight panel</h3>
+        <p class="variant-note">
+          Wide: text and large photo in one row, thumbnails in a bottom row (no grayscale).
+          Tall: accordion—name row expands inline with photo + bio; top panel hidden.
+        </p>
+      </header>
+      <div class="demo-frame demo-roster-wide" data-demo="roster-wide">
+        <div class="team-stage">
+          <div class="team-panel" data-panel>
+            <div class="team-panel-photo"><img data-img src="" alt="" /></div>
+            <div class="team-panel-copy">
+              <h3 class="team-feature-name" data-name></h3>
+              <p class="team-feature-role" data-role></p>
+              <p class="team-feature-bio" data-bio></p>
+            </div>
+          </div>
+          <div class="team-roster" data-roster></div>
+        </div>
+      </div>
+      <div class="demo-roster-narrow">
+        <p class="demo-roster-narrow-label">Portrait accordion preview (simulated narrow width)</p>
+        <div class="narrow-sim" data-demo="roster-narrow">
+          <div class="team-roster" data-roster-narrow></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- C: copytest panel -->
+    <section class="variant" id="v-panel">
+      <header class="variant-head">
+        <span class="variant-kicker">copytest · panel app (archived)</span>
+        <h3 class="variant-title">Five-up photo strip + split detail card</h3>
+        <p class="variant-note">
+          From <code>copytest/_archive/2026-08-24-website-preview</code>:
+          equal-height headshots in a row; selected person fills a two-column detail surface.
+        </p>
+      </header>
+      <div class="demo-frame demo-panel" data-demo="panel">
+        <div class="team-stage">
+          <div class="team-grid" data-grid></div>
+          <article class="team-detail" data-detail>
+            <div class="team-detail-media"><img data-img src="" alt="" /></div>
+            <div class="team-detail-copy">
+              <h3 class="team-bio-name" data-name></h3>
+              <p class="team-bio-role" data-role></p>
+              <div class="team-bio-copy" data-bio></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- D: copytest overlay grid -->
+    <section class="variant" id="v-overlay">
+      <header class="variant-head">
+        <span class="variant-kicker">copytest · early homepage</span>
+        <h3 class="variant-title">Overlay cards + shared bio well</h3>
+        <p class="variant-note">
+          Large portrait tiles with gradient name overlay (<code>.team-grid</code> 2×3).
+          Selection updates a separate bio box—precursor to the panel layout.
+        </p>
+      </header>
+      <div class="demo-frame demo-overlay" data-demo="overlay">
+        <div class="team-grid" data-grid></div>
+        <article class="team-bio-box">
+          <p class="team-bio-placeholder" data-placeholder>Select a team member above.</p>
+          <div data-bio hidden>
+            <h3 class="team-bio-name font-display" data-name></h3>
+            <p class="team-bio-role" data-role></p>
+            <div class="team-bio-copy" data-copy></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- E: new expanded -->
+    <section class="variant" id="v-expanded">
+      <header class="variant-head">
+        <span class="variant-kicker">Exploration · new</span>
+        <h3 class="variant-title">All profiles visible (no carousel)</h3>
+        <p class="variant-note">
+          Good for smaller leadership teams: every bio on one screen, print-friendly, no JS required.
+        </p>
+      </header>
+      <div class="demo-frame demo-expanded" data-demo="expanded"></div>
+    </section>
+
+    <!-- F: filmstrip -->
+    <section class="variant" id="v-filmstrip">
+      <header class="variant-head">
+        <span class="variant-kicker">Exploration · new</span>
+        <h3 class="variant-title">Circular filmstrip + hero detail</h3>
+        <p class="variant-note">
+          Mobile-first pattern: horizontal snap scroll of faces; detail stays stable above the strip.
+        </p>
+      </header>
+      <div class="demo-frame demo-filmstrip" data-demo="filmstrip">
+        <div class="detail" data-detail>
+          <div class="detail-photo"><img data-img src="" alt="" /></div>
+          <div>
+            <h3 data-name></h3>
+            <p class="role" data-role></p>
+            <p data-bio></p>
+          </div>
+        </div>
+        <div class="strip" data-strip></div>
+      </div>
+    </section>
+
+    <!-- G: directory -->
+    <section class="variant" id="v-directory">
+      <header class="variant-head">
+        <span class="variant-kicker">Exploration · new</span>
+        <h3 class="variant-title">Directory rows (text-first)</h3>
+        <p class="variant-note">
+          Corporate / IR tone: names and titles in a list; bio expands inline—minimal imagery until requested.
+        </p>
+      </header>
+      <div class="demo-frame demo-directory" data-demo="directory"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    const PEOPLE = [
+      {
+        photo: "../britecyte/assets/team/samson-tom.jpg",
+        alt: "Portrait of Samson Tom",
+        name: "Samson Tom, PhD, MBA",
+        short: "Samson Tom",
+        role: "President and CEO, Co-Founder",
+        bio: "Dr. Tom became President and CEO of Britecyte in June 2022. He brings more than 25 years of experience developing and commercializing advanced biologics, devices, and tissue-based products—including as President and CEO of Osiris Therapeutics through its acquisition by Smith+Nephew.",
+      },
+      {
+        photo: "../britecyte/assets/team/alla-danilkovitch.jpg",
+        alt: "Portrait of Alla Danilkovitch",
+        name: "Alla Danilkovitch, PhD",
+        short: "Alla Danilkovitch",
+        role: "Founder and Chief Scientific Officer",
+        bio: "Dr. Danilkovitch founded Britecyte in 2020 and leads its scientific vision in regenerative medicine. At Osiris Therapeutics she helped develop Prochymal®, BIO4™, Cartiform®, Grafix®, and Stravix™—with 30+ years of experience, 55 patents, and 60 publications across academia, government, and industry.",
+      },
+      {
+        photo: "../britecyte/assets/team/molly-saunders.jpg",
+        alt: "Portrait of Molly Saunders",
+        name: "Molly Saunders",
+        short: "Molly Saunders",
+        role: "VP, Customer Engagement",
+        bio: "Molly Saunders joined Britecyte in January 2024. Previously Senior Manager of Clinical Operations at Osiris Therapeutics, she managed multi-center tissue-based studies and co-authored publications supporting market access and reimbursement before consulting in life sciences at Alvarez & Marsal.",
+      },
+      {
+        photo: "../britecyte/assets/team/lisa-rodemann.jpg",
+        alt: "Portrait of Lisa Rodemann",
+        name: "Lisa Rodemann",
+        short: "Lisa Rodemann",
+        role: "Director, Customer Experience",
+        bio: "Lisa Rodemann joined Britecyte in January 2026. She spent 25 years at Osiris Therapeutics and Smith+Nephew across Human Resources, Clinical Programs, Marketing, and project management—including Advanced Wound Care and white-glove support for key accounts during the pandemic.",
+      },
+      {
+        photo: "../britecyte/assets/team/peter-friedli.jpg",
+        alt: "Portrait of Peter Friedli",
+        name: "Peter Friedli",
+        short: "Peter Friedli",
+        role: "Chairman and Co-Founder",
+        bio: "Peter Friedli has led Swiss venture capital firm Friedli Corporate Finance AG since 1986, investing in more than 170 high-tech and biotechnology companies. He co-founded and chaired Osiris Therapeutics and was its major shareholder.",
+      },
+    ];
+
+    function setSpotlight(root, i) {
+      const p = PEOPLE[i];
+      root.querySelector("[data-img]").src = p.photo;
+      root.querySelector("[data-img]").alt = p.alt;
+      const nameEl = root.querySelector("[data-name]");
+      if (nameEl) nameEl.textContent = p.name;
+      const roleEl = root.querySelector("[data-role]");
+      if (roleEl) roleEl.textContent = p.role;
+      const bioEl = root.querySelector("[data-bio]");
+      if (bioEl) {
+        if (bioEl.tagName === "P") bioEl.textContent = p.bio;
+        else bioEl.innerHTML = `<p>${p.bio}</p>`;
+      }
+      return p;
+    }
+
+    /* OG — portrait shadow overlay */
+    (() => {
+      const host = document.querySelector('[data-demo="og"]');
+      const grid = host.querySelector("[data-grid]");
+      PEOPLE.forEach((p) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "team-card";
+        card.innerHTML = `
+          <span class="team-card-inner">
+            <img class="team-card-photo" src="${p.photo}" alt="" />
+            <span class="team-card-name">
+              <span class="team-card-name-text">${p.name}</span>
+              <span class="team-card-title">${p.role}</span>
+            </span>
+            <div class="team-card-bio"><p>${p.bio}</p></div>
+          </span>`;
+        card.addEventListener("click", () => {
+          const was = card.classList.contains("is-active");
+          grid.querySelectorAll(".team-card").forEach((c) => {
+            c.classList.remove("is-active");
+            c.setAttribute("aria-pressed", "false");
+          });
+          if (!was) {
+            card.classList.add("is-active");
+            card.setAttribute("aria-pressed", "true");
+          }
+        });
+        grid.appendChild(card);
+      });
+    })();
+
+    /* A — production carousel */
+    (() => {
+      const root = document.querySelector('[data-demo="carousel"]');
+      let index = 0;
+      const dotsHost = root.querySelector("[data-dots]");
+      PEOPLE.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "team-dot";
+        dot.setAttribute("aria-label", `Team member ${i + 1}`);
+        dot.addEventListener("click", () => show(i));
+        dotsHost.appendChild(dot);
+      });
+      const dots = [...dotsHost.children];
+      function show(i) {
+        index = (i + PEOPLE.length) % PEOPLE.length;
+        setSpotlight(root, index);
+        dots.forEach((d, j) => d.classList.toggle("is-active", j === index));
+      }
+      root.querySelector("[data-prev]").addEventListener("click", () => show(index - 1));
+      root.querySelector("[data-next]").addEventListener("click", () => show(index + 1));
+      show(0);
+    })();
+
+    /* B — roster wide + narrow accordion */
+    (() => {
+      const wide = document.querySelector('[data-demo="roster-wide"]');
+      const narrow = document.querySelector('[data-demo="roster-narrow"]');
+      const panel = wide.querySelector("[data-panel]");
+      const rosterWide = wide.querySelector("[data-roster]");
+      const rosterNarrow = narrow.querySelector("[data-roster-narrow]");
+
+      function bindRoster(host, mode) {
+        PEOPLE.forEach((p, i) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "team-portrait";
+          btn.setAttribute("role", "tab");
+
+          const thumb = document.createElement("span");
+          thumb.className = "team-portrait-img";
+          const img = document.createElement("img");
+          img.src = p.photo;
+          img.alt = "";
+          thumb.appendChild(img);
+
+          const label = document.createElement("span");
+          label.className = "team-portrait-name";
+          label.textContent = p.short;
+
+          btn.append(thumb, label);
+
+          if (mode === "narrow") {
+            const fold = document.createElement("div");
+            fold.className = "team-fold";
+            fold.innerHTML = `
+              <div class="team-fold-inner">
+                <div class="team-fold-photo"><img src="${p.photo}" alt="${p.alt}" /></div>
+                <div>
+                  <p class="team-feature-role">${p.role}</p>
+                  <div class="team-feature-bio"><p>${p.bio}</p></div>
+                </div>
+              </div>`;
+            btn.appendChild(fold);
+          }
+
+          btn.addEventListener("click", () => {
+            if (mode === "wide") {
+              setSpotlight(panel, i);
+              host.querySelectorAll(".team-portrait").forEach((b, j) => b.classList.toggle("is-active", j === i));
+            } else {
+              const was = btn.classList.contains("is-active");
+              host.querySelectorAll(".team-portrait").forEach((b) => {
+                b.classList.remove("is-active");
+                b.setAttribute("aria-expanded", "false");
+              });
+              if (!was) {
+                btn.classList.add("is-active");
+                btn.setAttribute("aria-expanded", "true");
+              }
+            }
+          });
+          host.appendChild(btn);
+        });
+      }
+
+      bindRoster(rosterWide, "wide");
+      bindRoster(rosterNarrow, "narrow");
+      rosterWide.firstChild?.click();
+    })();
+
+    /* C — panel grid */
+    (() => {
+      const root = document.querySelector('[data-demo="panel"]');
+      const grid = root.querySelector("[data-grid]");
+      const detail = root.querySelector("[data-detail]");
+      PEOPLE.forEach((p, i) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "team-card";
+        card.innerHTML = `<img src="${p.photo}" alt="" /><span class="team-card-caption">${p.short.split(" ")[0]}</span>`;
+        card.addEventListener("click", () => {
+          grid.querySelectorAll(".team-card").forEach((c, j) => c.classList.toggle("is-active", j === i));
+          setSpotlight(detail, i);
+        });
+        grid.appendChild(card);
+      });
+      grid.firstChild?.click();
+    })();
+
+    /* D — overlay grid */
+    (() => {
+      const root = document.querySelector('[data-demo="overlay"]');
+      const grid = root.querySelector("[data-grid]");
+      const placeholder = root.querySelector("[data-placeholder]");
+      const bioWrap = root.querySelector("[data-bio]");
+      PEOPLE.forEach((p, i) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "team-card";
+        card.innerHTML = `
+          <span class="team-card-inner">
+            <img class="team-card-photo" src="${p.photo}" alt="" />
+            <span class="team-card-name">
+              <span class="team-card-name-text">${p.name}</span>
+              <span class="team-card-title">${p.role}</span>
+            </span>
+          </span>`;
+        card.addEventListener("click", () => {
+          grid.querySelectorAll(".team-card").forEach((c, j) => c.classList.toggle("is-active", j === i));
+          placeholder.hidden = true;
+          bioWrap.hidden = false;
+          root.querySelector("[data-name]").textContent = p.name;
+          root.querySelector("[data-role]").textContent = p.role;
+          root.querySelector("[data-copy]").innerHTML = `<p>${p.bio}</p>`;
+        });
+        grid.appendChild(card);
+      });
+    })();
+
+    /* E — expanded static */
+    (() => {
+      const host = document.querySelector('[data-demo="expanded"]');
+      PEOPLE.forEach((p) => {
+        const art = document.createElement("article");
+        art.innerHTML = `
+          <div class="thumb"><img src="${p.photo}" alt="${p.alt}" /></div>
+          <h3>${p.name}</h3>
+          <p class="role">${p.role}</p>
+          <p>${p.bio}</p>`;
+        host.appendChild(art);
+      });
+    })();
+
+    /* F — filmstrip */
+    (() => {
+      const root = document.querySelector('[data-demo="filmstrip"]');
+      const detail = root.querySelector("[data-detail]");
+      const strip = root.querySelector("[data-strip]");
+      function show(i) {
+        setSpotlight(detail, i);
+        strip.querySelectorAll(".chip").forEach((c, j) => c.classList.toggle("is-active", j === i));
+      }
+      PEOPLE.forEach((p, i) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.innerHTML = `<img src="${p.photo}" alt="${p.short}" />`;
+        chip.addEventListener("click", () => show(i));
+        strip.appendChild(chip);
+      });
+      show(0);
+    })();
+
+    /* G — directory */
+    (() => {
+      const host = document.querySelector('[data-demo="directory"]');
+      PEOPLE.forEach((p) => {
+        const row = document.createElement("button");
+        row.type = "button";
+        row.innerHTML = `<span class="name">${p.name}</span><span class="meta">${p.role}</span>`;
+
+        const drawer = document.createElement("div");
+        drawer.className = "drawer";
+        drawer.innerHTML = `<p>${p.bio}</p>`;
+
+        row.addEventListener("click", () => {
+          const open = drawer.classList.contains("is-open");
+          host.querySelectorAll(".drawer").forEach((d) => d.classList.remove("is-open"));
+          host.querySelectorAll("button").forEach((b) => b.classList.remove("is-active"));
+          if (!open) {
+            drawer.classList.add("is-open");
+            row.classList.add("is-active");
+          }
+        });
+
+        host.append(row, drawer);
+      });
+    })();
+  </script>
+</body>
+</html>

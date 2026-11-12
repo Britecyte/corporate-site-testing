@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function onScroll() {
     if (performance.now() < locked) return;
     const rect = section.getBoundingClientRect();
+    if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
     const travel = section.offsetHeight - window.innerHeight;
     const progress = travel > 0
       ? Math.min(1, Math.max(0, -rect.top / travel))

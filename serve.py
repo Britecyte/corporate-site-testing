@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Serve the corporate-site-testing preview for both sites.
 
-    http://127.0.0.1:8002/            → index of the two sites
+    http://127.0.0.1:8002/            → index of the two sites + local labs
     http://127.0.0.1:8002/lipoderma/  → new Lipoderma build
     http://127.0.0.1:8002/britecyte/  → Britecyte company site
+    http://127.0.0.1:8002/labs/       → test pages & snapshots
 
 No caching, so edits show up on reload.
 """
@@ -52,6 +53,7 @@ if __name__ == "__main__":
         print(f"Serving preview at http://127.0.0.1:{PORT}/")
         print(f"  Lipoderma  http://127.0.0.1:{PORT}/lipoderma/")
         print(f"  Britecyte  http://127.0.0.1:{PORT}/britecyte/")
+        print(f"  Labs       http://127.0.0.1:{PORT}/labs/")
         print(f"On your phone (same Wi-Fi): http://{ip}:{PORT}/lipoderma/")
         print("Ctrl+C to stop.")
         httpd.serve_forever()

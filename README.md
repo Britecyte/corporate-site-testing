@@ -7,6 +7,7 @@ Two independent sites live in this repo, each in its own folder, each deployable
 | `lipoderma/` | New Lipoderma build (patient + provider) | http://127.0.0.1:8002/lipoderma/ |
 | `britecyte/` | Britecyte company site | http://127.0.0.1:8002/britecyte/ |
 | `index.html` | Repo landing page linking both | http://127.0.0.1:8002/ |
+| `labs/` | Local test HTML (team UI lab, snapshots index) | http://127.0.0.1:8002/labs/ |
 
 Neither site is live. There is no `CNAME` here on purpose, so a GitHub Pages deploy
 stays on `britecyte.github.io` and can never attach to `britecyte.com` or `lipoderma.com`.

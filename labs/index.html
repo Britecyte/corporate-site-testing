@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Local labs — corporate-site-testing</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="../lipoderma/img/logos/favicon.svg" type="image/svg+xml" />
+<style>
+  :root {
+    --ink: #14110f;
+    --ink-soft: rgba(247, 242, 235, 0.62);
+    --flame: #fd893c;
+    --hair: rgba(247, 242, 235, 0.16);
+    --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background: var(--ink);
+    color: #f7f2eb;
+    font-family: var(--sans);
+    padding: clamp(1.5rem, 5vw, 3rem);
+  }
+  main { max-width: 42rem; margin-inline: auto; }
+  a { color: var(--flame); }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin: 0 0 0.5rem;
+  }
+  .lede { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.6; margin: 0 0 2rem; }
+  ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+  li { border-bottom: 1px solid var(--hair); }
+  li a {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  li a:hover .name { color: var(--flame); }
+  .name { font-family: var(--serif); font-size: 1.15rem; transition: color 0.2s; }
+  .path { font-family: ui-monospace, Menlo, monospace; font-size: 0.72rem; color: rgba(247,242,235,0.42); }
+  .desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; }
+  .back { display: inline-block; margin-top: 2rem; font-size: 0.8rem; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Local labs</h1>
+  <p class="lede">Standalone HTML experiments and snapshots. Not linked from the public sites; served only in this preview repo.</p>
+  <ul>
+    <li>
+      <a href="./team-designs-lab.html">
+        <span class="name">Team profile designs</span>
+        <span class="desc">Production vs testing vs copytest team UI patterns, plus new layout explorations.</span>
+        <span class="path">/labs/team-designs-lab.html</span>
+      </a>
+    </li>
+    <li>
+      <a href="../lipoderma/version-2026-11-02.html">
+        <span class="name">Lipoderma snapshot (2026-11-02)</span>
+        <span class="desc">Frozen homepage copy of an earlier Lipoderma build for diffing against current.</span>
+        <span class="path">/lipoderma/version-2026-11-02.html</span>
+      </a>
+    </li>
+  </ul>
+  <a class="back" href="../">← Dev space home</a>
+</main>
+</body>
+</html>

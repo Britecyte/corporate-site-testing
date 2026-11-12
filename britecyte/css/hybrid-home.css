@@ -11,7 +11,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--site-header-h);
+  scroll-padding-top: calc(var(--site-header-h) + 1rem);
 }
 
 body,

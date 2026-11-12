@@ -47,6 +47,7 @@ body { background: transparent; color: var(--color-ink); }
   z-index: -1;
   overflow: clip;
   pointer-events: none;
+  transform: translateZ(0);
   background:
     radial-gradient(120% 70% at 50% 12%, #fffbf7 0%, rgba(255, 251, 247, 0) 58%),
     linear-gradient(180deg, #fff7ef 0%, #f6e7d6 52%, #ecd3b8 100%);

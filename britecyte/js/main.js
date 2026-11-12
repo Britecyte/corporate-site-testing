@@ -1,9 +1,9 @@
 import { initPipelineMap } from "./pipeline-map.js?v=20261106d";
 import "./news-split.js?v=20261106a";
-import "./journey-carousel.js?v=20261107b";
+import "./journey-carousel.js?v=20261111a";
 import "./team-spotlight.js?v=20261107c";
 import "./pathway.js?v=20261106a";
-import "./scroll-spy.js?v=20261023m";
+import "./scroll-spy.js?v=20261111a";
 
 document.addEventListener("DOMContentLoaded", () => {
   initPipelineMap();

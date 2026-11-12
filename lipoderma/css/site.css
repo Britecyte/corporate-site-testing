@@ -347,25 +347,6 @@ ul, ol { padding: 0; list-style: none; }
   border: 0;
 }
 
-.skip-link {
-  position: fixed;
-  top: 0.5rem;
-  left: 0.5rem;
-  z-index: 200;
-  padding: 0.75rem 1.1rem;
-  background: var(--flame);
-  color: #17130f;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border-radius: 0;
-  transform: translateY(-150%);
-  transition: transform 0.3s var(--ease);
-}
-
-.skip-link:focus-visible { transform: none; }
-
 .header-nav {
   display: none;
   align-items: center;

@@ -57,10 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!sections().length) return;
 
   let tick = false;
+  let lastId = null;
   const update = () => {
     tick = false;
     const id = activeSection();
-    if (id) setActive(id);
+    if (!id || id === lastId) return;
+    lastId = id;
+    setActive(id);
   };
 
   window.addEventListener("scroll", () => {
