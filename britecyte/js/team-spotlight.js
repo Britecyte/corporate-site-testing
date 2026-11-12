@@ -1,109 +1,88 @@
 /**
- * Team roster: every person is a named portrait in a row.
- * Choosing one swaps the panel beside it.
- *
- * NOTE: <template> children live in template.content (a DocumentFragment),
- * so they must be queried via tpl.content — not tpl.querySelector().
+ * Team: portrait grid with gradient caption and dark bio overlay on hover / click.
+ * Content comes from [data-team-data] templates in index.html.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  const templates = Array.from(document.querySelectorAll('[data-section="team"] [data-team-data] template'));
-  const panel = document.querySelector("[data-team-spotlight]");
-  const rosterHost = document.querySelector("[data-team-dots]");
-  if (!templates.length || !panel || !rosterHost) return;
+  const section = document.querySelector('[data-section="team"]');
+  const templates = Array.from(section?.querySelectorAll("[data-team-data] template") || []);
+  const grid = section?.querySelector("[data-team-grid]");
+  if (!templates.length || !grid) return;
 
-  const img = panel.querySelector("[data-spot-img]");
-  const name = panel.querySelector("[data-spot-name]");
-  const role = panel.querySelector("[data-spot-role]");
-  const bio = panel.querySelector("[data-spot-bio]");
-
-  const people = templates.map((tpl) => {
+  const cards = templates.map((tpl) => {
     const frag = tpl.content;
     const labels = frag.querySelectorAll(".type-sr");
-    return {
-      photo: tpl.getAttribute("data-photo") || "",
-      alt: tpl.getAttribute("data-alt") || "",
-      name: labels[0]?.textContent.trim() || "",
-      role: labels[1]?.textContent.trim() || "",
-      bio: frag.querySelector(".team-data-bio")?.innerHTML || "",
-    };
-  });
+    const photo = tpl.getAttribute("data-photo") || "";
+    const alt = tpl.getAttribute("data-alt") || "";
+    const name = labels[0]?.textContent.trim() || "";
+    const role = labels[1]?.textContent.trim() || "";
+    const bio = frag.querySelector(".team-data-bio")?.innerHTML || "";
 
-  people.forEach((person, i) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "team-portrait";
-    button.setAttribute("role", "tab");
-    button.setAttribute("aria-label", person.name);
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "team-card";
+    card.setAttribute("data-team-card", "");
+    card.setAttribute("aria-pressed", "false");
+    card.setAttribute("aria-label", name);
+    card.tabIndex = 0;
 
-    const photo = document.createElement("span");
-    photo.className = "team-portrait-img";
+    const inner = document.createElement("span");
+    inner.className = "team-card-inner";
+
     const image = document.createElement("img");
-    image.src = person.photo;
+    image.className = "team-card-photo";
+    image.src = photo;
     image.alt = "";
-    photo.appendChild(image);
+    image.width = 393;
+    image.height = 390;
 
-    const label = document.createElement("span");
-    label.className = "team-portrait-name";
-    label.textContent = person.name.split(",")[0];
+    const caption = document.createElement("span");
+    caption.className = "team-card-name";
+    caption.innerHTML = `
+      <span class="team-card-name-text font-display">${name}</span>
+      <span class="team-card-title">${role}</span>`;
 
-    button.append(photo, label);
+    const overlay = document.createElement("div");
+    overlay.className = "team-card-bio";
+    overlay.innerHTML = `<div><p class="team-card-bio-name font-display">${name.split(",")[0]}</p>${bio}</div>`;
 
-    const fold = document.createElement("div");
-    fold.className = "team-fold";
-    const inner = document.createElement("div");
-    inner.className = "team-fold-inner";
-    const shot = document.createElement("div");
-    shot.className = "team-fold-photo";
-    const shotImg = document.createElement("img");
-    shotImg.src = person.photo;
-    shotImg.alt = person.alt;
-    shot.appendChild(shotImg);
-    const copy = document.createElement("div");
-    copy.innerHTML = `<p class="team-feature-role microtype">${person.role}</p><div class="team-feature-bio">${person.bio}</div>`;
-    inner.append(shot, copy);
-    fold.appendChild(inner);
-    button.appendChild(fold);
+    inner.append(image, caption, overlay);
+    card.appendChild(inner);
+    grid.appendChild(card);
 
-    button.addEventListener("click", () => show(i));
-    rosterHost.appendChild(button);
+    return card;
   });
 
-  const buttons = Array.from(rosterHost.children);
-
-  function show(i) {
-    const next = (i + people.length) % people.length;
-    const narrow = window.matchMedia("(max-aspect-ratio: 1/1)").matches;
-    if (narrow && buttons[next]?.classList.contains("is-active")) {
-      buttons[next].classList.remove("is-active");
-      buttons[next].setAttribute("aria-selected", "false");
-      buttons[next].setAttribute("aria-expanded", "false");
-      return;
-    }
-    const person = people[next];
-    if (!person) return;
-
-    img.src = person.photo;
-    img.alt = person.alt;
-    name.textContent = person.name;
-    role.textContent = person.role;
-    bio.innerHTML = person.bio;
-    panel.classList.remove("is-swapping");
-    requestAnimationFrame(() => panel.classList.add("is-swapping"));
-
-    buttons.forEach((button, j) => {
-      const on = j === next;
-      button.classList.toggle("is-active", on);
-      button.setAttribute("aria-selected", String(on));
-      button.setAttribute("aria-expanded", String(on));
-      button.tabIndex = on ? 0 : -1;
+  const setActive = (target) => {
+    const was = target.classList.contains("is-active");
+    cards.forEach((card) => {
+      card.classList.remove("is-active");
+      card.setAttribute("aria-pressed", "false");
     });
-  }
+    if (!was) {
+      target.classList.add("is-active");
+      target.setAttribute("aria-pressed", "true");
+    }
+  };
 
-  rosterHost.addEventListener("keydown", (event) => {
-    const current = buttons.findIndex((b) => b.classList.contains("is-active"));
-    if (event.key === "ArrowRight") { event.preventDefault(); show(current + 1); buttons[(current + 1) % buttons.length]?.focus(); }
-    if (event.key === "ArrowLeft") { event.preventDefault(); show(current - 1); buttons[(current - 1 + buttons.length) % buttons.length]?.focus(); }
+  cards.forEach((card) => {
+    card.addEventListener("click", () => setActive(card));
   });
 
-  show(0);
+  grid.addEventListener("keydown", (event) => {
+    if (!event.key.startsWith("Arrow")) return;
+    const current = cards.findIndex((el) => el === document.activeElement);
+    const base = current >= 0 ? current : 0;
+    let next = base;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      next = Math.min(cards.length - 1, base + 1);
+    }
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      next = Math.max(0, base - 1);
+    }
+    if (next === current && current >= 0) return;
+    event.preventDefault();
+    cards[next].focus();
+    setActive(cards[next]);
+  });
 });
+

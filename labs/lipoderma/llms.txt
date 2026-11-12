@@ -1,0 +1,26 @@
+# Lipoderma
+
+> Lipoderma is a human adipose allograft by Britecyte, Inc. (Frederick, MD): donated fat tissue, processed to preserve its native structure, placed by licensed physicians to restore lost support and volume in the face, neck, and hands.
+
+This is a preview build. Nothing here is medical advice. Lipoderma is administered only by licensed physicians, and individual results vary.
+
+## Pages
+- [Home](https://britecyte.github.io/corporate-site-testing/lipoderma/): overview, product, who it is for, results, provider search, FAQ, contact
+- [The science](https://britecyte.github.io/corporate-site-testing/lipoderma/science/): how the tissue is processed, donor to patient
+- [Outcomes gallery](https://britecyte.github.io/corporate-site-testing/lipoderma/gallery/): before/after cases from treating physicians (placeholders in this build)
+
+## Key facts
+- What it is: a human adipose allograft (donated, screened, processed fat tissue)
+- Where it is used: face, neck, hands
+- Who places it: licensed physicians only (surgeons, medspas under physician supervision)
+- Difference from fillers: it restores the fat layer itself rather than adding a foreign filler substance
+- Provider network: searchable on the home page (#providers); data in /data/providers.json
+
+## Contact
+- Email: brighterlives@britecyte.com
+- Company: https://britecyte.com
+- Instagram: https://www.instagram.com/restorewithlipoderma/
+
+## For agents
+- The home page registers WebMCP tools when `navigator.modelContext` exists: find_providers, get_product_summary, get_faq, go_to_section (all read-only except scrolling).
+- FAQ and organization data are published as JSON-LD in the home page head.

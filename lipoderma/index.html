@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="css/site.css?v=20261106g" />
 <link rel="stylesheet" href="css/glass.css?v=20261106a" />
 <link rel="stylesheet" href="css/motion.css?v=20261104b" />
-<link rel="stylesheet" href="css/layout.css?v=20261106s" />
+<link rel="stylesheet" href="css/layout.css?v=20261112t" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
 [
@@ -680,9 +680,10 @@
           <div class="provider-search">
             <label class="visually-hidden" for="provider-search">Search providers</label>
             <input id="provider-search" type="search" placeholder="Provider name, city, state, or ZIP"
-                   autocomplete="off" data-provider-search />
+                   autocomplete="off" role="combobox" aria-expanded="false" aria-controls="provider-suggest" data-provider-search />
             <button type="button" data-provider-locate>Use my location</button>
           </div>
+          <div class="provider-suggest" id="provider-suggest" role="listbox" data-provider-suggest hidden></div>
         </div>
         <p class="provider-status" data-provider-status aria-live="polite"></p>
       </div>
@@ -887,7 +888,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261106a"></script>
+<script type="module" src="js/main.js?v=20261112t"></script>
 <script type="module" src="js/motion.js?v=20261106c"></script>
 </body>
 </html>

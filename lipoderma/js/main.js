@@ -771,7 +771,7 @@ function boot() {
   initFaq();
   initContactForm();
 
-  import('./providers.js?v=20261105d')
+  import('./providers.js?v=20261112t')
     .then(m => m.initProviders())
     .catch(() => {});
 }

@@ -950,3 +950,61 @@ html { scroll-padding-top: var(--site-header-h); }
 .product-figure .ph[data-fact-img]:nth-child(3) { background: #dbe6f4; }
 .product-figure .ph[data-fact-img]:nth-child(4) { background: #c8d9f2; }
 @media (max-aspect-ratio: 1/1) { .door-panels .arrow-link { font-size: 0.68rem; margin-top: 0.6rem; } }
+
+/* ── Provider search: suggestions dropdown ─────────────────── */
+#providers .provider-lead { position: relative; }
+#providers .provider-suggest {
+  position: absolute;
+  inset: calc(100% + 0.25rem) 0 auto 0;
+  z-index: 60;
+  max-height: min(22rem, 52svh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border: 1px solid var(--hair-light);
+  box-shadow: 0 18px 40px -22px rgba(14, 38, 82, 0.45);
+  text-align: left;
+}
+#providers .provider-suggest[hidden] { display: none; }
+#providers .provider-suggest-head {
+  margin: 0;
+  padding: 0.55rem 0.9rem 0.35rem;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--on-light-soft);
+  border-bottom: 1px solid var(--hair-light);
+}
+#providers .provider-suggest-item {
+  display: grid;
+  gap: 0.1rem;
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  border: 0;
+  border-bottom: 1px solid var(--hair-light);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+#providers .provider-suggest-item:last-child { border-bottom: 0; }
+#providers .provider-suggest-item small { font-size: 0.7rem; font-weight: 400; color: var(--on-light-soft); }
+#providers .provider-suggest-item:hover,
+#providers .provider-suggest-item.is-cursor { background: rgba(253, 137, 60, 0.1); }
+
+/* Status line stays out of sight but is still announced to screen readers. */
+#providers .provider-status {
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

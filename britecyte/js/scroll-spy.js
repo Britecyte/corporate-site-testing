@@ -45,7 +45,7 @@ function activeSection() {
   if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
     return list[list.length - 1].id;
   }
-  const line = window.scrollY + headerHeight() + 1;
+  const line = window.scrollY + headerHeight() + 2;
   let current = list[0];
   for (const section of list) {
     if (section.offsetTop <= line) current = section;

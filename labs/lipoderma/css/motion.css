@@ -1,0 +1,24 @@
+/* ==========================================================
+   motion.css — CSS-only scroll reveals, cursor-aware glass,
+   cross-page view transitions, and the "face as a stack"
+   section. Every effect is progressive: without support the
+   page falls back to the static layout.
+   ========================================================== */
+
+/* Reveals are the timed fades in glass.css. A scroll-linked timeline
+   was finishing before it could be seen, which read as no animation. */
+
+/* ---------- Cursor-aware glass ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .glass, .door-panels, .provider-shell, .provider-search, .note, .ph,
+  .contact-card, .faq-list {
+    background:
+      radial-gradient(720px circle at var(--mx, 50%) var(--my, -60%), rgba(255, 255, 255, var(--glow, 0)), transparent 70%),
+      var(--glass-fill);
+    transition: --glow 1.2s ease;
+  }
+  .glass:hover, .door-panels:hover, .provider-shell:hover, .provider-search:hover,
+  .note:hover, .ph:hover, .contact-card:hover, .faq-list:hover { --glow: 0.3; }
+}
+@property --glow { syntax: "<number>"; inherits: true; initial-value: 0; }
+

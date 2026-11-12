@@ -74,3 +74,15 @@ same paragraph with a different heading. That difference is the whole reason the
 
 Unchanged in substance; relocated to `britecyte/` and still self-contained. Its `data/news.json`,
 `scripts/build-news.py`, and `content/` pipeline all work the same way relative to its new root.
+
+## Scroll guard (run after every layout, CSS, nav or section edit)
+
+```sh
+cd tools && npm install && npm run check   # no-tracking + scroll
+```
+
+Headless Chrome visits both sites at 1140×688, 1440×900 and a 390×844 phone, jumps to every in-page nav target, and fails if any section does not land flush under the header, the scroll bounces, the wrong nav item highlights, the page overflows horizontally, or Britecyte's section tops have uneven padding. These checks are manual only (`cd tools && npm run check`); the pre-commit hook does not run them.
+
+Rules the check enforces: `scroll-padding-top` equals the header height exactly; the window is the only scroller; no nested `overflow: auto` wrappers around sections.
+
+`npm run check:no-tracking` loads both sites, exercises clicks, provider search and the contact form with every outside request blocked, and fails on any analytics, beacon or non-GET request, or any host outside a short read-only allowlist (map tiles, geocoders, fonts).

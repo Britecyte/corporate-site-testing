@@ -1,9 +1,9 @@
 import { initPipelineMap } from "./pipeline-map.js?v=20261106d";
 import "./news-split.js?v=20261106a";
-import "./journey-carousel.js?v=20261111a";
-import "./team-spotlight.js?v=20261107c";
+import "./journey-carousel.js?v=20261112b";
+import "./team-spotlight.js?v=20261112c";
 import "./pathway.js?v=20261106a";
-import "./scroll-spy.js?v=20261111a";
+import "./scroll-spy.js?v=20261112b";
 
 document.addEventListener("DOMContentLoaded", () => {
   initPipelineMap();
@@ -15,11 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initYear();
 });
 
-const BRITECYTE_ANALYTICS_ENDPOINT =
-  window.BRITECYTE_ANALYTICS_ENDPOINT ||
-  (["localhost", "127.0.0.1"].includes(window.location.hostname)
-    ? "http://127.0.0.1:3000/provider-directory/events"
-    : "https://lipoderma-launchpad.onrender.com/provider-directory/events");
+// The testing site sends NO analytics. Tracking only runs if a page explicitly sets
+// window.BRITECYTE_ANALYTICS_ENDPOINT, so previews and local runs never touch live data.
+const BRITECYTE_ANALYTICS_ENDPOINT = window.BRITECYTE_ANALYTICS_ENDPOINT || "";
 
 function analyticsSlug(value) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
@@ -195,7 +193,9 @@ function initHeaderScroll() {
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
-const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/needthefat@britecyte.com';
+// The testing site does not send real email. Set window.BRITECYTE_CONTACT_ENDPOINT to
+// wire the form to a mailbox for a deliberate end-to-end test.
+const CONTACT_ENDPOINT = window.BRITECYTE_CONTACT_ENDPOINT || '';
 
 function initContactForm() {
   const form = document.querySelector('[data-contact-form]');
@@ -229,18 +229,23 @@ function initContactForm() {
     fields.forEach((el) => { el.disabled = true; });
 
     try {
-      const response = await fetch(CONTACT_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+      if (!CONTACT_ENDPOINT) {
+        console.info('Preview build: contact form submission not sent.', payload);
+        await new Promise((resolve) => setTimeout(resolve, 400));
+      } else {
+        const response = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
 
-      const result = await response.json().catch(() => null);
-      if (!response.ok || result?.success === 'false' || result?.success === false) {
-        throw new Error(result?.message || 'Submit failed');
+        const result = await response.json().catch(() => null);
+        if (!response.ok || result?.success === 'false' || result?.success === false) {
+          throw new Error(result?.message || 'Submit failed');
+        }
       }
 
       form.reset();

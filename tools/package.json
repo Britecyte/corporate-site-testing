@@ -1,0 +1,13 @@
+{
+  "name": "corporate-site-testing-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:scroll": "node check-scroll.mjs",
+    "check:no-tracking": "node check-no-tracking.mjs",
+    "check": "node check-no-tracking.mjs && node check-scroll.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.0.0"
+  }
+}

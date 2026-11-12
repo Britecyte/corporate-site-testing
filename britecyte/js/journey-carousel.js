@@ -22,10 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     button.textContent = year;
     button.setAttribute("role", "tab");
     button.setAttribute("aria-label", `${year}: ${slide.querySelector("h3")?.textContent.trim() || "milestone"}`);
-    button.addEventListener("click", () => {
-      locked = performance.now() + 1400;   // pause scroll-driven changes after a choice
-      show(i);
-    });
+    button.addEventListener("click", () => choose(i));
     rail.appendChild(button);
   });
 
@@ -45,6 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // The section is scroll-driven, so a choice also moves the page to that
+  // year's spot. Otherwise the next scroll tick snaps back to the old year.
+  function choose(i) {
+    const target = (i + slides.length) % slides.length;
+    show(target);
+    const travel = section.offsetHeight - window.innerHeight;
+    if (travel <= 0) return;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    const top = sectionTop + ((target + 0.5) / slides.length) * travel;
+    locked = performance.now() + 1800;   // ignore the in-between years while the page glides
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+
   function onScroll() {
     if (performance.now() < locked) return;
     const rect = section.getBoundingClientRect();
@@ -59,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   rail.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") { event.preventDefault(); locked = performance.now() + 1400; show(index + 1); buttons[(index) % buttons.length]?.focus(); }
-    if (event.key === "ArrowLeft") { event.preventDefault(); locked = performance.now() + 1400; show(index - 1); buttons[(index) % buttons.length]?.focus(); }
+    if (event.key === "ArrowRight") { event.preventDefault(); choose(index + 1); buttons[index]?.focus({ preventScroll: true }); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); choose(index - 1); buttons[index]?.focus({ preventScroll: true }); }
   });
 
   let queued = false;

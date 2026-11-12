@@ -56,7 +56,8 @@ body { background: transparent; color: var(--color-ink); }
 .bg-field i {
   position: absolute;
   border-radius: 50%;
-  filter: blur(48px);
+  /* No filter: the radial gradients below already fade to transparent. A
+     blur(48px) on three viewport-sized layers is pure GPU cost on scroll. */
 }
 
 .bg-field i:nth-child(1) {
@@ -81,7 +82,7 @@ body { background: transparent; color: var(--color-ink); }
 .site-surface { background: transparent; }
 
 .site-header {
-  background: rgba(255, 251, 247, 0.72);
+  background: rgba(255, 252, 248, 0.96);
   border-bottom-color: rgba(236, 217, 200, 0.9);
 }
 
@@ -92,8 +93,6 @@ body { background: transparent; color: var(--color-ink); }
   background: var(--surface-fill);
   border: var(--glass-border);
   box-shadow: var(--shadow-lift);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .btn-primary { background: var(--color-orange-bright); color: #fffbf7; }
