@@ -132,24 +132,23 @@ function initSectionReveal(section) {
   const items = [...section.querySelectorAll('.reveal')];
   if (!items.length) return;
 
-  const show = (el) => el.classList.add('is-visible');
+  const show = (el, i = 0) => {
+    el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`;
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-visible')));
+  };
 
   if (REDUCED || !('IntersectionObserver' in window)) {
     items.forEach(show);
     return;
   }
 
-  const isStructure = section.classList.contains('structure');
-  const rootMargin = isStructure ? '0px 0px -24% 0px' : '0px 0px -8% 0px';
-
   const io = new IntersectionObserver((entries) => {
     const visible = entries.filter((entry) => entry.isIntersecting);
     visible.forEach((entry, i) => {
-      entry.target.style.transitionDelay = `${Math.min(i, 3) * 90}ms`;
-      show(entry.target);
+      show(entry.target, i);
       io.unobserve(entry.target);
     });
-  }, { threshold: 0.01, rootMargin });
+  }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
 
   const arm = () => {
     if (section.id === 'reframe' && window.scrollY < window.innerHeight * 0.4) return;
@@ -164,8 +163,8 @@ function initReveal() {
   tagReveals();
   const heroBits = [...document.querySelectorAll('.hero .reveal')];
   const fatWord = document.querySelector('.hero .brief-fat');
-  heroBits.forEach((el, i) => { el.style.transitionDelay = `${i * 110}ms`; });
-  if (fatWord) fatWord.style.transitionDelay = `${heroBits.length * 110 + 900}ms`;
+  heroBits.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`; });
+  if (fatWord) fatWord.style.transitionDelay = `${Math.min(heroBits.length, 4) * 90 + 900}ms`;
   requestAnimationFrame(() => requestAnimationFrame(() => {
     heroBits.forEach((el) => el.classList.add('is-visible'));
     fatWord?.classList.add('is-in');

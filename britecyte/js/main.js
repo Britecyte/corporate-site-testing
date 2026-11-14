@@ -153,77 +153,52 @@ function initMobileNav() {
 function initScrollReveal() {
   const selectors = [
     ".section-header",
-    ".pipe-row",
-    ".pipe-detail",
-    ".pathway-step",
-    ".team-card",
-    ".record",
+    ".pipe-matrix",
+    ".pathway-grid",
+    ".team-stage",
+    ".news-split",
     ".contact-block",
     ".footer-brand",
     ".footer-nav",
   ];
   document.querySelectorAll(selectors.join(",")).forEach((el) => {
-    if (el.closest("#hero")) return;
+    if (el.classList.contains("reveal") || el.closest(".reveal")) return;
+    if (el.querySelector(".reveal")) return;
     el.classList.add("reveal");
-  });
-  const header = document.querySelector(".site-header");
-  if (header) header.classList.add("reveal");
-  // A wrapper and its children should not both start invisible.
-  document.querySelectorAll(".reveal").forEach((el) => {
-    if (el.querySelector(".reveal")) el.classList.remove("reveal");
   });
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const show = (el) => el.classList.add("is-visible");
-  const intro = document.querySelectorAll("#hero .about-open .reveal, .site-header.reveal");
-  if (reduced || !("IntersectionObserver" in window)) {
-    intro.forEach(show);
-  } else {
-    intro.forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i, 5) * 90}ms`;
-    });
-    requestAnimationFrame(() => requestAnimationFrame(() => intro.forEach(show)));
-  }
-  const sections = document.querySelectorAll("main.site-main > section, footer.site-footer");
-
-  sections.forEach((section) => {
-    if (section.id === "hero") return;
-    const items = section.querySelectorAll(".reveal");
-    if (!items.length) return;
-    if (reduced || !("IntersectionObserver" in window)) {
-      items.forEach(show);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        visible.forEach((entry, i) => {
-          entry.target.style.transitionDelay = `${Math.min(i, 3) * 90}ms`;
-          show(entry.target);
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.01, rootMargin: "0px 0px -8% 0px" }
-    );
-    const target = document.querySelector(window.location.hash);
-    items.forEach((el) => {
-      const box = el.getBoundingClientRect();
-      const alreadyPassed = box.bottom < 72;
-      const inTarget = target && (el === target || target.contains(el));
-      if (alreadyPassed || inTarget) show(el);
-      else observer.observe(el);
-    });
-  });
-
-  // Anything still hidden once the page is scrolled to the end would otherwise
-  // sit inside the bottom margin and never intersect.
-  const revealPinned = () => {
-    const doc = document.documentElement;
-    if (doc.scrollHeight - window.scrollY - window.innerHeight > 24) return;
-    document.querySelectorAll(".reveal:not(.is-visible)").forEach(show);
+  const show = (el, i = 0) => {
+    el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`;
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("is-visible")));
   };
-  window.addEventListener("scroll", revealPinned, { passive: true });
-  window.addEventListener("resize", revealPinned);
+
+  const intro = [...document.querySelectorAll("#hero .about-open .reveal")];
+  if (reduced || !("IntersectionObserver" in window)) {
+    document.querySelectorAll(".reveal").forEach(show);
+    return;
+  }
+
+  intro.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`; });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    intro.forEach((el) => el.classList.add("is-visible"));
+  }));
+
+  document.querySelectorAll("main.site-main > section, footer.site-footer").forEach((section) => {
+    if (section.id === "hero") return;
+    const items = [...section.querySelectorAll(".reveal")];
+    if (!items.length) return;
+
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting);
+      visible.forEach((entry, i) => {
+        show(entry.target, i);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.01, rootMargin: "0px 0px -10% 0px" });
+
+    items.forEach((el) => io.observe(el));
+  });
 }
 
 function initHeaderScroll() {
