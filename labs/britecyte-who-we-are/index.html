@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shared lab — Pipeline and Science</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="../../britecyte/assets/logos/favicon.svg" type="image/svg+xml" />
+<style>
+  @font-face {
+    font-family: "Plus Jakarta Sans";
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+    src: url(../../britecyte/assets/fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2) format("woff2");
+  }
+  :root {
+    --ink: #233051;
+    --ink-soft: #4a5470;
+    --cream: #fffbf7;
+    --bronze: #c0782e;
+    --cobalt: #1e448c;
+    --orange: #fd893c;
+    --border-warm: #e8d9c8;
+    --bar-h: 3.25rem;
+    --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .bar {
+    position: sticky; top: 0; z-index: 90;
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1rem;
+    align-items: center; justify-content: space-between;
+    padding: 0.55rem clamp(1rem, 3vw, 2rem);
+    background: rgba(255, 252, 248, 0.96);
+    border-bottom: 1px solid var(--border-warm);
+    font-size: 0.74rem;
+  }
+  .bar-title { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cobalt); }
+  .bar-back { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .switch { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .switch button {
+    border: 1px solid var(--border-warm); background: #fff; color: var(--ink-soft);
+    font: inherit; font-size: 0.72rem; font-weight: 600;
+    padding: 0.4rem 0.75rem; cursor: pointer;
+  }
+  .switch button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .note { padding: 0.7rem clamp(1rem, 3vw, 2rem); font-size: 0.82rem; color: var(--ink-soft); max-width: 62rem; }
+
+  .stage {
+    min-height: calc(100svh - 7rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background:
+      linear-gradient(rgba(255, 247, 239, 0.55), rgba(255, 247, 239, 0.55)),
+      url("../../britecyte/assets/products/withdrawal-syringe.jpg") center / cover no-repeat;
+  }
+  .frame { max-width: 68rem; margin: 0 auto; }
+  h2 { font-weight: 500; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.03em; margin-bottom: 0.4rem; }
+  .intro { max-width: 46rem; color: var(--ink-soft); margin-bottom: 1.4rem; line-height: 1.5; }
+
+  .rows { display: grid; }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) auto auto;
+    gap: 0.4rem 1rem; align-items: center;
+    width: 100%; text-align: left; cursor: pointer;
+    padding: 0.85rem 0.2rem;
+    border: 0; border-bottom: 1px solid rgba(35, 48, 81, 0.16);
+    background: transparent; color: var(--ink); font: inherit;
+  }
+  .row.is-on { border-bottom-color: var(--orange); }
+  .name { font-size: 1.2rem; letter-spacing: -0.02em; }
+  .area { color: var(--ink-soft); font-size: 0.88rem; }
+  .track { display: flex; gap: 0.28rem; }
+  .track i { width: 1.35rem; height: 0.28rem; background: rgba(35, 48, 81, 0.18); display: block; }
+  .track i.on { background: var(--cobalt); }
+  .stage-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .stage-tag.commercial { color: var(--ink); }
+  .stage-tag.clinical { color: var(--cobalt); }
+  .stage-tag.preclinical { color: var(--bronze); }
+
+  .copy h3 { font-weight: 500; font-size: 1.45rem; letter-spacing: -0.02em; margin-bottom: 0.35rem; }
+  .lead { font-weight: 560; margin-bottom: 0.7rem; line-height: 1.4; }
+  .copy p { margin: 0 0 0.7rem; line-height: 1.55; font-size: 0.98rem; }
+  .copy a { color: var(--orange); font-weight: 650; }
+
+  /* A — description drops open under the row you clicked */
+  [data-mode="inline"] .row-wrap .copy {
+    display: none;
+    padding: 0.2rem 0 1rem 0.15rem;
+    max-width: 62ch;
+  }
+  [data-mode="inline"] .row-wrap.is-on .copy { display: block; }
+
+  /* B — list stays full width; description is a sheet across the bottom */
+  [data-mode="sheet"] .sheet {
+    position: sticky; bottom: 0;
+    margin-top: 1.5rem;
+    padding: 1.15rem 1.3rem 1.3rem;
+    background: rgba(14, 28, 58, 0.88);
+    color: #f4f7ff;
+    border-top: 2px solid var(--orange);
+    backdrop-filter: blur(12px);
+  }
+  [data-mode="sheet"] .sheet a { color: var(--orange); }
+  [data-mode="sheet"] .inline-copy { display: none; }
+
+  /* C — rows on top, one full-width write-up underneath (never a side column) */
+  [data-mode="below"] .below {
+    margin-top: 1.4rem;
+    padding: 1.2rem 1.35rem;
+    max-width: 68ch;
+    background: rgba(255, 251, 247, 0.86);
+    border-left: 2px solid var(--orange);
+  }
+  [data-mode="below"] .inline-copy { display: none; }
+
+  /* D — the description takes the list's place */
+  [data-mode="swap"][data-open="1"] .rows { display: none; }
+  [data-mode="swap"] .swap {
+    max-width: 42rem;
+    padding: 0.4rem 0 1rem;
+  }
+  [data-mode="swap"] .back {
+    border: 0; background: none; color: var(--cobalt);
+    font: inherit; font-weight: 650; cursor: pointer;
+    padding: 0 0 1rem; 
+  }
+  [data-mode="swap"] .inline-copy { display: none; }
+
+  .sheet, .below, .swap { display: none; }
+  [data-mode="sheet"] .sheet,
+  [data-mode="below"] .below,
+  [data-mode="swap"][data-open="1"] .swap { display: block; }
+
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 1fr auto; }
+    .area { grid-column: 1; }
+    .track { grid-column: 1 / -1; }
+  }
+
+  body[data-section="pipeline"] #science,
+  body[data-section="science"] #pipeline { display: none; }
+  .sections { display: flex; gap: 0.35rem; }
+  .sections button {
+    border: 1px solid var(--cobalt); background: transparent; color: var(--cobalt);
+    font: inherit; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.4rem 0.7rem; cursor: pointer;
+  }
+  .sections button.is-on { background: var(--cobalt); color: #fff; }
+
+  .steps { display: grid; gap: 0.45rem; }
+  .step {
+    text-align: left; cursor: pointer; width: 100%;
+    border: 1px solid rgba(236, 217, 200, 0.9);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--ink); font: inherit;
+    padding: 0.85rem 1rem;
+    display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.7rem; align-items: start;
+  }
+  .step.is-on { border-color: var(--orange); }
+  .num { color: var(--orange); font-size: 1.05rem; }
+  .step h3 { font-weight: 560; font-size: 1.15rem; letter-spacing: -0.02em; }
+  .step p { margin-top: 0.4rem; color: var(--ink-soft); line-height: 1.5; font-size: 0.95rem; }
+  [data-sci="one"] .step p { display: none; }
+  [data-sci="one"] .step.is-on p { display: block; }
+  [data-sci="all"] .step { cursor: default; }
+  [data-sci="rail"] .steps {
+    grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+    align-items: start;
+  }
+  [data-sci="rail"] .step p { display: none; }
+  [data-sci="rail"] .sci-body {
+    padding: 0.4rem 0 0 1.2rem;
+    border-left: 2px solid var(--orange);
+  }
+  [data-sci="rail"] .sci-body h3 { font-weight: 500; font-size: 1.4rem; margin-bottom: 0.5rem; }
+  [data-sci="rail"] .sci-body p { color: var(--ink-soft); line-height: 1.55; }
+  [data-sci="one"] .sci-body, [data-sci="all"] .sci-body { display: none; }
+  @media (max-width: 720px) {
+    [data-sci="rail"] .steps { grid-template-columns: 1fr; }
+    [data-sci="rail"] .sci-body { padding: 0.8rem 0 0; border-left: 0; border-top: 2px solid var(--orange); }
+  }
+</style>
+</head>
+<body data-mode="inline" data-section="pipeline" data-sci="one">
+<header class="bar">
+  <div>
+    <a class="bar-back" href="../../britecyte/#pipeline">← test site</a>
+    <span class="bar-title">Shared lab</span>
+  </div>
+  <div class="sections" role="tablist">
+    <button type="button" data-section="pipeline" class="is-on">Pipeline</button>
+    <button type="button" data-section="science">Science</button>
+  </div>
+  <div class="switch" id="pipe-switch" role="tablist">
+    <button type="button" data-mode="inline" class="is-on">A · Under the row</button>
+    <button type="button" data-mode="sheet">B · Bottom sheet</button>
+    <button type="button" data-mode="below">C · Full width below</button>
+    <button type="button" data-mode="swap">D · Replaces the list</button>
+  </div>
+  <div class="switch" id="sci-switch" role="tablist" hidden>
+    <button type="button" data-sci="one" class="is-on">A · One open</button>
+    <button type="button" data-sci="all">B · All open</button>
+    <button type="button" data-sci="rail">C · Steps beside the copy</button>
+  </div>
+</header>
+<p class="note" id="note"></p>
+
+<section class="stage" id="pipeline">
+  <div class="frame">
+    <h2>Our Pipeline</h2>
+    <p class="intro">Britecyte is advancing a pipeline of innovative therapies designed to restore structure and function across multiple clinical applications.</p>
+    <div id="rows" class="rows"></div>
+    <div id="panel"></div>
+  </div>
+</section>
+
+<section class="stage" id="science" style="background-image:none;background:#fffbf7">
+  <div class="frame">
+    <h2>A Breakthrough in <span style="color:var(--bronze);font-family:var(--serif);font-style:italic">Adipose Science.</span></h2>
+    <p class="intro">A new era of adipose restoration begins with technology that makes native adipose tissue available when and where it's needed.</p>
+    <div class="steps" id="steps"></div>
+  </div>
+</section>
+
+<script>
+const PRODUCTS = [
+  { key: "lipoderma", name: "Lipoderma®", area: "Cosmetic & Reconstructive", stage: "Commercial", kind: "commercial", on: 3,
+    lead: "Natural rejuvenation starts by restoring what's yours.",
+    body: ["Lipoderma is a human adipose tissue allograft designed to restore the structural tissue beneath the skin. As it becomes part of the patient's own tissue over time, it helps restore the supportive layer beneath the skin that contributes to natural softness and contour.",
+      "Rather than simply filling space, Lipoderma is designed to restore what has been lost—supporting natural rejuvenation from within while helping patients look refreshed, confident, and like themselves again."],
+    link: ["https://lipoderma.com", "Visit Lipoderma.com →"] },
+  { key: "liposana", name: "Liposana®", area: "Foot & Ankle", stage: "Commercial", kind: "commercial", on: 3,
+    lead: "Restoring cushioning where it's needed most.",
+    body: ["Liposana is a human adipose tissue allograft designed for the replacement of damaged or diminished fat pads in the foot.",
+      "Common clinical applications include fat pad atrophy, metatarsalgia, plantar lesions, Morton’s neuroma, and soft tissue reconstruction."] },
+  { key: "oa", name: "BRC-OA", area: "Orthopedics", stage: "Clinical", kind: "clinical", on: 2,
+    lead: "Advancing a new approach to restoring joint function.",
+    body: ["BRC-OA is an investigational biologic for knee osteoarthritis, designed to address the underlying disease rather than only the symptoms.",
+      "The FDA has cleared Britecyte’s IND, enabling a Phase 1/2a trial."] },
+  { key: "liver", name: "BRC-Liver", area: "Liver Disease", stage: "Preclinical", kind: "preclinical", on: 1,
+    lead: "Advancing a new approach to restoring liver function.",
+    body: ["BRC-Liver is an investigational adipose therapy for MASLD and MASH, aimed at adipose dysfunction as a driver of inflammation and fibrosis."] },
+  { key: "wound", name: "BRC-Wound", area: "Chronic Wounds", stage: "Preclinical", kind: "preclinical", on: 1,
+    lead: "Advancing a new approach to restoring the body's ability to heal.",
+    body: ["BRC-Wound is an investigational therapy for chronic ischemic wounds, designed to restore microvasculature so tissue can repair."] },
+];
+
+const NOTES = {
+  inline: "A. The description opens directly under the product you select. The list and the writing stay one column, so landscape never grows a tall side card.",
+  sheet: "B. The product list stays full width. The description sits in a sheet along the bottom of the section and changes when you pick a row.",
+  below: "C. The list is the whole width. One write-up sits underneath it, also full width, instead of beside the rows.",
+  swap: "D. Choosing a product replaces the list with the description. Back returns to the five rows.",
+};
+
+const rowsEl = document.getElementById("rows");
+const panel = document.getElementById("panel");
+let active = PRODUCTS[0].key;
+let open = false;
+
+function bars(n) {
+  return [0, 1, 2].map((i) => `<i class="${i < n ? "on" : ""}"></i>`).join("");
+}
+function copyHtml(p) {
+  const link = p.link ? `<p><a href="${p.link[0]}" target="_blank" rel="noopener">${p.link[1]}</a></p>` : "";
+  return `<div class="copy"><h3>${p.name}</h3><p class="lead">${p.lead}</p>${p.body.map((t) => `<p>${t}</p>`).join("")}${link}</div>`;
+}
+
+function render() {
+  const mode = document.body.dataset.mode;
+  rowsEl.innerHTML = PRODUCTS.map((p) => `
+    <div class="row-wrap ${p.key === active ? "is-on" : ""}">
+      <button type="button" class="row ${p.key === active ? "is-on" : ""}" data-key="${p.key}">
+        <span class="name">${p.name}</span>
+        <span class="area">${p.area}</span>
+        <span class="track">${bars(p.on)}</span>
+        <span class="stage-tag ${p.kind}">${p.stage}</span>
+      </button>
+      <div class="inline-copy">${mode === "inline" && p.key === active ? copyHtml(p) : ""}</div>
+    </div>`).join("");
+
+  const p = PRODUCTS.find((x) => x.key === active);
+  panel.innerHTML = `
+    <div class="sheet">${copyHtml(p)}</div>
+    <div class="below">${copyHtml(p)}</div>
+    <div class="swap"><button type="button" class="back" id="back">← All products</button>${copyHtml(p)}</div>`;
+  document.getElementById("note").textContent = NOTES[mode];
+}
+
+document.getElementById("pipe-switch").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  document.body.dataset.mode = btn.dataset.mode;
+  open = false;
+  document.body.dataset.open = "0";
+  document.querySelectorAll(".switch button").forEach((b) => b.classList.toggle("is-on", b === btn));
+  render();
+});
+document.querySelector(".stage").addEventListener("click", (e) => {
+  if (e.target.closest("#back")) { open = false; document.body.dataset.open = "0"; render(); return; }
+  const row = e.target.closest("[data-key]");
+  if (!row) return;
+  active = row.dataset.key;
+  if (document.body.dataset.mode === "swap") { open = true; document.body.dataset.open = "1"; }
+  render();
+});
+render();
+
+const STEPS = [
+  ["01", "Native Structure & Function Preserved", "Britecyte's proprietary processing technology preserves the native architecture of adipose tissue, including intact adipocytes and extracellular matrix, maintaining the structural and functional characteristics that make adipose tissue unique."],
+  ["02", "Immunogenic Components Removed", "The technology selectively removes immunogenic components that have historically limited adipose tissue to autologous use, enabling allogeneic transplantation while preserving native tissue architecture."],
+  ["03", "Ready When You Need It", "Unlike fresh autologous fat, our technology allows for convenient storage and immediate clinical use. Stable refrigerated storage (0–10°C) simplifies logistics while providing an off-the-shelf solution when patients need treatment."],
+  ["04", "Designed for Minimally Invasive Delivery", "The preserved tissue is formulated for minimally invasive implantation using standard cannulas or needles, allowing physicians to restore lost structure through a familiar clinical workflow."],
+];
+const SCI_NOTES = {
+  one: "A. Same idea as the test site: four steps, and only the one you select shows its paragraph.",
+  all: "B. Every step is open. Nothing is hidden behind a click.",
+  rail: "C. The four titles stay in a column. The paragraph for the selected step sits beside them.",
+};
+let sci = 0;
+function renderScience() {
+  const mode = document.body.dataset.sci;
+  const steps = document.getElementById("steps");
+  steps.innerHTML = STEPS.map((s, i) => `
+    <button type="button" class="step ${i === sci ? "is-on" : ""}" data-sci-i="${i}">
+      <span class="num">${s[0]}</span>
+      <span><h3>${s[1]}</h3><p>${s[2]}</p></span>
+    </button>`).join("")
+    + `<div class="sci-body"><h3>${STEPS[sci][1]}</h3><p>${STEPS[sci][2]}</p></div>`;
+  if (document.body.dataset.section === "science") document.getElementById("note").textContent = SCI_NOTES[mode];
+}
+document.getElementById("sci-switch").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  document.body.dataset.sci = btn.dataset.sci;
+  document.querySelectorAll("#sci-switch button").forEach((b) => b.classList.toggle("is-on", b === btn));
+  renderScience();
+});
+document.getElementById("science").addEventListener("click", (e) => {
+  const step = e.target.closest("[data-sci-i]");
+  if (!step || document.body.dataset.sci === "all") return;
+  sci = Number(step.dataset.sciI);
+  renderScience();
+});
+document.querySelector(".sections").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  document.body.dataset.section = btn.dataset.section;
+  document.querySelectorAll(".sections button").forEach((b) => b.classList.toggle("is-on", b === btn));
+  document.getElementById("pipe-switch").hidden = btn.dataset.section !== "pipeline";
+  document.getElementById("sci-switch").hidden = btn.dataset.section !== "science";
+  if (btn.dataset.section === "science") renderScience();
+  else document.getElementById("note").textContent = NOTES[document.body.dataset.mode];
+});
+renderScience();
+</script>
+</body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<script>
+  if (location.search.indexOf("reset=1") !== -1) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    history.replaceState(null, "", location.pathname);
+    scrollTo(0, 0);
+    addEventListener("pageshow", function () { scrollTo(0, 0); });
+  }
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lipoderma — Let's talk about the F** word</title>
+<meta name="description" content="Lipoderma is a human adipose allograft that restores lost support and volume in the face, neck, and hands. Available through a select network of licensed providers." />
+<meta name="theme-color" content="#8fb0ee" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lipoderma by Britecyte" />
+<meta property="og:title" content="Lipoderma — The fat worth keeping" />
+<meta property="og:description" content="For decades, fat has been something we've been encouraged to lose. But fat also holds the architecture of the face. Lipoderma restores the layer that time takes first." />
+<meta property="og:url" content="https://britecyte.github.io/corporate-site-testing/lipoderma/" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preload" as="font" type="font/woff2" href="fonts/instrument-serif.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2" crossorigin />
+<link rel="icon" href="img/logos/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="css/site.css?v=20261114c" />
+<link rel="stylesheet" href="css/glass.css?v=20261106a" />
+<link rel="stylesheet" href="css/motion.css?v=20261104b" />
+<link rel="stylesheet" href="css/layout.css?v=20261114i" />
+<link rel="stylesheet" href="css/brief.css?v=20261114r" />
+<link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Britecyte, Inc.",
+    "url": "https://britecyte.com",
+    "email": "brighterlives@britecyte.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Frederick",
+      "addressRegion": "MD",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.instagram.com/restorewithlipoderma/",
+      "https://www.youtube.com/@lipoderma"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Lipoderma — The fat worth keeping",
+    "url": "https://britecyte.github.io/corporate-site-testing/lipoderma/",
+    "description": "Lipoderma is a human adipose allograft that restores lost support and volume in the face, neck, and hands.",
+    "about": {
+      "@type": "Thing",
+      "name": "Lipoderma",
+      "description": "Donated human adipose tissue, processed to preserve native structure, placed by licensed physicians in the face, neck, and hands.",
+      "brand": {
+        "@type": "Organization",
+        "name": "Britecyte, Inc."
+      }
+    },
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What exactly is Lipoderma?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lipoderma is a human adipose allograft — donated fat tissue that has been screened, processed to preserve its native structure, and prepared for placement with a cannula or needle. It is used to restore lost support and volume in the face, neck, and hands."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is this different from filler?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fillers are engineered materials that add volume. Lipoderma is adipose tissue, which is what the face is built from in the first place. The distinction matters because the goal is restoring the layer, not occupying space inside it. Ask your provider which approach fits your face and your goals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it my own fat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Lipoderma is donated human adipose tissue from carefully screened donors, processed in an FDA-registered tissue establishment in accordance with applicable regulations for human tissue products. It is not harvested from your body."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I've lost weight on a GLP-1. Is this for me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rapid weight loss can reduce the fat that supports the face, contributing to hollowing, sagging, and changes in contour. That's a structural change, and it's the kind Lipoderma is designed to address. Whether it's right for you is a conversation for your provider."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lipoderma is made from screened donor tissue and processed in an FDA-registered tissue establishment. As with any aesthetic procedure, your provider will discuss potential risks and determine whether Lipoderma is appropriate for you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it cost, and does insurance cover it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lipoderma is an elective aesthetic product and is self-pay. Pricing is set by your provider based on your individual treatment plan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find a provider?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the provider finder above to search by name, city, state, or ZIP. Every listed practice is licensed and trained on Lipoderma."
+          }
+        }
+      ]
+    }
+  }
+]
+</script>
+</head>
+<body>
+
+<div class="bg-field" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a class="brand" href="./" aria-label="Lipoderma home">
+      <span class="brand-logo" role="img" aria-label="Lipoderma"></span>
+    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <a href="#reframe">The fat</a>
+      <a href="#structure-detail">The layer</a>
+      <a href="#product">Product</a>
+      <a href="#audience">Who it's for</a>
+      <a href="#results">Results</a>
+      <a href="#providers">Providers</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn" href="#providers">Find a provider</a>
+      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M1 4h16M1 9h16M1 14h16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
+  <a href="#reframe">The fat</a>
+  <a href="#structure-detail">The layer</a>
+  <a href="#product">Product</a>
+  <a href="#audience">Who it's for</a>
+  <a href="#results">Results</a>
+  <a href="#providers">Providers</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main id="main">
+
+  <!-- ── Hero ─────────────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual-frame">
+        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Video placeholder: Lipoderma unboxing"><span>Unboxing video<small>Corner rub and the flick. Video TBD</small></span></div>
+      </div>
+    </div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid-lines" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="hero-inner hero-main">
+      <div>
+        <p class="eyebrow hero-eyebrow reveal">Lipoderma® by Britecyte</p>
+
+        <h1 class="hero-title reveal" id="hero-title">
+          Let's talk about the F** word.
+        </h1>
+        <p class="brief-fat" data-fat-reveal>FAT.</p>
+
+        <p class="hero-lede reveal">
+          We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.
+        </p>
+
+        <form class="hero-find reveal" data-hero-find role="search" aria-label="Find a provider">
+          <div class="hero-find-row">
+            <label class="visually-hidden" for="hero-find-q">City, state, or ZIP</label>
+            <input id="hero-find-q" type="search" name="q" placeholder="City, state, or ZIP" autocomplete="postal-code" />
+            <button class="btn" type="submit">Find a provider</button>
+          </div>
+          <p class="hero-find-sub"><a href="#audience">Who it's for</a> · <a href="#providers">Providers</a></p>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-foot reveal">
+        <div class="hero-foot-facts">
+          <span>Adipose allograft</span>
+          <span>Face · Neck · Hands</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Reframe ──────────────────────────────────────────── -->
+  <section class="section section--bone" id="reframe" data-theme="light" aria-labelledby="reframe-title">
+    <div class="reframe-sticky">
+    <div class="wrap">
+      <div class="reframe-grid">
+        <div>
+          <h2 class="display h2 reveal" id="reframe-title" style="margin-top:1.5rem;max-width:16ch;margin-bottom:2.25rem">
+            There's more to fat than <span class="serif-italic" style="color:var(--peach)">losing it.</span>
+          </h2>
+          <div class="reframe-copy reveal">
+            <p>
+              Fat has been something we've been encouraged to lose, reduce, or eliminate. But fat plays an
+              important role in giving our faces their natural contours, softness, and fullness.
+            </p>
+            <p>
+              As we age and lose facial fat, we can begin to look tired or older than we feel.
+            </p>
+          </div>
+        </div>
+
+        <div class="reframe-aside reveal">
+          <div class="compare" data-compare data-scroll-compare role="group" aria-label="Before and after, as the layer is restored">
+            <div class="ph compare-before" style="--ar:4 / 5" role="img" aria-label="Image placeholder: Before photo"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" style="--ar:4 / 5" role="img" aria-label="Image placeholder: After photo"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="10" step="1" class="visually-hidden" aria-label="Reveal before or after" data-compare-range />
+          </div>
+          <p class="reframe-caption">The comparison moves as you scroll. Drag it to look for yourself.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ── Structure: scroll-driven cross-section ───────────── -->
+  <!-- Kept off the page. Move this template’s contents back to restore the 5-step animation. -->
+  <template id="structure-simple-kept">
+  <section class="structure" id="structure" data-theme="light" data-cross-section aria-labelledby="structure-title">
+    <div class="structure-sticky">
+      <div class="structure-inner">
+
+        <div class="structure-stage" aria-hidden="true">
+          <svg viewBox="-40 232 680 322" id="cross-section" role="presentation">
+            <defs>
+              <linearGradient id="cs-band" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
+                <stop offset="55%" stop-color="#fd893c" stop-opacity="0.30"/>
+                <stop offset="100%" stop-color="#fd893c" stop-opacity="0.12"/>
+              </linearGradient>
+              <linearGradient id="cs-skin" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+                <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.92"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+              </linearGradient>
+              <linearGradient id="cs-dermis" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.20"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.05"/>
+              </linearGradient>
+              <clipPath id="cs-clip"><path id="cs-clip-path" d=""/></clipPath>
+            </defs>
+
+            <!-- depth guides -->
+            <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.09" fill="none">
+              <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
+              <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
+            </g>
+
+            <!-- skin: dermis under the surface line -->
+            <path id="cs-dermis-path" d="" fill="url(#cs-dermis)"/>
+            <path id="cs-basement" d="" stroke="#f7f2eb" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+
+            <!-- adipose band -->
+            <path id="cs-band-path" d="" fill="url(#cs-band)"/>
+
+            <!-- adipocyte cells, clipped to band -->
+            <g clip-path="url(#cs-clip)" id="cs-cells" stroke="#ffd2ab" stroke-opacity="0.5" fill="#ffcf9f" fill-opacity="0.10"></g>
+
+            <!-- skin surface -->
+            <path id="cs-skin-path" d="" stroke="url(#cs-skin)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- muscle plane -->
+            <path id="cs-muscle-path" d="" stroke="#f7f2eb" stroke-opacity="0.28" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
+
+            <!-- cannula -->
+            <path id="cs-cannula" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <text id="cs-measure-label" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
+
+            <!-- timeline label (data-timeline): delete this element to remove it -->
+            <text id="cs-time" data-timeline x="560" y="545" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
+
+            <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
+              <text id="cs-skin-label" x="0" y="220">SKIN</text>
+              <text id="cs-muscle-label" x="0" y="446">MUSCLE / FASCIA</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="structure-copy">
+          <h2 class="visually-hidden" id="structure-title">The layer under everything</h2>
+
+          <div class="structure-step is-active" data-step="0">
+            <h3>A face is a stack of layers.<br>One of them does the shaping.</h3>
+            <p>Skin on top. Muscle and bone beneath. Between them, a layer of fat that holds the shape of everything above it.</p>
+          </div>
+
+          <div class="structure-step" data-step="1">
+            <h3>Age and weight loss<br>take that layer first.</h3>
+            <p>It thins, and the skin loses what it was resting on. The surface follows: hollows where there was curve, and a finer, less even texture.</p>
+          </div>
+
+          <div class="structure-step" data-step="2">
+            <h3>Lipoderma is that tissue.<br>Donated and left whole.</h3>
+            <p>Human adipose tissue, processed to remove what the immune system reacts to and nothing else. The fat cells and the structure around them arrive intact.</p>
+          </div>
+
+          <div class="structure-step" data-step="3">
+            <h3>Placed where it was lost.</h3>
+            <p>Through a cannula, into the layer beneath the skin. Volume is there right away because it is real tissue, not a stand-in for it. The skin above has something to rest on again.</p>
+          </div>
+
+          <div class="structure-step" data-step="4">
+            <h3>Then your body takes over.</h3>
+            <p>In studies, the body's own cells move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
+          </div>
+
+          <div class="structure-meter" aria-hidden="true">
+            <span id="cs-step-label">01 / 05</span>
+            <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter"></span></span>
+            <span id="cs-stage-label">Healthy layer</span>
+          </div>
+          <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed variant: refinement + vessels. Decide later whether this ships. -->
+  </template>
+
+  <section class="structure" id="structure-detail" data-detail data-theme="light" data-cross-section aria-labelledby="structure-title-2">
+    <div class="structure-sticky">
+      <div class="structure-inner">
+
+        <div class="structure-visual">
+        <div class="structure-stage" aria-hidden="true">
+          <svg viewBox="-15 166 630 398" id="cross-section-2" role="presentation">
+            <defs>
+              <linearGradient id="cs-band-2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
+                <stop offset="55%" stop-color="#fd893c" stop-opacity="0.30"/>
+                <stop offset="100%" stop-color="#fd893c" stop-opacity="0.12"/>
+              </linearGradient>
+              <linearGradient id="cs-skin-2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+                <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.92"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+              </linearGradient>
+              <linearGradient id="cs-dermis-2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.20"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.05"/>
+              </linearGradient>
+              <clipPath id="cs-clip-2"><path id="cs-clip-path-2" d=""/></clipPath>
+            </defs>
+
+            <g id="cs-subject-2">
+            <!-- depth guides -->
+            <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.09" fill="none">
+              <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
+              <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
+            </g>
+
+            <!-- skin: dermis under the surface line -->
+            <path id="cs-dermis-path-2" d="" fill="url(#cs-dermis-2)"/>
+            <path id="cs-basement-2" d="" stroke="#f7f2eb" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+
+            <!-- adipose band -->
+            <path id="cs-band-path-2" d="" fill="url(#cs-band-2)"/>
+
+            <!-- adipocyte cells, clipped to band -->
+            <g clip-path="url(#cs-clip-2)" id="cs-cells-2" stroke="#ffd2ab" stroke-opacity="0.5" fill="#ffcf9f" fill-opacity="0.10"></g>
+
+            <!-- skin surface -->
+            <path id="cs-skin-path-2" d="" stroke="url(#cs-skin-2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- muscle plane -->
+            <path id="cs-muscle-path-2" d="" stroke="#f7f2eb" stroke-opacity="0.28" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
+
+            <!-- host vessels (detail) -->
+            <g id="cs-vessels-2" fill="none" stroke="#e08a7a" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"></g>
+
+            <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
+            <text id="cs-time-2" data-timeline x="560" y="500" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
+            <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
+              <text id="cs-skin-label-2" x="0" y="220">SKIN</text>
+              <text id="cs-muscle-label-2" x="0" y="446">MUSCLE / FASCIA</text>
+            </g>
+            <path id="cs-cannula-2" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </g>
+
+            <!-- refinement tray: hidden under the face until step 3, when it takes the stage -->
+            <g id="cs-tray-2" opacity="0"></g>
+          </svg>
+        </div>
+          <div class="structure-meter" aria-hidden="true">
+            <span id="cs-step-label-2">01 / 06</span>
+            <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
+            <span id="cs-stage-label-2">Healthy layer</span>
+          </div>
+          <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026. Detailed variant for review.</p>
+        </div>
+
+        <div class="structure-copy">
+          <h2 class="visually-hidden" id="structure-title-2">The layer under everything</h2>
+
+          <div class="structure-step is-active" data-step="0">
+            <h3>A face is a stack of layers.<br>One of them does the shaping.</h3>
+            <p>Skin on top. Muscle and bone beneath. Between them, a layer of fat that holds the shape of everything above it.</p>
+          </div>
+
+          <div class="structure-step" data-step="1">
+            <h3>Age and weight loss<br>take that layer first.</h3>
+            <p>It thins, and the skin loses what it was resting on. The surface follows: hollows where there was curve, and a finer, less even texture.</p>
+          </div>
+
+          <div class="structure-step" data-step="2">
+            <h3>Refined, not rebuilt.</h3>
+            <p>Donated fat arrives with blood cells and immune cells that would be rejected. Washing and processing remove them. The fat cells stay intact, so what triggers inflammation stays locked inside them.</p>
+          </div>
+
+          <div class="structure-step" data-step="3">
+            <h3>Placed where it was lost.</h3>
+            <p>Through a cannula, into the layer beneath the skin. The tissue goes in as real structure, cell by cell, exactly where the layer thinned.</p>
+          </div>
+
+          <div class="structure-step" data-step="4">
+            <h3>Volume, right away.</h3>
+            <p>The layer refills behind the cannula, and the skin above has something to rest on again.</p>
+          </div>
+
+          <div class="structure-step" data-step="5">
+            <h3>Then your body takes over.</h3>
+            <p>In studies, the body's own cells and new blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Product ──────────────────────────────────────────── -->
+  <section class="section section--bone" id="product" data-theme="light" data-band="paper" aria-labelledby="product-title">
+    <div class="wrap">
+      <div class="product-grid">
+        <div class="product-figure reveal">
+          <div class="ph is-active" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Like-for-like"><span>Like-for-like<small>Image TBD</small></span></div>
+          <div class="ph" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Ready when it's needed"><span>Ready when it's needed<small>Image TBD</small></span></div>
+          <div class="ph" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Native architecture preserved"><span>Native architecture preserved<small>Image TBD</small></span></div>
+          <div class="ph" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: All 50 states"><span>All 50 states<small>Image TBD</small></span></div>
+        </div>
+
+        <div>
+          <h2 class="display h2 reveal" id="product-title" style="margin-top:1.5rem">
+            Meet Lipoderma<span style="color:var(--peach)">.</span>
+          </h2>
+          <p class="lede reveal" style="margin-top:1.5rem;max-width:38ch;color:var(--ink)">
+            What if the answer to lost fat was simply... fat?
+          </p>
+          <div class="body-copy reveal" style="margin-top:1.25rem;max-width:52ch;color:var(--on-light-soft)">
+            <p>
+              Lipoderma takes a different approach to natural-looking rejuvenation, using human adipose
+              tissue to restore lost fat where it belongs. Fat for fat.
+            </p>
+            <p>
+              Because sometimes, looking like yourself again isn't about changing something. It's about
+              restoring what was there all along.
+            </p>
+            <p>Restore What’s Yours™</p>
+          </div>
+
+          <ul class="fact-list reveal">
+            <li>
+              <span class="num">01</span>
+              <div>
+                <h4>Fat for fat</h4>
+                <p>Human adipose tissue, put back where fat was lost. Not a gel standing in for it.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">02</span>
+              <div>
+                <h4>Ready to use</h4>
+                <p>No autologous fat harvesting. It is ready when the consult is.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">03</span>
+              <div>
+                <h4>Native architecture preserved</h4>
+                <p>Processing preserves intact adipocytes and the extracellular matrix that holds them in place.</p>
+              </div>
+            </li>
+            <li>
+              <span class="num">04</span>
+              <div>
+                <h4>All 50 states</h4>
+                <p>The only off-the-shelf adipose tissue allograft available in all 50 states.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Audience doors ───────────────────────────────────── -->
+  <section class="section" id="audience" data-theme="light" aria-labelledby="audience-title">
+    <div class="wrap">
+      <div class="doors">
+        <div>
+          <h2 class="display h2 reveal" id="audience-title" style="margin-top:1.5rem;max-width:14ch">
+            Two ways <span class="serif-italic">in.</span>
+          </h2>
+          <p class="muted reveal" style="margin-top:1.5rem;max-width:34ch;font-size:0.95rem">
+            The same tissue, told for the person in the mirror and for the person placing it.
+          </p>
+
+          <div class="door-list reveal" role="tablist" aria-label="Audiences" style="margin-top:2.5rem">
+            <button class="door" role="tab" id="door-tab-patients" aria-controls="door-panel-patients" aria-selected="true" data-door="patients">
+              <span class="door-name">Patients</span><span class="door-meta">01</span>
+            </button>
+            <button class="door" role="tab" id="door-tab-surgeons" aria-controls="door-panel-surgeons" aria-selected="false" data-door="surgeons">
+              <span class="door-name">Plastic surgeons</span><span class="door-meta">02</span>
+            </button>
+            <button class="door" role="tab" id="door-tab-medspas" aria-controls="door-panel-medspas" aria-selected="false" data-door="medspas">
+              <span class="door-name">The evidence</span><span class="door-meta">03</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="door-panels reveal">
+          <div class="door-panel is-active" id="door-panel-patients" role="tabpanel" aria-labelledby="door-tab-patients">
+            <h3>Some things are worth holding on to. The way you see yourself is one of them.</h3>
+            <p>
+              Looking refreshed isn't just about great skin. It's also about what's beneath it. This page
+              is the patient path: what to expect, the glow-up months, and a way to find a provider.
+            </p>
+            <ul class="door-points">
+              <li>Facial hollowing after weight loss, including GLP-1–assisted loss</li>
+              <li>Under-eyes, temples, and midface</li>
+              <li>Hands that read older than the face</li>
+            </ul>
+            <a class="arrow-link" href="#results">See results <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="door-panel" id="door-panel-surgeons" role="tabpanel" aria-labelledby="door-tab-surgeons">
+            <h3>Your aesthetic toolkit just got a little fatter.</h3>
+            <p>
+              A human adipose tissue allograft for restoring lost adipose tissue, without autologous fat
+              harvesting. Fat for fat. Ready to use. The only off-the-shelf adipose tissue allograft
+              available in all 50 states.
+            </p>
+            <ul class="door-points">
+              <li>Native adipose architecture preserved through processing</li>
+              <li>Delivery through standard cannulas or needles</li>
+              <li>Clinical evidence, IFU, and handling guidance in the provider portal</li>
+            </ul>
+            <a class="arrow-link" href="#providers">Find a provider <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="door-panel" id="door-panel-medspas" role="tabpanel" aria-labelledby="door-tab-medspas">
+            <h3>Explore the evidence.</h3>
+            <p>
+              Tissue sourcing, safety, and the published work. The brief names Chernoff and Danilkovitch
+              and leaves the citations for the publications page.
+            </p>
+            <ul class="door-points">
+              <li>Chernoff 1</li>
+              <li>Danilkovitch</li>
+              <li>Chernoff 2</li>
+            </ul>
+            <a class="arrow-link" href="#product">The product <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Results ──────────────────────────────────────────── -->
+  <section class="section section--bone" id="results" data-theme="light" aria-labelledby="results-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2 class="display h2 reveal" id="results-title">
+            Fat looks good <span class="serif-italic" style="color:var(--peach)">on you.</span>
+          </h2>
+        </div>
+        <p class="muted reveal" style="max-width:44ch">
+          Before and afters live here. A comparison with HA fillers, biostimulators, and Renuva is on the
+          patient page. The brief names the columns and doesn't fill them in yet.
+        </p>
+      </div>
+
+      <div class="result-views">
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, midface">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Midface before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Midface after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="50" step="1" class="visually-hidden" aria-label="Reveal before or after, midface" data-compare-range />
+          </div>
+          <figcaption>Midface</figcaption>
+        </figure>
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, jawline">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Jawline before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Jawline after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="62" step="1" class="visually-hidden" aria-label="Reveal before or after, jawline" data-compare-range />
+          </div>
+          <figcaption>Jawline</figcaption>
+        </figure>
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, under-eyes">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Under-eyes before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Under-eyes after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="38" step="1" class="visually-hidden" aria-label="Reveal before or after, under-eyes" data-compare-range />
+          </div>
+          <figcaption>Under-eyes</figcaption>
+        </figure>
+        <figure class="result-view">
+          <div class="compare" data-compare role="group" aria-label="Before and after, hands">
+            <div class="ph compare-before" role="img" aria-label="Image placeholder: Hands before"><span>Before<small>Image TBD</small></span></div>
+            <div class="ph compare-after" role="img" aria-label="Image placeholder: Hands after"><span>After<small>Image TBD</small></span></div>
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="55" step="1" class="visually-hidden" aria-label="Reveal before or after, hands" data-compare-range />
+          </div>
+          <figcaption>Hands</figcaption>
+        </figure>
+      </div>
+      <p class="result-views-note">Drag any view. Placeholder imagery. <a class="arrow-link" href="gallery/">View the outcomes gallery <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <!-- ── Providers ────────────────────────────────────────── -->
+  <section class="section section--dark" id="providers" data-theme="light" aria-labelledby="providers-title">
+    <div class="wrap">
+      <div class="providers-head">
+        <div class="providers-intro">
+          <h2 class="display h2 reveal" id="providers-title">
+            Find a <span class="serif-italic">provider.</span>
+          </h2>
+          <p class="muted">
+            Lipoderma is placed only by licensed physicians trained on the product.
+          </p>
+        </div>
+        <div class="provider-lead reveal">
+          <div class="provider-search">
+            <label class="visually-hidden" for="provider-search">Search providers</label>
+            <input id="provider-search" type="search" placeholder="Provider name, city, state, or ZIP"
+                   autocomplete="off" role="combobox" aria-expanded="false" aria-controls="provider-suggest" data-provider-search />
+            <button type="button" data-provider-locate>Use my location</button>
+          </div>
+          <div class="provider-suggest" id="provider-suggest" role="listbox" data-provider-suggest hidden></div>
+        </div>
+        <p class="provider-status" data-provider-status aria-live="polite"></p>
+      </div>
+
+      <div class="provider-shell reveal">
+        <div class="provider-map" id="provider-map" data-provider-map></div>
+        <div class="provider-list" id="provider-list" data-provider-list></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────── -->
+  <section class="section section--bone" id="faq" data-theme="light" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="faq-layout">
+        <div>
+          <h2 class="display h2 reveal" id="faq-title" style="margin-top:1.5rem">
+            Questions,<br><span class="serif-italic" style="color:var(--peach)">welcome.</span>
+          </h2>
+          <div class="ph faq-aside reveal" style="--ar:4 / 5" role="img" aria-label="Image placeholder: A provider in conversation">
+            <span>Provider<small>Image TBD</small></span>
+          </div>
+        </div>
+
+        <div class="faq-list reveal" data-faq>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What exactly is Lipoderma? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              Lipoderma is a human adipose allograft — donated fat tissue that has been screened, processed
+              to preserve its native structure, and prepared for placement with a cannula or needle. It is
+              used to restore lost support and volume in the face, neck, and hands.
+            </p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How is this different from filler? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              Fillers are engineered materials that add volume. Lipoderma is adipose tissue, which is what
+              the face is built from in the first place. The distinction matters because the goal is
+              restoring the layer, not occupying space inside it. Ask your provider which approach fits
+              your face and your goals.
+            </p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Is it my own fat? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              No. Lipoderma is donated human adipose tissue from carefully screened donors, processed in an
+              FDA-registered tissue establishment in accordance with applicable regulations for human tissue
+              products. It is not harvested from your body.
+            </p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              I've lost weight on a GLP-1. Is this for me? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              Rapid weight loss can reduce the fat that supports the face, contributing to hollowing,
+              sagging, and changes in contour. That's a structural change, and it's the kind Lipoderma is
+              designed to address. Whether it's right for you is a conversation for your provider.
+            </p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Is it safe? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              Lipoderma is made from screened donor tissue and processed in an FDA-registered tissue
+              establishment. As with any aesthetic procedure, your provider will discuss potential risks
+              and determine whether Lipoderma is appropriate for you.
+            </p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What does it cost, and does insurance cover it? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              Lipoderma is an elective aesthetic product and is self-pay. Pricing is set by your provider
+              based on your individual treatment plan.
+            </p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How do I find a provider? <i aria-hidden="true"></i>
+            </button>
+            <div class="faq-a"><div><p>
+              Use the <a href="#providers" style="color:var(--peach);text-decoration:underline;text-underline-offset:3px">provider finder</a>
+              above to search by name, city, state, or ZIP. Every listed practice is licensed and trained
+              on Lipoderma.
+            </p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Closing ──────────────────────────────────────────── -->
+  <section class="closing" id="contact" data-theme="light" aria-labelledby="closing-title">
+    <div class="contact-visual" aria-hidden="true">
+      <div class="ph" role="img" aria-label="Image placeholder: Contact background"><span>Contact image<small>Image TBD</small></span></div>
+    </div>
+    <div class="wrap closing-inner contact-layout">
+      <div class="contact-intro">
+        <h2 class="reveal" id="closing-title">
+          Join The F** Club.<br>
+          <span class="serif-italic" style="color:var(--accent)">Membership has its perks.</span>
+        </h2>
+        <p class="reveal">Email and location, for patients. This lab does not send or store it. Providers who want the product in the practice start on their own page.</p>
+        <div class="closing-actions reveal">
+          <a class="btn" href="#contact">Join the club</a>
+          <a class="btn btn--ghost" href="#providers">Find a provider</a>
+        </div>
+        <address class="contact-address reveal">
+          <strong>Britecyte, Inc.</strong><br />
+          <span class="addr-place">Frederick, MD</span><br />
+          <a href="mailto:brighterlives@britecyte.com">brighterlives@britecyte.com</a>
+        </address>
+      </div>
+
+      <form class="contact-card reveal" data-contact-form novalidate>
+        <h3>Get in touch.</h3>
+        <div class="contact-form-trap" aria-hidden="true">
+          <label for="contact-company">Company</label>
+          <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+        <div class="contact-form-split">
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-name">Name</label>
+            <input type="text" id="contact-name" name="name" required class="contact-form-input" autocomplete="name" />
+          </div>
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-email">Email</label>
+            <input type="email" id="contact-email" name="email" required class="contact-form-input" autocomplete="email" />
+          </div>
+        </div>
+        <div class="contact-form-row">
+          <label class="contact-form-label" for="contact-subject">Subject</label>
+          <select id="contact-subject" name="subject" class="contact-form-input">
+            <option value="product-lipoderma">Product inquiry</option>
+            <option value="provider">Finding a provider</option>
+            <option value="clinical">Clinical / physician</option>
+            <option value="media">Media</option>
+            <option value="partnership">Partnership</option>
+          </select>
+        </div>
+        <div class="contact-form-row">
+          <label class="contact-form-label" for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="2" required class="contact-form-input contact-form-textarea"></textarea>
+        </div>
+        <button type="submit" class="btn">Send message</button>
+        <p class="contact-form-success" data-form-success role="status" hidden>Thank you — we’ll be in touch shortly.</p>
+        <p class="contact-form-error" data-form-error role="alert" hidden>Please fill in your name, a valid email, and a message.</p>
+        <p class="contact-form-preview">Preview build: submissions are not sent anywhere.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer class="site-footer" data-theme="light">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="img/logos/lipoderma-logo.svg" width="124" height="30" alt="Lipoderma" />
+        <p class="footer-tagline">Restore what's been lost.<br>Not reinvent what's there.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="#reframe">The fat</a>
+        <a href="#structure-detail">The layer</a>
+        <a href="#product">Product</a>
+        <a href="#audience">Who it's for</a>
+        <a href="#results">Results</a>
+        <a href="#providers">Providers</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Britecyte</h3>
+        <a href="https://britecyte.com" target="_blank" rel="noopener">Britecyte</a>
+        <a href="mailto:brighterlives@britecyte.com">Contact</a>
+        <a href="https://www.instagram.com/restorewithlipoderma/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/@lipoderma" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Britecyte, Inc. All rights reserved.</span>
+      <span>Lipoderma® is a registered trademark of Britecyte, Inc. · Frederick, MD</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js?v=20261114t"></script>
+<script>
+  const fat = document.querySelector('[data-fat-reveal]');
+  if (fat) {
+    const show = () => fat.classList.add('is-in');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) show();
+    else setTimeout(show, 900);
+  }
+</script>
+<script type="module" src="js/motion.js?v=20261113b"></script>
+</body>
+</html>

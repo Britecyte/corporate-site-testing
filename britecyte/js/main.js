@@ -1,11 +1,31 @@
 import { initPipelineMap } from "./pipeline-map.js?v=20261106d";
 import "./news-split.js?v=20261106a";
-import "./journey-carousel.js?v=20261112b";
-import "./team-spotlight.js?v=20261112c";
+import "./about-ledger.js?v=20261114m";
+import "./team-spotlight.js?v=20261114f";
 import "./pathway.js?v=20261106a";
 import "./scroll-spy.js?v=20261112b";
 
+function reloadHome(event) {
+  const link = event.currentTarget;
+  if (!(link instanceof HTMLAnchorElement)) return;
+  event.preventDefault();
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+  const dest = new URL(link.href);
+  dest.hash = "";
+  dest.search = "";
+  const sameDocument = dest.pathname === window.location.pathname && window.location.hash === "" && window.location.search === "";
+  if (sameDocument) {
+    sessionStorage.setItem("bc-home", "1");
+    window.location.reload();
+  } else {
+    sessionStorage.removeItem("bc-home");
+    window.location.assign(dest.pathname);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".site-logo")?.addEventListener("click", reloadHome);
   initPipelineMap();
   initBritecyteAnalytics();
   initMobileNav();
@@ -132,53 +152,78 @@ function initMobileNav() {
 
 function initScrollReveal() {
   const selectors = [
-    ".hero-copy > *",
     ".section-header",
-    ".section-intro",
-    ".about-aside",
-    ".journey-carousel",
-    ".proof-stats li",
     ".pipe-row",
     ".pipe-detail",
     ".pathway-step",
+    ".team-card",
     ".record",
-    ".team-stage",
-    ".contact-form",
-    ".contact-aside",
-    ".footer-lead",
+    ".contact-block",
     ".footer-brand",
     ".footer-nav",
   ];
   document.querySelectorAll(selectors.join(",")).forEach((el) => {
-    if (!el.classList.contains("reveal")) el.classList.add("reveal");
+    if (el.closest("#hero")) return;
+    el.classList.add("reveal");
+  });
+  const header = document.querySelector(".site-header");
+  if (header) header.classList.add("reveal");
+  // A wrapper and its children should not both start invisible.
+  document.querySelectorAll(".reveal").forEach((el) => {
+    if (el.querySelector(".reveal")) el.classList.remove("reveal");
   });
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const items = document.querySelectorAll(".reveal");
+  const show = (el) => el.classList.add("is-visible");
+  const intro = document.querySelectorAll("#hero .about-open .reveal, .site-header.reveal");
   if (reduced || !("IntersectionObserver" in window)) {
-    items.forEach((el) => el.classList.add("is-visible"));
-    return;
+    intro.forEach(show);
+  } else {
+    intro.forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i, 5) * 90}ms`;
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => intro.forEach(show)));
   }
+  const sections = document.querySelectorAll("main.site-main > section, footer.site-footer");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.08, rootMargin: "0px 0px -4% 0px" }
-  );
-
-  items.forEach((el) => {
-    const siblings = el.parentElement
-      ? Array.from(el.parentElement.children).filter((child) => child.classList.contains("reveal"))
-      : [];
-    const order = siblings.indexOf(el);
-    if (order > 0) el.style.transitionDelay = `${Math.min(order, 6) * 0.08}s`;
-    observer.observe(el);
+  sections.forEach((section) => {
+    if (section.id === "hero") return;
+    const items = section.querySelectorAll(".reveal");
+    if (!items.length) return;
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(show);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        visible.forEach((entry, i) => {
+          entry.target.style.transitionDelay = `${Math.min(i, 3) * 90}ms`;
+          show(entry.target);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.01, rootMargin: "0px 0px -8% 0px" }
+    );
+    const target = document.querySelector(window.location.hash);
+    items.forEach((el) => {
+      const box = el.getBoundingClientRect();
+      const alreadyPassed = box.bottom < 72;
+      const inTarget = target && (el === target || target.contains(el));
+      if (alreadyPassed || inTarget) show(el);
+      else observer.observe(el);
+    });
   });
+
+  // Anything still hidden once the page is scrolled to the end would otherwise
+  // sit inside the bottom margin and never intersect.
+  const revealPinned = () => {
+    const doc = document.documentElement;
+    if (doc.scrollHeight - window.scrollY - window.innerHeight > 24) return;
+    document.querySelectorAll(".reveal:not(.is-visible)").forEach(show);
+  };
+  window.addEventListener("scroll", revealPinned, { passive: true });
+  window.addEventListener("resize", revealPinned);
 }
 
 function initHeaderScroll() {

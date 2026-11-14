@@ -87,7 +87,6 @@ body { background: transparent; color: var(--color-ink); }
 }
 
 .surface,
-.journey-slide,
 .pathway-step,
 .contact-form {
   background: var(--surface-fill);

@@ -35,11 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
     image.width = 393;
     image.height = 390;
 
+    const comma = name.indexOf(",");
+    const given = comma === -1 ? name : name.slice(0, comma).trim();
+    const creds = comma === -1 ? "" : name.slice(comma + 1).trim();
+    const roleLines = role.split(",").map((part) => part.trim()).filter(Boolean).join("<br>");
+
     const caption = document.createElement("span");
     caption.className = "team-card-name";
     caption.innerHTML = `
-      <span class="team-card-name-text font-display">${name}</span>
-      <span class="team-card-title">${role}</span>`;
+      <span class="team-card-name-text font-display">${given}</span>
+      ${creds ? `<span class="team-card-creds">${creds}</span>` : ""}
+      <span class="team-card-title">${roleLines}</span>`;
 
     const overlay = document.createElement("div");
     overlay.className = "team-card-bio";

@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <script>
+    if (sessionStorage.getItem("bc-home")) {
+      sessionStorage.removeItem("bc-home");
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      scrollTo(0, 0);
+      addEventListener("pageshow", () => scrollTo(0, 0));
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Britecyte — Biorestoration Therapies</title>
   <meta name="description" content="Britecyte develops innovative therapies designed to restore structure, function, and quality of life by working with the body's natural biology." />
@@ -20,17 +28,17 @@
   <meta name="twitter:image" content="https://britecyte.com/assets/products/og-withdrawal-syringe.jpg" />
   <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml" />
   <link rel="preload" as="image" href="assets/logos/britecyte-logo.png" />
-  <link rel="stylesheet" href="css/styles.css?v=20261112i" />
-  <link rel="stylesheet" href="css/hybrid-home.css?v=20261112d" />
-  <link rel="stylesheet" href="css/glass.css?v=20261112i" />
-  <link rel="stylesheet" href="css/company.css?v=20261112i" />
+  <link rel="stylesheet" href="css/styles.css?v=20261114p" />
+  <link rel="stylesheet" href="css/hybrid-home.css?v=20261114p" />
+  <link rel="stylesheet" href="css/glass.css?v=20261114p" />
+  <link rel="stylesheet" href="css/company.css?v=20261114o" />
 </head>
 <body>
   <div class="site-surface">
     <div class="bg-field" aria-hidden="true"><i></i><i></i><i></i></div>
     <header class="site-header" id="site-header">
       <div class="site-header-inner">
-        <a href="#hero" class="site-logo" aria-label="Britecyte home">
+        <a href="./" class="site-logo" aria-label="Britecyte home">
           <img src="assets/logos/britecyte-logo.png" alt="Britecyte" width="140" height="45" />
         </a>
         <nav class="site-nav microtype" aria-label="Primary">
@@ -65,105 +73,92 @@
     </nav>
 
     <main class="site-main">
-      <!-- Hero -->
-      <section id="hero" class="hero section-motif-host" data-section="hero" data-motif-key="hero">
-        <div class="hero-visual" aria-hidden="true">
-          <div class="ph" role="img" aria-label="Image placeholder: Hero image"><span>Hero image<small>Image TBD</small></span></div>
-        </div>
-        <div class="hero-grid">
-          <div class="hero-copy reveal">
-            <h1 class="hero-headline font-display">
-              Restore What's Yours™<br />
-              <span class="hero-belief"><span>Our vision is to help people recover function, restore health, and reclaim confidence through regenerative therapies.</span></span>
-            </h1>
-            <div class="hero-lede">
-              <p><span>Our mission is to restore what’s yours by providing natural therapies that activate your body’s regenerative powers.</span></p>
-              <p>By advancing therapies that work with the body's natural biology, we aim to move beyond symptom management toward solutions designed to repair, rebuild, and restore.</p>
-            </div>
-            <div class="hero-cta-row">
-              <a href="#pipeline" class="btn btn-primary">Explore Products</a>
-              <a href="#platform" class="btn btn-ghost">Our Science</a>
-            </div>
-            <p class="microtype hero-byline">650+ patients treated · Patent-protected technology</p>
-          </div>
-        </div>
-      </section>
+      <!-- Hero + Who We Are: Contrast Thesis -> Kinetic Ledger (sticky-scroll) -->
+      <section id="hero" class="section section-cream section-motif-host" data-section="hero" data-motif-key="about" data-about-track>
+        <div id="about" class="about-anchor" data-section="about" aria-hidden="true"></div>
+        <div class="about-sticky" data-about-stage data-beats="4">
+          <p class="about-marquee" aria-hidden="true">PROCHYMAL® · OSTEOCEL® · CARTIFORM® · GRAFIX® · STRAVIX® · BIORESTORATION</p>
 
-      <!-- Who We Are: journey carousel + proof stats -->
-      <section id="about" class="section section-cream section-motif-host" data-section="about" data-motif-key="about">
-        <div class="container">
-          <div class="section-header reveal">
-            <h2 class="section-title font-display">
-              Building the Future of <span class="text-bronze-deep">Biorestoration.</span>
-            </h2>
-          </div>
-          <div class="about-stage reveal">
-            <div class="about-aside">
-              <ul class="about-stats proof-stats" aria-label="Britecyte experience and proof points">
-                <li><strong class="font-display">60+</strong><span class="proof-stat-line">years of experience in regenerative medicine</span></li>
-                <li><strong class="font-display">20+</strong><span class="proof-stat-line">therapies developed and launched</span></li>
-                <li><strong class="font-display">55+</strong><span class="proof-stat-line">clinical trials conducted</span></li>
-                <li><strong class="font-display">215+</strong><span class="proof-stat-line">patents and patent applications</span></li>
-                <li><strong class="font-display">80+</strong><span class="proof-stat-line">peer-reviewed publications</span></li>
-              </ul>
+          <!-- Act 1: B · Contrast Thesis (Hero + Who We Are opening meld, full-bleed hero image) -->
+          <div class="about-open">
+            <div class="hero-visual" aria-hidden="true">
+              <div class="ph" role="img" aria-label="Image placeholder: Hero image"><span>Hero image<small>Image TBD</small></span></div>
             </div>
-
-            <div class="journey-carousel" data-journey-carousel>
-              <div class="journey-slides" aria-live="polite" aria-label="Britecyte journey">
-                <article class="journey-slide is-active" data-journey-slide>
-                  <div class="journey-slide-top">
-                    <span class="journey-photo journey-photo--lab"><img src="assets/journey/alla-lab-2020.png" alt="" /></span>
-                    <span class="journey-year">2020</span>
-                  </div>
-                  <h3 class="font-display">A Mission Begins</h3>
-                  <p>Britecyte is founded with a simple belief: <span>our vision is to help people recover function, restore health, and reclaim confidence through regenerative therapies.</span></p>
-                </article>
-                <article class="journey-slide" data-journey-slide>
-                  <div class="journey-slide-top">
-                    <span class="journey-photo journey-photo--contain journey-photo--mscrf"><img src="assets/logos/mscrf-logo.png" alt="" /></span>
-                    <span class="journey-year">2022</span>
-                  </div>
-                  <h3 class="font-display">Turning Vision into Innovation</h3>
-                  <p>Building on that mission, Britecyte develops its proprietary adipose tissue technology platform, opening new possibilities for restoring structure and function across a broad range of clinical applications.</p>
-                  <p>The Maryland Stem Cell Research Fund (MSCRF) awards Britecyte a grant supporting development of a therapy for liver fibrosis.</p>
-                </article>
-                <article class="journey-slide" data-journey-slide>
-                  <div class="journey-slide-top">
-                    <span class="journey-photo journey-photo--contain"><img src="assets/logos/liposana-logo.png" alt="" /></span>
-                    <span class="journey-year">2023</span>
-                  </div>
-                  <h3 class="font-display">From Research to Patients</h3>
-                  <p>Liposana® becomes Britecyte's first commercial product, helping restore cushioning and protection to the underlying structures of the foot for patients with fat pad loss and other soft tissue deficiencies that cause pain and chronic ulceration.</p>
-                </article>
-                <article class="journey-slide" data-journey-slide>
-                  <div class="journey-slide-top">
-                    <span class="journey-photo journey-photo--contain"><img src="assets/logos/lipoderma-logo.svg" alt="" /></span>
-                    <span class="journey-year">2024</span>
-                  </div>
-                  <h3 class="font-display">Expanding into Aesthetics</h3>
-                  <p>Building on the same platform technology, Lipoderma® is introduced to naturally restore the structural tissue beneath the skin that helps maintain the face's soft, natural contours and youthful appearance.</p>
-                </article>
-                <article class="journey-slide" data-journey-slide>
-                  <div class="journey-slide-top">
-                    <span class="journey-photo"><img src="assets/products/withdrawal-syringe.jpg" alt="" /></span>
-                    <span class="journey-year">2025</span>
-                  </div>
-                  <h3 class="font-display">Continuing to Advance</h3>
-                  <p>Clinical research expands with FDA Investigational New Drug (IND) clearance and the launch of a MSCRF-supported osteoarthritis clinical trial.</p>
-                </article>
-                <article class="journey-slide" data-journey-slide>
-                  <div class="journey-slide-top">
-                    <span class="journey-photo"><img src="assets/products/hand-vial-wide.png" alt="" /></span>
-                    <span class="journey-year">2026</span>
-                  </div>
-                  <h3 class="font-display">Platform Technology Patented</h3>
-                  <p>Britecyte reaches another milestone as the U.S. Patent and Trademark Office (USPTO) awards its first two patents covering the company's adipose tissue platform technology.</p>
-                </article>
-              </div>
-              <div class="journey-controls">
-                <div class="journey-dots" data-journey-dots role="tablist" aria-label="Milestone years"></div>
+            <div class="container about-open-grid">
+              <div class="about-open-copy">
+                <h1 class="about-open-title font-display reveal">
+                  The future of medicine isn’t <span class="muted">replacing what’s missing.</span> It’s <span class="text-bronze-deep">restoring</span> <span class="text-bronze-deep">what’s yours.</span>
+                </h1>
+                <p class="about-open-sub reveal">At Britecyte, we move beyond symptom management — working with the body’s natural biology so patients recover function, restore health, and reclaim confidence.</p>
+                <div class="hero-cta-row reveal">
+                  <a href="#pipeline" class="btn btn-primary">Explore Products</a>
+                  <a href="#platform" class="btn btn-ghost">Our Science</a>
+                </div>
+                <p class="microtype hero-byline reveal">650+ patients restored · 30+ years of regenerative lineage</p>
               </div>
             </div>
+          </div>
+
+          <!-- Act 2: Kinetic Counter + Compact Full-Width Story Card -->
+          <div class="container about-body">
+            <div class="about-head">
+              <h2 class="section-title font-display">
+                Building the Future of <span class="text-bronze-deep">Biorestoration.</span>
+              </h2>
+            </div>
+            <div class="about-pillars">
+              <div><strong>Structure</strong>Preserving native adipose architecture instead of filling space.</div>
+              <div><strong>Function</strong>Moving beyond symptom management toward repair.</div>
+              <div><strong>Quality of life</strong>Helping patients regain what has been lost.</div>
+            </div>
+
+            <div class="about-ledger-split">
+              <div class="about-counter" aria-live="polite">
+                <div class="about-stat is-active" data-beat-item="0">
+                  <strong class="font-display">30<em>+</em></strong>
+                  <span>Years of shared regenerative lineage — Osteocel®, Cartiform®, Grafix®, Stravix®, and Prochymal®.</span>
+                </div>
+                <div class="about-stat" data-beat-item="1">
+                  <strong class="font-display">60<em>+</em></strong>
+                  <span>Combined years of experience in regenerative medicine, 215+ patents, and 80+ publications.</span>
+                </div>
+                <div class="about-stat" data-beat-item="2">
+                  <strong class="font-display">20<em>+</em></strong>
+                  <span>Therapies developed and launched, plus 55+ clinical trials conducted by our leadership.</span>
+                </div>
+                <div class="about-stat" data-beat-item="3">
+                  <strong class="font-display">650<em>+</em></strong>
+                  <span>Patients restored across Liposana® and Lipoderma®, with an IND-cleared knee OA trial underway.</span>
+                </div>
+              </div>
+
+              <div class="about-card surface">
+                <div class="about-beats">
+                  <article class="about-beat is-active" data-beat-item="0">
+                    <p class="record-tag">01 · The 30-year roots</p>
+                    <h3 class="font-display">Before the first Britecyte vial.</h3>
+                    <p>Founder Dr. Alla Danilkovitch, CEO Samson Tom, and early colleagues spent decades at Osiris Therapeutics helping launch first-in-class tissue therapies — including Prochymal® (later Ryoncil®), the world’s first approved stem cell therapy.</p>
+                  </article>
+                  <article class="about-beat" data-beat-item="1">
+                    <p class="record-tag">02 · The single bench (2020)</p>
+                    <h3 class="font-display">Born out of a quiet laboratory.</h3>
+                    <p>When COVID-19 forced the world to a standstill, Dr. Danilkovitch rented a single lab bench and channeled the silence into singular focus: biocompatible, allogeneic human tissue therapies.</p>
+                  </article>
+                  <article class="about-beat" data-beat-item="2">
+                    <p class="record-tag">03 · The breakthrough (2022)</p>
+                    <h3 class="font-display">Restore, rather than replace.</h3>
+                    <p>By 2022, that work yielded Britecyte’s proprietary allogeneic adipose platform and an MSCRF grant. We call the approach Biorestoration: therapies designed to repair, rebuild, and restore.</p>
+                  </article>
+                  <article class="about-beat" data-beat-item="3">
+                    <p class="record-tag">04 · Today</p>
+                    <h3 class="font-display">Restore What’s Yours™.</h3>
+                    <p>From Liposana® and Lipoderma® to foundational USPTO patents and an FDA IND-cleared knee osteoarthritis trial, Britecyte carries a three-decade legacy into unmet clinical needs.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+
+            <p class="about-foot">2020 founded · 2022 adipose platform &amp; MSCRF · 2023 Liposana® · 2024 Lipoderma® · 2025 OA IND · 2026 USPTO patents</p>
           </div>
         </div>
       </section>
@@ -265,7 +260,6 @@
       <!-- Team -->
       <section id="team" class="section" data-section="team">
         <div class="container">
-          <div class="section-header reveal"><h2 class="section-title font-display">Meet the team.</h2></div>
           <div class="team-data" data-team-data hidden>
               <template data-leader="0" data-photo="assets/team/samson-tom.jpg" data-alt="Portrait of Samson Tom">
                 <span class="type-sr">Samson Tom, PhD, MBA</span><span class="type-sr"> President and CEO, Co-Founder</span>
@@ -289,7 +283,13 @@
               </template>
           </div>
           <div class="team-stage reveal reveal-delay-1">
-            <div class="team-grid" data-team-grid></div>
+            <div class="team-grid" data-team-grid>
+              <div class="team-card team-card--title">
+                <div class="team-card-inner">
+                  <h2 class="font-display">Meet<br>the<br><span>team.</span></h2>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -363,7 +363,6 @@
                 <span>Britecyte, Inc.</span>
                 <span>Frederick, MD</span>
               </address>
-              <p class="contact-aside-note">For clinical, media, and partnership questions, tell us who you are and we'll route you to the right person.</p>
             </aside>
             </div>
           </div>
@@ -409,6 +408,6 @@
       </div>
     </footer>
   </div>
-  <script type="module" src="js/main.js?v=20261112f"></script>
+  <script type="module" src="js/main.js?v=20261114n"></script>
 </body>
 </html>
