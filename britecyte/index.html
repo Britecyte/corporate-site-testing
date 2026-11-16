@@ -28,10 +28,10 @@
   <meta name="twitter:image" content="https://britecyte.com/assets/products/og-withdrawal-syringe.jpg" />
   <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml" />
   <link rel="preload" as="image" href="assets/logos/britecyte-logo.png" />
-  <link rel="stylesheet" href="css/styles.css?v=20261114r" />
+  <link rel="stylesheet" href="css/styles.css?v=20261115i" />
   <link rel="stylesheet" href="css/hybrid-home.css?v=20261114p" />
   <link rel="stylesheet" href="css/glass.css?v=20261114p" />
-  <link rel="stylesheet" href="css/company.css?v=20261114u" />
+  <link rel="stylesheet" href="css/company.css?v=20261115j" />
 </head>
 <body>
   <div class="site-surface">
@@ -315,57 +315,63 @@
       </section>
 
       <!-- Contact -->
-      <section id="contact" class="section section-motif-host section-with-photo" data-section="contact" data-motif-key="contact">
-        <div class="products-bg" aria-hidden="true">
-          <div class="products-bg-frame">
-            <img src="assets/products/lipoderma-10cc-jar-45.jpg" alt="" class="products-bg-photo" width="1280" height="1600" />
-          </div>
+      <section id="contact" class="section section-motif-host" data-section="contact" data-motif-key="contact" aria-labelledby="contact-title">
+        <div class="contact-visual" aria-hidden="true">
+          <img src="assets/products/lipoderma-10cc-jar-45.jpg" alt="" class="contact-visual-photo" width="1280" height="1600" />
         </div>
-        <div class="container">
-          <div class="contact-block reveal">
-            <h2 class="section-title font-display">Get in touch.</h2>
-            <div class="contact-layout">
-            <form class="contact-form" data-contact-form action="https://formsubmit.co/ajax/needthefat@britecyte.com" method="POST">
-              <input type="hidden" name="_subject" value="Britecyte website contact form" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_url" value="https://britecyte.com/" />
-              <input type="hidden" name="_captcha" value="false" />
-              <div class="form-row">
-                <label class="form-label microtype" for="contact-name">Name</label>
-                <input type="text" id="contact-name" name="name" required class="form-input" autocomplete="name" />
-              </div>
-              <div class="form-row">
-                <label class="form-label microtype" for="contact-email">Email</label>
-                <input type="email" id="contact-email" name="email" required class="form-input" autocomplete="email" />
-              </div>
-              <div class="form-row">
-                <label class="form-label microtype" for="contact-subject">Subject</label>
-                <select id="contact-subject" name="subject" class="form-input">
-                  <option value="product-lipoderma">Product Inquiry - Lipoderma</option>
-                  <option value="product-liposana">Product Inquiry - Liposana</option>
-                  <option value="clinical">Clinical / physician</option>
-                  <option value="media">Media</option>
-                  <option value="partnership">Partnership</option>
-                </select>
-              </div>
-              <div class="form-row form-row--wide">
-                <label class="form-label microtype" for="contact-message">Message</label>
-                <textarea id="contact-message" name="message" rows="3" required class="form-input form-textarea"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary btn-full">Send message</button>
-              <p class="form-success microtype" data-form-success hidden>Thank you—we'll be in touch shortly.</p>
-              <p class="form-error microtype" data-form-error hidden>Something went wrong. Please try again or email us directly.</p>
-            </form>
-            <aside class="contact-aside">
-              <p class="microtype contact-aside-label">Direct</p>
-              <a class="contact-email font-display" href="mailto:brighterlives@britecyte.com">brighterlives@britecyte.com</a>
-              <address class="contact-address">
-                <span>Britecyte, Inc.</span>
-                <span>Frederick, MD</span>
-              </address>
-            </aside>
+        <div class="container contact-layout">
+          <div class="contact-intro">
+            <h2 class="font-display reveal" id="contact-title">
+              Native adipose therapies<br>
+              <span class="text-bronze-deep">for restoration and repair.</span>
+            </h2>
+            <p class="reveal">Product, clinical, media, and partnership questions. This preview does not send or store the form.</p>
+            <div class="closing-actions reveal">
+              <a class="btn btn-primary" href="#pipeline">Explore Products</a>
+              <a class="btn btn-ghost" href="#platform">Our Science</a>
             </div>
+            <address class="contact-address reveal">
+              <strong>Britecyte, Inc.</strong><br />
+              <span class="addr-place">Frederick, MD</span><br />
+              <a href="mailto:brighterlives@britecyte.com">brighterlives@britecyte.com</a>
+            </address>
           </div>
+
+          <form class="contact-card reveal" data-contact-form novalidate>
+            <h3 class="font-display">Get in touch.</h3>
+            <div class="contact-form-trap" aria-hidden="true">
+              <label for="contact-company">Company</label>
+              <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="contact-form-split">
+              <div class="contact-form-row">
+                <label class="contact-form-label" for="contact-name">Name</label>
+                <input type="text" id="contact-name" name="name" required class="contact-form-input" autocomplete="name" />
+              </div>
+              <div class="contact-form-row">
+                <label class="contact-form-label" for="contact-email">Email</label>
+                <input type="email" id="contact-email" name="email" required class="contact-form-input" autocomplete="email" />
+              </div>
+            </div>
+            <div class="contact-form-row">
+              <label class="contact-form-label" for="contact-subject">Subject</label>
+              <select id="contact-subject" name="subject" class="contact-form-input">
+                <option value="product-lipoderma">Product Inquiry - Lipoderma</option>
+                <option value="product-liposana">Product Inquiry - Liposana</option>
+                <option value="clinical">Clinical / physician</option>
+                <option value="media">Media</option>
+                <option value="partnership">Partnership</option>
+              </select>
+            </div>
+            <div class="contact-form-row">
+              <label class="contact-form-label" for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="2" required class="contact-form-input contact-form-textarea"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <p class="contact-form-success" data-form-success role="status" hidden>Thank you — we’ll be in touch shortly.</p>
+            <p class="contact-form-error" data-form-error role="alert" hidden>Please fill in your name, a valid email, and a message.</p>
+            <p class="contact-form-preview">Preview build: submissions are not sent anywhere.</p>
+          </form>
         </div>
       </section>
     </main>
@@ -382,7 +388,6 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <img src="assets/logos/britecyte-logo.png" alt="Britecyte" width="140" height="45" class="footer-logo" />
-            <p class="footer-tagline">Pioneering allogeneic adipose tissue transplantation for regenerative medicine.</p>
             <div class="footer-audience">
               <div class="footer-patients">
                 <span class="footer-patients-label microtype">For patients</span>
@@ -408,6 +413,6 @@
       </div>
     </footer>
   </div>
-  <script type="module" src="js/main.js?v=20261114z"></script>
+  <script type="module" src="js/main.js?v=20261115b"></script>
 </body>
 </html>

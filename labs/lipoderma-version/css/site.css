@@ -395,12 +395,21 @@ ul, ol { padding: 0; list-style: none; }
   height: 2.75rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--hair-dark);
+  border: 1px solid transparent;
   border-radius: 0;
-  color: inherit;
+  background: var(--flame);
+  color: #1a120c;
+  box-shadow: 0 10px 22px -12px rgba(217, 106, 30, 0.95);
 }
 
-.site-header.is-over-light .menu-btn { border-color: var(--hair-light); }
+.menu-btn path { stroke-width: 1.85; }
+
+.menu-btn:hover {
+  background: var(--flame-deep);
+  color: #fff;
+}
+
+.site-header.is-over-light .menu-btn { border-color: transparent; }
 
 @media (min-aspect-ratio: 1/1) {
   .header-nav { display: flex; }

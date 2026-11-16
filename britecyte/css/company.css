@@ -484,7 +484,7 @@ main.site-main > section#pipeline > .container {
 .site-main .pathway-title { margin-bottom: 0; font-size: clamp(1rem, 0.95rem + 0.4vw, 1.25rem); }
 .site-main .pathway-body { font-size: clamp(0.82rem, 0.8rem + 0.15vw, 0.9rem); }
 
-/* ── Team: portrait grid, gradient caption, bio overlay ── */
+/* ── Team: portrait grid, caption, bio overlay ── */
 [data-section="team"] .team-stage {
   display: block;
   width: 100%;
@@ -497,22 +497,6 @@ main.site-main > section#pipeline > .container {
   gap: clamp(0.85rem, 2.5vw, 1.35rem);
 }
 
-@media (max-aspect-ratio: 3/4) {
-  [data-section="team"] .team-grid {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 18.5rem;
-    margin-inline: auto;
-  }
-
-  [data-section="team"] .team-card-inner { aspect-ratio: 4 / 5; }
-}
-
-@media (min-aspect-ratio: 6/7) and (max-aspect-ratio: 1/1) {
-  [data-section="team"] .team-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 @media (min-aspect-ratio: 1/1) {
   [data-section="team"] .team-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -521,16 +505,19 @@ main.site-main > section#pipeline > .container {
   }
 }
 
-.team-card--title {
+.team-card.team-card--title {
   cursor: default;
-  background: #f3eadf;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
   color: var(--color-ink);
 }
 
-.team-card--title:hover {
+.team-card.team-card--title:hover {
   transform: none;
-  border-color: rgba(236, 217, 200, 0.95);
-  box-shadow: 0 14px 36px -28px rgba(35, 48, 81, 0.28);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .team-card--title .team-card-inner {
@@ -538,7 +525,7 @@ main.site-main > section#pipeline > .container {
   align-items: flex-end;
   height: 100%;
   padding: 0.85rem 0.8rem 0.95rem;
-  background: #f3eadf;
+  background: transparent;
 }
 
 .team-card--title h2 {
@@ -610,8 +597,8 @@ main.site-main > section#pipeline > .container {
   overflow: hidden;
 }
 
-/* Two rows of portraits. Cap them so the section stays within the window. */
-@media (min-aspect-ratio: 6/7) {
+/* Landscape is two rows of three. Cap them so the section stays within the window. */
+@media (min-aspect-ratio: 1/1) {
   [data-section="team"] .team-card-inner {
     aspect-ratio: 5 / 6;
     max-height: calc((100svh - var(--site-header-h) - clamp(2.5rem, 7svh, 4.25rem) - clamp(2rem, 5svh, 3rem) - 2rem) / 2);
@@ -623,14 +610,35 @@ main.site-main > section#pipeline > .container {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 8%;
-  transform: scale(1.02);
+  object-position: center 42%;
+  transform: none;
   transition: transform 0.55s var(--ease-out);
 }
 
 .team-card:hover .team-card-photo,
 .team-card.is-active .team-card-photo {
-  transform: scale(1.06);
+  transform: scale(1.04);
+}
+
+/* A long, shallow wash. The dark part stays at the names and thins out
+   well up the portrait so the top of the wash has no edge. */
+button.team-card .team-card-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(22, 30, 48, 0.42) 0%,
+    rgba(22, 30, 48, 0.3) 10%,
+    rgba(22, 30, 48, 0.18) 22%,
+    rgba(22, 30, 48, 0.1) 36%,
+    rgba(22, 30, 48, 0.045) 52%,
+    rgba(22, 30, 48, 0.016) 70%,
+    rgba(22, 30, 48, 0.004) 86%,
+    rgba(22, 30, 48, 0) 100%
+  );
 }
 
 .team-card-name {
@@ -688,20 +696,28 @@ main.site-main > section#pipeline > .container {
   inset: 0;
   z-index: 3;
   display: flex;
-  align-items: safe center;
+  flex-direction: column;
+  justify-content: safe center;
   padding: clamp(0.75rem, 7cqi, 1.1rem);
   background: rgba(28, 38, 62, 0.94);
   color: rgba(255, 251, 247, 0.96);
   opacity: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   pointer-events: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 251, 247, 0.45) transparent;
   transition: opacity 0.32s var(--ease-out);
 }
+
+.team-card-bio > div { flex: 0 0 auto; }
 
 .team-card.is-active .team-card-bio,
 .team-card:hover .team-card-bio,
 .team-card:focus-within .team-card-bio {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .team-card-bio .team-card-bio-name {
@@ -774,82 +790,198 @@ main.site-main > section#pipeline > .container {
 
 .record:hover .record-title { color: var(--color-flame); }
 
-/* ── Contact: form and direct contact, sized to the window ── */
-[data-section="contact"] .contact-block { max-width: 62rem; margin-inline: auto; }
+/* ── Contact: intro beside the form card, sized to the window ── */
+#contact { position: relative; isolation: isolate; }
 
-.contact-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1.15rem, 2.5svh, 1.75rem);
-  align-items: start;
+.contact-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.contact-form {
+.contact-visual-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0.28;
+}
+
+#contact .contact-layout {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.7rem clamp(0.7rem, 1.5vw, 1rem);
+  gap: clamp(1.25rem, 3svh, 2.25rem);
+  align-items: center;
+  text-align: left;
+  width: 100%;
+}
+
+#contact .contact-intro h2 {
   margin: 0;
-  padding: clamp(1rem, 2.4svh, 1.6rem);
-  background: var(--surface-fill);
-  border: var(--glass-border);
+  max-width: 16ch;
+  font-size: clamp(1.7rem, min(3.6vw, 5.5svh), 3.15rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-.contact-form .form-row--wide { grid-column: 1 / -1; }
-
-.form-row { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-
-.form-label { color: var(--color-ink-soft); }
-
-.form-input {
-  padding: 0.55rem 0.7rem;
-  border: 1px solid rgba(35, 48, 81, 0.18);
-  background: rgba(255, 255, 255, 0.6);
-  font-family: inherit;
-  font-size: 0.88rem;
-  color: var(--color-ink);
-}
-
-.form-input:focus { outline: none; border-color: var(--color-orange-bright); }
-
-.form-textarea { min-height: clamp(4.2rem, 11svh, 7rem); resize: vertical; }
-
-.contact-form .btn { grid-column: 1 / -1; }
-
-.contact-aside {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  padding-top: 0.35rem;
-}
-
-.contact-aside-label { color: var(--color-ink-soft); }
-
-.contact-email {
-  font-size: clamp(1rem, 0.9rem + 0.7vw, 1.35rem);
-  line-height: 1.2;
-  word-break: break-word;
-}
-
-.contact-address {
-  display: flex;
-  flex-direction: column;
-  margin: 0.35rem 0 0;
-  font-style: normal;
-  font-size: 0.82rem;
+#contact .contact-intro p {
+  margin: 0.65rem 0 0;
+  max-width: 36ch;
+  font-size: 0.92rem;
   line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+
+#contact .closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+
+#contact .contact-address {
+  margin: 0.85rem 0 0;
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.45;
   color: var(--color-ink-soft);
   text-align: left;
 }
 
-/* Wide windows: form beside the direct-contact block. */
-@media (min-aspect-ratio: 1/1) {
-  .contact-layout { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); }
-  .contact-aside { padding-top: 0.6rem; }
+#contact .contact-address strong {
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--color-ink);
 }
 
-/* Narrow or short windows keep one column and let the section grow. */
+#contact .contact-address a {
+  color: var(--color-bronze-deep);
+  font-weight: 600;
+}
+
+#contact .contact-address a:hover { text-decoration: underline; }
+
+.contact-card {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: clamp(0.85rem, 2svh, 1.25rem) clamp(0.9rem, 1.6vw, 1.25rem);
+  text-align: left;
+  background: var(--surface-fill);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-lift);
+}
+
+.contact-card h3 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.contact-form-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form-split { display: grid; gap: 0.55rem; }
+
+.contact-form-row { display: grid; gap: 0.25rem; min-width: 0; }
+
+.contact-form-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.contact-form-input {
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(35, 48, 81, 0.18);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.6);
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.contact-form-input:focus {
+  outline: none;
+  border-color: var(--color-orange-bright);
+}
+
+.contact-form-textarea {
+  min-height: 3.25rem;
+  resize: vertical;
+}
+
+.contact-card .btn { width: 100%; }
+
+.contact-form-success,
+.contact-form-error,
+.contact-form-preview {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.contact-form-success { color: #0f6a3a; }
+.contact-form-error { color: #a3261a; }
+.contact-form-preview { font-weight: 500; color: var(--color-ink-soft); }
+
+@media (min-width: 40rem) {
+  #contact .contact-form-split { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+}
+
+@media (min-aspect-ratio: 1/1) {
+  #contact .contact-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); }
+}
+
 @media (max-aspect-ratio: 1/1) {
-  .contact-form { grid-template-columns: minmax(0, 1fr); }
+  #contact .contact-layout { gap: 1.15rem; }
+
+  #contact .contact-intro h2 {
+    max-width: none;
+    font-size: clamp(1.6rem, 7.2vw, 2.15rem);
+  }
+
+  #contact .contact-intro p {
+    margin-top: 0.45rem;
+    max-width: none;
+    font-size: 0.88rem;
+  }
+
+  #contact .closing-actions { margin-top: 0.7rem; }
+
+  #contact .closing-actions .btn {
+    flex: 1 1 0;
+    padding-inline: 0.55rem;
+    text-align: center;
+  }
+
+  #contact .contact-address {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+    margin-top: 0.75rem;
+  }
+
+  #contact .contact-address br { display: none; }
+
+  #contact .contact-address a { overflow-wrap: anywhere; }
+
   .record--news { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -880,8 +1012,6 @@ main.site-main > section#pipeline > .container {
   }
 
   .footer-nav { align-self: start; }
-
-  .footer-tagline { max-width: none; }
 
   .footer-audience { margin-top: 0.75rem; }
 

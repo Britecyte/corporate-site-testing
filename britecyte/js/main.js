@@ -157,7 +157,8 @@ function initScrollReveal() {
     ".pathway-grid",
     ".team-stage",
     ".news-split",
-    ".contact-block",
+    ".contact-intro",
+    ".contact-card",
     ".footer-brand",
     ".footer-nav",
   ];
@@ -229,8 +230,22 @@ function initContactForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const trap = form.querySelector('[name="company"]');
+    if (trap instanceof HTMLInputElement && trap.value) return;
+
     if (success) success.hidden = true;
     if (error) error.hidden = true;
+
+    const name = form.querySelector('[name="name"]');
+    const email = form.querySelector('[name="email"]');
+    const message = form.querySelector('[name="message"]');
+    const valid = name instanceof HTMLInputElement && name.value.trim()
+      && email instanceof HTMLInputElement && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value.trim())
+      && message instanceof HTMLTextAreaElement && message.value.trim();
+    if (!valid) {
+      if (error) error.hidden = false;
+      return;
+    }
     if (submitBtn) submitBtn.textContent = 'Sending…';
 
     const subjectField = form.querySelector('[name="subject"]');
