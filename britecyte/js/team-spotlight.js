@@ -72,6 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cards.forEach((card) => {
     card.addEventListener("click", () => setActive(card));
+    const bio = card.querySelector(".team-card-bio");
+    if (!bio) return;
+    const fit = () => {
+      bio.classList.toggle("is-scrollable", bio.scrollHeight > bio.clientHeight + 1);
+    };
+    fit();
+    if (typeof ResizeObserver !== "undefined") new ResizeObserver(fit).observe(bio);
+    bio.addEventListener("wheel", (event) => {
+      if (!bio.classList.contains("is-scrollable")) return;
+      const atTop = bio.scrollTop <= 0;
+      const atBottom = bio.scrollTop + bio.clientHeight >= bio.scrollHeight - 1;
+      const goingUp = event.deltaY < 0;
+      if ((goingUp && atTop) || (!goingUp && atBottom)) return;
+      event.stopPropagation();
+    }, { passive: true });
   });
 
   grid.addEventListener("keydown", (event) => {

@@ -5,8 +5,8 @@
 .section-title {
   font-size: clamp(2rem, min(4.2vw, 6svh), 3.4rem);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -36,6 +36,12 @@ main.site-main > section[data-section],
   padding-block: clamp(2rem, 6svh, 3.5rem);
 }
 
+/* Wide layouts set display:flex on every section, which beats the
+   browser's hidden style. Keep parked sections off the page. */
+main.site-main > section[hidden] {
+  display: none !important;
+}
+
 @media (min-aspect-ratio: 1/1) {
   main.site-main > section[data-section],
   .site-main .hero + .section,
@@ -48,7 +54,7 @@ main.site-main > section[data-section],
 main.site-main > section#hero[data-about-track] {
   position: relative;
   display: block;
-  height: 360svh;
+  height: 600svh;
   max-height: none;
   overflow: visible;
   padding: 0;
@@ -70,6 +76,7 @@ main.site-main > section#hero[data-about-track] {
   height: calc(100svh - var(--site-header-h));
   overflow: hidden;
   display: grid;
+  container-type: inline-size;
   --p: 0;
 }
 
@@ -81,8 +88,11 @@ main.site-main > section#hero[data-about-track] {
   font-size: clamp(2.2rem, 5vw, 4.4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: rgba(35, 48, 81, 0.045);
-  transform: translateX(calc(6% - var(--p) * 28%));
+  color: rgba(35, 48, 81, 0.16);
+  /* Park the first word fully inside, travel, then park the last word fully inside. */
+  --t: clamp(0, (var(--p) - 0.36) / 0.34, 1);
+  --inset: max(1.5rem, 4vw);
+  transform: translateX(calc(var(--inset) + var(--t) * (100cqw - 100% - 2 * var(--inset))));
   pointer-events: none;
   z-index: 0;
 }
@@ -127,14 +137,24 @@ main.site-main > section#hero[data-about-track] {
 #hero .about-open-title {
   margin-top: 0.65rem;
   font-size: clamp(2rem, 4.5vw, 3.85rem);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
   max-width: 19ch;
   color: var(--color-ink);
 }
 
 #hero .about-open-title .muted { color: rgba(74, 84, 112, 0.56); }
+#hero .hero-restore {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  transition: opacity 1.15s ease, transform 1.25s ease;
+}
+#hero .hero-restore.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  #hero .hero-restore { opacity: 1; transform: none; transition: none; }
+}
 #hero .about-open-sub {
   margin-top: 1.05rem;
   max-width: 48ch;
@@ -146,7 +166,10 @@ main.site-main > section#hero[data-about-track] {
 #hero .about-body {
   position: relative;
   z-index: 3;
+  width: min(100%, 52rem);
   margin-block: auto;
+  margin-inline: auto;
+  justify-self: center;
   display: grid;
   gap: 1.15rem;
   --in: clamp(0, (var(--p) - 0.18) / 0.16, 1);
@@ -274,8 +297,8 @@ main.site-main > section#hero[data-about-track] {
 #hero .about-beat h3 {
   font-size: clamp(1.15rem, 1.9vw, 1.5rem);
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   color: var(--color-ink);
   margin-bottom: 0.4rem;
 }
@@ -290,7 +313,6 @@ main.site-main > section#hero[data-about-track] {
 }
 
 @media (min-aspect-ratio: 1/1) {
-  #hero .about-body,
   #hero .about-card,
   #hero .about-beat,
   #hero .about-beat h3,
@@ -540,7 +562,7 @@ main.site-main > section#pipeline > .container {
 
 .team-card--title h2 span {
   color: var(--color-bronze);
-  font-family: "Iowan Old Style", Georgia, serif;
+  font-family: "Bodoni FLF", Georgia, serif;
   font-style: italic;
   font-weight: 400;
 }
@@ -703,15 +725,15 @@ button.team-card .team-card-inner::after {
   color: rgba(255, 251, 247, 0.96);
   opacity: 0;
   overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  overflow-y: hidden;
+  overscroll-behavior: auto;
   pointer-events: none;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 251, 247, 0.45) transparent;
   transition: opacity 0.32s var(--ease-out);
 }
 
-.team-card-bio > div { flex: 0 0 auto; }
+.team-card-bio.is-scrollable { overflow-y: auto; }
 
 .team-card.is-active .team-card-bio,
 .team-card:hover .team-card-bio,
@@ -1114,7 +1136,7 @@ html.is-menu-open .site-nav-mobile a {
   border-radius: 0;
   background: none;
   box-shadow: none;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: clamp(1.85rem, 5vw, 3rem);
   font-weight: 400;
   letter-spacing: -0.02em;

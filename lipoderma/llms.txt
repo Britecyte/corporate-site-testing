@@ -12,7 +12,7 @@ This is a preview build. Nothing here is medical advice. Lipoderma is administer
 ## Key facts
 - What it is: a human adipose allograft (donated, screened, processed fat tissue)
 - Where it is used: face, neck, hands
-- Who places it: licensed physicians only (surgeons, medspas under physician supervision)
+- Where it is available: all 50 states, as an off-the-shelf adipose tissue allograft
 - Difference from fillers: it restores the fat layer itself rather than adding a foreign filler substance
 - Provider network: searchable on the home page (#providers); data in /data/providers.json
 

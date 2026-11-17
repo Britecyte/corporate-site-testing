@@ -26,7 +26,7 @@ function headerHeight() {
 function sections() {
   return SECTION_ORDER
     .map((id) => document.getElementById(id))
-    .filter((section) => section && section.dataset.section === section.id);
+    .filter((section) => section && !section.hidden && section.dataset.section === section.id);
 }
 
 function setActive(id) {

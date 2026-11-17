@@ -102,13 +102,8 @@ function byFeatured(a, b) {
   return String(a.doctor || '').localeCompare(String(b.doctor || ''));
 }
 
-function websiteLabel(url) {
-  try {
-    const path = new URL(url).pathname.toLowerCase();
-    return path.includes('lipoderma') || path.includes('allograft-fat') ? 'Lipoderma page' : 'Website';
-  } catch {
-    return /lipoderma|allograft-fat/i.test(url || '') ? 'Lipoderma page' : 'Website';
-  }
+function websiteLabel() {
+  return 'Website';
 }
 
 export async function initProviders() {
@@ -165,14 +160,10 @@ export async function initProviders() {
     return q.length >= 2 && providers.some((p) => matchesName(p, q));
   }
 
-  function implicitOrigin() {
-    if (state.query.trim().length < 2 || !state.places.length) return null;
-    if (queryIsName()) return null;          // a real name beats a guessed place
-    return state.places[0];
-  }
-
   function sortOrigin() {
-    return state.selectedOrigin || state.userLocation || implicitOrigin();
+    // Distance order only after a place is chosen or location is shared.
+    // A guessed place must not reshuffle the list while someone is still typing.
+    return state.selectedOrigin || state.userLocation || null;
   }
 
   function visibleProviders(origin) {
@@ -446,7 +437,7 @@ export async function initProviders() {
   }
 
   /* ── place search (ZIP + city/state) ─────────────────────── */
-  function scheduleGeocode(raw) {
+  function scheduleGeocode(raw, commitPlace = false) {
     window.clearTimeout(geoTimer);
     geoAbort?.abort();
     if (state.selectedOrigin?.label === raw) return;
@@ -494,6 +485,10 @@ export async function initProviders() {
         }
         state.places = found.slice(0, 5);
         state.placeStatus = found.length ? 'ready' : 'empty';
+        if (commitPlace && state.places[0] && !queryIsName()) {
+          pickPlace(state.places[0]);
+          return;
+        }
       } catch {
         if (signal.aborted) return;
         state.places = [];
@@ -518,7 +513,9 @@ export async function initProviders() {
     state.query = searchEl.value;
     state.picked = false;
     state.cursor = -1;
-    scheduleGeocode(state.query.trim());
+    const commitPlace = searchEl.dataset.commit === 'place';
+    searchEl.dataset.commit = '';
+    scheduleGeocode(state.query.trim(), commitPlace);
     renderSuggestions();
     window.clearTimeout(renderTimer);
     renderTimer = window.setTimeout(() => renderList({ resetScroll: true }), 140);
@@ -531,7 +528,7 @@ export async function initProviders() {
     else if (e.key === 'ArrowUp' && n) { e.preventDefault(); state.cursor = (state.cursor - 1 + n) % n; renderSuggestions(); }
     else if (e.key === 'Enter') {
       if (state.cursor >= 0) { e.preventDefault(); pickAt(state.cursor); }
-      else if (n && !state.selectedOrigin) { e.preventDefault(); pickAt(0); }   // Enter takes the best match
+      else { state.cursor = -1; renderSuggestions(); }
     } else if (e.key === 'Escape' && n) {
       state.places = [];
       state.cursor = -1;

@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<script>
+  if (location.search.indexOf("reset=1") !== -1) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    history.replaceState(null, "", location.pathname);
+    scrollTo(0, 0);
+    addEventListener("pageshow", function () { scrollTo(0, 0); });
+  }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lipoderma — The fat worth keeping</title>
+<title>Lipoderma — Let's talk about the F** word</title>
 <meta name="description" content="Lipoderma is a human adipose allograft that restores lost support and volume in the face, neck, and hands. Available through a select network of licensed providers." />
 <meta name="theme-color" content="#8fb0ee" />
 <meta property="og:type" content="website" />
@@ -16,10 +24,11 @@
 <link rel="preload" as="font" type="font/woff2" href="fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2" crossorigin />
 <link rel="icon" href="img/logos/favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-<link rel="stylesheet" href="css/site.css?v=20261106g" />
-<link rel="stylesheet" href="css/glass.css?v=20261106a" />
-<link rel="stylesheet" href="css/motion.css?v=20261104b" />
-<link rel="stylesheet" href="css/layout.css?v=20261112t" />
+<link rel="stylesheet" href="css/site.css?v=20261117w" />
+<link rel="stylesheet" href="css/glass.css?v=20261117h" />
+<link rel="stylesheet" href="css/motion.css?v=20261114w" />
+<link rel="stylesheet" href="css/layout.css?v=20261117x" />
+<link rel="stylesheet" href="css/brief.css?v=20261117u" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
 [
@@ -124,18 +133,20 @@
 
 <div class="bg-field" aria-hidden="true"><i></i><i></i><i></i></div>
 
-<!-- ── Header ─────────────────────────────────────────────── -->
 <header class="site-header" id="site-header">
   <div class="header-inner">
     <a class="brand" href="./" aria-label="Lipoderma home">
       <span class="brand-logo" role="img" aria-label="Lipoderma"></span>
     </a>
     <nav class="header-nav" aria-label="Primary">
+      <a href="#reframe">The fat</a>
       <a href="#structure-detail">The layer</a>
-      <a href="#product">The product</a>
+      <a href="#product">Product</a>
       <a href="#audience">Who it's for</a>
       <a href="#results">Results</a>
       <a href="#providers">Providers</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
     </nav>
     <div class="header-actions">
       <a class="btn" href="#providers">Find a provider</a>
@@ -149,21 +160,23 @@
 </header>
 
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
+  <a href="#reframe">The fat</a>
   <a href="#structure-detail">The layer</a>
-  <a href="#product">The product</a>
+  <a href="#product">Product</a>
   <a href="#audience">Who it's for</a>
   <a href="#results">Results</a>
   <a href="#providers">Providers</a>
+  <a href="#faq">FAQ</a>
   <a href="#contact">Contact</a>
 </nav>
 
 <main id="main">
 
   <!-- ── Hero ─────────────────────────────────────────────── -->
-  <section class="hero" data-theme="light" aria-labelledby="hero-title">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-visual-frame">
-        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Image placeholder: Hero image"><span>Hero image<small>Image TBD</small></span></div>
+        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Video placeholder: Lipoderma unboxing"><span>Unboxing video<small>Corner rub and the flick. Video TBD</small></span></div>
       </div>
     </div>
     <div class="hero-glow" aria-hidden="true"></div>
@@ -173,32 +186,31 @@
 
     <div class="hero-inner hero-main">
       <div>
-        <p class="eyebrow hero-eyebrow">Lipoderma® by Britecyte</p>
+        <p class="eyebrow hero-eyebrow reveal">Lipoderma® by Britecyte</p>
 
-        <h1 class="hero-title" id="hero-title">
-          The fat worth <em>keeping.</em>
+        <h1 class="hero-title reveal" id="hero-title">
+          Let's talk about the F** word.
         </h1>
+        <p class="brief-fat" data-fat-reveal>FAT.</p>
 
-        <p class="hero-lede">
-          For decades, fat has been something we've been encouraged to lose, reduce, or eliminate.
-          But fat also has a structural role in the face — it holds the contours, the softness,
-          the thing that makes a face read as yours.
+        <p class="hero-lede reveal">
+          We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.
         </p>
 
-        <form class="hero-find" data-hero-find role="search" aria-label="Find a provider">
+        <form class="hero-find reveal" data-hero-find role="search" aria-label="Find a provider">
           <div class="hero-find-row">
             <label class="visually-hidden" for="hero-find-q">City, state, or ZIP</label>
             <input id="hero-find-q" type="search" name="q" placeholder="City, state, or ZIP" autocomplete="postal-code" />
             <button class="btn" type="submit">Find a provider</button>
           </div>
-          <p class="hero-find-sub"><a href="#structure-detail">See how it works</a></p>
+          <p class="hero-find-sub"><a href="#audience">Who it's for</a> · <a href="#providers">Providers</a></p>
         </form>
       </div>
 
     </div>
 
     <div class="hero-inner">
-      <div class="hero-foot">
+      <div class="hero-foot reveal">
         <div class="hero-foot-facts">
           <span>Adipose allograft</span>
           <span>Face · Neck · Hands</span>
@@ -213,21 +225,17 @@
     <div class="wrap">
       <div class="reframe-grid">
         <div>
-          <h2 class="display h2 reveal" id="reframe-title" style="margin-top:1.5rem;max-width:20ch;margin-bottom:2.25rem">
-            Fat is not filler.<br><span class="serif-italic" style="color:var(--peach)">It's structure.</span>
+          <h2 class="display h2 reveal" id="reframe-title" style="margin-top:1.5rem;max-width:16ch;margin-bottom:2.25rem">
+            There's more to fat than <span class="serif-italic" style="color:var(--peach)">losing it.</span>
           </h2>
           <div class="reframe-copy reveal">
             <p>
-              Fat sits in a continuous layer beneath the skin. In the face it gives shape to a cheek,
-              a temple, the transition from brow to eye. It is the reason a face casts the shadow it does
-              in three-quarter light.
+              Fat has been something we've been encouraged to lose, reduce, or eliminate. But fat plays an
+              important role in giving our faces their natural contours, softness, and fullness.
             </p>
             <p>
-              When that layer thins, the face doesn't simply lose volume. It loses the <span class="accent">transitions</span>
-              that make it recognizable as itself — hollows under the eyes, a softened jawline, a tiredness
-              that has nothing to do with sleep.
+              As we age and lose facial fat, we can begin to look tired or older than we feel.
             </p>
-            <p>That is the fat worth keeping.</p>
           </div>
         </div>
 
@@ -358,7 +366,7 @@
 
         <div class="structure-visual">
         <div class="structure-stage" aria-hidden="true">
-          <svg viewBox="-15 166 630 398" id="cross-section-2" role="presentation">
+          <svg viewBox="-24 160 660 410" id="cross-section-2" role="presentation">
             <defs>
               <linearGradient id="cs-band-2" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
@@ -366,27 +374,27 @@
                 <stop offset="100%" stop-color="#fd893c" stop-opacity="0.12"/>
               </linearGradient>
               <linearGradient id="cs-skin-2" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.30"/>
-                <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.92"/>
-                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.30"/>
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.35"/>
+                <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.35"/>
               </linearGradient>
               <linearGradient id="cs-dermis-2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.20"/>
-                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.05"/>
+                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.06"/>
               </linearGradient>
               <clipPath id="cs-clip-2"><path id="cs-clip-path-2" d=""/></clipPath>
             </defs>
 
             <g id="cs-subject-2">
             <!-- depth guides -->
-            <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.09" fill="none">
+            <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.16" fill="none">
               <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
               <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
             </g>
 
             <!-- skin: dermis under the surface line -->
             <path id="cs-dermis-path-2" d="" fill="url(#cs-dermis-2)"/>
-            <path id="cs-basement-2" d="" stroke="#f7f2eb" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+            <path id="cs-basement-2" d="" stroke="#f7f2eb" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
 
             <!-- adipose band -->
             <path id="cs-band-path-2" d="" fill="url(#cs-band-2)"/>
@@ -397,14 +405,14 @@
             <!-- skin surface -->
             <path id="cs-skin-path-2" d="" stroke="url(#cs-skin-2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             <!-- muscle plane -->
-            <path id="cs-muscle-path-2" d="" stroke="#f7f2eb" stroke-opacity="0.28" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
+            <path id="cs-muscle-path-2" d="" stroke="#f7f2eb" stroke-opacity="0.55" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
 
             <!-- host vessels (detail) -->
             <g id="cs-vessels-2" fill="none" stroke="#e08a7a" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"></g>
 
-            <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.55" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
+            <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.8" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
             <text id="cs-time-2" data-timeline x="560" y="500" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
-            <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.34">
+            <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.72">
               <text id="cs-skin-label-2" x="0" y="220">SKIN</text>
               <text id="cs-muscle-label-2" x="0" y="446">MUSCLE / FASCIA</text>
             </g>
@@ -463,45 +471,31 @@
   </section>
 
   <!-- ── Product ──────────────────────────────────────────── -->
-  <section class="section section--bone" id="product" data-theme="light" data-band="paper" aria-labelledby="product-title">
-    <div class="wrap">
-      <div class="product-grid">
-        <div class="product-figure reveal">
-          <div class="ph is-active" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Like-for-like"><span>Like-for-like<small>Image TBD</small></span></div>
-          <div class="ph" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Ready when it's needed"><span>Ready when it's needed<small>Image TBD</small></span></div>
-          <div class="ph" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Native architecture preserved"><span>Native architecture preserved<small>Image TBD</small></span></div>
-          <div class="ph" data-fact-img style="--ar:4 / 5" role="img" aria-label="Image placeholder: Placed by physicians only"><span>Placed by physicians only<small>Image TBD</small></span></div>
-        </div>
-
-        <div>
-          <h2 class="display h2 reveal" id="product-title" style="margin-top:1.5rem">
-            Lipoderma<span style="color:var(--peach)">.</span>
-          </h2>
-          <p class="lede reveal" style="margin-top:1.5rem;max-width:38ch;color:var(--ink)">
-            Donated human adipose tissue, processed to keep its native structure and prepared for
-            minimally invasive delivery.
-          </p>
-          <div class="body-copy reveal" style="margin-top:1.25rem;max-width:52ch;color:var(--on-light-soft)">
-            <p>
-              Lipoderma is placed by licensed physicians into the face, neck, and hands to restore lost
-              support and volume. It is supplied as a stored allograft, so the procedure doesn't depend on
-              harvesting fat from somewhere else on the patient's body.
-            </p>
-          </div>
-
+  <section class="section" id="product" data-theme="light" aria-labelledby="product-title">
+    <div class="wrap product-meet">
+      <h2 class="display h2 reveal" id="product-title">
+        Meet Lipoderma<span style="color:var(--peach)">.</span>
+      </h2>
+      <div class="product-figure reveal">
+        <div class="ph is-active" data-fact-img role="img" aria-label="Image template: Fat for fat"></div>
+        <div class="ph" data-fact-img role="img" aria-label="Image template: Ready to use"></div>
+        <div class="ph" data-fact-img role="img" aria-label="Image template: Native architecture preserved"></div>
+        <div class="ph" data-fact-img role="img" aria-label="Image template: All 50 states"></div>
+      </div>
+      <div class="product-meet-cards">
           <ul class="fact-list reveal">
             <li>
               <span class="num">01</span>
               <div>
-                <h4>Like-for-like</h4>
-                <p>Adipose tissue restoring adipose tissue. Not a gel, not a spacer, not a volume that sits outside the architecture.</p>
+                <h4>Fat for fat</h4>
+                <p>Human adipose tissue, put back where fat was lost. Not a gel standing in for it.</p>
               </div>
             </li>
             <li>
               <span class="num">02</span>
               <div>
-                <h4>Ready when it's needed</h4>
-                <p>An off-the-shelf allograft means no donor-site harvest and no graft attrition between harvest and placement.</p>
+                <h4>Ready to use</h4>
+                <p>No autologous fat harvesting. It is ready when the consult is.</p>
               </div>
             </li>
             <li>
@@ -514,12 +508,11 @@
             <li>
               <span class="num">04</span>
               <div>
-                <h4>Placed by physicians only</h4>
-                <p>Delivered through standard cannulas or needles, and available only through a select network of licensed providers.</p>
+                <h4>All 50 states</h4>
+                <p>The only off-the-shelf adipose tissue allograft available in all 50 states.</p>
               </div>
             </li>
           </ul>
-        </div>
       </div>
     </div>
   </section>
@@ -530,10 +523,10 @@
       <div class="doors">
         <div>
           <h2 class="display h2 reveal" id="audience-title" style="margin-top:1.5rem;max-width:14ch">
-            One product.<br>Three <span class="serif-italic">conversations.</span>
+            Two ways <span class="serif-italic">in.</span>
           </h2>
           <p class="muted reveal" style="margin-top:1.5rem;max-width:34ch;font-size:0.95rem">
-            The same tissue means something different depending on where you're standing.
+            The same tissue, told for the person in the mirror and for the person placing it.
           </p>
 
           <div class="door-list reveal" role="tablist" aria-label="Audiences" style="margin-top:2.5rem">
@@ -544,55 +537,53 @@
               <span class="door-name">Plastic surgeons</span><span class="door-meta">02</span>
             </button>
             <button class="door" role="tab" id="door-tab-medspas" aria-controls="door-panel-medspas" aria-selected="false" data-door="medspas">
-              <span class="door-name">Medspas</span><span class="door-meta">03</span>
+              <span class="door-name">The evidence</span><span class="door-meta">03</span>
             </button>
           </div>
         </div>
 
         <div class="door-panels reveal">
           <div class="door-panel is-active" id="door-panel-patients" role="tabpanel" aria-labelledby="door-tab-patients">
-            <h3>You don't want a different face.<br>You want yours back.</h3>
+            <h3>Some things are worth holding on to. The way you see yourself is one of them.</h3>
             <p>
-              Weight loss, age, and time change the fat layer before they change anything else. If the
-              person in the mirror looks tired, or older, or simply less like you — that gap is usually
-              structural, not superficial.
+              Looking refreshed isn't just about great skin. It's also about what's beneath it. This page
+              is the patient path: what to expect, the glow-up months, and a way to find a provider.
             </p>
             <ul class="door-points">
               <li>Facial hollowing after weight loss, including GLP-1–assisted loss</li>
               <li>Under-eyes, temples, and midface</li>
               <li>Hands that read older than the face</li>
             </ul>
-            <a class="arrow-link" href="#providers">Find a provider <span aria-hidden="true">→</span></a>
+            <a class="arrow-link" href="#results">See results <span aria-hidden="true">→</span></a>
           </div>
 
           <div class="door-panel" id="door-panel-surgeons" role="tabpanel" aria-labelledby="door-tab-surgeons">
-            <h3>An alternative to harvesting.</h3>
+            <h3>Your aesthetic toolkit just got a little fatter.</h3>
             <p>
-              For appropriate smaller-volume applications — primarily facial rejuvenation, neck, and hands —
-              Lipoderma offers an off-the-shelf adipose allograft. No donor site, no harvest morbidity, no
-              attrition between harvest and placement.
+              A human adipose tissue allograft for restoring lost adipose tissue, without autologous fat
+              harvesting. Fat for fat. Ready to use. The only off-the-shelf adipose tissue allograft
+              available in all 50 states.
             </p>
             <ul class="door-points">
               <li>Native adipose architecture preserved through processing</li>
               <li>Delivery through standard cannulas or needles</li>
               <li>Clinical evidence, IFU, and handling guidance in the provider portal</li>
             </ul>
-            <a class="arrow-link" href="https://launchpad.lipoderma.com" target="_blank" rel="noopener">Provider portal <span aria-hidden="true">→</span></a>
+            <a class="arrow-link" href="#providers">Find a provider <span aria-hidden="true">→</span></a>
           </div>
 
           <div class="door-panel" id="door-panel-medspas" role="tabpanel" aria-labelledby="door-tab-medspas">
-            <h3>A new category next to fillers and collagen.</h3>
+            <h3>Explore the evidence.</h3>
             <p>
-              Lipoderma isn't positioned against what you already offer. It adds an adipose tissue option
-              for patients who want structural restoration rather than added volume — and a conversation
-              your team can lead.
+              Tissue sourcing, safety, and the published work. The brief names Chernoff and Danilkovitch
+              and leaves the citations for the publications page.
             </p>
             <ul class="door-points">
-              <li>Differentiated from filler and collagen-stimulating treatments</li>
-              <li>Targeted facial rejuvenation, neck, and hands</li>
-              <li>Patient education materials built for the consult room</li>
+              <li>Chernoff 1</li>
+              <li>Danilkovitch</li>
+              <li>Chernoff 2</li>
             </ul>
-            <a class="arrow-link" href="#contact">Partner with us <span aria-hidden="true">→</span></a>
+            <a class="arrow-link" href="#product">The product <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -604,13 +595,13 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <h2 class="display h2 reveal" id="results-title" style="margin-top:1.5rem">
-            A result should read<br>as <span class="serif-italic" style="color:var(--peach)">itself.</span>
+          <h2 class="display h2 reveal" id="results-title">
+            Fat looks good <span class="serif-italic" style="color:var(--peach)">on you.</span>
           </h2>
         </div>
         <p class="muted reveal" style="max-width:44ch">
-          The best aesthetic outcome doesn't announce the treatment. It closes the gap between how
-          someone looks and how they feel — and then stops there.
+          Before and afters live here. A comparison with HA fillers, biostimulators, and Renuva is on the
+          patient page. The brief names the columns and doesn't fill them in yet.
         </p>
       </div>
 
@@ -670,7 +661,7 @@
       <div class="providers-head">
         <div class="providers-intro">
           <h2 class="display h2 reveal" id="providers-title">
-            A select network,<br><span class="serif-italic">by design.</span>
+            Find a <span class="serif-italic">provider.</span>
           </h2>
           <p class="muted">
             Lipoderma is placed only by licensed physicians trained on the product.
@@ -792,16 +783,19 @@
 
   <!-- ── Closing ──────────────────────────────────────────── -->
   <section class="closing" id="contact" data-theme="light" aria-labelledby="closing-title">
+    <div class="contact-visual" aria-hidden="true">
+      <div class="ph" role="img" aria-label="Image placeholder: Contact background"><span>Contact image<small>Image TBD</small></span></div>
+    </div>
     <div class="wrap closing-inner contact-layout">
       <div class="contact-intro">
         <h2 class="reveal" id="closing-title">
-          Some things are worth holding on to.<br>
-          <span class="serif-italic" style="color:var(--accent)">The way you see yourself is one.</span>
+          Join The F** Club.<br>
+          <span class="serif-italic" style="color:var(--accent)">Membership has its perks.</span>
         </h2>
-        <p class="reveal">Start with a provider who can tell you whether Lipoderma is right for your face — and what it would actually take.</p>
+        <p class="reveal">Email and location, for patients. This lab does not send or store it. Providers who want the product in the practice start on their own page.</p>
         <div class="closing-actions reveal">
-          <a class="btn" href="#providers">Find a provider</a>
-          <a class="btn btn--ghost" href="mailto:brighterlives@britecyte.com">Talk to our team</a>
+          <a class="btn" href="#contact">Join the club</a>
+          <a class="btn btn--ghost" href="#providers">Find a provider</a>
         </div>
         <address class="contact-address reveal">
           <strong>Britecyte, Inc.</strong><br />
@@ -862,14 +856,14 @@
 
       <div class="footer-col">
         <h3>Explore</h3>
+        <a href="#reframe">The fat</a>
         <a href="#structure-detail">The layer</a>
-        <a href="#product">The product</a>
+        <a href="#product">Product</a>
         <a href="#audience">Who it's for</a>
         <a href="#results">Results</a>
         <a href="#providers">Providers</a>
         <a href="#faq">FAQ</a>
-        <a href="gallery/">Gallery</a>
-        <a href="science/">The science</a>
+        <a href="#contact">Contact</a>
       </div>
 
       <div class="footer-col">
@@ -888,7 +882,26 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261112t"></script>
-<script type="module" src="js/motion.js?v=20261106c"></script>
+<script type="module" src="js/main.js?v=20261117g"></script>
+<script>
+  const product = document.getElementById('product');
+  document.querySelectorAll('[data-layout-pick]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      product.dataset.layout = btn.dataset.layoutPick;
+      document.querySelectorAll('[data-layout-pick]').forEach((b) => {
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+<script>
+  const fat = document.querySelector('[data-fat-reveal]');
+  if (fat) {
+    const show = () => fat.classList.add('is-in');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) show();
+    else setTimeout(show, 900);
+  }
+</script>
+<script type="module" src="js/motion.js?v=20261113b"></script>
 </body>
 </html>

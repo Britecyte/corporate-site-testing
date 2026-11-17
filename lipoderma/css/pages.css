@@ -154,8 +154,8 @@
   display: none;
   place-items: center;
   padding: clamp(1rem, 4vw, 3rem);
-  background: rgba(11, 9, 8, 0.95);
-  backdrop-filter: blur(8px);
+  background: #0e2652;
+  color: #f7f2eb;
 }
 
 .lightbox.is-open { display: grid; }
@@ -174,7 +174,7 @@
   gap: 0.5rem 1.25rem;
   justify-content: space-between;
   align-items: baseline;
-  color: var(--on-dark-soft);
+  color: #f7f2eb;
   font-size: 0.75rem;
 }
 
@@ -193,13 +193,14 @@
   height: 2.75rem;
   display: grid;
   place-items: center;
-  border: 1px solid var(--hair-dark);
+  border: 1px solid #f7f2eb;
   border-radius: 0;
-  color: var(--on-dark);
-  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+  background: #17130f;
+  color: #f7f2eb;
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
 }
 
-.lightbox-close:hover { background: rgba(247, 242, 235, 0.1); border-color: rgba(247, 242, 235, 0.4); }
+.lightbox-close:hover { background: #f7f2eb; color: #17130f; }
 
 .note-band {
   border-top: 1px solid var(--hair-light);

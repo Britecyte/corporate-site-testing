@@ -1,9 +1,9 @@
 import { initPipelineMap } from "./pipeline-map.js?v=20261106d";
 import "./news-split.js?v=20261106a";
 import "./about-ledger.js?v=20261114m";
-import "./team-spotlight.js?v=20261114f";
+import "./team-spotlight.js?v=20261117a";
 import "./pathway.js?v=20261106a";
-import "./scroll-spy.js?v=20261112b";
+import "./scroll-spy.js?v=20261117a";
 
 function reloadHome(event) {
   const link = event.currentTarget;
@@ -177,10 +177,13 @@ function initScrollReveal() {
   const intro = [...document.querySelectorAll("#hero .about-open .reveal")];
   if (reduced || !("IntersectionObserver" in window)) {
     document.querySelectorAll(".reveal").forEach(show);
+    document.querySelector("#hero .hero-restore")?.classList.add("is-in");
     return;
   }
 
   intro.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`; });
+  const restore = document.querySelector("#hero .hero-restore");
+  setTimeout(() => restore?.classList.add("is-in"), 900);
   requestAnimationFrame(() => requestAnimationFrame(() => {
     intro.forEach((el) => el.classList.add("is-visible"));
   }));

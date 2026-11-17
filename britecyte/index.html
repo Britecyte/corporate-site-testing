@@ -28,10 +28,10 @@
   <meta name="twitter:image" content="https://britecyte.com/assets/products/og-withdrawal-syringe.jpg" />
   <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml" />
   <link rel="preload" as="image" href="assets/logos/britecyte-logo.png" />
-  <link rel="stylesheet" href="css/styles.css?v=20261115i" />
-  <link rel="stylesheet" href="css/hybrid-home.css?v=20261114p" />
-  <link rel="stylesheet" href="css/glass.css?v=20261114p" />
-  <link rel="stylesheet" href="css/company.css?v=20261115j" />
+  <link rel="stylesheet" href="css/styles.css?v=20261117u" />
+  <link rel="stylesheet" href="css/hybrid-home.css?v=20261117a" />
+  <link rel="stylesheet" href="css/glass.css?v=20261117u" />
+  <link rel="stylesheet" href="css/company.css?v=20261117u" />
 </head>
 <body>
   <div class="site-surface">
@@ -44,7 +44,7 @@
         <nav class="site-nav microtype" aria-label="Primary">
           <a href="#about">Who We Are</a>
           <a href="#pipeline">Pipeline</a>
-          <a href="#platform">Science</a>
+          <a href="#platform" hidden>Science</a>
           <a href="#team">Team</a>
           <a href="#news">News</a>
           <a href="#publications">Publications</a>
@@ -65,7 +65,7 @@
     <nav class="site-nav-mobile microtype" id="mobile-nav" data-mobile-nav aria-label="Mobile">
       <a href="#about">Who We Are</a>
       <a href="#pipeline">Pipeline</a>
-      <a href="#platform">Science</a>
+      <a href="#platform" hidden>Science</a>
       <a href="#team">Team</a>
       <a href="#news">News</a>
       <a href="#publications">Publications</a>
@@ -77,7 +77,7 @@
       <section id="hero" class="section section-cream section-motif-host" data-section="hero" data-motif-key="about" data-about-track>
         <div id="about" class="about-anchor" data-section="about" aria-hidden="true"></div>
         <div class="about-sticky" data-about-stage data-beats="4">
-          <p class="about-marquee" aria-hidden="true">PROCHYMAL® · OSTEOCEL® · CARTIFORM® · GRAFIX® · STRAVIX® · BIORESTORATION</p>
+          <p class="about-marquee" aria-hidden="true">PROCHYMAL® · OSTEOCEL® · CARTIFORM® · GRAFIX® · STRAVIX®</p>
 
           <!-- Act 1: B · Contrast Thesis (Hero + Who We Are opening meld, full-bleed hero image) -->
           <div class="about-open">
@@ -87,12 +87,12 @@
             <div class="container about-open-grid">
               <div class="about-open-copy">
                 <h1 class="about-open-title font-display reveal">
-                  The future of medicine isn’t <span class="muted">replacing what’s missing.</span> It’s <span class="text-bronze-deep">restoring</span> <span class="text-bronze-deep">what’s yours.</span>
+                  The future of medicine isn’t <span class="muted">replacing what’s missing.</span> <span class="hero-restore">It’s <span class="text-bronze-deep">restoring</span> <span class="text-bronze-deep">what’s yours.</span></span>
                 </h1>
                 <p class="about-open-sub reveal">At Britecyte, we move beyond symptom management — working with the body’s natural biology so patients recover function, restore health, and reclaim confidence.</p>
                 <div class="hero-cta-row reveal">
                   <a href="#pipeline" class="btn btn-primary">Explore Products</a>
-                  <a href="#platform" class="btn btn-ghost">Our Science</a>
+                  <a href="#platform" class="btn btn-ghost" hidden>Our Science</a>
                 </div>
                 <p class="microtype hero-byline reveal">650+ patients restored · 30+ years of regenerative lineage</p>
               </div>
@@ -216,8 +216,8 @@
         </div>
       </section>
 
-      <!-- Science: adipose platform pathway -->
-      <section id="platform" class="section section-cream section-motif-host" data-section="platform" data-motif-key="platform">
+      <!-- Science: adipose platform pathway. Parked — remove hidden here and on the Science / Our Science links to bring it back. -->
+      <section id="platform" class="section section-cream section-motif-host" data-section="platform" data-motif-key="platform" hidden>
         <div class="container">
           <div class="section-header reveal">
             <h2 class="section-title font-display">A Breakthrough in <span class="text-bronze-deep">Adipose Science.</span></h2>
@@ -328,7 +328,7 @@
             <p class="reveal">Product, clinical, media, and partnership questions. This preview does not send or store the form.</p>
             <div class="closing-actions reveal">
               <a class="btn btn-primary" href="#pipeline">Explore Products</a>
-              <a class="btn btn-ghost" href="#platform">Our Science</a>
+              <a class="btn btn-ghost" href="#platform" hidden>Our Science</a>
             </div>
             <address class="contact-address reveal">
               <strong>Britecyte, Inc.</strong><br />
@@ -399,7 +399,7 @@
             <div class="footer-nav-col">
               <a href="#about">Who We Are</a>
               <a href="#pipeline">Pipeline</a>
-              <a href="#platform">Science</a>
+              <a href="#platform" hidden>Science</a>
               <a href="#team">Team</a>
               <a href="#news">News</a>
               <a href="#publications">Publications</a>
@@ -413,6 +413,6 @@
       </div>
     </footer>
   </div>
-  <script type="module" src="js/main.js?v=20261115b"></script>
+  <script type="module" src="js/main.js?v=20261117b"></script>
 </body>
 </html>

@@ -58,6 +58,50 @@ function initMobileNav() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
   });
+
+  const wide = window.matchMedia('(min-aspect-ratio: 1/1)');
+  const headerInner = document.querySelector('.header-inner');
+  const bar = document.querySelector('.header-nav');
+  const brand = document.querySelector('.brand');
+  const actions = document.querySelector('.header-actions');
+
+  let lastWidth = -1;
+  const navFits = (force) => {
+    const root = document.documentElement;
+    if (!wide.matches || !headerInner || !bar || !brand || !actions) {
+      root.classList.remove('is-nav-collapsed');
+      lastWidth = -1;
+      return;
+    }
+    const w = headerInner.clientWidth;
+    if (force !== true && w === lastWidth) return;
+    lastWidth = w;
+    const was = root.classList.contains('is-nav-collapsed');
+    root.classList.remove('is-nav-collapsed');
+    const cs = getComputedStyle(headerInner);
+    const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+    const gap = parseFloat(cs.columnGap) || 0;
+    const navGap = parseFloat(getComputedStyle(bar).columnGap) || 0;
+    const links = Array.from(bar.querySelectorAll(':scope > a'));
+    const need = links.reduce((sum, link) => sum + link.getBoundingClientRect().width, 0)
+      + navGap * Math.max(0, links.length - 1);
+    const available = w - padX
+      - brand.getBoundingClientRect().width
+      - actions.getBoundingClientRect().width
+      - gap * 2;
+    root.classList.toggle('is-nav-collapsed', need > available + 1);
+    if (was && !root.classList.contains('is-nav-collapsed')) setOpen(false);
+  };
+
+  if (headerInner && typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(() => navFits(false)).observe(headerInner);
+  }
+  wide.addEventListener('change', () => navFits(true));
+  window.addEventListener('resize', () => navFits(false));
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => navFits(true));
+  }
+  navFits(true);
 }
 
 /* ── reveal on scroll ───────────────────────────────────── */
@@ -72,31 +116,63 @@ const REVEAL_SELECTORS = [
 
 function tagReveals() {
   document.querySelectorAll(REVEAL_SELECTORS.join(',')).forEach(el => {
-    if (el.closest('.structure')) return;           // scroll-driven section handles itself
+    if (el.closest('.fact-list')) return;
+    if (el.classList.contains('brief-fat')) return;
+    if (el.closest('.structure')) return;
+    if (el.classList.contains('reveal') || el.closest('.reveal')) return;
+    if (el.querySelector('.reveal')) return;
+    el.classList.add('reveal');
+  });
+  document.querySelectorAll('.structure .structure-visual, .structure .structure-copy').forEach(el => {
     el.classList.add('reveal');
   });
 }
 
-function initReveal() {
-  tagReveals();
-  const items = document.querySelectorAll('.reveal');
+function initSectionReveal(section) {
+  const items = [...section.querySelectorAll('.reveal')];
   if (!items.length) return;
 
+  const show = (el, i = 0) => {
+    el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`;
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-visible')));
+  };
+
   if (REDUCED || !('IntersectionObserver' in window)) {
-    items.forEach(el => el.classList.add('is-visible'));
+    items.forEach(show);
     return;
   }
 
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
+    const visible = entries.filter((entry) => entry.isIntersecting);
+    visible.forEach((entry, i) => {
+      show(entry.target, i);
+      io.unobserve(entry.target);
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+  }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
 
-  items.forEach(el => io.observe(el));
+  const arm = () => {
+    if (section.id === 'reframe' && window.scrollY < window.innerHeight * 0.4) return;
+    items.forEach((el) => io.observe(el));
+    if (section.id === 'reframe') window.removeEventListener('scroll', arm);
+  };
+  arm();
+  if (section.id === 'reframe') window.addEventListener('scroll', arm, { passive: true });
+}
+
+function initReveal() {
+  tagReveals();
+  const heroBits = [...document.querySelectorAll('.hero .reveal')];
+  const fatWord = document.querySelector('.hero .brief-fat');
+  heroBits.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`; });
+  if (fatWord) fatWord.style.transitionDelay = `${Math.min(heroBits.length, 4) * 90 + 900}ms`;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    heroBits.forEach((el) => el.classList.add('is-visible'));
+    fatWord?.classList.add('is-in');
+  }));
+  document.querySelectorAll('section, footer').forEach((section) => {
+    if (section.classList.contains('hero')) return;
+    initSectionReveal(section);
+  });
 }
 
 /* ── anatomy cross-section ──────────────────────────────────
@@ -185,10 +261,10 @@ function initCrossSection(section, detail = false) {
 
   const muscleLine = surfacePts.map(([x]) => [x, floorY(x)]);
   musclePath.setAttribute('d', smooth(muscleLine));
-  musclePath.setAttribute('stroke', '#efb9bd'); musclePath.setAttribute('stroke-opacity', '0.4');
+  musclePath.setAttribute('stroke', '#f09aab'); musclePath.setAttribute('stroke-opacity', '0.95');
   const muscleFill = document.createElementNS(NS, 'path');
   muscleFill.setAttribute('d', strip(muscleLine, muscleLine.map(([x, y]) => [x, y + 48])));
-  muscleFill.setAttribute('fill', '#efb9bd'); muscleFill.setAttribute('fill-opacity', '0.15');
+  muscleFill.setAttribute('fill', '#f4a8b8'); muscleFill.setAttribute('fill-opacity', '0.42');
   musclePath.parentNode.insertBefore(muscleFill, musclePath);
 
   // Cells: each has a normalised depth v and two random thresholds.
@@ -334,15 +410,17 @@ function initCrossSection(section, detail = false) {
     const mk = (tag, parent) => { const el = document.createElementNS(NS, tag); parent.appendChild(el); return el; };
     const frame = mk('rect', trayGroup);
     frame.setAttribute('x', '150'); frame.setAttribute('y', '556'); frame.setAttribute('width', '260'); frame.setAttribute('height', '104');
-    frame.setAttribute('fill', 'none'); frame.setAttribute('stroke', '#f7f2eb'); frame.setAttribute('stroke-opacity', '0.22');
+    frame.setAttribute('fill', 'none'); frame.setAttribute('stroke', '#f7f2eb'); frame.setAttribute('stroke-opacity', '0.45');
     const cap = mk('text', trayGroup);
-    cap.setAttribute('x', '150'); cap.setAttribute('y', '546'); cap.setAttribute('fill', '#f7f2eb'); cap.setAttribute('fill-opacity', '0.5');
+    cap.setAttribute('x', '150'); cap.setAttribute('y', '546'); cap.setAttribute('fill', '#f7f2eb'); cap.setAttribute('fill-opacity', '0.75');
     cap.setAttribute('font-size', '10'); cap.setAttribute('font-weight', '600'); cap.setAttribute('letter-spacing', '1.6');
     tray.cap = cap;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++) {
       const el = mk('circle', trayGroup);
-      const x = 176 + c * 42 + (r % 2 ? 18 : 0) + (rnd() - 0.5) * 6, y = 580 + r * 30 + (rnd() - 0.5) * 6;
-      el.setAttribute('cx', x.toFixed(1)); el.setAttribute('cy', y.toFixed(1)); el.setAttribute('r', (9 + rnd() * 3).toFixed(1));
+      const rad = 9 + rnd() * 3;
+      const x = Math.min(176 + c * 42 + (r % 2 ? 18 : 0) + (rnd() - 0.5) * 6, 406 - rad);
+      const y = 580 + r * 30 + (rnd() - 0.5) * 6;
+      el.setAttribute('cx', x.toFixed(1)); el.setAttribute('cy', y.toFixed(1)); el.setAttribute('r', rad.toFixed(1));
       el.setAttribute('stroke', GRAFT); el.setAttribute('stroke-opacity', '0.95'); el.setAttribute('fill', GRAFT); el.setAttribute('fill-opacity', '0.4');
       tray.cells.push(el);
     }
@@ -542,10 +620,11 @@ function initCrossSection(section, detail = false) {
 
     // Layer label sits to the right of the model, two lines, level with the middle of the fat layer.
     const labY = (topAt(W) + floorY(W)) / 2 - 2;
-    measureLabel.setAttribute('x', '570');
+    const labX = 570;
+    measureLabel.setAttribute('x', String(labX));
     measureLabel.setAttribute('y', labY.toFixed(1));
     measureLabel.setAttribute('text-anchor', 'start');
-    Array.from(measureLabel.children).forEach((t) => t.setAttribute('x', '570'));
+    Array.from(measureLabel.children).forEach((t) => t.setAttribute('x', String(labX)));
 
     // SKIN and MUSCLE labels sit right beside the lines they name.
     if (skinLabel) { skinLabel.setAttribute('x', '0'); skinLabel.setAttribute('y', (skinPts[0][1] - 12).toFixed(1)); }
@@ -651,14 +730,16 @@ function initCompare() {
       return (x / r.width) * 100;
     };
 
-    // While the section is pinned, scroll only moves the slider (10% → 90%).
+    // Move the slider (10% -> 90%) as the section crosses the viewport.
     const fromScroll = () => {
       const section = el.closest('section') || el;
       const rect = section.getBoundingClientRect();
       const headerH = document.querySelector('.site-header')?.getBoundingClientRect().height || 0;
       const stickyH = window.innerHeight - headerH;
       const travel = rect.height - stickyH;
-      const p = travel > 0 ? (headerH - rect.top) / travel : 0;
+      const p = travel > 20
+        ? (headerH - rect.top) / travel
+        : (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
       return 10 + Math.min(1, Math.max(0, p)) * 80;
     };
 
@@ -760,7 +841,19 @@ function initFacts() {
 }
 
 /* ── boot ───────────────────────────────────────────────── */
+function reloadHome(event) {
+  const link = event.currentTarget;
+  if (!(link instanceof HTMLAnchorElement)) return;
+  event.preventDefault();
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const dest = new URL(link.href);
+  dest.hash = "";
+  dest.search = "reset=1";
+  window.location.replace(dest.pathname + dest.search);
+}
+
 function boot() {
+  document.querySelector(".site-header .brand")?.addEventListener("click", reloadHome);
   initHeader();
   initMobileNav();
   initReveal();
@@ -771,7 +864,7 @@ function boot() {
   initFaq();
   initContactForm();
 
-  import('./providers.js?v=20261112t')
+  import('./providers.js?v=20261113d')
     .then(m => m.initProviders())
     .catch(() => {});
 }

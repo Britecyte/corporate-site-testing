@@ -15,7 +15,7 @@
     background:
       radial-gradient(720px circle at var(--mx, 50%) var(--my, -60%), rgba(255, 255, 255, var(--glow, 0)), transparent 70%),
       var(--glass-fill);
-    transition: --glow 1.2s ease;
+    transition: --glow 1.2s ease, opacity 1.15s var(--ease), transform 1.25s var(--ease-out);
   }
   .glass:hover, .door-panels:hover, .provider-shell:hover, .provider-search:hover,
   .note:hover, .ph:hover, .contact-card:hover, .faq-list:hover { --glow: 0.3; }

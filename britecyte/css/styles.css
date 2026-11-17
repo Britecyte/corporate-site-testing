@@ -1,15 +1,43 @@
 /* ── Fonts ─────────────────────────────────────────────────────────────── */
 @font-face {
-  font-family: "Plus Jakarta Sans";
+  font-family: "Open Sauce Sans";
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 400;
   font-display: swap;
-  src: url(../assets/fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2) format("woff2");
+  src: url(../assets/fonts/OpenSauceSans-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/fonts/OpenSauceSans-Italic.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../assets/fonts/OpenSauceSans-Medium.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../assets/fonts/OpenSauceSans-SemiBold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Open Sauce Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(../assets/fonts/OpenSauceSans-Bold.ttf) format("truetype");
 }
 
 /* ── Design tokens (orange ↔ blue inverted vs New V3 Lipoderma) ─────────── */
 :root {
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Open Sauce Sans", system-ui, -apple-system, sans-serif;
   --font-display: var(--font-sans);
   --color-ink: #233051;
   --color-ink-soft: #4a5470;
@@ -57,6 +85,7 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-weight: 500;
   color: var(--color-ink);
   background: var(--color-ivory);
   line-height: 1.5;
@@ -110,11 +139,12 @@ textarea:disabled,
 
 .font-display {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-weight: 400;
+  letter-spacing: -0.025em;
 }
 
 .microtype {
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.22em;

@@ -7,9 +7,16 @@ if (heroForm) {
     const q = heroForm.elements.q.value.trim();
     const target = document.getElementById('providers');
     const input = document.getElementById('provider-search');
-    if (input) input.value = q;
-    target?.scrollIntoView({ behavior: 'smooth' });
-    // the directory module loads async; nudge it once it is listening
-    [300, 1200].forEach(ms => setTimeout(() => input?.dispatchEvent(new Event('input', { bubbles: true })), ms));
+    if (target) {
+      const header = document.querySelector('.site-header')?.offsetHeight || 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - header;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+    if (input) {
+      input.value = q;
+      input.dataset.commit = q ? 'place' : '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus({ preventScroll: true });
+    }
   });
 }
