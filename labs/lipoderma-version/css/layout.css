@@ -20,7 +20,7 @@ html { scroll-padding-top: var(--site-header-h); }
   flex-direction: column;
   justify-content: center;
 }
-.hero { box-sizing: border-box; height: 100svh; min-height: 0; padding-bottom: clamp(1.125rem, 3vh, 1.875rem); }
+.hero { box-sizing: border-box; height: 100svh; min-height: 0; padding-bottom: calc(clamp(1.125rem, 3vh, 1.875rem) + 2.0625rem); }
 .closing {
   box-sizing: border-box;
   height: auto;
@@ -75,22 +75,54 @@ html { scroll-padding-top: var(--site-header-h); }
   margin: 0;
 }
 .hero-visual-frame .ph,
-.hero-visual-frame .hero-unbox {
+.hero-visual-frame .hero-unbox,
+.hero-visual-frame .hero-laura {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   aspect-ratio: auto;
   object-fit: cover;
+  object-position: 28% 42%;
 }
-.hero-visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(90deg, rgba(232, 240, 255, 0.88) 0%, rgba(232, 240, 255, 0.62) 38%, rgba(232, 240, 255, 0.18) 100%);
+.hero-glow,
+.hero-grid-lines { display: none; }
+.hero-visual::after { content: none; }
+.hero > .hero-inner {
+  width: 100%;
+  max-width: none;
+  margin-right: 0;
+  margin-left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: left;
 }
+.hero-foot { justify-content: flex-start; border-top-color: transparent; }
+.hero .hero-title,
+.hero .hero-lede,
+.hero .eyebrow,
+.hero .hero-find-sub { color: #f7f2eb; }
+.hero .hero-find-sub a { color: #fff; }
 .hero-visual-tag { z-index: 2; top: auto; right: var(--gutter); bottom: 1.25rem; left: auto; }
+.hero-sound {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter);
+  bottom: 1.25rem;
+  padding: 1.1rem 1.8rem;
+  border: 0;
+  background: #002b63;
+  color: #fff;
+  font: 600 1.44rem/1 var(--font-sans, sans-serif);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.hero-sound[aria-pressed="true"] {
+  background: #fd893c;
+  color: #002b63;
+}
 .hero-visual-caption { display: none; }
 .hero-main { position: relative; z-index: 2; display: block; }
 /* Scroll still plays the anatomy story, but the section is two windows
@@ -687,7 +719,7 @@ html { scroll-padding-top: var(--site-header-h); }
     justify-content: space-between;
     gap: 2svh;
     padding-top: calc(var(--site-header-h) + 3svh);
-    padding-bottom: 3svh;
+    padding-bottom: calc(3svh + 2.0625rem);
     overflow: hidden;
   }
   /* The hero photo is the whole hero, same as desktop. */
@@ -700,9 +732,7 @@ html { scroll-padding-top: var(--site-header-h); }
   }
   .hero-visual-frame { border-radius: 0; }
   .hero-visual-frame .ph { aspect-ratio: auto; }
-  .hero-visual::after {
-    background: linear-gradient(180deg, rgba(232, 240, 255, 0.18) 0%, rgba(232, 240, 255, 0.72) 42%, rgba(238, 245, 255, 0.96) 78%, #eef5ff 100%);
-  }
+  .hero-visual-frame .hero-laura { object-position: 34% 28%; }
   .hero-visual-tag { display: none; }
   .hero-glow, .hero-grid-lines { display: none; }
   .hero-inner { position: relative; z-index: 2; width: 100%; }

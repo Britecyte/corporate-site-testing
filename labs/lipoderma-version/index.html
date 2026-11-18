@@ -27,8 +27,8 @@
 <link rel="stylesheet" href="css/site.css?v=20261118a" />
 <link rel="stylesheet" href="css/glass.css?v=20261117h" />
 <link rel="stylesheet" href="css/motion.css?v=20261114w" />
-<link rel="stylesheet" href="css/layout.css?v=20261118g" />
-<link rel="stylesheet" href="css/brief.css?v=20261118a" />
+<link rel="stylesheet" href="css/layout.css?v=20261118r" />
+<link rel="stylesheet" href="css/brief.css?v=20261118b" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
 [
@@ -176,9 +176,10 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-visual-frame">
-        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Hero field"></div>
+        <video class="hero-laura" muted autoplay loop playsinline preload="auto" src="https://media.lipoderma.com/videos/patient-laura.mp4"></video>
       </div>
     </div>
+    <button class="hero-sound" type="button" data-hero-sound aria-pressed="false">Sound off</button>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-grid-lines" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -186,8 +187,6 @@
 
     <div class="hero-inner hero-main">
       <div>
-        <p class="eyebrow hero-eyebrow reveal">Lipoderma® by Britecyte</p>
-
         <h1 class="hero-title reveal" id="hero-title">
           Let's talk about the F** word.
         </h1>
@@ -512,6 +511,17 @@
     </div>
   </section>
 
+  <section class="section section--bone" data-theme="light">
+    <div class="wrap" style="max-width:46rem">
+      <h2 class="display h2">What if the answer to lost fat was simply... fat?</h2>
+      <p>Lipoderma takes a different approach to natural-looking rejuvenation, using human adipose tissue to restore lost fat where it belongs. Fat for fat.</p>
+      <p>Because sometimes, looking like yourself again isn't about changing something. It's about restoring what was there all along.</p>
+      <p>Restore What's Yours™</p>
+      <p style="margin-top:1.5rem"><a class="arrow-link" href="patient.html">For the fat curious <span aria-hidden="true">→</span></a></p>
+      <p><a class="arrow-link" href="provider.html">For the fat experts <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
   <!-- ── Audience doors ───────────────────────────────────── -->
   <section class="section" id="audience" data-theme="light" aria-labelledby="audience-title">
     <div class="wrap">
@@ -549,7 +559,7 @@
               <li>Under-eyes, temples, and midface</li>
               <li>Hands that read older than the face</li>
             </ul>
-            <a class="arrow-link" href="#results">See results <span aria-hidden="true">→</span></a>
+            <a class="arrow-link" href="patient.html">For the fat curious <span aria-hidden="true">→</span></a>
           </div>
 
           <div class="door-panel" id="door-panel-surgeons" role="tabpanel" aria-labelledby="door-tab-surgeons">
@@ -877,7 +887,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261118d"></script>
+<script type="module" src="js/main.js?v=20261118e"></script>
 <script>
   const product = document.getElementById('product');
   document.querySelectorAll('[data-layout-pick]').forEach((btn) => {

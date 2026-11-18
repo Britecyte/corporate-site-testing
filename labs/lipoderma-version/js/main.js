@@ -852,6 +852,24 @@ function reloadHome(event) {
   window.location.replace(dest.pathname + dest.search);
 }
 
+function initHeroLaura() {
+  const video = document.querySelector(".hero-laura");
+  const button = document.querySelector("[data-hero-sound]");
+  if (!(video instanceof HTMLVideoElement) || !(button instanceof HTMLButtonElement)) return;
+  video.muted = true;
+  const paint = () => {
+    const on = !video.muted;
+    button.setAttribute("aria-pressed", String(on));
+    button.textContent = on ? "Sound on" : "Sound off";
+  };
+  button.addEventListener("click", () => {
+    video.muted = !video.muted;
+    if (!video.muted) video.play().catch(() => {});
+    paint();
+  });
+  paint();
+}
+
 function initHeroUnbox() {
   const video = document.querySelector('.hero-unbox');
   if (!(video instanceof HTMLVideoElement)) return;
@@ -896,6 +914,7 @@ function initProductGesture() {
 
 function boot() {
   document.querySelector(".site-header .brand")?.addEventListener("click", reloadHome);
+  initHeroLaura();
   initHeroUnbox();
   initProductGesture();
   initHeader();
