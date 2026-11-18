@@ -852,9 +852,21 @@ function reloadHome(event) {
   window.location.replace(dest.pathname + dest.search);
 }
 
+function loopUntil(video, end) {
+  if (!(video instanceof HTMLVideoElement)) return;
+  const rewind = () => {
+    if (video.currentTime < end) return;
+    video.currentTime = 0;
+    if (video.paused) video.play().catch(() => {});
+  };
+  video.addEventListener('timeupdate', rewind);
+  video.addEventListener('ended', rewind);
+}
+
 function initHeroLaura() {
   const video = document.querySelector(".hero-laura");
   const button = document.querySelector("[data-hero-sound]");
+  loopUntil(video, 88.06);
   if (!(video instanceof HTMLVideoElement) || !(button instanceof HTMLButtonElement)) return;
   video.muted = true;
   const paint = () => {
@@ -917,6 +929,7 @@ function boot() {
   initHeroLaura();
   initHeroUnbox();
   initProductGesture();
+  loopUntil(document.querySelector('.reframe-unbox'), 46);
   initHeader();
   initMobileNav();
   initReveal();

@@ -36,12 +36,12 @@
   letter-spacing: -0.04em;
   color: #fd893c;
   opacity: 0;
-  transform: translateY(0.3em);
+  transform: translateX(0.08em) translateY(0.3em);
   transition: opacity 1.15s ease, transform 1.25s ease;
 }
-.hero .brief-fat.is-in { opacity: 1; transform: none; }
+.hero .brief-fat.is-in { opacity: 1; transform: translateX(0.08em); }
 @media (prefers-reduced-motion: reduce) {
-  .hero .brief-fat { opacity: 1; transform: none; transition: none; }
+  .hero .brief-fat { opacity: 1; transform: translateX(0.08em); transition: none; }
 }
 
 .brief-callout {

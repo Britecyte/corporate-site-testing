@@ -7,11 +7,11 @@
 :root {
   --blue: #002b63;
   --blue-deep: #002b63;
-  --peach: #f6a56e;           /* orange, a step back toward cream */
-  --peach-soft: #f8bc90;
+  --peach: #fd893c;           /* matching the hero FAT word */
+  --peach-soft: #ff9e5e;
   --accent: var(--peach);
   --flame: var(--peach);
-  --flame-deep: var(--peach);
+  --flame-deep: #e07328;
 
   /* everything that used to be "dark section" or "bone section" is now
      navy ink sitting on the shared blue field */
@@ -23,11 +23,11 @@
   --hair-dark: rgba(14, 38, 82, 0.18);
   --hair-light: rgba(14, 38, 82, 0.18);
 
-  --glass-fill: linear-gradient(150deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.22));
-  --glass-border: 1px solid rgba(255, 255, 255, 0.62);
+  --glass-fill: linear-gradient(150deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.14));
+  --glass-border: 1px solid rgba(255, 255, 255, 0.48);
   --glass-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
     0 28px 60px -30px rgba(14, 38, 82, 0.55);
 }
 
@@ -46,8 +46,8 @@ body {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(130% 70% at 50% 18%, rgba(186, 214, 255, 0.42) 0%, rgba(0, 43, 99, 0) 58%),
-    linear-gradient(180deg, #1a4f8f 0%, #002b63 46%, #001633 100%);
+    radial-gradient(130% 70% at 50% 18%, rgba(70, 110, 170, 0.12) 0%, rgba(0, 43, 99, 0) 58%),
+    linear-gradient(180deg, #06305f 0%, #002b63 42%, #00101f 100%);
 }
 
 .bg-field i {
@@ -62,14 +62,14 @@ body {
   width: 90vmax; height: 34vmax;
   left: -20vmax; top: 18vh;
   background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
-  opacity: 0.42;
+  opacity: 0.1;
   animation: drift-a 42s ease-in-out infinite alternate;
 }
 .bg-field i:nth-child(2) {
   width: 70vmax; height: 46vmax;
   right: -24vmax; top: 38vh;
   background: radial-gradient(closest-side, #3d74c9, rgba(61, 116, 201, 0));
-  opacity: 0.55;
+  opacity: 0.16;
   animation: drift-b 54s ease-in-out infinite alternate;
 }
 .bg-field i:nth-child(3) {
@@ -197,6 +197,7 @@ select {
 }
 .mobile-nav a { color: #f6f1ea; }
 .mobile-nav a:hover { color: var(--accent); }
+body.nav-open .brand-logo { background: #fd893c; }
 
 /* ---------- Image placeholders ---------- */
 .ph {
@@ -313,7 +314,7 @@ select {
   gap: 0.9rem;
   text-align: left;
   color: #002b63;
-  background: rgba(238, 245, 255, 0.82);
+  background: rgba(238, 245, 255, 0.62);
 }
 .contact-card h3 {
   font-family: var(--font-display);

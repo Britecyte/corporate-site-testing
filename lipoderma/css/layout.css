@@ -96,7 +96,13 @@ html { scroll-padding-top: var(--site-header-h); }
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  text-align: left;
+  text-align: center;
+}
+.hero-main > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .hero-foot { justify-content: flex-start; border-top-color: transparent; }
 .hero .hero-title,
@@ -296,6 +302,23 @@ html { scroll-padding-top: var(--site-header-h); }
   display: grid;
   gap: 0.6rem;
   max-width: 34rem;
+}
+@media (min-aspect-ratio: 1/1) {
+  .hero-find {
+    margin-top: 8vh;
+    width: fit-content;
+    margin-inline: auto;
+    justify-items: center;
+  }
+  .hero > .hero-inner:has(.hero-foot) {
+    position: absolute;
+    right: 0;
+    bottom: 1.25rem;
+    width: auto;
+    margin: 0;
+  }
+  .hero-foot { margin: 0; padding-top: 0; border-top: 0; }
+  .hero-foot-facts { margin-top: 0; }
 }
 .hero-find-row {
   display: flex;
