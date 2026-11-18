@@ -21,11 +21,11 @@
 
 .hero {
   background: transparent;
-  color: var(--ink);
+  color: #f7f2eb;
 }
 .hero .hero-title,
 .hero .hero-lede,
-.hero .eyebrow { color: var(--ink); }
+.hero .eyebrow { color: #f7f2eb; }
 .hero .brief-fat {
   max-width: none;
   margin: 0.2rem 0 0.6rem;

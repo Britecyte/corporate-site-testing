@@ -110,11 +110,11 @@ html { scroll-padding-top: var(--site-header-h); }
   z-index: 3;
   left: var(--gutter);
   bottom: 1.25rem;
-  padding: 1.1rem 1.8rem;
+  padding: 0.733rem 1.2rem;
   border: 0;
   background: #002b63;
   color: #fff;
-  font: 600 1.44rem/1 var(--font-sans, sans-serif);
+  font: 600 0.96rem/1 var(--font-sans, sans-serif);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
