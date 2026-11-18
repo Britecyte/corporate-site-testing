@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gesture lab — three crops</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  :root {
+    --navy: #002b63;
+    --orange: #fd893c;
+    --paper: #e8f0fb;
+    --ink: #16315f;
+    --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #c9d8ee; color: var(--ink); font-family: var(--sans); }
+  a { color: var(--orange); }
+  .lab-bar {
+    position: sticky; top: 0; z-index: 8;
+    display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+    padding: 0.7rem 1.25rem; background: #0a1b3d; color: #f6f1ea; font-size: 0.78rem;
+  }
+  .tag {
+    margin: 0; padding: 0.85rem clamp(1.25rem, 5vw, 4rem) 0;
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: #5d7194;
+  }
+  .stage { min-height: 100svh; background: var(--paper); border-bottom: 8px solid #0a1b3d; }
+  .hero {
+    min-height: calc(100svh - 2.2rem);
+    padding: 1.25rem clamp(1.25rem, 5vw, 4rem) 2.5rem;
+    display: grid; align-content: center; gap: 0.2rem;
+  }
+  .eyebrow { margin: 0 0 0.7rem; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #5d7194; }
+  h1 { margin: 0; max-width: 12ch; font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 0.96; color: var(--navy); }
+  .fat {
+    margin: 0.15rem 0 0.55rem;
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(4.6rem, 14vw, 8.5rem); line-height: 0.8; color: var(--orange);
+  }
+  .lede { margin: 0 0 1.1rem; max-width: 36ch; font-size: 1.05rem; line-height: 1.5; color: #3e5680; }
+  .search {
+    display: flex; width: min(100%, 28rem); background: #fff; border: 1px solid rgba(0,43,99,0.16);
+  }
+  .search input { flex: 1; border: 0; padding: 0.85rem 1rem; font: inherit; color: var(--navy); background: transparent; }
+  .search button { border: 0; background: var(--orange); color: #fff; padding: 0.85rem 1rem; font: inherit; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .fat-cut {
+    width: min(100%, 7.2em);
+    height: 0.82em;
+    margin: 0.15rem 0 0.55rem;
+    font-size: clamp(4.6rem, 14vw, 8.5rem);
+    background: var(--orange);
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 180'><text x='8' y='158' fill='white' font-family='Georgia, serif' font-size='176' font-weight='700'>FAT.</text></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 180'><text x='8' y='158' fill='white' font-family='Georgia, serif' font-size='176' font-weight='700'>FAT.</text></svg>");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-position: left center;
+    mask-position: left center;
+  }
+  .fat-cut video, .jar video, .card video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .with-jar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.85rem; }
+  .jar {
+    width: 4.6rem; height: 7.4rem; flex: none; background: #0a1b3d;
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 140'><rect x='28' y='2' width='24' height='14' rx='2' fill='white'/><rect x='8' y='18' width='64' height='116' rx='16' fill='white'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 140'><rect x='28' y='2' width='24' height='14' rx='2' fill='white'/><rect x='8' y='18' width='64' height='116' rx='16' fill='white'/></svg>");
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  .below { background: #0a1b3d; color: #f6f1ea; padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 5vw, 4rem) 4rem; }
+  .below h2 { margin: 0 0 0.4rem; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3rem); }
+  .below p { margin: 0 0 1.25rem; max-width: 36ch; color: rgba(246,241,234,0.72); }
+  .card { width: min(100%, 22rem); aspect-ratio: 4 / 5; background: #071428; overflow: hidden; }
+  .note { margin: 0.85rem 0 0; font-size: 0.78rem; color: #5d7194; }
+  .below .note { color: rgba(246,241,234,0.5); }
+</style>
+</head>
+<body>
+<div class="lab-bar">
+  <strong>Gesture lab</strong>
+  <span>The rub and the flick, cropped. 0:41.5 to the end, muted, once.</span>
+  <a href="./">All labs</a>
+</div>
+
+<section class="stage" id="letters">
+  <p class="tag">1 · The word FAT is the screen</p>
+  <div class="hero">
+    <p class="eyebrow">Lipoderma® by Britecyte</p>
+    <h1>Let's talk about the F** word.</h1>
+    <div class="fat-cut">
+      <video data-once muted playsinline autoplay preload="auto" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=41.5"></video>
+    </div>
+    <p class="lede">We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.</p>
+    <form class="search" action="#"><input placeholder="City, state, or ZIP" /><button type="submit">Find a provider</button></form>
+    <p class="note">The jar moves inside the letters, then the word can sit as flat orange. No player.</p>
+  </div>
+</section>
+
+<section class="stage" id="jar">
+  <p class="tag">2 · A jar by the search</p>
+  <div class="hero">
+    <p class="eyebrow">Lipoderma® by Britecyte</p>
+    <h1>Let's talk about the F** word.</h1>
+    <p class="fat">FAT.</p>
+    <p class="lede">We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.</p>
+    <div class="with-jar">
+      <form class="search" action="#"><input placeholder="City, state, or ZIP" /><button type="submit">Find a provider</button></form>
+      <div class="jar" aria-label="The jar, being opened">
+        <video data-once muted playsinline autoplay preload="auto" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=41.5"></video>
+      </div>
+    </div>
+    <p class="note">The blue page stays still. The gesture only exists inside the jar shape, and it plays by itself.</p>
+  </div>
+</section>
+
+<section class="stage" id="below">
+  <p class="tag">3 · Hero is only type. The clip is the next thing.</p>
+  <div class="hero">
+    <p class="eyebrow">Lipoderma® by Britecyte</p>
+    <h1>Let's talk about the F** word.</h1>
+    <p class="fat">FAT.</p>
+    <p class="lede">We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.</p>
+    <form class="search" action="#"><input placeholder="City, state, or ZIP" /><button type="submit">Find a provider</button></form>
+  </div>
+  <div class="below">
+    <h2>What shows up in the room.</h2>
+    <p>The corner rub and the flick, unedited. Scroll here and it plays once.</p>
+    <div class="card">
+      <video data-inview muted playsinline preload="metadata" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=41.5"></video>
+    </div>
+    <p class="note">The first screen never has to carry the video.</p>
+  </div>
+</section>
+
+<script>
+const START = 41.5;
+
+function arm(video) {
+  const go = () => {
+    if (video.currentTime < START) video.currentTime = START;
+    video.play().catch(() => {});
+  };
+  video.addEventListener("timeupdate", () => {
+    if (video.duration && video.currentTime >= video.duration - 0.08) video.pause();
+  });
+  if (video.readyState >= 1) go();
+  else video.addEventListener("loadedmetadata", go, { once: true });
+}
+
+document.querySelectorAll("[data-once]").forEach(arm);
+
+const seen = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    arm(entry.target);
+    seen.unobserve(entry.target);
+  });
+}, { threshold: 0.45 });
+document.querySelectorAll("[data-inview]").forEach((video) => seen.observe(video));
+</script>
+</body>
+</html>

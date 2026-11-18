@@ -24,11 +24,11 @@
 <link rel="preload" as="font" type="font/woff2" href="fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2" crossorigin />
 <link rel="icon" href="img/logos/favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-<link rel="stylesheet" href="css/site.css?v=20261117w" />
+<link rel="stylesheet" href="css/site.css?v=20261118a" />
 <link rel="stylesheet" href="css/glass.css?v=20261117h" />
 <link rel="stylesheet" href="css/motion.css?v=20261114w" />
-<link rel="stylesheet" href="css/layout.css?v=20261117x" />
-<link rel="stylesheet" href="css/brief.css?v=20261117u" />
+<link rel="stylesheet" href="css/layout.css?v=20261118g" />
+<link rel="stylesheet" href="css/brief.css?v=20261118a" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
 [
@@ -176,7 +176,7 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-visual-frame">
-        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Video placeholder: Lipoderma unboxing"><span>Unboxing video<small>Corner rub and the flick. Video TBD</small></span></div>
+        <div class="ph" style="--ar:4 / 5" role="img" aria-label="Hero field"></div>
       </div>
     </div>
     <div class="hero-glow" aria-hidden="true"></div>
@@ -472,16 +472,11 @@
 
   <!-- ── Product ──────────────────────────────────────────── -->
   <section class="section" id="product" data-theme="light" aria-labelledby="product-title">
+    <div class="product-figure">
+      <video class="product-gesture" muted playsinline preload="auto" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=41"></video>
+    </div>
     <div class="wrap product-meet">
-      <h2 class="display h2 reveal" id="product-title">
-        Meet Lipoderma<span style="color:var(--peach)">.</span>
-      </h2>
-      <div class="product-figure reveal">
-        <div class="ph is-active" data-fact-img role="img" aria-label="Image template: Fat for fat"></div>
-        <div class="ph" data-fact-img role="img" aria-label="Image template: Ready to use"></div>
-        <div class="ph" data-fact-img role="img" aria-label="Image template: Native architecture preserved"></div>
-        <div class="ph" data-fact-img role="img" aria-label="Image template: All 50 states"></div>
-      </div>
+      <h2 class="display h2" id="product-title">Meet Lipoderma<span>.</span></h2>
       <div class="product-meet-cards">
           <ul class="fact-list reveal">
             <li>
@@ -882,7 +877,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261117g"></script>
+<script type="module" src="js/main.js?v=20261118d"></script>
 <script>
   const product = document.getElementById('product');
   document.querySelectorAll('[data-layout-pick]').forEach((btn) => {

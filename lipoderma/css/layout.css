@@ -74,12 +74,14 @@ html { scroll-padding-top: var(--site-header-h); }
   aspect-ratio: auto;
   margin: 0;
 }
-.hero-visual-frame .ph {
+.hero-visual-frame .ph,
+.hero-visual-frame .hero-unbox {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   aspect-ratio: auto;
+  object-fit: cover;
 }
 .hero-visual::after {
   content: "";
@@ -544,21 +546,29 @@ html { scroll-padding-top: var(--site-header-h); }
   line-height: 1.25;
   color: rgba(0, 43, 99, 0.78);
 }
+#product {
+  min-height: 100svh;
+  padding-block: 0;
+  overflow: hidden;
+}
+#product .product-figure {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  aspect-ratio: auto;
+}
 #product .product-meet {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  min-height: 100svh;
   text-align: center;
-}
-#product .product-meet .product-figure,
-#product .product-meet-cards {
-  width: min(100%, 46rem);
-}
-#product .product-meet .product-figure {
-  position: relative;
-  aspect-ratio: 2.4 / 1;
-  margin-top: 1.75rem;
-  overflow: hidden;
+  padding-block: calc(var(--site-header-h) + 1.25rem) 2.5rem;
 }
 #product .product-meet .product-figure .ph {
   position: absolute;
@@ -569,11 +579,37 @@ html { scroll-padding-top: var(--site-header-h); }
   transition: opacity 0.45s ease;
 }
 #product .product-meet .product-figure .ph.is-active { opacity: 1; }
+#product .product-figure .product-gesture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #0a1b3d;
+}
+#product .product-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10, 27, 61, 0.45), transparent 32%);
+  pointer-events: none;
+}
+#product .product-meet h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #f6f1ea;
+}
+#product .product-meet h2 span { color: var(--peach, #fd893c); }
 #product .product-meet .product-figure .ph:nth-child(1) { background: #d7e4f6; }
 #product .product-meet .product-figure .ph:nth-child(2) { background: #c9d8f0; }
 #product .product-meet .product-figure .ph:nth-child(3) { background: #e4edf8; }
 #product .product-meet .product-figure .ph:nth-child(4) { background: #bfd0ea; }
 #product .product-meet-cards {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 34rem);
   margin-top: 2rem;
   text-align: left;
 }
@@ -767,7 +803,7 @@ html { scroll-padding-top: var(--site-header-h); }
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    padding-block: 7svh;
+    padding-block: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1137,4 +1173,52 @@ html { scroll-padding-top: var(--site-header-h); }
   position: relative;
   grid-area: auto;
   transform: none;
+}
+
+/* Meet Lipoderma: the clip is the section. Type and cards sit on it. */
+section#product {
+  position: relative;
+  height: calc(100svh - var(--site-header-h));
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  display: block;
+}
+section#product .product-figure {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  margin: 0;
+  display: block;
+}
+section#product .product-gesture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+section#product .product-meet {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: auto;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem var(--gutter) 1.75rem;
+  background: none;
+}
+section#product .product-meet-cards {
+  width: min(100%, 34rem);
+  margin: 0;
 }

@@ -852,8 +852,52 @@ function reloadHome(event) {
   window.location.replace(dest.pathname + dest.search);
 }
 
+function initHeroUnbox() {
+  const video = document.querySelector('.hero-unbox');
+  if (!(video instanceof HTMLVideoElement)) return;
+  const start = 41.5;
+  const arm = () => {
+    if (video.currentTime < start) video.currentTime = start;
+    video.muted = true;
+    video.play().catch(() => {});
+  };
+  video.addEventListener('timeupdate', () => {
+    if (video.duration && video.currentTime >= video.duration - 0.05) video.currentTime = start;
+  });
+  video.addEventListener('ended', () => { video.currentTime = start; video.play().catch(() => {}); });
+  if (video.readyState >= 1) arm();
+  else video.addEventListener('loadedmetadata', arm, { once: true });
+}
+
+function initProductGesture() {
+  const video = document.querySelector(".product-gesture");
+  if (!(video instanceof HTMLVideoElement)) return;
+  const start = 41;
+  const end = 45;
+  const play = () => {
+    video.muted = true;
+    const seek = () => {
+      if (video.currentTime < start || video.currentTime >= end) video.currentTime = start;
+    };
+    if (video.readyState >= 1) seek();
+    else video.addEventListener("loadedmetadata", seek, { once: true });
+    video.play().catch(() => {});
+  };
+  video.addEventListener("timeupdate", () => {
+    if (video.currentTime >= end) video.pause();
+  });
+  const seen = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    play();
+    seen.disconnect();
+  }, { threshold: 0.4 });
+  seen.observe(video);
+}
+
 function boot() {
   document.querySelector(".site-header .brand")?.addEventListener("click", reloadHome);
+  initHeroUnbox();
+  initProductGesture();
   initHeader();
   initMobileNav();
   initReveal();

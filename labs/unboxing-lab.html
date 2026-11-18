@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Unboxing lab — three ways</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  :root {
+    --navy: #002b63;
+    --orange: #fd893c;
+    --paper: #eef5ff;
+    --ink: #16315f;
+    --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --serif: "Iowan Old Style", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #d5e2f4; color: var(--ink); font-family: var(--sans); }
+  a { color: var(--orange); }
+  .lab-bar {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+    padding: 0.7rem 1.25rem; background: #0a1b3d; color: #f6f1ea;
+    font-size: 0.78rem;
+  }
+  .lab-bar strong { font-weight: 650; }
+  .lab-bar a { color: #fd893c; }
+  .option { min-height: 100svh; background: var(--paper); border-bottom: 1px solid rgba(0,43,99,0.12); }
+  .tag {
+    margin: 0; padding: 0.85rem 1.25rem 0;
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: #5d7194;
+  }
+  .hero {
+    display: grid; gap: 1.5rem; align-items: center;
+    min-height: calc(100svh - 2.4rem);
+    padding: 1rem clamp(1.25rem, 5vw, 4rem) 2rem;
+  }
+  @media (min-width: 860px) {
+    .hero.split { grid-template-columns: 1.1fr 0.9fr; }
+  }
+  .eyebrow { margin: 0 0 0.6rem; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #5d7194; }
+  h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: 0.98; color: var(--navy); }
+  .fat { margin: 0.2rem 0 0.7rem; font-family: var(--serif); font-weight: 700; font-size: clamp(4rem, 12vw, 7.5rem); line-height: 0.8; color: var(--orange); }
+  .lede { margin: 0; max-width: 36ch; font-size: 1.05rem; line-height: 1.5; color: #3e5680; }
+  .plate { position: relative; background: #0a1b3d; aspect-ratio: 4 / 5; overflow: hidden; }
+  .plate video, .frames video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .play {
+    position: absolute; left: 1rem; bottom: 1rem; z-index: 2;
+    border: 0; background: var(--orange); color: #fff; cursor: pointer;
+    padding: 0.7rem 1rem; font: inherit; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .strip { width: min(100%, 52rem); aspect-ratio: 16 / 7; background: #0a1b3d; overflow: hidden; }
+  .strip video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stack { display: grid; gap: 1.25rem; align-content: center; }
+  .frames { position: relative; background: #0a1b3d; aspect-ratio: 4 / 5; overflow: hidden; }
+  .frames video { position: absolute; inset: 0; opacity: 0; transition: opacity 1.1s ease; }
+  .frames video.is-on { opacity: 1; }
+  .note { margin: 0.4rem 0 0; font-size: 0.8rem; color: #5d7194; }
+</style>
+</head>
+<body>
+<div class="lab-bar">
+  <strong>Unboxing lab</strong>
+  <span>Same clip, three treatments. 0:41.5 to the end. Muted.</span>
+  <a href="./">All labs</a>
+  <a href="./lipoderma-version/">Current hero</a>
+</div>
+
+<section class="option" id="still">
+  <p class="tag">1 · A photo, video only if you press play</p>
+  <div class="hero split">
+    <div>
+      <p class="eyebrow">Lipoderma® by Britecyte</p>
+      <h1>Let's talk about the F** word.</h1>
+      <p class="fat">FAT.</p>
+      <p class="lede">We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.</p>
+    </div>
+    <div>
+      <div class="plate">
+        <video data-still muted playsinline preload="auto" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=52"></video>
+        <button class="play" type="button" data-play>Play the flick</button>
+      </div>
+      <p class="note">Holds on a late frame until you press play. Then it runs once and stops.</p>
+    </div>
+  </div>
+</section>
+
+<section class="option" id="strip">
+  <p class="tag">2 · The clip under the headline</p>
+  <div class="hero">
+    <div class="stack">
+      <div>
+        <p class="eyebrow">Lipoderma® by Britecyte</p>
+        <h1>Let's talk about the F** word.</h1>
+        <p class="fat">FAT.</p>
+        <p class="lede">We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.</p>
+      </div>
+      <div class="strip">
+        <video data-once muted playsinline autoplay preload="auto" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=41.5"></video>
+      </div>
+      <p class="note">Plays once from 0:41.5, then holds the last frame.</p>
+    </div>
+  </div>
+</section>
+
+<section class="option" id="frames">
+  <p class="tag">3 · A few photos, no video motion</p>
+  <div class="hero split">
+    <div>
+      <p class="eyebrow">Lipoderma® by Britecyte</p>
+      <h1>Let's talk about the F** word.</h1>
+      <p class="fat">FAT.</p>
+      <p class="lede">We've spent decades talking about how to lose it. Maybe it's time we talked about the fat worth keeping.</p>
+    </div>
+    <div>
+      <div class="frames" data-frames>
+        <video muted playsinline preload="auto" data-at="42" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=42"></video>
+        <video muted playsinline preload="auto" data-at="46" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=46"></video>
+        <video muted playsinline preload="auto" data-at="50" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=50"></video>
+        <video muted playsinline preload="auto" data-at="53" src="https://media.lipoderma.com/videos/oh-yeah-unboxing.mp4#t=53"></video>
+      </div>
+      <p class="note">Four frames from the rub, the turn, and the flick. They fade. Nothing plays.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+const START = 41.5;
+
+function hold(video, at) {
+  const go = () => {
+    if (Math.abs(video.currentTime - at) > 0.2) video.currentTime = at;
+    video.pause();
+  };
+  if (video.readyState >= 1) go();
+  else video.addEventListener("loadedmetadata", go, { once: true });
+}
+
+document.querySelectorAll("[data-still]").forEach((video) => {
+  hold(video, 52);
+  const button = video.parentElement.querySelector("[data-play]");
+  button.addEventListener("click", () => {
+    button.hidden = true;
+    video.currentTime = START;
+    video.play();
+    video.addEventListener("timeupdate", () => {
+      if (video.duration && video.currentTime >= video.duration - 0.08) {
+        video.pause();
+      }
+    });
+  });
+});
+
+document.querySelectorAll("[data-once]").forEach((video) => {
+  const arm = () => {
+    if (video.currentTime < START) video.currentTime = START;
+    video.play().catch(() => {});
+  };
+  video.addEventListener("timeupdate", () => {
+    if (video.duration && video.currentTime >= video.duration - 0.08) video.pause();
+  });
+  if (video.readyState >= 1) arm();
+  else video.addEventListener("loadedmetadata", arm, { once: true });
+});
+
+document.querySelectorAll("[data-frames]").forEach((box) => {
+  const clips = [...box.querySelectorAll("video")];
+  clips.forEach((video) => hold(video, Number(video.dataset.at)));
+  let i = 0;
+  clips[0].classList.add("is-on");
+  setInterval(() => {
+    clips[i].classList.remove("is-on");
+    i = (i + 1) % clips.length;
+    clips[i].classList.add("is-on");
+  }, 2200);
+});
+</script>
+</body>
+</html>

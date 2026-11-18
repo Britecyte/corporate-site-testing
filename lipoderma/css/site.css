@@ -330,8 +330,8 @@ ul, ol { padding: 0; list-style: none; }
   width: 116px;
   height: 28px;
   background: currentColor;
-  -webkit-mask: url(../img/logos/lipoderma-logo.svg) no-repeat left center / contain;
-  mask: url(../img/logos/lipoderma-logo.svg) no-repeat left center / contain;
+  -webkit-mask: url(../img/logos/lipoderma-logo.svg?v=20261118a) no-repeat left center / contain;
+  mask: url(../img/logos/lipoderma-logo.svg?v=20261118a) no-repeat left center / contain;
   transition: background-color 0.45s var(--ease);
 }
 
