@@ -49,21 +49,18 @@ body {
     radial-gradient(130% 70% at 50% 18%, rgba(70, 110, 170, 0.12) 0%, rgba(0, 43, 99, 0) 58%),
     linear-gradient(180deg, #06305f 0%, #002b63 42%, #00101f 100%);
 }
-
 .bg-field i {
   position: absolute;
   border-radius: 50%;
-  filter: blur(48px);
-  will-change: transform;
 }
 
 /* bright horizontal glow (the gradO idea, built from gradients) */
 .bg-field i:nth-child(1) {
   width: 90vmax; height: 34vmax;
   left: -20vmax; top: 18vh;
-  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
-  opacity: 0.1;
-  animation: drift-a 42s ease-in-out infinite alternate;
+  background: radial-gradient(closest-side, rgba(253, 137, 60, 0.85), rgba(253, 137, 60, 0));
+  opacity: 0.14;
+  animation: drift-a 36s ease-in-out infinite alternate;
 }
 .bg-field i:nth-child(2) {
   width: 70vmax; height: 46vmax;
@@ -103,8 +100,6 @@ body {
   background: var(--glass-fill);
   border: var(--glass-border);
   box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
-  backdrop-filter: blur(24px) saturate(170%);
 }
 
 .note { border-left: 2px solid var(--accent); }
@@ -303,7 +298,7 @@ body.nav-open .brand-logo { background: #fd893c; }
   line-height: 1.7;
   color: var(--on-dark-soft);
 }
-.contact-address strong { font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; color: var(--ink); }
+.contact-address strong { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; letter-spacing: -0.005em; color: var(--ink); }
 .contact-address a { color: var(--accent); font-weight: 600; }
 .contact-address a:hover { text-decoration: underline; }
 
@@ -317,10 +312,10 @@ body.nav-open .brand-logo { background: #fd893c; }
   background: rgba(238, 245, 255, 0.62);
 }
 .contact-card h3 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.75rem;
-  letter-spacing: -0.01em;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
   color: #002b63;
 }
 .contact-form-trap {

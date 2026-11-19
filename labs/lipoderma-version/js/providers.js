@@ -96,10 +96,22 @@ function featuredRank(p) {
   return Number.isFinite(rank) && rank > 0 ? rank : Number.POSITIVE_INFINITY;
 }
 
+// A–Z by practice name (ignoring a leading "The"), then by doctor's last name.
+// Featured rank no longer reorders the list.
+function lastNameKey(p) {
+  const parts = String(p?.doctor || '').replace(/\b(dr|md|do|facs)\b\.?,?/gi, '').trim().split(/\s+/);
+  const last = parts.length > 1 ? parts[parts.length - 1] : parts[0] || '';
+  return `${last} ${parts.slice(0, -1).join(' ')}`.trim();
+}
+
+function practiceKey(p) {
+  return String(p?.practice || p?.doctor || '').trim().replace(/^the\s+/i, '');
+}
+
 function byFeatured(a, b) {
-  const diff = featuredRank(a) - featuredRank(b);
+  const diff = practiceKey(a).localeCompare(practiceKey(b), undefined, { sensitivity: 'base' });
   if (diff !== 0) return diff;
-  return String(a.doctor || '').localeCompare(String(b.doctor || ''));
+  return lastNameKey(a).localeCompare(lastNameKey(b), undefined, { sensitivity: 'base' });
 }
 
 function websiteLabel() {
@@ -351,7 +363,7 @@ export async function initProviders() {
     const q = normalizedQuery();
     if (q.length < 2 || state.selectedOrigin || state.picked) return [];
     return providers.filter((p) => matchesName(p, q))
-      .sort((a, b) => String(a.doctor || '').localeCompare(String(b.doctor || '')))
+      .sort(byFeatured)
       .slice(0, 5);
   }
 

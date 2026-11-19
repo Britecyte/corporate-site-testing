@@ -109,7 +109,7 @@ const REVEAL_SELECTORS = [
   '.section-head > *', '.label', '.display', '.lede', '.body-copy', '.reframe-copy p',
   '.reframe-aside', '.product-figure', '.fact-list li', '.note', '.door-list .door',
   '.door-panels', '.compare-layout > *', '.result-view', '.providers-head > *', '.provider-shell',
-  '.faq-layout > *', '.faq-item', '.footer-top > *', '.footer-bottom',
+  '.faq-layout > *', '.footer-top > *', '.footer-bottom',
   '.page-head .wrap > *', '.hero-eyebrow', '.hero-title', '.hero-lede', '.hero-actions',
   '.hero-visual', '.hero-foot', '.hero-find', '.contact-intro', '.contact-card',
 ];
@@ -119,6 +119,7 @@ function tagReveals() {
     if (el.closest('.fact-list')) return;
     if (el.classList.contains('brief-fat')) return;
     if (el.closest('.structure')) return;
+    if (el.closest('#audience')) return;
     if (el.classList.contains('reveal') || el.closest('.reveal')) return;
     if (el.querySelector('.reveal')) return;
     el.classList.add('reveal');
@@ -305,7 +306,7 @@ function initCrossSection(section, detail = false) {
   };
   const STEP_AT = T.stepAt;
   const STAGES = detail
-    ? ['Healthy layer', 'Layer thins', 'Refined tissue', 'Donor tissue', 'Volume restored', 'Host takes over']
+    ? ['Healthy layer', 'Layer thins', 'Refined tissue', 'Donor tissue', 'Volume restored', 'Your body takes over']
     : ['Healthy layer', 'Layer thins', 'Donor tissue', 'Volume restored', 'Host takes over'];
   // Time labels (data-timeline). Delete the #cs-time element in the HTML to remove them.
   const TIMES = detail
@@ -680,32 +681,83 @@ function initCrossSection(section, detail = false) {
   frame();
 }
 
-/* ── audience doors ─────────────────────────────────────── */
+/* ── audience scroll chapters ───────────────────────────── */
+const AUDIENCE_STAGES = [
+  'Holding on',
+  "Let's talk about fat",
+  'Meet Lipoderma',
+  'Glow-up era',
+  'Before you fill',
+];
+
 function initDoors() {
-  const doors = Array.from(document.querySelectorAll('[data-door]'));
-  if (!doors.length) return;
+  const section = document.getElementById('audience');
+  const steps = Array.from(section?.querySelectorAll('.audience-step') || []);
+  const count = section?.querySelector('[data-audience-count]');
+  const fill = section?.querySelector('[data-audience-fill]');
+  const stage = section?.querySelector('[data-audience-stage]');
+  const railHeading = section?.querySelector('[data-audience-heading]');
+  if (!section || !steps.length) return;
 
-  const panels = doors.map(d => document.getElementById(d.getAttribute('aria-controls')));
+  const headerEl = document.getElementById('site-header');
+  const getHeaderH = () => headerEl?.getBoundingClientRect().height || 0;
 
-  const select = (index, focus = false) => {
-    doors.forEach((d, i) => {
-      const on = i === index;
-      d.setAttribute('aria-selected', String(on));
-      d.tabIndex = on ? 0 : -1;
-      panels[i]?.classList.toggle('is-active', on);
-      if (on && focus) d.focus();
-    });
+  let current = -1;
+  const select = (index) => {
+    const next = Math.min(steps.length - 1, Math.max(0, index));
+    if (next === current) return;
+    current = next;
+    const pad = String(next + 1).padStart(2, '0');
+    steps.forEach((step, i) => step.classList.toggle('is-active', i === next));
+    section.dataset.audienceStep = String(next);
+    if (count) count.textContent = pad + ' / ' + String(steps.length).padStart(2, '0');
+    if (stage) stage.textContent = AUDIENCE_STAGES[next] || '';
+    if (railHeading) {
+      const h3 = steps[next].querySelector('h3');
+      const sub = steps[next].querySelector('.audience-sub');
+      railHeading.classList.remove('is-flip');
+      void railHeading.offsetWidth;
+      railHeading.innerHTML =
+        (h3 ? `<div class="audience-rail-title display">${h3.innerHTML}</div>` : '') +
+        (sub ? `<p class="audience-sub">${sub.innerHTML}</p>` : '');
+      railHeading.classList.add('is-flip');
+    }
   };
 
-  doors.forEach((door, i) => {
-    door.addEventListener('click', () => select(i));
-    door.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); select((i + 1) % doors.length, true); }
-      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); select((i - 1 + doors.length) % doors.length, true); }
+  const measure = () => {
+    const headerH = getHeaderH();
+    const stickyH = window.innerHeight - headerH;
+    const travel = Math.max(1, section.offsetHeight - stickyH);
+    const rect = section.getBoundingClientRect();
+    const passed = headerH - rect.top;
+    const p = Math.min(1, Math.max(0, passed / travel));
+    return { headerH, travel, rect, p };
+  };
+
+  const fromScroll = () => {
+    const { p } = measure();
+    section.style.setProperty('--audience-p', p.toFixed(4));
+    if (fill) fill.style.width = `${(p * 100).toFixed(1)}%`;
+    select(Math.min(steps.length - 1, Math.floor(p * steps.length)));
+  };
+
+  const tableWrap = section.querySelector('[data-compare-active]');
+  const picks = Array.from(section.querySelectorAll('[data-pick]'));
+  picks.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (tableWrap) tableWrap.dataset.compareActive = btn.dataset.pick;
+      picks.forEach((b) => b.setAttribute('aria-selected', String(b === btn)));
     });
   });
 
   select(0);
+  if (REDUCED) {
+    if (fill) fill.style.width = '100%';
+    return;
+  }
+  window.addEventListener('scroll', fromScroll, { passive: true });
+  window.addEventListener('resize', fromScroll);
+  fromScroll();
 }
 
 /* ── before / after compare ─────────────────────────────── */
@@ -769,11 +821,10 @@ function initCompare() {
   });
 }
 
-/* ── FAQ accordion ──────────────────────────────────────── */
+/* ── FAQ accordion + category tabs ──────────────────────── */
 function initFaq() {
   const root = document.querySelector('[data-faq]');
   if (!root) return;
-
   root.querySelectorAll('.faq-q').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
@@ -783,7 +834,91 @@ function initFaq() {
   });
 }
 
-/* ── year ───────────────────────────────────────────────── */
+/* ── UTM campaign capture (cookie-free, sessionStorage only) ─ */
+const UTM_KEYS = ['utm_campaign', 'utm_source', 'utm_medium'];
+const UTM_STORAGE_KEY = 'lipoderma_utm';
+
+function readCampaignUtms() {
+  let stored = {};
+  try { stored = JSON.parse(sessionStorage.getItem(UTM_STORAGE_KEY) || '{}') || {}; } catch (_) {}
+  const params = new URLSearchParams(window.location.search);
+  let changed = false;
+  UTM_KEYS.forEach((key) => {
+    const val = params.get(key);
+    if (val) { stored[key] = val.trim(); changed = true; }
+  });
+  if (changed) {
+    try { sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(stored)); } catch (_) {}
+  }
+  return stored;
+}
+
+function syncUtmFields(root = document) {
+  const utms = readCampaignUtms();
+  root.querySelectorAll('[data-utm-field]').forEach((input) => {
+    const key = input.getAttribute('data-utm-field');
+    if (key && utms[key]) input.value = utms[key];
+  });
+}
+
+function initCampaignTracking() {
+  syncUtmFields(document);
+}
+
+/* ── site analytics (cookie-free, opt-in via endpoint) ──── */
+const SITE_ANALYTICS_ENDPOINT =
+  window.LIPODERMA_PROVIDER_ANALYTICS_ENDPOINT ||
+  window.BRITECYTE_ANALYTICS_ENDPOINT ||
+  '';
+
+function analyticsSlug(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80);
+}
+
+function trackSiteEvent(eventName, targetId, targetLabel) {
+  if (!SITE_ANALYTICS_ENDPOINT || !targetId) return;
+
+  const utms = readCampaignUtms();
+  const payload = {
+    site_key: 'lipoderma',
+    event_name: eventName,
+    provider_id: `lipoderma:${targetId}`,
+    provider_label: targetLabel,
+    page_path: window.location.pathname || '/',
+  };
+  if (utms.utm_campaign) payload.utm_campaign = utms.utm_campaign;
+  if (utms.utm_source) payload.utm_source = utms.utm_source;
+  if (utms.utm_medium) payload.utm_medium = utms.utm_medium;
+
+  fetch(SITE_ANALYTICS_ENDPOINT, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'omit',
+    keepalive: true,
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ events: [payload] }),
+  }).catch(() => {});
+}
+
+function initSiteAnalytics() {
+  const path = window.location.pathname || '/';
+  trackSiteEvent('site_page_view', `page:${analyticsSlug(path) || 'home'}`, path);
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href]');
+    if (!link) return;
+
+    const label = link.textContent.trim().replace(/\s+/g, ' ') || link.getAttribute('aria-label') || link.href;
+    const href = link.getAttribute('href') || '';
+    const id = analyticsSlug(`${href}-${label}`);
+    trackSiteEvent('site_link_click', id, label);
+  });
+}
+
 /* ── contact form (preview: validates, never posts) ─────── */
 function initContactForm() {
   const form = document.querySelector('[data-contact-form]');
@@ -800,6 +935,21 @@ function initContactForm() {
     if (!valid) { bad.hidden = false; return; }
     ok.hidden = false;
     form.reset();
+    syncUtmFields(form);
+  });
+}
+
+/* ── F** Club form (preview: validates, never posts) ────── */
+function initClubForm() {
+  const form = document.querySelector('[data-club-form]');
+  if (!form) return;
+  const ok = form.querySelector('[data-club-ok]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    if (ok) ok.hidden = false;
+    form.reset();
+    syncUtmFields(form);
   });
 }
 
@@ -924,6 +1074,27 @@ function initProductGesture() {
   seen.observe(video);
 }
 
+function initPageGlow() {
+  const root = document.documentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current = 0;
+  let target = 0;
+  const read = () => {
+    const max = Math.max(1, root.scrollHeight - window.innerHeight);
+    target = Math.min(1, Math.max(0, window.scrollY / max));
+  };
+  const tick = (time) => {
+    current += (target - current) * (reduced ? 1 : 0.045);
+    const breathe = reduced ? 0 : Math.sin(time / 7800) * 0.035 + Math.sin(time / 13100) * 0.018;
+    root.style.setProperty('--page-p', Math.min(1, Math.max(0, current + breathe)).toFixed(4));
+    if (!reduced) requestAnimationFrame(tick);
+  };
+  read();
+  window.addEventListener('scroll', read, { passive: true });
+  window.addEventListener('resize', read);
+  requestAnimationFrame(tick);
+}
+
 function boot() {
   document.querySelector(".site-header .brand")?.addEventListener("click", reloadHome);
   initHeroLaura();
@@ -938,9 +1109,12 @@ function boot() {
   initCompare();
   initFacts();
   initFaq();
+  initCampaignTracking();
+  initSiteAnalytics();
   initContactForm();
+  initClubForm();
 
-  import('./providers.js?v=20261113d')
+  import('./providers.js?v=20261120b')
     .then(m => m.initProviders())
     .catch(() => {});
 }
