@@ -10,19 +10,19 @@
 <link rel="preload" as="font" type="font/woff2" href="fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2" crossorigin />
 <link rel="icon" href="img/logos/favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-<link rel="stylesheet" href="css/site.css?v=20261119e" />
+<link rel="stylesheet" href="css/site.css?v=20261120b" />
 <link rel="stylesheet" href="css/glass.css?v=20261120e" />
 <link rel="stylesheet" href="css/motion.css?v=20261114w" />
-<link rel="stylesheet" href="css/layout.css?v=20261120r" />
+<link rel="stylesheet" href="css/layout.css?v=20261120s" />
 <link rel="stylesheet" href="css/brief.css?v=20261120a" />
-<link rel="stylesheet" href="css/sections.css?v=20261120g" />
-<link rel="stylesheet" href="css/chrome.css?v=20261120c" />
+<link rel="stylesheet" href="css/sections.css?v=20261120v" />
+<link rel="stylesheet" href="css/chrome.css?v=20261120h" />
 </head>
 <body data-page="patients">
 
 <div class="bg-field" aria-hidden="true"><div class="bg-shift"><i></i><i></i><i></i></div></div>
 
-<script src="js/chrome.js?v=20261120d" data-part="header"></script>
+<script src="js/chrome.js?v=20261120f" data-part="header"></script>
 
 <main id="main" class="subpage">
 
@@ -33,15 +33,17 @@
       <div class="pt-open">
         <div class="pt-open-copy">
           <h1 class="pt-title reveal">Some things are worth holding on&nbsp;to.<span>The way you see yourself is one of them.</span></h1>
-          <div class="pt-open-body reveal">
-            <p>There's something about looking in the mirror and noticing little changes. Maybe your cheeks aren't quite as full. Maybe your face looks a little more tired than you feel. Nothing dramatic. Just subtle changes that add up over time.</p>
-            <p>And while we spend so much time talking about our skin, sometimes what's changed isn't the skin at all. It's what's beneath it.</p>
+          <p class="pt-open-lead reveal">There's something about looking in the mirror and noticing little changes. Maybe your cheeks aren't quite as full. Maybe your face looks a little more tired than you feel. Nothing dramatic. Just subtle changes that add up over time.</p>
+          <div class="pt-open-split">
+            <div class="pt-open-body reveal">
+              <p>And while we spend so much time talking about our skin, sometimes what's changed isn't the skin at all. It's what's beneath it.</p>
+            </div>
+            <ul class="pt-concerns reveal">
+              <li>Facial hollowing after weight loss, especially with GLP-1</li>
+              <li>Under-eyes, temples, and midface</li>
+              <li>Hands that read older than the face</li>
+            </ul>
           </div>
-          <ul class="pt-concerns reveal">
-            <li>Facial hollowing after weight loss, especially with GLP-1</li>
-            <li>Under-eyes, temples, and midface</li>
-            <li>Hands that read older than the face</li>
-          </ul>
         </div>
         <figure class="pt-open-figure reveal">
           <div class="compare pt-compare" data-compare role="group" aria-label="Before and after, midface">
@@ -126,7 +128,7 @@
               <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
               <span id="cs-stage-label-2">Healthy layer</span>
             </div>
-            <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026.</p>
+            <p class="structure-note">Based on Danilkovitch et al., 2026 and Chernoff, 2026.</p>
           </div>
 
           <div class="structure-copy">
@@ -179,7 +181,6 @@
       </div>
 
       <div class="pt-ask">
-        <p class="pt-ask-kicker reveal">Meet Lipoderma.</p>
         <p class="pt-ask-q reveal">What if the answer to lost fat was simply&hellip; <em>fat?</em></p>
         <div class="pt-cols reveal">
           <p>Lipoderma offers a different approach to natural-looking rejuvenation, using human adipose tissue to help restore lost fat and bring back the natural contours, softness, and fullness that make your face uniquely yours.</p>
@@ -192,27 +193,24 @@
           <div class="pt-story-frame">
             <video controls playsinline preload="metadata" src="https://media.lipoderma.com/videos/patient-laura.mp4#t=2"></video>
           </div>
-          <figcaption><strong>Laura</strong> Patient story</figcaption>
         </figure>
         <figure class="pt-story reveal">
           <div class="pt-story-frame">
             <video controls playsinline preload="metadata" src="https://media.lipoderma.com/videos/happy-client.mp4#t=2"></video>
           </div>
-          <figcaption><strong>Happy client</strong> Patient story</figcaption>
         </figure>
       </div>
 
       <div class="pt-glow">
         <div class="pt-glow-copy">
-          <h3 class="pt-h reveal">Fat has a glow-up era, too.</h3>
-          <p class="pt-glow-sub reveal">What to expect with Lipoderma</p>
+          <h3 class="pt-h reveal">Fat has a glow-up era, too.<span>What to expect with Lipoderma</span></h3>
           <div class="pt-glow-body reveal">
             <p>Lipoderma provides immediate volume, but the journey doesn't stop there. As the implanted tissue remodels, results continue to evolve over time.</p>
             <p>Some patients may notice a temporary softening in fullness as the implanted tissue gradually remodels and is replaced by their own tissue. Over time, this natural process contributes to the evolving appearance of the restored area.</p>
           </div>
         </div>
         <figure class="pt-glow-chart reveal" data-glow-chart>
-          <svg viewBox="0 0 600 300" role="img" aria-label="Illustration: fullness rises right away, may soften as tissue remodels, then settles into a natural contour.">
+          <svg viewBox="0 0 600 328" role="img" aria-label="Illustration: fullness rises right away, may soften as tissue remodels, then settles into a natural contour.">
             <g class="pt-glow-grid">
               <path d="M40 250H580"/>
               <path d="M40 40V250"/>
@@ -223,17 +221,11 @@
             <circle class="pt-glow-dot" cx="92" cy="88" r="5"/>
             <circle class="pt-glow-dot" cx="250" cy="128" r="5"/>
             <circle class="pt-glow-dot" cx="580" cy="104" r="5"/>
-            <text x="40" y="276">Day 1</text>
-            <text x="200" y="276">Months 1–3</text>
-            <text x="380" y="276">Months 3–6</text>
+            <text x="40" y="276">Day 1<tspan class="pt-glow-note" x="40" dy="18">Immediate volume</tspan></text>
+            <text x="200" y="276">Months 1–3<tspan class="pt-glow-note" x="200" dy="18">Gradual remodeling</tspan></text>
+            <text x="380" y="276">Months 3–6<tspan class="pt-glow-note" x="380" dy="18">Your own tissue takes over</tspan></text>
             <text class="pt-glow-axis" x="34" y="34" text-anchor="start">Fullness</text>
           </svg>
-          <ol class="pt-glow-steps">
-            <li><span>Day 1</span>Immediate volume</li>
-            <li><span>Months 1–3</span>Gradual remodeling</li>
-            <li><span>Months 3–6</span>Your own tissue takes over</li>
-          </ol>
-          <figcaption>Illustrative. Results vary from person to person.</figcaption>
         </figure>
         <p class="pt-glow-foot reveal"><strong>Think of the first 3–6 months as your fat's glow-up era.</strong> Your results are still evolving, and your provider may recommend a touch-up during this time to help optimize fullness and contours.</p>
       </div>
@@ -260,7 +252,7 @@
                 <th scope="col">Biostimulators <small>Sculptra / Radiesse</small></th>
                 <th scope="col">Autologous fat transfer</th>
                 <th scope="col">Renuva</th>
-                <th scope="col" class="is-lipo">Lipoderma</th>
+                <th scope="col" class="is-lipo"><img src="img/logos/lipoderma-logo.svg" alt="Lipoderma" /></th>
               </tr>
             </thead>
             <tbody>
@@ -329,7 +321,7 @@
 
 </main>
 
-<script src="js/chrome.js?v=20261120d" data-part="footer"></script>
+<script src="js/chrome.js?v=20261120f" data-part="footer"></script>
 
 <script type="module" src="js/main.js?v=20261120k"></script>
 </body>

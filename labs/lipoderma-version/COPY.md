@@ -119,11 +119,12 @@ Find a provider
 
 Explore the evidence.
 
-Tissue sourcing, safety, and the published work. The brief names Chernoff and Danilkovitch and leaves the citations for the publications page.
+Tissue sourcing, safety, and the published work.
 
-- Chernoff 1
-- Danilkovitch
-- Chernoff 2
+- Beccio — Human adipose tissue allograft for facial and body volume loss shows favorable safety and aesthetic outcomes (Cureus, 2026)
+- Chernoff 1 — Systematic review and meta-analysis of banked human adipose allograft (Journal of Surgery, 2026)
+- Danilkovitch — Host-mediated volume restoration with human adipose allograft (PRS Global Open, 2026)
+- Chernoff 2 — A novel multi-modality approach to skin rejuvenation (Facial Plastic Surgery Clinics of North America, 2027)
 
 The product
 
@@ -143,8 +144,6 @@ Drag any view. Placeholder imagery. View the outcomes gallery
 ## Providers
 
 Find a *provider.*
-
-Lipoderma is placed only by licensed physicians trained on the product.
 
 Provider name, city, state, or ZIP
 Use my location

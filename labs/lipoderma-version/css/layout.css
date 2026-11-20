@@ -599,12 +599,22 @@ body.no-header main#main > section:not(.hero):not(.reframe-film) { min-height: 0
 #providers .provider-search {
   margin-top: 0;
   flex: 1;
+  flex-wrap: nowrap;
+  align-items: stretch;
   max-width: none;
   width: 100%;
   padding: 0.2rem;
 }
-#providers .provider-search input { padding: 0.45rem 0.8rem; }
-#providers .provider-search button { padding: 0.55rem 0.9rem; }
+#providers .provider-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.55rem 0.75rem;
+}
+#providers .provider-search button {
+  flex: none;
+  white-space: nowrap;
+  padding: 0.55rem 0.75rem;
+}
 #providers .provider-status { display: none; }
 #providers .provider-shell {
   position: relative;

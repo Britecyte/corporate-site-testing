@@ -166,6 +166,20 @@ ul, ol { padding: 0; list-style: none; }
   text-wrap: balance;
 }
 
+/* Bodoni's hairlines disappear under about 1.15rem, especially on the navy field.
+   Headlines keep the serif. Everything at label, caption, table, and UI size is the sans. */
+:root { --type-serif-min: 1.15rem; }
+:where(
+  small, figcaption, caption, label, button, th, td, input, select, textarea,
+  .eyebrow, .label, .faq-q, .faq-group-num, .faq-group-head p,
+  .pt-table, .pt-glow-steps, .pt-glow-steps span, .rc-tag, .rc-meta
+) {
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
 .h1 { font-size: clamp(3rem, 2rem + 7.2vw, 8.5rem); font-weight: 700; letter-spacing: -0.035em; }
 .h2 { font-size: var(--type-section); line-height: 1.05; }
 .h3 { font-size: var(--type-step-title-sm); line-height: 1.1; }
@@ -1520,9 +1534,13 @@ body > main { flex: 1 0 auto; }
 }
 
 .structure-note {
-  margin-top: 1.25rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  opacity: 0.42;
+  margin-top: 0.65rem;
+  max-width: 28ch;
+  font-family: var(--font-sans);
+  font-size: var(--type-2xs);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  opacity: 0.72;
 }
 .door-panel .arrow-link { margin-top: 1.9rem; }

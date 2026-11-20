@@ -80,6 +80,7 @@ ${links}
         <img src="${root}img/logos/lipoderma-logo.svg" width="124" height="30" alt="Lipoderma" />
         <p class="footer-tagline">Restore what's been lost.<br><span>Not reinvent what's there.</span></p>
       </div>
+      <div class="footer-cols">
       <div class="footer-col">
         <h3>Explore</h3>
 ${footerLinks}
@@ -88,6 +89,7 @@ ${footerLinks}
         <h3>Britecyte</h3>
         <a href="mailto:brighterlives@britecyte.com">Contact</a>
 ${SOCIAL.map(([label, url]) => `        <a href="${url}" target="_blank" rel="noopener">${label}</a>`).join('\n')}
+      </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -119,11 +121,9 @@ ${SOCIAL.map(([label, url]) => `        <a href="${url}" target="_blank" rel="no
     const update = () => {
       ticking = false;
       const probe = header.offsetHeight - 2;
-      let overLight = false;
-      for (const section of document.querySelectorAll('[data-theme="light"]')) {
-        const r = section.getBoundingClientRect();
-        if (r.top <= probe && r.bottom >= probe) { overLight = true; break; }
-      }
+      const hero = document.querySelector('.hero');
+      const heroRect = hero?.getBoundingClientRect();
+      const overLight = !!heroRect && heroRect.top <= probe && heroRect.bottom >= probe;
       header.classList.toggle('is-stuck', window.scrollY > 24);
       header.classList.toggle('is-over-light', overLight);
     };
