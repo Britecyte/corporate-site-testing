@@ -27,8 +27,8 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   margin: auto auto 0;
 }
 .mobile-nav .mobile-nav-links a {
-  font-size: clamp(1.6rem, min(7vw, 6.2svh), 2.75rem);
-  line-height: 1.12;
+  font-size: var(--type-h2);
+  line-height: var(--lead-subhead);
   padding-block: clamp(0.3rem, 1.1svh, 0.55rem);
 }
 .mobile-nav .mobile-nav-links a[aria-current="page"] { color: var(--accent); }
@@ -39,7 +39,7 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   padding: 0.95rem 1.5rem;
   border: 0;
   font-family: var(--font-sans);
-  font-size: var(--type-xs);
+  font-size: var(--type-label);
   line-height: 1;
   color: #002b63;
 }
@@ -55,8 +55,8 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
 .subpage-close-cta { margin-top: clamp(1.25rem, 3svh, 2rem); display: flex; justify-content: center; }
 
 /* ---------- Header bar (was in brief.css and layout.css) ---------- */
-.header-nav { gap: clamp(0.7rem, 1.2vw, 1.35rem); }
-.header-nav a { letter-spacing: 0.12em; font-size: 0.62rem; }
+.header-nav { gap: clamp(0.55rem, 0.95vw, 1.1rem); }
+.header-nav a { letter-spacing: var(--track-label); font-size: var(--type-label); }
 
 /* Navy type only while the bar sits on the hero video. Everywhere else it stays cream. */
 .site-header.is-over-light:not(.is-stuck) {
@@ -93,10 +93,10 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   margin: 0;
   max-width: 18ch;
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
-  line-height: 1.2;
+  font-weight: var(--weight-body);
+  letter-spacing: var(--track-heading);
+  font-size: var(--type-lede);
+  line-height: var(--lead-subhead);
   color: #002b63;
   text-wrap: pretty;
 }
@@ -110,14 +110,14 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
 .footer-col h3 {
   margin-bottom: 0.45rem;
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: var(--type-label);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--track-label);
 }
 .footer-col a {
   padding-block: 0.22rem;
-  font-size: 0.875rem;
-  line-height: 1.35;
+  font-size: var(--type-small);
+  line-height: var(--lead-small);
 }
 .footer-cols .footer-col:first-child {
   display: grid;
@@ -131,8 +131,8 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
 .footer-bottom {
   padding-top: 0.85rem;
   gap: 0.35rem 1.25rem;
-  font-size: 0.75rem;
-  line-height: 1.4;
+  font-size: var(--type-caption);
+  line-height: var(--lead-small);
   color: rgba(0, 43, 99, 0.72);
 }
 
@@ -146,7 +146,7 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
     border-bottom: 1px solid rgba(0, 43, 99, 0.12);
   }
   .footer-brand img { width: 108px; flex: none; }
-  .footer-tagline { font-size: 1.05rem; max-width: 22ch; }
+  .footer-tagline { font-size: var(--type-body); max-width: 22ch; }
 }
 
 @media (max-width: 36rem) {
@@ -155,7 +155,7 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
 
-/* Contact: one form, cream type on the glass, line fields. */
+/* Contact: one form, cream type, a line under each field. */
 #contact .contact-card,
 #contact .contact-card h3,
 #contact .contact-form-label,
@@ -164,52 +164,201 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   color: #f6f1ea;
 }
 #contact .contact-card {
-  background: rgba(0, 43, 99, 0.28);
-  border: 1px solid rgba(246, 241, 234, 0.16);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  border: 0;
   box-shadow: none;
+  gap: 1.15rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
 }
 #contact .contact-card h3 {
   font-family: var(--font-display);
   font-weight: 400;
+  font-size: clamp(2rem, 4vw, 2.75rem);
   letter-spacing: -0.02em;
+  line-height: 1.05;
 }
+#contact .contact-form-split { gap: 1.15rem 1.5rem; }
+#contact .contact-form-row { gap: 0.3rem; }
 #contact .contact-form-label {
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
-  color: rgba(246, 241, 234, 0.72);
+  color: rgba(246, 241, 234, 0.7);
 }
 #contact .contact-form-input,
 #contact select.contact-form-input {
   color: #f6f1ea;
-  background: transparent;
-  border: 0;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(246, 241, 234, 0.5);
   border-radius: 0;
-  border-bottom: 1px solid rgba(246, 241, 234, 0.35);
   box-shadow: none;
-  padding: 0.35rem 0 0.5rem;
+  padding: 0.8rem 0.85rem;
+  font-size: 1rem;
+  line-height: 1.35;
 }
 #contact select.contact-form-input {
   appearance: none;
+  padding-right: 2rem;
   background-image: linear-gradient(45deg, transparent 50%, #f6f1ea 50%), linear-gradient(135deg, #f6f1ea 50%, transparent 50%);
-  background-position: calc(100% - 10px) center, calc(100% - 5px) center;
+  background-position: calc(100% - 16px) center, calc(100% - 11px) center;
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
 }
+#contact .contact-form-textarea { min-height: 7.5rem; }
 #contact .contact-form-input::placeholder { color: rgba(246, 241, 234, 0.45); }
+#contact .contact-form-input:hover {
+  border-color: rgba(246, 241, 234, 0.85);
+}
 #contact .contact-form-input:focus {
-  background-color: transparent;
-  border-bottom-color: #fd893c;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: #fd893c;
+  box-shadow: 0 0 0 1px #fd893c;
+  outline: 0;
+}
+#contact .contact-card .btn {
+  width: auto;
+  justify-self: start;
+  margin-top: 0.35rem;
+  padding: 0.85rem 1.4rem;
+  background: #fd893c;
+  color: #002b63;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+}
+#contact .contact-card .btn:hover { background: #ff9b57; color: #002b63; }
+#contact .contact-form-error { color: #fd893c; }
+
+/* FAQ: match contact frosted glass + cream type. */
+#faq .faq-layout {
+  color: #f6f1ea;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+#faq #faq-title,
+#faq .faq-kicker,
+#faq .faq-list,
+#faq .faq-group-head h3,
+#faq .faq-q {
+  color: #f6f1ea;
+}
+#faq #faq-title .serif-italic,
+#faq .faq-q:hover,
+#faq .faq-link {
+  color: #fd893c;
+}
+#faq .faq-intro,
+#faq .faq-a p {
+  color: rgba(246, 241, 234, 0.82);
+}
+#faq .faq-item {
+  box-shadow: inset 0 -1px 0 rgba(246, 241, 234, 0.16);
+}
+#faq .faq-group .faq-item:last-child {
   box-shadow: none;
 }
-#contact .contact-form-success { color: #f6f1ea; }
-#contact .contact-form-error { color: #fd893c; }
+#faq .faq-q i::before,
+#faq .faq-q i::after {
+  background: #f6f1ea;
+}
+#faq .faq-q:hover i::before,
+#faq .faq-q:hover i::after {
+  background: #fd893c;
+}
+
+/* Shared hero frosted glass + cream type: gallery cards, lightbox, comparison table, provider shell, notes. */
+.case,
+.pt-table,
+.provider-search,
+.provider-shell,
+.note {
+  color: #f6f1ea;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+.case-region { color: #fd893c; }
+.case-title { color: #f6f1ea; }
+.case-credit,
+.case-empty { color: rgba(246, 241, 234, 0.75); }
+.filter-rail button {
+  background: var(--glass-fill);
+  color: #f6f1ea;
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+}
+.filter-rail button[aria-selected="true"],
+.filter-rail button.is-active {
+  background: #fd893c;
+  color: #002b63;
+}
+.lightbox {
+  background: rgba(0, 22, 56, 0.84);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  color: #f6f1ea;
+}
+.lightbox-figure {
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+.lightbox-meta,
+.lightbox-meta strong { color: #f6f1ea; }
+.lightbox-close {
+  background: var(--glass-fill);
+  color: #f6f1ea;
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+}
+.lightbox-close:hover { background: #fd893c; color: #002b63; }
+
+.pt-table {
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+}
+.pt-table tbody tr {
+  box-shadow: inset 0 1px 0 rgba(246, 241, 234, 0.16);
+}
+.pt-table-pick button {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f6f1ea;
+}
+.pt-table-pick button[aria-selected="true"] {
+  background: #fd893c;
+  color: #002b63;
+}
+
+.provider-search input,
+.provider-list,
+.provider-item,
+.provider-item button,
+.provider-item .p-name,
+.provider-item strong,
+.provider-empty {
+  color: #f6f1ea;
+}
+.provider-item .p-practice,
+.provider-item .p-city,
+.provider-item .p-meta,
+.provider-item .p-dist,
+.provider-item small {
+  color: rgba(246, 241, 234, 0.76);
+}
+.provider-item a { color: #fd893c; }
+.provider-search input::placeholder { color: rgba(246, 241, 234, 0.6); }
+.provider-item { box-shadow: inset 0 -1px 0 rgba(246, 241, 234, 0.14); }
+.provider-item:hover,
+.provider-item.is-active { background: rgba(255, 255, 255, 0.14); }
 
 /* Text navigation, same as the hero line: Patients · Results · FAQ */
 .arrow-link,
-.subpage-close-cta .btn,
-.hero-find-sub a {
+.subpage-close-cta .btn {
   display: inline;
   gap: 0;
   padding: 0;
@@ -218,10 +367,10 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   background: none;
   box-shadow: none;
   color: #fff;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: var(--type-caption);
+  font-weight: var(--weight-strong);
   letter-spacing: 0;
-  line-height: 1.4;
+  line-height: var(--lead-small);
   text-transform: none;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -229,11 +378,16 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
 }
 .arrow-link span { display: none; }
 .arrow-link:hover,
-.subpage-close-cta .btn:hover,
-.hero-find-sub a:hover {
+.subpage-close-cta .btn:hover {
   gap: 0;
   color: #fd893c;
   background: none;
   transform: none;
 }
 .ex-links { gap: 0.35rem 0.85rem; }
+
+/* No frames. The heavier top edge was the glass highlight. */
+body :where(:not(svg, svg *, .leaflet-container, .leaflet-container *, .hero, .hero *, .contact-form-input)) {
+  border: 0 !important;
+  outline: 0;
+}

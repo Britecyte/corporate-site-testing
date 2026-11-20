@@ -24,9 +24,9 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: var(--type-micro);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--on-dark-faint);
 }
@@ -36,10 +36,10 @@
 
 .page-title {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.6rem, 1.7rem + 4.6vw, 6rem);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
+  font-weight: var(--weight-body);
+  font-size: var(--type-title);
+  line-height: var(--lead-display);
+  letter-spacing: var(--track-tight);
   margin-top: 1.6rem;
   max-width: 18ch;
 }
@@ -64,9 +64,9 @@
   padding: 0.6rem 1.05rem;
   border: 1px solid var(--hair-dark);
   border-radius: 0;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: var(--type-micro);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--on-dark-soft);
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background-color 0.3s var(--ease);
@@ -119,30 +119,31 @@
 }
 
 .case-region {
-  font-size: 0.5625rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-size: var(--type-tag);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--flame-deep);
 }
 
 .case-title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: var(--weight-body);
+  font-size: var(--type-h4);
+  line-height: var(--lead-subhead);
+  letter-spacing: var(--track-heading);
   color: var(--ink);
 }
 
 .case-credit {
-  font-size: 0.75rem;
+  font-size: var(--type-caption);
   color: var(--on-light-soft);
 }
 
 .case-empty {
   padding: 4rem 1rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: var(--type-small);
   color: var(--on-light-soft);
   grid-column: 1 / -1;
 }
@@ -176,13 +177,13 @@
   justify-content: space-between;
   align-items: baseline;
   color: #f7f2eb;
-  font-size: 0.75rem;
+  font-size: var(--type-caption);
 }
 
 .lightbox-meta strong {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.15rem;
+  font-weight: var(--weight-body);
+  font-size: var(--type-lede);
   color: var(--on-dark);
 }
 
@@ -207,8 +208,8 @@
   border-top: 1px solid var(--hair-light);
   padding-top: 1.75rem;
   margin-top: clamp(2.5rem, 5vh, 4rem);
-  font-size: 0.75rem;
-  line-height: 1.6;
+  font-size: var(--type-caption);
+  line-height: var(--lead-body);
   color: var(--on-light-soft);
   max-width: 68ch;
 }

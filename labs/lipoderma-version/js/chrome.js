@@ -16,12 +16,12 @@
   const root = script.dataset.root || '';
   const page = document.body.dataset.page || 'home';
 
-  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html' };
+  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html', gallery: 'gallery/' };
   const NAV = [
     { label: 'Meet Lipoderma', to: 'home', hash: 'reframe' },
     { label: 'Patients', to: 'patients' },
     { label: 'How it works', to: 'patients', hash: 'structure-detail', nav: false },
-    { label: 'Results', to: 'home', hash: 'results', nav: false },
+    { label: 'Results', to: 'gallery' },
     { label: 'Providers', to: 'home', hash: 'providers', nav: false },
     { label: 'Work with us', to: 'work' },
     { label: 'Safety', to: 'safety' },

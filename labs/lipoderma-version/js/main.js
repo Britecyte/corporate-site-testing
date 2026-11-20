@@ -219,12 +219,12 @@ function initCrossSection(section, detail = false) {
   };
   const STEP_AT = T.stepAt;
   const STAGES = detail
-    ? ['Healthy layer', 'Layer thins', 'Refined tissue', 'Donor tissue', 'Volume restored', 'Your body takes over']
+    ? ['Healthy layer', 'Layer thins', 'Lipoderma', 'Donor tissue', 'Volume restored', 'Your body takes over']
     : ['Healthy layer', 'Layer thins', 'Donor tissue', 'Volume restored', 'Host takes over'];
   // Time labels (data-timeline). Delete the #cs-time element in the HTML to remove them.
   const TIMES = detail
-    ? ['Baseline', 'Over the years', 'Before treatment', 'Day 0 · injection', 'Day 0 · placed', 'Weeks to months']
-    : ['Baseline', 'Over the years', 'Day 0 · injection', 'Day 0 · placed', 'Weeks to months'];
+    ? ['Baseline', 'Over the years', 'Before treatment', 'Day 0 · implantation', 'Day 0 · placed', 'Weeks to months']
+    : ['Baseline', 'Over the years', 'Day 0 · implantation', 'Day 0 · placed', 'Weeks to months'];
   const timeLabel = $('cs-time');
   const dermisPath = $('cs-dermis-path');
   const basementPath = $('cs-basement');

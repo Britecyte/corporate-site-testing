@@ -9,11 +9,16 @@ const fmt = (s) => s.replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
 
-/* Photos are placeholders in this build; slugs kept for later. */
-function pairPaths(slug) {
+function resolvePath(p) {
+  if (!p) return '';
+  if (/^(https?:|data:|\/|\.\.\/)/.test(p)) return p;
+  return `../${p.replace(/^\.\//, '')}?v=20261121`;
+}
+
+function pairPaths(ex) {
   return {
-    before: `../img/gallery/${slug}-before.webp`,
-    after: `../img/gallery/${slug}-after.webp`,
+    before: ex.before ? resolvePath(ex.before) : `../img/gallery/${ex.slug}-before.webp`,
+    after: ex.after ? resolvePath(ex.after) : `../img/gallery/${ex.slug}-after.webp`,
   };
 }
 
@@ -79,14 +84,14 @@ async function boot() {
     shown.forEach((cat) => {
       cat.examples.forEach((ex) => {
         const photo = ex.image
-          ? `<img class="case-photo" src="${fmt(ex.image)}" alt="${fmt(ex.title || 'Before and after')}" />`
+          ? `<img class="case-photo" src="${fmt(resolvePath(ex.image))}" alt="${fmt(ex.title || 'Before and after')}" loading="lazy" />`
           : (() => {
-              const { before, after } = pairPaths(ex.slug);
+              const { before, after } = pairPaths(ex);
               return `<div class="compare" data-case-compare
                    data-before="${fmt(before)}" data-after="${fmt(after)}"
                    data-title="${fmt(ex.title || '')}" data-credit="${fmt(ex.courtesy || '')}">
-                <div class="ph compare-before" style="--ar:4 / 3" role="img" aria-label="Before photo placeholder"><span>Before photo<small>Image TBD</small></span></div>
-                <div class="ph compare-after" style="--ar:4 / 3" role="img" aria-label="After photo placeholder"><span>After photo<small>Image TBD</small></span></div>
+                <img class="compare-before" src="${fmt(before)}" alt="${fmt(ex.title || 'Before')}" loading="lazy" />
+                <img class="compare-after" src="${fmt(after)}" alt="${fmt(ex.title || 'After')}" loading="lazy" />
                 <span class="compare-handle" aria-hidden="true"></span>
                 <span class="compare-tag compare-tag--before">Before</span>
                 <span class="compare-tag compare-tag--after">After</span>
@@ -145,6 +150,8 @@ async function boot() {
   const lbTitle = lb.querySelector('[data-lb-title]');
   const lbCredit = lb.querySelector('[data-lb-credit]');
   const lbCompare = lb.querySelector('[data-lightbox-compare]');
+  const lbBefore = lb.querySelector('[data-lb-before]');
+  const lbAfter = lb.querySelector('[data-lb-after]');
   let lbBound = false;
   let lastFocus = null;
 
@@ -152,6 +159,8 @@ async function boot() {
     const compare = card.querySelector('[data-case-compare]');
     if (!compare) return;
     lastFocus = document.activeElement;
+    if (lbBefore) lbBefore.src = compare.dataset.before || '';
+    if (lbAfter) lbAfter.src = compare.dataset.after || '';
     lbTitle.textContent = compare.dataset.title || '';
     lbCredit.textContent = compare.dataset.credit ? `Courtesy of ${compare.dataset.credit}` : '';
     lb.classList.add('is-open');

@@ -8,9 +8,9 @@
 <meta name="theme-color" content="#14110f" />
 <link rel="preload" as="font" type="font/woff2" href="../fonts/instrument-serif.woff2" crossorigin />
 <link rel="icon" href="../img/logos/favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="../css/site.css?v=20261119e" />
-<link rel="stylesheet" href="../css/pages.css?v=20261102a" />
-<link rel="stylesheet" href="../css/glass.css?v=20261120e" />
+<link rel="stylesheet" href="../css/site.css?v=20261120w" />
+<link rel="stylesheet" href="../css/pages.css?v=20261120w" />
+<link rel="stylesheet" href="../css/glass.css?v=20261120w" />
 <link rel="stylesheet" href="../css/motion.css?v=20261114w" />
 <style>
   .steps { display: grid; gap: 0; border-top: 1px solid var(--hair-light); }
@@ -25,19 +25,19 @@
   }
   .step-num {
     font-family: var(--font-display);
-    font-size: 2.25rem;
+    font-size: var(--type-h3);
     line-height: 1;
     color: var(--flame-deep);
   }
   .step h2 {
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
-    line-height: 1.12;
+    font-weight: var(--weight-body);
+    font-size: var(--type-h3);
+    line-height: var(--lead-subhead);
     letter-spacing: -0.015em;
     color: var(--ink);
   }
-  .step p { font-size: 0.95rem; line-height: 1.65; color: var(--on-light-soft); }
+  .step p { font-size: var(--type-body); line-height: var(--lead-body); color: var(--on-light-soft); }
   .step p + p { margin-top: 0.9rem; }
 
   .proof {
@@ -55,14 +55,14 @@
   .proof strong {
     display: block;
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.4rem);
+    font-weight: var(--weight-body);
+    font-size: var(--type-h2);
     line-height: 1;
     color: var(--flame);
     margin-bottom: 0.75rem;
   }
-  .proof h3 { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.01em; }
-  .proof p { margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.55; color: var(--on-dark-soft); }
+  .proof h3 { font-size: var(--type-small); font-weight: var(--weight-strong); letter-spacing: 0; }
+  .proof p { margin-top: 0.5rem; font-size: var(--type-small); line-height: var(--lead-body); color: var(--on-dark-soft); }
 
   .metric-grid { display: grid; gap: clamp(1rem, 2.5vw, 1.75rem); grid-template-columns: 1fr; }
   @media (min-width: 40rem) { .metric-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -77,18 +77,18 @@
   .metric .compare { aspect-ratio: 1 / 1; border-radius: 0; }
   .metric figcaption {
     padding: 0 1rem 1.1rem;
-    font-size: 0.75rem;
+    font-size: var(--type-caption);
     color: var(--on-light-soft);
   }
-  .metric figcaption strong { display: block; color: var(--ink); font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .metric figcaption strong { display: block; color: var(--ink); font-size: var(--type-small); margin-bottom: 0.2rem; }
 </style>
-<link rel="stylesheet" href="../css/chrome.css?v=20261120h" />
+<link rel="stylesheet" href="../css/chrome.css?v=20261121k" />
 </head>
 <body data-page="science">
 
 <div class="bg-field" aria-hidden="true"><i></i><i></i><i></i></div>
 
-<script src="../js/chrome.js?v=20261120f" data-root="../" data-part="header"></script>
+<script src="../js/chrome.js?v=20261121a" data-root="../" data-part="header"></script>
 
 <main id="main">
 
@@ -273,7 +273,7 @@
 
 </main>
 
-<script src="../js/chrome.js?v=20261120f" data-root="../" data-part="footer"></script>
+<script src="../js/chrome.js?v=20261121a" data-root="../" data-part="footer"></script>
 
 <script type="module" src="../js/science.js?v=20261120a"></script>
 <script type="module" src="../js/motion.js?v=20261104b"></script>
