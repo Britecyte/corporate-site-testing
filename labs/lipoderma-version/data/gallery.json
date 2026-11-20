@@ -31,6 +31,13 @@
           "courtesy": "Dr. Regina Fearmonti"
         },
         {
+          "slug": "happy-client-face",
+          "title": "Happy client face",
+          "story": "Full-face before and after.",
+          "image": "../img/gallery/happy-client-face.jpg",
+          "courtesy": ""
+        },
+        {
           "slug": "midface-front-beccio",
           "title": "Tired look, refreshed.",
           "story": "Support restored through the midface so the expression matches how she feels.",
@@ -62,6 +69,13 @@
       "desc": "Lost cushion and visible structure across the back of the hand.",
       "quizInterest": "Hands",
       "examples": [
+        {
+          "slug": "happy-client-hands",
+          "title": "Happy client hands",
+          "story": "Hands before and after.",
+          "image": "../img/gallery/happy-client-hands.jpg",
+          "courtesy": ""
+        },
         {
           "slug": "hands-woodby",
           "title": "Cushion restored, structure softened.",

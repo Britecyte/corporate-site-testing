@@ -25,9 +25,9 @@
 <link rel="icon" href="img/logos/favicon.svg" type="image/svg+xml" />
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
 <link rel="stylesheet" href="css/site.css?v=20261119e" />
-<link rel="stylesheet" href="css/glass.css?v=20261120a" />
+<link rel="stylesheet" href="css/glass.css?v=20261120e" />
 <link rel="stylesheet" href="css/motion.css?v=20261114w" />
-<link rel="stylesheet" href="css/layout.css?v=20261120e" />
+<link rel="stylesheet" href="css/layout.css?v=20261120o" />
 <link rel="stylesheet" href="css/brief.css?v=20261118e" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
@@ -131,7 +131,7 @@
 </head>
 <body>
 
-<div class="bg-field" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="bg-field" aria-hidden="true"><div class="bg-shift"><i></i><i></i><i></i></div></div>
 
 <header class="site-header" id="site-header">
   <div class="header-inner">
@@ -141,7 +141,7 @@
     <nav class="header-nav" aria-label="Primary">
       <a href="#structure-detail">How it works</a>
       <a href="#reframe">The fat</a>
-      <a href="#audience">Who it's for</a>
+      <a href="#audience">Patients</a>
       <a href="#results">Results</a>
       <a href="#providers">Providers</a>
       <a href="#faq">FAQ</a>
@@ -161,7 +161,7 @@
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
   <a href="#structure-detail">How it works</a>
   <a href="#reframe">The fat</a>
-  <a href="#audience">Who it's for</a>
+  <a href="#audience">Patients</a>
   <a href="#results">Results</a>
   <a href="#providers">Providers</a>
   <a href="#faq">FAQ</a>
@@ -201,7 +201,7 @@
               <input id="hero-find-q" type="search" name="q" placeholder="City, state, or ZIP" autocomplete="postal-code" />
               <button class="btn" type="submit">Find a provider</button>
             </div>
-            <p class="hero-find-sub"><a href="#audience">Who it's for</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
+            <p class="hero-find-sub"><a href="#audience">Patients</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
           </form>
         </div>
       </div>
@@ -334,7 +334,7 @@
           <li><span class="num">02</span><p>Ready to use when you are</p></li>
           <li><span class="num">03</span><p>Native architecture — intact adipocytes and the matrix that holds them</p></li>
         </ul>
-        <p class="hero-find-sub"><a href="#audience">Who it's for</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
+        <p class="hero-find-sub"><a href="#audience">Patients</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
       </div>
     </div>
   </section>
@@ -458,20 +458,10 @@
   </template>
 
 
-  <!-- ── Audience: scroll-driven editorial chapters ── -->
-  <section class="section audience-scroll" id="audience" data-theme="light" aria-labelledby="audience-title">
+  <!-- ── Patients: stacked editorial chapters ── -->
+  <section class="section audience-scroll" id="audience" data-theme="light" aria-label="Patients">
     <div class="audience-sticky">
-      <div class="audience-glow" aria-hidden="true"></div>
       <div class="wrap audience-frame">
-        <div class="audience-rail">
-          <h2 class="display h2" id="audience-title">For the <span class="serif-italic">fat</span> curious.</h2>
-          <div class="audience-rail-head" aria-hidden="true" data-audience-heading></div>
-          <div class="structure-meter" aria-hidden="true">
-            <span data-audience-count>01 / 05</span>
-            <span class="structure-meter-track"><span class="structure-meter-fill" data-audience-fill></span></span>
-            <span data-audience-stage>Holding on</span>
-          </div>
-        </div>
         <div class="audience-copy">
           <div class="audience-step audience-step--lead is-active">
             <h3>Some things are worth holding on to.<span class="door-line">The way you see yourself is one of them.</span></h3>
@@ -484,6 +474,14 @@
               <li>Under-eyes, temples, and midface</li>
               <li>Hands that read older than the face</li>
             </ul>
+            <div class="compare audience-compare" data-compare role="group" aria-label="Before and after, midface">
+              <img class="compare-before" src="img/gallery/midface-cheek-beccio-before.webp" alt="Midface before" width="1000" height="707" />
+              <img class="compare-after" src="img/gallery/midface-cheek-beccio-after.webp" alt="Midface after" width="1000" height="707" />
+              <span class="compare-handle" aria-hidden="true"></span>
+              <span class="compare-tag compare-tag--before">Before</span>
+              <span class="compare-tag compare-tag--after">After</span>
+              <input type="range" min="0" max="100" value="50" step="1" class="visually-hidden" aria-label="Reveal before or after, midface" data-compare-range />
+            </div>
           </div>
           <div class="audience-step">
             <h3>Let's talk about fat.</h3>
@@ -498,9 +496,7 @@
             <div class="audience-cols">
               <p>Lipoderma offers a different approach to natural-looking rejuvenation, using human adipose tissue to help restore lost fat and bring back the natural contours, softness, and fullness that make your face uniquely yours.</p>
               <p>The little details that make a face familiar. The ones you've seen in the mirror a thousand times and never really thought twice about. Until one day, you do.</p>
-            </div>
-            <p class="audience-mark">Restore What's Yours™</p>
-          </div>
+            </div>          </div>
           <div class="audience-step audience-step--arc">
             <h3>Fat has a glow-up era, too.</h3>
             <ol class="audience-timeline" aria-hidden="true">
@@ -727,27 +723,6 @@
 
             <div class="faq-item">
               <button class="faq-q" aria-expanded="false">
-                Where could I use a little more fat? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Fat looks good in more places than you might think.</p>
-                <p>Lipoderma is used for targeted, smaller-volume restoration, particularly in areas of the face, neck, and hands where fat loss has affected natural fullness and contours.</p>
-                <p>Your provider can help determine which areas may benefit.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Do I need liposuction first? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Nope. That's part of the beauty of it.</p>
-                <p>Unlike traditional fat grafting, which requires harvesting fat from your own body, Lipoderma uses donated human adipose tissue that's ready for your provider to prepare and implant. No liposuction harvest required.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
                 Lost the weight. Miss the fat? <i aria-hidden="true"></i>
               </button>
               <div class="faq-a"><div>
@@ -851,17 +826,6 @@
 
             <div class="faq-item">
               <button class="faq-q" aria-expanded="false">
-                Wait, are we talking about living fat cells or stem cells? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Nope. Let's clear that up.</p>
-                <p>Lipoderma is a <em>devitalized</em> human adipose tissue allograft. That means the fat cells are no longer viable, but the tissue's natural architecture, including the adipocytes and surrounding extracellular matrix, remains intact.</p>
-                <p>And no, this isn't a stem-cell treatment. Lipoderma is designed for like-for-like restoration, helping repair, replace, or reconstruct adipose tissue where it's been lost.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
                 Okay, but is donated fat safe? <i aria-hidden="true"></i>
               </button>
               <div class="faq-a"><div>
@@ -881,17 +845,6 @@
                 <p>Lipoderma falls under a category of human tissue products (HCT/Ps) that, when they meet specific FDA criteria, do not require premarket approval like drugs or certain medical devices.</p>
                 <p>Instead, these products must comply with FDA regulations covering donor screening, tissue processing, safety, and handling, and are processed through FDA-registered tissue establishments.</p>
                 <p>So let's give credit where it's due. FDA-regulated is the correct term, not FDA-approved.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Is Lipoderma my kind of fat? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>It might be!</p>
-                <p>If you've noticed changes in facial fullness from aging, weight loss, or other factors, Lipoderma may be an option worth exploring.</p>
-                <p>Your provider will consider your goals, medical history, previous aesthetic procedures, and the areas you'd like to restore to help determine whether Lipoderma is right for you.</p>
               </div></div>
             </div>
 
@@ -918,15 +871,6 @@
               </div></div>
             </div>
 
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Where can I get my fat back? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Ready to give fat a little love?</p>
-                <p>Lipoderma is available through qualified aesthetic providers. Use our <a href="#providers" class="faq-link">provider finder</a> to locate a practice and start the conversation.</p>
-              </div></div>
-            </div>
         </div>
       </div>
       <p class="hero-find-sub faq-foot">Fat looks good on you. · <a href="#providers">Find a provider</a></p>
@@ -975,15 +919,21 @@
             <input type="email" id="contact-email" name="email" required class="contact-form-input" autocomplete="email" />
           </div>
         </div>
-        <div class="contact-form-row">
-          <label class="contact-form-label" for="contact-subject">Subject</label>
-          <select id="contact-subject" name="subject" class="contact-form-input">
-            <option value="product-lipoderma">Product inquiry</option>
-            <option value="provider">Finding a provider</option>
-            <option value="clinical">Clinical / physician</option>
-            <option value="media">Media</option>
-            <option value="partnership">Partnership</option>
-          </select>
+        <div class="contact-form-split">
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-location">City, state</label>
+            <input type="text" id="contact-location" name="location" class="contact-form-input" autocomplete="address-level2" placeholder="e.g. Austin, TX" />
+          </div>
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-subject">Subject</label>
+            <select id="contact-subject" name="subject" class="contact-form-input">
+              <option value="product-lipoderma">Product inquiry</option>
+              <option value="provider">Finding a provider</option>
+              <option value="clinical">Clinical / physician</option>
+              <option value="media">Media</option>
+              <option value="partnership">Partnership</option>
+            </select>
+          </div>
         </div>
         <div class="contact-form-row">
           <label class="contact-form-label" for="contact-message">Message</label>
@@ -1011,7 +961,7 @@
         <h3>Explore</h3>
         <a href="#structure-detail">How it works</a>
         <a href="#reframe">The fat</a>
-        <a href="#audience">Who it's for</a>
+        <a href="#audience">Patients</a>
         <a href="#results">Results</a>
         <a href="#providers">Providers</a>
         <a href="#faq">FAQ</a>
@@ -1032,7 +982,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/main.js?v=20261120b"></script>
+<script type="module" src="js/main.js?v=20261120i"></script>
 <script>
   const product = document.getElementById('product');
   document.querySelectorAll('[data-layout-pick]').forEach((btn) => {

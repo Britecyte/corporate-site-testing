@@ -78,11 +78,11 @@ async function boot() {
 
     shown.forEach((cat) => {
       cat.examples.forEach((ex) => {
-        const { before, after } = pairPaths(ex.slug);
-        cards.push(`
-          <article class="case" data-slug="${fmt(ex.slug)}">
-            <div class="case-media">
-              <div class="compare" data-case-compare
+        const photo = ex.image
+          ? `<img class="case-photo" src="${fmt(ex.image)}" alt="${fmt(ex.title || 'Before and after')}" />`
+          : (() => {
+              const { before, after } = pairPaths(ex.slug);
+              return `<div class="compare" data-case-compare
                    data-before="${fmt(before)}" data-after="${fmt(after)}"
                    data-title="${fmt(ex.title || '')}" data-credit="${fmt(ex.courtesy || '')}">
                 <div class="ph compare-before" style="--ar:4 / 3" role="img" aria-label="Before photo placeholder"><span>Before photo<small>Image TBD</small></span></div>
@@ -92,12 +92,18 @@ async function boot() {
                 <span class="compare-tag compare-tag--after">After</span>
                 <input type="range" min="0" max="100" value="50" class="visually-hidden"
                        aria-label="Reveal before or after" data-compare-range />
-              </div>
+              </div>`;
+            })();
+        const credit = ex.courtesy ? `<span class="case-credit">Courtesy of ${fmt(ex.courtesy)}</span>` : '';
+        cards.push(`
+          <article class="case" data-slug="${fmt(ex.slug)}">
+            <div class="case-media">
+              ${photo}
             </div>
             <div class="case-body">
               <span class="case-region">${fmt(cat.label)}</span>
               <h2 class="case-title">${fmt(ex.title || 'Restored contour')}</h2>
-              <span class="case-credit">Courtesy of ${fmt(ex.courtesy || 'the treating physician')}</span>
+              ${credit}
             </div>
           </article>
         `);

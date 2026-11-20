@@ -1,0 +1,76 @@
+/* Lab-only layer on the existing Lipoderma system.
+   Homepage hero uses the brief's blue and orange. The rest of the page keeps its sections. */
+
+.lab-banner {
+  position: relative;
+  z-index: 60;
+  margin: 0;
+  padding: 0.4rem var(--gutter);
+  background: #fd893c;
+  color: #002b63;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+.lab-banner a { color: inherit; }
+
+/* Paper bands were a pale sheet painted over the field. Let Molly's blue through. */
+[data-band="paper"] { background: transparent; }
+[data-band="navy"] { background: #002b63; }
+
+.hero {
+  background: transparent;
+  color: #f7f2eb;
+}
+.hero .hero-title,
+.hero .hero-lede,
+.hero .eyebrow { color: #f7f2eb; }
+.hero .brief-fat {
+  max-width: none;
+  margin: 0.2rem 0 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 14vw, 9rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: #fd893c;
+  opacity: 0;
+  transform: translateX(0.08em) translateY(0.3em);
+  transition: opacity 1.15s ease, transform 1.25s ease;
+}
+.hero .brief-fat.is-in { opacity: 1; transform: translateX(0.08em); }
+@media (prefers-reduced-motion: reduce) {
+  .hero .brief-fat { opacity: 1; transform: translateX(0.08em); transition: none; }
+}
+
+.brief-callout {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  background: #fd893c;
+  color: #002b63;
+}
+.brief-callout h2 { color: #002b63; margin: 0; }
+.brief-callout p { margin: 0.4rem 0 0; color: #002b63; }
+
+#contact .contact-visual { display: none; }
+#contact .closing-inner { z-index: 1; }
+#contact,
+#contact h2,
+#contact .contact-intro p,
+#contact address { color: #f6f1ea; }
+#contact address a { color: #fd893c; }
+
+.header-nav { gap: clamp(0.7rem, 1.2vw, 1.35rem); }
+.header-nav a { letter-spacing: 0.12em; font-size: 0.62rem; }
+
+.site-header:not(.is-stuck) {
+  color: #002b63;
+}
+.site-header:not(.is-stuck) .header-nav a {
+  opacity: 1;
+}
+
+.brief-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; font-size: 0.9rem; }
+.brief-table th, .brief-table td { border: 1px solid rgba(20, 17, 15, 0.16); padding: 0.7rem 0.8rem; text-align: left; }
+.brief-table th { background: #002b63; color: #f6f1ea; }

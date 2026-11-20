@@ -46,40 +46,50 @@ body {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(130% 70% at 50% 18%, rgba(70, 110, 170, 0.12) 0%, rgba(0, 43, 99, 0) 58%),
-    linear-gradient(180deg, #06305f 0%, #002b63 42%, #00101f 100%);
+    radial-gradient(90% 55% at 78% 8%, rgba(255, 255, 255, 0.16), transparent 62%),
+    radial-gradient(120% 80% at 18% 0%, rgba(120, 168, 230, 0.28), transparent 58%),
+    linear-gradient(165deg, #0a3d78 0%, #002b63 46%, #001428 100%);
+}
+.bg-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 28%, transparent 70%, rgba(0, 8, 24, 0.28));
+  pointer-events: none;
+}
+.bg-shift {
+  position: absolute;
+  inset: -30%;
+  will-change: transform;
 }
 .bg-field i {
   position: absolute;
   border-radius: 50%;
+  will-change: transform;
 }
 
-/* bright horizontal glow (the gradO idea, built from gradients) */
 .bg-field i:nth-child(1) {
-  width: 90vmax; height: 34vmax;
-  left: -20vmax; top: 18vh;
-  background: radial-gradient(closest-side, rgba(253, 137, 60, 0.85), rgba(253, 137, 60, 0));
-  opacity: 0.14;
-  animation: drift-a 36s ease-in-out infinite alternate;
+  width: 110vmax; height: 70vmax;
+  left: -30vmax; top: -20vh;
+  background: radial-gradient(ellipse at center, rgba(253, 137, 60, 0.34) 0%, rgba(253, 137, 60, 0.12) 38%, transparent 68%);
+  animation: drift-a 26s ease-in-out infinite alternate;
 }
 .bg-field i:nth-child(2) {
-  width: 70vmax; height: 46vmax;
-  right: -24vmax; top: 38vh;
-  background: radial-gradient(closest-side, #3d74c9, rgba(61, 116, 201, 0));
-  opacity: 0.16;
-  animation: drift-b 54s ease-in-out infinite alternate;
+  width: 100vmax; height: 80vmax;
+  right: -36vmax; top: 10vh;
+  background: radial-gradient(ellipse at center, rgba(150, 196, 255, 0.32) 0%, rgba(70, 130, 210, 0.1) 42%, transparent 70%);
+  animation: drift-b 32s ease-in-out infinite alternate;
 }
 .bg-field i:nth-child(3) {
-  width: 80vmax; height: 40vmax;
-  left: -10vmax; bottom: -22vmax;
-  background: radial-gradient(closest-side, #001433, rgba(0, 20, 51, 0));
-  opacity: 0.7;
-  animation: drift-c 60s ease-in-out infinite alternate;
+  width: 90vmax; height: 60vmax;
+  left: 10vmax; bottom: -28vmax;
+  background: radial-gradient(ellipse at center, rgba(255, 214, 180, 0.22) 0%, rgba(253, 137, 60, 0.08) 40%, transparent 68%);
+  animation: drift-c 38s ease-in-out infinite alternate;
 }
 
-@keyframes drift-a { to { transform: translate3d(14vmax, 8vh, 0) scale(1.08); } }
-@keyframes drift-b { to { transform: translate3d(-12vmax, -10vh, 0) scale(1.1); } }
-@keyframes drift-c { to { transform: translate3d(10vmax, -6vh, 0) scale(0.94); } }
+@keyframes drift-a { to { transform: translate3d(12vw, 10vh, 0) scale(1.08); } }
+@keyframes drift-b { to { transform: translate3d(-10vw, 12vh, 0) scale(1.06); } }
+@keyframes drift-c { to { transform: translate3d(8vw, -10vh, 0) scale(1.1); } }
 
 @media (prefers-reduced-motion: reduce) { .bg-field i { animation: none; } }
 

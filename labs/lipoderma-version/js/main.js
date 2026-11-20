@@ -149,15 +149,36 @@ function initSectionReveal(section) {
       show(entry.target, i);
       io.unobserve(entry.target);
     });
-  }, { threshold: 0.01, rootMargin: '0px 0px -10% 0px' });
+  }, { threshold: 0.35, rootMargin: '0px 0px -8% 0px' });
 
+  let armed = section.id !== 'reframe';
+  // Reveal once the block has entered the reading area. The page end stays generous
+  // so the footer legal line still appears. Reframe waits until the film is on screen.
+  const catchUp = () => {
+    if (!armed) return;
+    const pageEnd = document.documentElement.scrollHeight;
+    items.forEach((el, i) => {
+      if (el.classList.contains('is-visible')) return;
+      const r = el.getBoundingClientRect();
+      if (!r.height || r.bottom <= 0) return;
+      const atEnd = r.bottom + window.scrollY > pageEnd - window.innerHeight * 0.4;
+      const line = atEnd ? 0.98 : 0.72;
+      if (r.top < window.innerHeight * line) show(el, i);
+    });
+  };
   const arm = () => {
-    if (section.id === 'reframe' && window.scrollY < window.innerHeight * 0.4) return;
-    items.forEach((el) => io.observe(el));
+    if (section.id === 'reframe' && section.getBoundingClientRect().top > window.innerHeight * 0.45) return;
+    armed = true;
+    items.forEach((el) => {
+      if (!el.classList.contains('is-visible')) io.observe(el);
+    });
     if (section.id === 'reframe') window.removeEventListener('scroll', arm);
+    catchUp();
   };
   arm();
   if (section.id === 'reframe') window.addEventListener('scroll', arm, { passive: true });
+  window.addEventListener('scroll', catchUp, { passive: true });
+  catchUp();
 }
 
 function initReveal() {
@@ -681,66 +702,10 @@ function initCrossSection(section, detail = false) {
   frame();
 }
 
-/* ── audience scroll chapters ───────────────────────────── */
-const AUDIENCE_STAGES = [
-  'Holding on',
-  "Let's talk about fat",
-  'Meet Lipoderma',
-  'Glow-up era',
-  'Before you fill',
-];
-
+/* ── audience pages ─────────────────────────────────────── */
 function initDoors() {
   const section = document.getElementById('audience');
-  const steps = Array.from(section?.querySelectorAll('.audience-step') || []);
-  const count = section?.querySelector('[data-audience-count]');
-  const fill = section?.querySelector('[data-audience-fill]');
-  const stage = section?.querySelector('[data-audience-stage]');
-  const railHeading = section?.querySelector('[data-audience-heading]');
-  if (!section || !steps.length) return;
-
-  const headerEl = document.getElementById('site-header');
-  const getHeaderH = () => headerEl?.getBoundingClientRect().height || 0;
-
-  let current = -1;
-  const select = (index) => {
-    const next = Math.min(steps.length - 1, Math.max(0, index));
-    if (next === current) return;
-    current = next;
-    const pad = String(next + 1).padStart(2, '0');
-    steps.forEach((step, i) => step.classList.toggle('is-active', i === next));
-    section.dataset.audienceStep = String(next);
-    if (count) count.textContent = pad + ' / ' + String(steps.length).padStart(2, '0');
-    if (stage) stage.textContent = AUDIENCE_STAGES[next] || '';
-    if (railHeading) {
-      const h3 = steps[next].querySelector('h3');
-      const sub = steps[next].querySelector('.audience-sub');
-      railHeading.classList.remove('is-flip');
-      void railHeading.offsetWidth;
-      railHeading.innerHTML =
-        (h3 ? `<div class="audience-rail-title display">${h3.innerHTML}</div>` : '') +
-        (sub ? `<p class="audience-sub">${sub.innerHTML}</p>` : '');
-      railHeading.classList.add('is-flip');
-    }
-  };
-
-  const measure = () => {
-    const headerH = getHeaderH();
-    const stickyH = window.innerHeight - headerH;
-    const travel = Math.max(1, section.offsetHeight - stickyH);
-    const rect = section.getBoundingClientRect();
-    const passed = headerH - rect.top;
-    const p = Math.min(1, Math.max(0, passed / travel));
-    return { headerH, travel, rect, p };
-  };
-
-  const fromScroll = () => {
-    const { p } = measure();
-    section.style.setProperty('--audience-p', p.toFixed(4));
-    if (fill) fill.style.width = `${(p * 100).toFixed(1)}%`;
-    select(Math.min(steps.length - 1, Math.floor(p * steps.length)));
-  };
-
+  if (!section) return;
   const tableWrap = section.querySelector('[data-compare-active]');
   const picks = Array.from(section.querySelectorAll('[data-pick]'));
   picks.forEach((btn) => {
@@ -749,15 +714,6 @@ function initDoors() {
       picks.forEach((b) => b.setAttribute('aria-selected', String(b === btn)));
     });
   });
-
-  select(0);
-  if (REDUCED) {
-    if (fill) fill.style.width = '100%';
-    return;
-  }
-  window.addEventListener('scroll', fromScroll, { passive: true });
-  window.addEventListener('resize', fromScroll);
-  fromScroll();
 }
 
 /* ── before / after compare ─────────────────────────────── */
@@ -1075,27 +1031,26 @@ function initProductGesture() {
 }
 
 function initPageGlow() {
-  const root = document.documentElement;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current = 0;
-  let target = 0;
-  const read = () => {
-    const max = Math.max(1, root.scrollHeight - window.innerHeight);
-    target = Math.min(1, Math.max(0, window.scrollY / max));
+  const shift = document.querySelector('.bg-shift');
+  if (!shift || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let frame = 0;
+  const paint = () => {
+    frame = 0;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const p = Math.min(1, Math.max(0, window.scrollY / max));
+    shift.style.transform = `translate3d(${((p - 0.5) * 18).toFixed(2)}vw, ${((0.5 - p) * 22).toFixed(2)}vh, 0)`;
   };
-  const tick = (time) => {
-    current += (target - current) * (reduced ? 1 : 0.045);
-    const breathe = reduced ? 0 : Math.sin(time / 7800) * 0.035 + Math.sin(time / 13100) * 0.018;
-    root.style.setProperty('--page-p', Math.min(1, Math.max(0, current + breathe)).toFixed(4));
-    if (!reduced) requestAnimationFrame(tick);
+  const onScroll = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(paint);
   };
-  read();
-  window.addEventListener('scroll', read, { passive: true });
-  window.addEventListener('resize', read);
-  requestAnimationFrame(tick);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  paint();
 }
 
 function boot() {
+  initPageGlow();
   document.querySelector(".site-header .brand")?.addEventListener("click", reloadHome);
   initHeroLaura();
   initHeroUnbox();

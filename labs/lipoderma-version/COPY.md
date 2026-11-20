@@ -6,7 +6,7 @@ Live homepage copy for `labs/lipoderma-version`. Edit the words under each headi
 
 How it works
 The fat
-Who it's for
+Patients
 Results
 Providers
 FAQ
@@ -82,9 +82,9 @@ Restore what’s yours.
 
 03 Native architecture — intact adipocytes and the matrix that holds them
 
-Who it's for · Results · FAQ
+Patients · Results · FAQ
 
-## Who it's for
+## Patients
 
 For the *fat* curious.
 
@@ -213,7 +213,7 @@ Preview build: submissions are not sent anywhere.
 Restore what's been lost.
 Not reinvent what's there.
 
-Explore: How it works, The fat, Who it's for, Results, Providers, FAQ, Contact
+Explore: How it works, The fat, Patients, Results, Providers, FAQ, Contact
 
 Britecyte
 Contact
