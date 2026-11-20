@@ -16,14 +16,15 @@
   const root = script.dataset.root || '';
   const page = document.body.dataset.page || 'home';
 
-  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html' };
+  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html' };
   const NAV = [
     { label: 'Meet Lipoderma', to: 'home', hash: 'reframe' },
     { label: 'Patients', to: 'patients' },
-    { label: 'Results', to: 'home', hash: 'results' },
-    { label: 'Providers', to: 'home', hash: 'providers' },
+    { label: 'How it works', to: 'patients', hash: 'structure-detail', nav: false },
+    { label: 'Results', to: 'home', hash: 'results', nav: false },
+    { label: 'Providers', to: 'home', hash: 'providers', nav: false },
     { label: 'Work with us', to: 'work' },
-    { label: 'Safety', to: 'home', hash: 'safety' },
+    { label: 'Safety', to: 'safety' },
     { label: 'FAQ', to: 'home', hash: 'faq' },
     { label: 'Contact', to: 'home', hash: 'contact' },
   ];
@@ -40,7 +41,9 @@
     return hash ? `${file}#${hash}` : file;
   };
   const current = (item) => (!item.hash && item.to === page ? ' aria-current="page" class="is-current"' : '');
-  const links = NAV.map((item) => `<a href="${href(item.to, item.hash)}"${current(item)}>${item.label}</a>`).join('\n');
+  const linkList = (items) => items.map((item) => `<a href="${href(item.to, item.hash)}"${current(item)}>${item.label}</a>`).join('\n');
+  const links = linkList(NAV.filter((item) => item.nav !== false));
+  const footerLinks = linkList(NAV);
   const findProvider = href('home', 'providers');
 
   const HEADER = `
@@ -79,7 +82,7 @@ ${links}
       </div>
       <div class="footer-col">
         <h3>Explore</h3>
-${links}
+${footerLinks}
       </div>
       <div class="footer-col">
         <h3>Britecyte</h3>
