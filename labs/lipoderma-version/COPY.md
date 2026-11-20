@@ -213,7 +213,7 @@ Preview build: submissions are not sent anywhere.
 Restore what's been lost.
 Not reinvent what's there.
 
-Explore: How it works, The fat, Patients, Results, Providers, FAQ, Contact
+Explore: Meet Lipoderma, Patients, Results, Providers, FAQ, Contact
 
 Britecyte
 Contact

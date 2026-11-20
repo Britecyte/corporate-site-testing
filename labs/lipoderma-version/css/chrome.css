@@ -1,0 +1,152 @@
+/* ==========================================================
+   chrome.css — fixes for the shared header, menu, and footer
+   drawn by js/chrome.js, plus the top of every subpage.
+   Loaded last on every page.
+   ========================================================== */
+
+/* The open menu locks scrolling. chrome.js puts the scrollbar's width
+   back as padding, so the page doesn't jump sideways. */
+html.nav-open, body.nav-open { overflow: hidden; }
+html.nav-open body,
+html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
+
+/* Menu sheet: starts under the header, scrolls when the window is short. */
+.mobile-nav {
+  justify-content: flex-start;
+  gap: clamp(1rem, 3svh, 2rem);
+  padding: calc(var(--site-header-h) + clamp(1rem, 4svh, 2.5rem)) var(--gutter) clamp(1.5rem, 5svh, 3rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--max);
+  margin: auto auto 0;
+}
+.mobile-nav .mobile-nav-links a {
+  font-size: clamp(1.6rem, min(7vw, 6.2svh), 2.75rem);
+  line-height: 1.12;
+  padding-block: clamp(0.3rem, 1.1svh, 0.55rem);
+}
+.mobile-nav .mobile-nav-links a[aria-current="page"] { color: var(--accent); }
+.mobile-nav .mobile-nav-cta {
+  align-self: flex-start;
+  width: auto;
+  margin: 0 auto auto max(0px, calc((100% - var(--max)) / 2));
+  padding: 0.95rem 1.5rem;
+  border: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-xs);
+  line-height: 1;
+  color: #002b63;
+}
+.mobile-nav .mobile-nav-cta:hover { color: #002b63; }
+
+/* Current page in the bar and footer. */
+.footer-col a[aria-current="page"] { color: #c45a1a; }
+
+/* Subpages: the first block clears the fixed header. */
+.subpage > section:first-child { padding-top: calc(var(--site-header-h) + clamp(2.5rem, 8svh, 5.5rem)); }
+.subpage-close { text-align: center; }
+.subpage-close .ex-sign { margin-top: 0; }
+.subpage-close-cta { margin-top: clamp(1.25rem, 3svh, 2rem); display: flex; justify-content: center; }
+
+/* ---------- Header bar (was in brief.css and layout.css) ---------- */
+.header-nav { gap: clamp(0.7rem, 1.2vw, 1.35rem); }
+.header-nav a { letter-spacing: 0.12em; font-size: 0.62rem; }
+
+.site-header:not(.is-stuck) {
+  color: #002b63;
+}
+.site-header:not(.is-stuck) .header-nav a {
+  opacity: 1;
+}
+
+/* Portrait is the mobile layout, even when the window is wide. */
+@media (max-aspect-ratio: 1/1) {
+  .header-nav { display: none; }
+  .menu-btn { display: inline-flex; width: 2.5rem; height: 2.5rem; }
+  .header-actions .btn { display: none; }
+  .header-actions { gap: 0.4rem; }
+}
+
+/* ---------- Footer (was in layout.css) ---------- */
+.site-footer { padding-block: 1.25rem 0.9rem; }
+.footer-top {
+  gap: 1rem 1.5rem;
+  padding-bottom: 0.9rem;
+  align-items: center;
+}
+.footer-brand img { width: 168px; }
+.footer-tagline {
+  margin-top: 0;
+  max-width: none;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.3;
+  color: #002b63;
+  text-wrap: pretty;
+}
+.footer-tagline span { display: block; color: #fd893c; }
+.footer-col h3 { margin-bottom: 0.35rem; }
+.footer-col a { padding-block: 0.12rem; }
+.footer-bottom {
+  padding-top: 0.7rem;
+  gap: 0.35rem 1rem;
+  color: #002b63;
+}
+@media (min-width: 56rem) {
+  .footer-top { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.6fr); gap: 2rem; }
+}
+.footer-col:nth-child(2) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto repeat(5, auto);
+  grid-auto-flow: column;
+  column-gap: 1.5rem;
+}
+.footer-col:nth-child(2) h3 { grid-column: 1 / -1; grid-row: 1; }
+
+@media (max-aspect-ratio: 1/1) {
+  /* Footer: the columns were as tall as the page. */
+  .footer-top {
+    gap: 1.1rem 1rem;
+    padding-bottom: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hair-dark);
+  }
+  .footer-brand img { width: 96px; }
+  .footer-tagline { margin-top: 0; font-size: clamp(1.05rem, 3.6vw, 1.35rem); max-width: none; line-height: 1.25; }
+  .footer-col:nth-child(2) {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto repeat(5, auto);
+    grid-auto-flow: column;
+    column-gap: 1rem;
+  }
+  .footer-col:nth-child(2) h3 { grid-column: 1 / -1; grid-row: 1; }
+  .footer-col h3 { font-size: 0.58rem; margin-bottom: 0.3rem; }
+  .footer-col a { display: block; padding-block: 0.1rem; font-size: 0.72rem; line-height: 1.35; }
+  .site-footer { padding-block: 1.1rem 0.9rem; }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    padding-top: 0.7rem;
+    font-size: 0.66rem;
+    line-height: 1.4;
+  }
+}

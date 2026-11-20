@@ -181,24 +181,6 @@ async function boot() {
     if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
   });
 
-  /* ── header + reveal on this page ─────────────────────── */
-  const header = document.getElementById('site-header');
-  if (header) {
-    const onScroll = () => header.classList.toggle('is-stuck', window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
-
-  const toggle = document.querySelector('[data-menu-toggle]');
-  const nav = document.querySelector('[data-mobile-nav]');
-  toggle?.addEventListener('click', () => {
-    const open_ = !nav.classList.contains('is-open');
-    toggle.setAttribute('aria-expanded', String(open_));
-    nav.classList.toggle('is-open', open_);
-    document.body.classList.toggle('nav-open', open_);
-  });
-
   if (REDUCED) document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
 }
 

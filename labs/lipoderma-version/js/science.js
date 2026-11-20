@@ -4,49 +4,6 @@
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function initHeader() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
-  const lightSections = Array.from(document.querySelectorAll('[data-theme="light"]'));
-  let ticking = false;
-
-  const update = () => {
-    ticking = false;
-    header.classList.toggle('is-stuck', window.scrollY > 24);
-    const probe = header.offsetHeight - 2;
-    let overLight = false;
-    for (const s of lightSections) {
-      const r = s.getBoundingClientRect();
-      if (r.top <= probe && r.bottom >= probe) { overLight = true; break; }
-    }
-    header.classList.toggle('is-over-light', overLight);
-  };
-
-  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  update();
-}
-
-function initNav() {
-  const toggle = document.querySelector('[data-menu-toggle]');
-  const nav = document.querySelector('[data-mobile-nav]');
-  if (!toggle || !nav) return;
-
-  const setOpen = (open) => {
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    nav.classList.toggle('is-open', open);
-    document.body.classList.toggle('nav-open', open);
-  };
-
-  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
-  });
-}
-
 function initReveal() {
   const items = document.querySelectorAll('.reveal');
   if (!items.length) return;
@@ -92,8 +49,6 @@ function bindCompare(el) {
 }
 
 function boot() {
-  initHeader();
-  initNav();
   initReveal();
   document.querySelectorAll('[data-compare]').forEach(bindCompare);
 }

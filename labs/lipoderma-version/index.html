@@ -27,8 +27,10 @@
 <link rel="stylesheet" href="css/site.css?v=20261119e" />
 <link rel="stylesheet" href="css/glass.css?v=20261120e" />
 <link rel="stylesheet" href="css/motion.css?v=20261114w" />
-<link rel="stylesheet" href="css/layout.css?v=20261120o" />
-<link rel="stylesheet" href="css/brief.css?v=20261118e" />
+<link rel="stylesheet" href="css/layout.css?v=20261120r" />
+<link rel="stylesheet" href="css/brief.css?v=20261120a" />
+<link rel="stylesheet" href="css/sections.css?v=20261120j" />
+<link rel="stylesheet" href="css/chrome.css?v=20261120b" />
 <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary for assistants" />
 <script type="application/ld+json">
 [
@@ -129,44 +131,11 @@
 ]
 </script>
 </head>
-<body>
+<body data-page="home">
 
 <div class="bg-field" aria-hidden="true"><div class="bg-shift"><i></i><i></i><i></i></div></div>
 
-<header class="site-header" id="site-header">
-  <div class="header-inner">
-    <a class="brand" href="./" aria-label="Lipoderma home">
-      <span class="brand-logo" role="img" aria-label="Lipoderma"></span>
-    </a>
-    <nav class="header-nav" aria-label="Primary">
-      <a href="#structure-detail">How it works</a>
-      <a href="#reframe">The fat</a>
-      <a href="#audience">Patients</a>
-      <a href="#results">Results</a>
-      <a href="#providers">Providers</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="header-actions">
-      <a class="btn" href="#providers">Find a provider</a>
-      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-          <path d="M1 4h16M1 9h16M1 14h16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-</header>
-
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
-  <a href="#structure-detail">How it works</a>
-  <a href="#reframe">The fat</a>
-  <a href="#audience">Patients</a>
-  <a href="#results">Results</a>
-  <a href="#providers">Providers</a>
-  <a href="#faq">FAQ</a>
-  <a href="#contact">Contact</a>
-</nav>
+<script src="js/chrome.js?v=20261120c" data-part="header"></script>
 
 <main id="main">
 
@@ -201,7 +170,7 @@
               <input id="hero-find-q" type="search" name="q" placeholder="City, state, or ZIP" autocomplete="postal-code" />
               <button class="btn" type="submit">Find a provider</button>
             </div>
-            <p class="hero-find-sub"><a href="#audience">Patients</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
+            <p class="hero-find-sub"><a href="patients.html">Patients</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
           </form>
         </div>
       </div>
@@ -210,115 +179,6 @@
   </section>
 
 
-  <section class="structure" id="structure-detail" data-detail data-theme="light" data-cross-section aria-labelledby="structure-title-2">
-    <div class="structure-sticky">
-      <div class="structure-inner">
-
-        <div class="structure-visual">
-        <div class="structure-stage" aria-hidden="true">
-          <svg viewBox="-24 160 660 410" id="cross-section-2" role="presentation">
-            <defs>
-              <linearGradient id="cs-band-2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
-                <stop offset="55%" stop-color="#fd893c" stop-opacity="0.30"/>
-                <stop offset="100%" stop-color="#fd893c" stop-opacity="0.12"/>
-              </linearGradient>
-              <linearGradient id="cs-skin-2" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.35"/>
-                <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.35"/>
-              </linearGradient>
-              <linearGradient id="cs-dermis-2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.22"/>
-                <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.06"/>
-              </linearGradient>
-              <clipPath id="cs-clip-2"><path id="cs-clip-path-2" d=""/></clipPath>
-            </defs>
-
-            <g id="cs-subject-2">
-            <!-- depth guides -->
-            <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.16" fill="none">
-              <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
-              <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
-            </g>
-
-            <!-- skin: dermis under the surface line -->
-            <path id="cs-dermis-path-2" d="" fill="url(#cs-dermis-2)"/>
-            <path id="cs-basement-2" d="" stroke="#f7f2eb" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
-
-            <!-- adipose band -->
-            <path id="cs-band-path-2" d="" fill="url(#cs-band-2)"/>
-
-            <!-- adipocyte cells, clipped to band -->
-            <g clip-path="url(#cs-clip-2)" id="cs-cells-2" stroke="#ffd2ab" stroke-opacity="0.5" fill="#ffcf9f" fill-opacity="0.10"></g>
-
-            <!-- skin surface -->
-            <path id="cs-skin-path-2" d="" stroke="url(#cs-skin-2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <!-- muscle plane -->
-            <path id="cs-muscle-path-2" d="" stroke="#f7f2eb" stroke-opacity="0.55" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
-
-            <!-- host vessels (detail) -->
-            <g id="cs-vessels-2" fill="none" stroke="#e08a7a" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"></g>
-
-            <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.8" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
-            <text id="cs-time-2" data-timeline x="560" y="500" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
-            <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.72">
-              <text id="cs-skin-label-2" x="0" y="220">SKIN</text>
-              <text id="cs-muscle-label-2" x="0" y="446">MUSCLE / FASCIA</text>
-            </g>
-            <path id="cs-cannula-2" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
-            </g>
-
-            <!-- refinement tray: hidden under the face until step 3, when it takes the stage -->
-            <g id="cs-tray-2" opacity="0"></g>
-          </svg>
-        </div>
-          <div class="structure-meter" aria-hidden="true">
-            <span id="cs-step-label-2">01 / 06</span>
-            <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
-            <span id="cs-stage-label-2">Healthy layer</span>
-          </div>
-          <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026.</p>
-        </div>
-
-        <div class="structure-copy">
-          <h2 class="visually-hidden" id="structure-title-2">The layer under everything</h2>
-
-          <div class="structure-step is-active" data-step="0">
-            <h3>There's more to fat than losing it.</h3>
-            <p>Fat plays an important role in giving our faces their natural contours, softness, and fullness.</p>
-          </div>
-
-          <div class="structure-step" data-step="1">
-            <h3>Age and weight loss<br>take that layer first.</h3>
-            <p>As we age and lose facial fat, we can begin to look tired or older than we feel. Over time, whether through aging, weight loss, or other factors, these fat pads can diminish or shift, changing the contours we've come to recognize as our own.</p>
-          </div>
-
-          <div class="structure-step" data-step="2">
-            <h3>Refined, not rebuilt.</h3>
-            <p>Donated fat arrives with blood cells and immune cells that would be rejected. Washing and processing remove them. The fat cells stay intact, so what triggers inflammation stays locked inside them.</p>
-          </div>
-
-          <div class="structure-step" data-step="3">
-            <h3>Placed where it was lost.</h3>
-            <p>Through a cannula, into the layer beneath the skin. The tissue goes in as real structure, cell by cell, exactly where the layer thinned.</p>
-          </div>
-
-          <div class="structure-step" data-step="4">
-            <h3>Volume, right away.</h3>
-            <p>The layer refills behind the cannula, and the skin above has something to rest on again.</p>
-          </div>
-
-          <div class="structure-step" data-step="5">
-            <h3>Then your body takes over.</h3>
-            <p>The body's own cells and new blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- ── Reframe ──────────────────────────────────────────── -->
   <section class="reframe-film" id="reframe" data-theme="light" aria-labelledby="reframe-title">
@@ -328,13 +188,13 @@
       <p>Lipoderma takes a different approach to natural-looking rejuvenation, using human adipose tissue to restore lost fat where it belongs.</p>
       <p>Because sometimes, looking like yourself again isn't about changing something. It's about restoring what was there all along.</p>
       <div id="product">
-        <h2 class="display h2" id="product-title">Restore what’s <span>yours</span>.</h2>
+        <h2 class="display h2" id="product-title">Restore what’s <span>yours</span>.<sup class="tm">™</sup></h2>
         <ul class="fact-list">
           <li><span class="num">01</span><p>Fat for fat, put back where it was lost</p></li>
           <li><span class="num">02</span><p>Ready to use when you are</p></li>
           <li><span class="num">03</span><p>Native architecture — intact adipocytes and the matrix that holds them</p></li>
         </ul>
-        <p class="hero-find-sub"><a href="#audience">Patients</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
+        <p class="hero-find-sub"><a href="patients.html">Patients</a> · <a href="#results">Results</a> · <a href="#faq">FAQ</a></p>
       </div>
     </div>
   </section>
@@ -458,133 +318,6 @@
   </template>
 
 
-  <!-- ── Patients: stacked editorial chapters ── -->
-  <section class="section audience-scroll" id="audience" data-theme="light" aria-label="Patients">
-    <div class="audience-sticky">
-      <div class="wrap audience-frame">
-        <div class="audience-copy">
-          <div class="audience-step audience-step--lead is-active">
-            <h3>Some things are worth holding on to.<span class="door-line">The way you see yourself is one of them.</span></h3>
-            <div class="audience-cols">
-              <p>There's something about looking in the mirror and noticing little changes. Maybe your cheeks aren't quite as full. Maybe your face looks a little more tired than you feel. Nothing dramatic. Just subtle changes that add up over time.</p>
-              <p>And while we spend so much time talking about our skin, sometimes what's changed isn't the skin at all. It's what's beneath it.</p>
-            </div>
-            <ul class="door-points">
-              <li>Facial hollowing after weight loss, especially with GLP-1</li>
-              <li>Under-eyes, temples, and midface</li>
-              <li>Hands that read older than the face</li>
-            </ul>
-            <div class="compare audience-compare" data-compare role="group" aria-label="Before and after, midface">
-              <img class="compare-before" src="img/gallery/midface-cheek-beccio-before.webp" alt="Midface before" width="1000" height="707" />
-              <img class="compare-after" src="img/gallery/midface-cheek-beccio-after.webp" alt="Midface after" width="1000" height="707" />
-              <span class="compare-handle" aria-hidden="true"></span>
-              <span class="compare-tag compare-tag--before">Before</span>
-              <span class="compare-tag compare-tag--after">After</span>
-              <input type="range" min="0" max="100" value="50" step="1" class="visually-hidden" aria-label="Reveal before or after, midface" data-compare-range />
-            </div>
-          </div>
-          <div class="audience-step">
-            <h3>Let's talk about fat.</h3>
-            <div class="audience-cols">
-              <p>Facial fat plays an essential role in giving our faces their natural contours, softness, and fullness. Beneath the skin, fat pads provide structural support, helping maintain the smooth transitions that contribute to a naturally refreshed appearance.</p>
-              <p>Over time, whether through aging, weight loss, or other factors, these fat pads can diminish or shift, changing the contours we've come to recognize as our own.</p>
-            </div>
-          </div>
-          <div class="audience-step audience-step--manifesto">
-            <h3>Meet Lipoderma.</h3>
-            <p class="audience-ask">What if the answer to lost fat was simply... fat?</p>
-            <div class="audience-cols">
-              <p>Lipoderma offers a different approach to natural-looking rejuvenation, using human adipose tissue to help restore lost fat and bring back the natural contours, softness, and fullness that make your face uniquely yours.</p>
-              <p>The little details that make a face familiar. The ones you've seen in the mirror a thousand times and never really thought twice about. Until one day, you do.</p>
-            </div>          </div>
-          <div class="audience-step audience-step--arc">
-            <h3>Fat has a glow-up era, too.</h3>
-            <ol class="audience-timeline" aria-hidden="true">
-              <li><span>Day 1</span>Immediate volume</li>
-              <li><span>Months 1–3</span>Gradual remodeling</li>
-              <li><span>Months 3–6</span>Your own tissue takes over</li>
-            </ol>
-            <div class="audience-cols">
-              <p>Lipoderma provides immediate volume, but the journey doesn't stop there. As the implanted tissue remodels, results continue to evolve over time.</p>
-              <p>Some patients may notice a temporary softening in fullness as the implanted tissue gradually remodels and is replaced by their own tissue. Over time, this natural process contributes to the evolving appearance of the restored area.</p>
-            </div>
-            <p class="audience-foot">Think of the first 3–6 months as your fat's glow-up era. Your results are still evolving, and your provider may recommend a touch-up during this time to help optimize fullness and contours.</p>
-          </div>
-          <div class="audience-step audience-step--compare">
-            <h3>Fat looks good on you.</h3>
-            <p class="audience-sub">Before you fill. Let's talk fat.</p>
-            <div class="audience-table" data-compare-active="1">
-              <table class="brief-table">
-                <thead>
-                  <tr>
-                    <th class="compare-pick-th" scope="col">
-                      <div class="audience-compare-pick" role="tablist" aria-label="Compare Lipoderma with">
-                        <button type="button" role="tab" aria-selected="true" data-pick="1">HA fillers</button>
-                        <button type="button" role="tab" aria-selected="false" data-pick="2">Biostimulators</button>
-                        <button type="button" role="tab" aria-selected="false" data-pick="3">Fat transfer</button>
-                        <button type="button" role="tab" aria-selected="false" data-pick="4">Renuva</button>
-                      </div>
-                    </th>
-                    <th class="compare-lipo-th" scope="col">Lipoderma</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>What's it made of?</th>
-                    <td data-col="HA fillers">Hyaluronic acid gel</td>
-                    <td data-col="Biostimulators">PLLA or calcium hydroxylapatite (CaHA)</td>
-                    <td data-col="Autologous fat transfer">Patient’s own fat, about 90% adipocytes / 10% ECM</td>
-                    <td data-col="Renuva">Donated adipose-derived matrix, 100% ECM</td>
-                    <td data-col="Lipoderma">Donated human adipose tissue, about 90% adipocytes / 10% ECM</td>
-                  </tr>
-                  <tr>
-                    <th>How does it work?</th>
-                    <td data-col="HA fillers">Adds gel-based volume</td>
-                    <td data-col="Biostimulators">Stimulates the body’s natural collagen production over time</td>
-                    <td data-col="Autologous fat transfer">Transfers the patient’s own fat to restore volume</td>
-                    <td data-col="Renuva">Provides a matrix that supports tissue remodeling</td>
-                    <td data-col="Lipoderma">Replaces fat with fat, followed by gradual tissue remodeling and host tissue replacement</td>
-                  </tr>
-                  <tr>
-                    <th>When will I see results?</th>
-                    <td data-col="HA fillers">Immediate</td>
-                    <td data-col="Biostimulators">Gradual, over several weeks to months as collagen production increases</td>
-                    <td data-col="Autologous fat transfer">Immediate volume, with results evolving over several months</td>
-                    <td data-col="Renuva">Gradual, over several months</td>
-                    <td data-col="Lipoderma">Immediate volume, with results evolving over several months</td>
-                  </tr>
-                  <tr>
-                    <th>How long does it last?</th>
-                    <td data-col="HA fillers">Typically 6–18 months</td>
-                    <td data-col="Biostimulators">Typically 12–24 months, depending on product</td>
-                    <td data-col="Autologous fat transfer">Potentially long-lasting, depending on fat survival</td>
-                    <td data-col="Renuva">Up to 12–24 months anticipated</td>
-                    <td data-col="Lipoderma">Up to 12–24 months anticipated; longer-term outcomes still being monitored</td>
-                  </tr>
-                  <tr>
-                    <th>Will I need more than one session?</th>
-                    <td data-col="HA fillers">Maintenance treatments are common</td>
-                    <td data-col="Biostimulators">May require a series or maintenance</td>
-                    <td data-col="Autologous fat transfer">Additional fat transfer may be needed</td>
-                    <td data-col="Renuva">Additional treatment may be recommended</td>
-                    <td data-col="Lipoderma">Reassessment at 3–6 months; touch-up may be recommended</td>
-                  </tr>
-                  <tr>
-                    <th>Does it require liposuction?</th>
-                    <td data-col="HA fillers">No</td>
-                    <td data-col="Biostimulators">No</td>
-                    <td data-col="Autologous fat transfer">Yes</td>
-                    <td data-col="Renuva">No</td>
-                    <td data-col="Lipoderma">No</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ── Results ──────────────────────────────────────────── -->
   <section class="section section--bone" id="results" data-theme="light" aria-labelledby="results-title">
@@ -678,6 +411,125 @@
     </div>
   </section>
 
+
+  <!-- ── Safety & standards ───────────────────────────────── -->
+  <section class="brief-section sf" id="safety" data-theme="light" aria-labelledby="safety-title">
+    <div class="wrap">
+
+      <div class="sf-head">
+        <div class="sf-head-title">
+          <p class="bs-kicker reveal">Safety &amp; standards</p>
+          <h2 class="bs-title reveal" id="safety-title">Good fat. <em>High standards.</em></h2>
+        </div>
+        <div class="sf-head-copy reveal">
+          <p class="bs-lede">Where your fat comes from matters.</p>
+          <p>Lipoderma is made from donated human adipose tissue. And when it comes to human tissue, there's no room for cutting corners.</p>
+          <p>From donor screening and tissue recovery to processing, testing, and distribution, Lipoderma is subject to established standards designed to support tissue quality and safety.</p>
+        </div>
+      </div>
+
+      <ul class="sf-strip reveal">
+        <li><span>AATB</span>Accredited donor screening</li>
+        <li><span>FDA</span>Registered tissue establishments</li>
+        <li><span>361</span>HCT/P regulated</li>
+        <li><span>50</span>States, off the shelf</li>
+      </ul>
+
+      <div class="sf-block">
+        <h3 class="bs-h sf-h reveal"><span>01</span>Let's talk about where the fat comes from.</h3>
+        <div class="sf-sites">
+          <article class="sf-site reveal">
+            <div class="sf-site-head">
+              <div class="ph sf-thumb" role="img" aria-label="Placeholder: LifeLink facility photo"><span>Facility<small>TBD</small></span></div>
+              <h4>LifeLink Tissue Bank <span>Tampa, Florida</span></h4>
+            </div>
+            <div class="sf-site-body">
+              <p>With more than 40 years of experience, LifeLink is the largest nonprofit tissue bank in the Southeast and one of the largest in the United States.</p>
+              <p>As an <strong>AATB-accredited, FDA-registered tissue bank</strong>, LifeLink maintains rigorous standards for donor screening, tissue recovery, processing, and quality assurance. Its comprehensive donor evaluation process includes medical and social history reviews, infectious-disease testing, and oversight by licensed physician medical directors.</p>
+              <p>LifeLink's decades of experience reflect a longstanding commitment to honoring the gift of donation while prioritizing tissue quality and recipient safety.</p>
+              <a class="arrow-link" href="https://lifelinktissuebank.org/health-professionals/certifications/" target="_blank" rel="noopener">View certifications &amp; licenses <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="sf-site reveal">
+            <div class="sf-site-head">
+              <div class="ph sf-thumb" role="img" aria-label="Placeholder: BBG Advanced Therapies facility photo"><span>Facility<small>TBD</small></span></div>
+              <h4>BBG Advanced Therapies <span>Part of BioBridge Global · San Antonio, Texas</span></h4>
+            </div>
+            <div class="sf-site-body">
+              <p>BBG Advanced Therapies is part of the BioBridge Global family of nonprofit organizations, with more than 50 years of collective experience supporting blood, tissue, and advanced therapies.</p>
+              <p>As an FDA-registered tissue establishment, BBGAT brings specialized manufacturing and tissue processing capabilities, experienced scientific personnel, and established quality systems.</p>
+              <p>BBGAT maintains additional certifications and state tissue banking licenses, reflecting its commitment to quality, safety, and regulatory compliance.</p>
+              <a class="arrow-link" href="https://biobridgeglobal.org/certifications/" target="_blank" rel="noopener">View certifications &amp; licenses <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="sf-block">
+        <h3 class="bs-h sf-h reveal"><span>02</span>Let's get that straight.</h3>
+        <div class="sf-verdict reveal">
+          <p class="sf-verdict-yes">FDA<em>-regulated</em></p>
+          <p class="sf-verdict-no"><s>FDA-approved</s><small>Not the same thing</small></p>
+        </div>
+        <div class="sf-fda reveal">
+          <div class="sf-fda-aside">
+            <p class="sf-fda-lede">Are they the same? No. And that's okay!</p>
+            <p class="sf-fda-note">The takeaway: Lipoderma is FDA-regulated, not FDA-approved. That's how qualifying products in this category are regulated.</p>
+          </div>
+          <div class="sf-fda-cols">
+            <p>Lipoderma is regulated by the FDA as a human cell and tissue-based product (HCT/P) under Section 361 of the Public Health Service Act.</p>
+            <p>Unlike drugs and certain medical devices, products that qualify under this category do not require FDA premarket approval. Instead, they must meet specific regulatory criteria and follow FDA requirements for donor screening, tissue processing, storage, labeling, and distribution.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sf-close">
+        <div class="sf-close-copy reveal">
+          <h3 class="bs-h">Safety is always in style.</h3>
+          <p>We take safety seriously. And we believe in being transparent about it.</p>
+          <p>Like any procedure involving implanted human tissue, Lipoderma carries potential risks, including infection, inflammatory reactions, and other complications.</p>
+          <p>Donor screening, infectious-disease testing, and specialized processing are important safeguards, but no human tissue product or implantation procedure is completely without risk.</p>
+          <p>An experienced provider can help determine whether Lipoderma is appropriate and explain what to expect before implantation.</p>
+        </div>
+        <aside class="sf-close-cta reveal">
+          <p class="sf-close-q">Questions?<br>We love a <em>curious mind.</em></p>
+          <p>There's plenty more to know about fat. And we're happy to talk about it.</p>
+          <a class="arrow-link" href="#faq">Explore the Fat Facts <span aria-hidden="true">→</span></a>
+        </aside>
+      </div>
+
+      <div class="sf-block sf-receipts" id="receipts">
+        <h3 class="bs-h sf-h reveal"><span>03</span>The <em>receipts.</em></h3>
+        <ol class="rc-list">
+          <li class="rc-item reveal">
+            <span class="rc-tag">Beccio</span>
+            <p class="rc-title">Citation TBD</p>
+            <p class="rc-meta">Not yet in the brief.</p>
+          </li>
+          <li class="rc-item reveal">
+            <span class="rc-tag">Chernoff 1</span>
+            <p class="rc-title">Systematic review and meta-analysis of banked human adipose allograft</p>
+            <p class="rc-meta">Journal of Surgery · 2026</p>
+            <a class="arrow-link" href="../../britecyte/assets/publications/chernoff-j-surg-2026.pdf" target="_blank" rel="noopener">Read the PDF <span aria-hidden="true">→</span></a>
+          </li>
+          <li class="rc-item reveal">
+            <span class="rc-tag">Danilkovitch</span>
+            <p class="rc-title">Host-mediated volume restoration with human adipose allograft</p>
+            <p class="rc-meta">Danilkovitch, Saunders, Tom · PRS Global Open · 2026</p>
+            <a class="arrow-link" href="../../britecyte/assets/publications/danilkovitch-prs-go-2026.pdf" target="_blank" rel="noopener">Read the PDF <span aria-hidden="true">→</span></a>
+          </li>
+          <li class="rc-item reveal">
+            <span class="rc-tag">Chernoff 2</span>
+            <p class="rc-title">Citation TBD</p>
+            <p class="rc-meta">Not yet in the brief.</p>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+
+
   <!-- ── FAQ: Fat Facts ───────────────────────────────────── -->
   <section class="section section--bone" id="faq" data-theme="light" aria-labelledby="faq-title">
     <div class="wrap">
@@ -686,191 +538,220 @@
           <h2 class="display h2" id="faq-title">
             Let's Get the <span class="serif-italic">Fat Facts.</span>
           </h2>
+          <p class="faq-kicker">Big questions. Real answers. No beating around the F word.</p>
+          <p class="faq-intro">Fat deserves better PR. And we're here to set the record straight. From what Lipoderma actually is to where the fat comes from and what to expect, we've got answers to the questions worth asking.</p>
 
         </div>
 
         <div class="faq-list">
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Lipoderma. What's all the fat fuss about? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Lipoderma is a human adipose tissue allograft designed to help restore lost fat in areas where it naturally exists. Think fat replacing fat, helping bring back the softness, fullness, and contours that can change with age or weight loss.</p>
-              </div></div>
+          <div class="faq-group">
+            <div class="faq-group-head">
+              <span class="faq-group-num">01</span>
+              <h3>Let's talk fat.</h3>
+              <p>Turns out, there's more to fat than losing it.</p>
             </div>
 
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Wait, fat is actually a good thing? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Turns out, fat deserves a little more credit.</p>
-                <p>The fat beneath your skin plays a key structural role, providing the support, softness, and fullness that contribute to a youthful appearance. And while collagen helps maintain skin firmness and elasticity, it can't replace the volume and structural support that fat provides.</p>
-                <p>As we age or lose weight, those fat pads can diminish, contributing to hollowing, sagging, and changes in facial contours.</p>
-              </div></div>
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Lipoderma. What's all the fat fuss about? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Lipoderma is a human adipose tissue allograft designed to help restore lost fat in areas where it naturally exists. Think fat replacing fat, helping bring back the softness, fullness, and contours that can change with age or weight loss.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Wait, fat is actually a good thing? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Turns out, fat deserves a little more credit.</p>
+                  <p>The fat beneath your skin plays a key structural role, providing the support, softness, and fullness that contribute to a youthful appearance. And while collagen helps maintain skin firmness and elasticity, it can't replace the volume and structural support that fat provides.</p>
+                  <p>As we age or lose weight, those fat pads can diminish, contributing to hollowing, sagging, and changes in facial contours.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Before you fill, let's talk fat. How is Lipoderma different from fillers? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Traditional dermal fillers, such as hyaluronic acid fillers, use gel-based materials to add volume. Lipoderma also restores volume, but takes a different approach by using real human adipose (fat) tissue to replace fat where it's been lost.</p>
+                  <p>It's fat replacing fat, a like-for-like approach that restores the natural softness, fullness, and structural support of adipose tissue beneath the skin. Over time, the implanted tissue gradually remodels as your body replaces it with its own tissue, supporting natural-looking rejuvenation.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Lost the weight. Miss the fat? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>You worked hard for your weight loss. That doesn't mean you have to love every change that comes with it.</p>
+                  <p>Weight loss, including weight loss associated with GLP-1 medications, can reduce facial fat and change your natural contours. Lipoderma may be an option for restoring fullness in those areas.</p>
+                  <p>Your provider can help create a personalized restoration plan that fits your weight loss journey and evolves with your results.</p>
+                </div></div>
+              </div>
+          </div>
+          <div class="faq-group">
+            <div class="faq-group-head">
+              <span class="faq-group-num">02</span>
+              <h3>Fat needs a glow-up era, too.</h3>
+              <p>Every glow-up has a story. This one starts with a change you can see and evolves with you.</p>
             </div>
 
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Before you fill, let's talk fat. How is Lipoderma different from fillers? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Traditional dermal fillers, such as hyaluronic acid fillers, use gel-based materials to add volume. Lipoderma also restores volume, but takes a different approach by using real human adipose (fat) tissue to replace fat where it's been lost.</p>
-                <p>It's fat replacing fat, a like-for-like approach that restores the natural softness, fullness, and structural support of adipose tissue beneath the skin. Over time, the implanted tissue gradually remodels as your body replaces it with its own tissue, supporting natural-looking rejuvenation.</p>
-              </div></div>
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  When does my glow-up begin? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>You'll notice a change right after implantation, but that's just the beginning.</p>
+                  <p>Over the following months, your body gradually remodels the implanted tissue, replacing it with your own tissue. This process takes time, and your results will continue to evolve along the way.</p>
+                  <p>And the glow-up doesn't stop there. By restoring the underlying fat layer, Lipoderma helps reestablish the structural support that contributes to natural facial contours, a smoother-looking appearance, and healthy-looking skin.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Will my fat pull a disappearing act? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Maybe a little, but don't worry! It's all part of the process.</p>
+                  <p>As your body gradually breaks down the implanted tissue to make way for your own tissue, you may notice a temporary decrease in fullness. Not everyone experiences this phase, and the degree of change can vary.</p>
+                  <p>Think of it as part of your body's natural remodeling process, as the implanted tissue makes way for tissue of your own.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Will I need a touch-up? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Sometimes a little more fat is part of the plan.</p>
+                  <p>Because your results continue to evolve during the remodeling process, we recommend checking in with your provider around 3–6 months to assess your progress and determine whether additional volume could help achieve your desired results.</p>
+                  <p>Not everyone will need a touch-up. It's all about creating a personalized restoration plan that evolves with you.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  How long does Lipoderma last? Longer than my last situationship? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>We certainly hope so!</p>
+                  <p>We expect results to last at least 12 months, with longer-term outcomes still being monitored. Because Lipoderma undergoes a gradual remodeling process, results can vary from person to person.</p>
+                  <p>And whatever you do, don't go looking for a rebound in the first few months! Your body is busy doing its thing, and your results are still evolving. Patience looks good on you.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  What's the downtime? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Good news! Life doesn't have to go on pause.</p>
+                  <p>Most patients can get back to their everyday routines pretty quickly. Some temporary swelling, bruising, or tenderness may occur, but downtime is generally minimal.</p>
+                  <p>Your provider will walk you through what to expect and any short-term precautions, so you can get back to doing your thing.</p>
+                </div></div>
+              </div>
+          </div>
+          <div class="faq-group">
+            <div class="faq-group-head">
+              <span class="faq-group-num">03</span>
+              <h3>Whose fat? Glad you asked.</h3>
+              <p>Let's talk about where the fat comes from, what makes it different, and why that matters.</p>
             </div>
 
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Lost the weight. Miss the fat? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>You worked hard for your weight loss. That doesn't mean you have to love every change that comes with it.</p>
-                <p>Weight loss, including weight loss associated with GLP-1 medications, can reduce facial fat and change your natural contours. Lipoderma may be an option for restoring fullness in those areas.</p>
-                <p>Your provider can help create a personalized restoration plan that fits your weight loss journey and evolves with your results.</p>
-              </div></div>
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Wait, whose fat are we talking about? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Not yours. And that's part of the beauty of it.</p>
+                  <p>Lipoderma is made from donated human adipose (fat) tissue. The medical term is <em>allograft</em>, which simply means tissue donated by one person for use in another.</p>
+                  <p>And when it comes to donated tissue, safety is a top priority. All donor screening, eligibility determination, and infectious-disease testing are performed in accordance with applicable FDA regulations and tissue banking standards. The tissue then undergoes specialized processing before being made available for implantation.</p>
+                  <p>All the benefits of a fat-based approach, without having to harvest fat from your own body.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  But like… doesn't that give you the ick? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>We get it. Donated fat might sound a little unusual at first. But hear us out.</p>
+                  <p>If you needed a heart, liver, or even a bone graft, would you think twice about accepting donated human tissue? Fat deserves the same consideration.</p>
+                  <p>And here's a fun fat fact: Adipose tissue is one of the body's largest endocrine organs, playing an important role in hormone signaling, energy storage, and much more. It also provides the structural support that helps maintain youthful-looking contours.</p>
+                  <p>Turns out, fat is pretty incredible. Maybe it's time we gave it a little more credit.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  What makes this fat so special? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Mother Nature knew what she was doing. And who are we to argue?</p>
+                  <p>Lipoderma undergoes Britecyte's proprietary processing method, designed to remove components associated with an immune response while preserving the tissue's native architecture.</p>
+                  <p>That means retaining both the fat cells (adipocytes) and the supportive framework surrounding them, known as the extracellular matrix.</p>
+                  <p>Lipoderma is the only off-the-shelf human adipose allograft designed to preserve this complete native architecture, closely resembling the structure of natural fat.</p>
+                  <p>Because Mother Nature designed fat that way for a reason.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Okay, but is donated fat safe? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>We're glad you asked. Safety is kind of a big deal.</p>
+                  <p>Lipoderma is made from donated human tissue that undergoes donor screening, infectious-disease testing, and specialized processing in accordance with applicable FDA regulations and tissue banking standards. The tissue is processed through FDA-registered tissue establishments.</p>
+                  <p>As with any procedure involving implanted human tissue, there are potential risks, including infection, inflammatory reactions, and other complications. Your provider will review these risks with you and help determine whether Lipoderma is appropriate for you.</p>
+                </div></div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Is Lipoderma FDA-approved? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Let's get the terminology right!</p>
+                  <p>Lipoderma is <strong>FDA-regulated</strong>, not FDA-approved. And that's okay! Here's why.</p>
+                  <p>Lipoderma falls under a category of human tissue products (HCT/Ps) that, when they meet specific FDA criteria, do not require premarket approval like drugs or certain medical devices.</p>
+                  <p>Instead, these products must comply with FDA regulations covering donor screening, tissue processing, safety, and handling, and are processed through FDA-registered tissue establishments.</p>
+                  <p>So let's give credit where it's due. FDA-regulated is the correct term, not FDA-approved.</p>
+                </div></div>
+              </div>
+          </div>
+          <div class="faq-group">
+            <div class="faq-group-head">
+              <span class="faq-group-num">04</span>
+              <h3>Ready to give fat a chance?</h3>
+              <p>Curious? Here's what to know before taking the next step.</p>
             </div>
 
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                When does my glow-up begin? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>You'll notice a change right after implantation, but that's just the beginning.</p>
-                <p>Over the following months, your body gradually remodels the implanted tissue, replacing it with your own tissue. This process takes time, and your results will continue to evolve along the way.</p>
-                <p>And the glow-up doesn't stop there. By restoring the underlying fat layer, Lipoderma helps reestablish the structural support that contributes to natural facial contours, a smoother-looking appearance, and healthy-looking skin.</p>
-              </div></div>
-            </div>
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  Can I dissolve Lipoderma if I change my mind? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Not quite. This isn't your typical filler.</p>
+                  <p>Unlike hyaluronic acid fillers, which can often be dissolved using an enzyme called hyaluronidase, Lipoderma is made from human adipose tissue and cannot be dissolved in the same way.</p>
+                  <p>But that's not unusual! Other aesthetic products, like collagen biostimulators, can't simply be dissolved either.</p>
+                  <p>That's why choosing an experienced provider is so important. Proper patient selection, placement, and technique all matter. Be sure to discuss your goals, expectations, and potential options for managing an unwanted result before implantation.</p>
+                </div></div>
+              </div>
 
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Will my fat pull a disappearing act? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Maybe a little, but don't worry! It's all part of the process.</p>
-                <p>As your body gradually breaks down the implanted tissue to make way for your own tissue, you may notice a temporary decrease in fullness. Not everyone experiences this phase, and the degree of change can vary.</p>
-                <p>Think of it as part of your body's natural remodeling process, as the implanted tissue makes way for tissue of your own.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Will I need a touch-up? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Sometimes a little more fat is part of the plan.</p>
-                <p>Because your results continue to evolve during the remodeling process, we recommend checking in with your provider around 3–6 months to assess your progress and determine whether additional volume could help achieve your desired results.</p>
-                <p>Not everyone will need a touch-up. It's all about creating a personalized restoration plan that evolves with you.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                How long does Lipoderma last? Longer than my last situationship? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>We certainly hope so!</p>
-                <p>We expect results to last at least 12 months, with longer-term outcomes still being monitored. Because Lipoderma undergoes a gradual remodeling process, results can vary from person to person.</p>
-                <p>And whatever you do, don't go looking for a rebound in the first few months! Your body is busy doing its thing, and your results are still evolving. Patience looks good on you.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                What's the downtime? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Good news! Life doesn't have to go on pause.</p>
-                <p>Most patients can get back to their everyday routines pretty quickly. Some temporary swelling, bruising, or tenderness may occur, but downtime is generally minimal.</p>
-                <p>Your provider will walk you through what to expect and any short-term precautions, so you can get back to doing your thing.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Wait, whose fat are we talking about? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Not yours. And that's part of the beauty of it.</p>
-                <p>Lipoderma is made from donated human adipose (fat) tissue. The medical term is <em>allograft</em>, which simply means tissue donated by one person for use in another.</p>
-                <p>And when it comes to donated tissue, safety is a top priority. All donor screening, eligibility determination, and infectious-disease testing are performed in accordance with applicable FDA regulations and tissue banking standards. The tissue then undergoes specialized processing before being made available for implantation.</p>
-                <p>All the benefits of a fat-based approach, without having to harvest fat from your own body.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                But like… doesn't that give you the ick? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>We get it. Donated fat might sound a little unusual at first. But hear us out.</p>
-                <p>If you needed a heart, liver, or even a bone graft, would you think twice about accepting donated human tissue? Fat deserves the same consideration.</p>
-                <p>And here's a fun fat fact: Adipose tissue is one of the body's largest endocrine organs, playing an important role in hormone signaling, energy storage, and much more. It also provides the structural support that helps maintain youthful-looking contours.</p>
-                <p>Turns out, fat is pretty incredible. Maybe it's time we gave it a little more credit.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                What makes this fat so special? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Mother Nature knew what she was doing. And who are we to argue?</p>
-                <p>Lipoderma undergoes Britecyte's proprietary processing method, designed to remove components associated with an immune response while preserving the tissue's native architecture.</p>
-                <p>That means retaining both the fat cells (adipocytes) and the supportive framework surrounding them, known as the extracellular matrix.</p>
-                <p>Lipoderma is the only off-the-shelf human adipose allograft designed to preserve this complete native architecture, closely resembling the structure of natural fat.</p>
-                <p>Because Mother Nature designed fat that way for a reason.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Okay, but is donated fat safe? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>We're glad you asked. Safety is kind of a big deal.</p>
-                <p>Lipoderma is made from donated human tissue that undergoes donor screening, infectious-disease testing, and specialized processing in accordance with applicable FDA regulations and tissue banking standards. The tissue is processed through FDA-registered tissue establishments.</p>
-                <p>As with any procedure involving implanted human tissue, there are potential risks, including infection, inflammatory reactions, and other complications. Your provider will review these risks with you and help determine whether Lipoderma is appropriate for you.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Is Lipoderma FDA-approved? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Let's get the terminology right!</p>
-                <p>Lipoderma is <strong>FDA-regulated</strong>, not FDA-approved. And that's okay! Here's why.</p>
-                <p>Lipoderma falls under a category of human tissue products (HCT/Ps) that, when they meet specific FDA criteria, do not require premarket approval like drugs or certain medical devices.</p>
-                <p>Instead, these products must comply with FDA regulations covering donor screening, tissue processing, safety, and handling, and are processed through FDA-registered tissue establishments.</p>
-                <p>So let's give credit where it's due. FDA-regulated is the correct term, not FDA-approved.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                Can I dissolve Lipoderma if I change my mind? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Not quite. This isn't your typical filler.</p>
-                <p>Unlike hyaluronic acid fillers, which can often be dissolved using an enzyme called hyaluronidase, Lipoderma is made from human adipose tissue and cannot be dissolved in the same way.</p>
-                <p>But that's not unusual! Other aesthetic products, like collagen biostimulators, can't simply be dissolved either.</p>
-                <p>That's why choosing an experienced provider is so important. Proper patient selection, placement, and technique all matter. Be sure to discuss your goals, expectations, and potential options for managing an unwanted result before implantation.</p>
-              </div></div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-q" aria-expanded="false">
-                What's the price of a little more fat? <i aria-hidden="true"></i>
-              </button>
-              <div class="faq-a"><div>
-                <p>Every face is different. So is every restoration plan.</p>
-                <p>The cost of Lipoderma depends on the amount needed, the areas being addressed, and your provider's fees. Lipoderma is an elective, self-pay aesthetic procedure.</p>
-                <p>Your provider can walk you through pricing, the recommended amount, and any potential future touch-ups during your consultation.</p>
-              </div></div>
-            </div>
-
+              <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                  What's the price of a little more fat? <i aria-hidden="true"></i>
+                </button>
+                <div class="faq-a"><div>
+                  <p>Every face is different. So is every restoration plan.</p>
+                  <p>The cost of Lipoderma depends on the amount needed, the areas being addressed, and your provider's fees. Lipoderma is an elective, self-pay aesthetic procedure.</p>
+                  <p>Your provider can walk you through pricing, the recommended amount, and any potential future touch-ups during your consultation.</p>
+                </div></div>
+              </div>
+          </div>
         </div>
       </div>
       <p class="hero-find-sub faq-foot">Fat looks good on you. · <a href="#providers">Find a provider</a></p>
@@ -888,11 +769,20 @@
           Join The F** Club.<br>
           <span class="serif-italic" style="color:var(--accent)">Membership has its perks.</span>
         </h2>
-        <p class="reveal">Email and location, for patients. This lab does not send or store it. Providers who want the product in the practice start on their own page.</p>
-        <div class="closing-actions reveal">
-          <a class="btn" href="#contact">Join the club</a>
-          <a class="btn btn--ghost" href="#providers">Find a provider</a>
-        </div>
+        <form class="club-form reveal" data-club-form novalidate>
+          <input type="hidden" name="utm_campaign" data-utm-field="utm_campaign" />
+          <input type="hidden" name="utm_source" data-utm-field="utm_source" />
+          <input type="hidden" name="utm_medium" data-utm-field="utm_medium" />
+          <div class="club-form-row">
+            <label class="visually-hidden" for="club-email">Email</label>
+            <input id="club-email" type="email" name="email" required placeholder="Email" autocomplete="email" />
+            <label class="visually-hidden" for="club-zip">City, state, or ZIP</label>
+            <input id="club-zip" type="text" name="location" required placeholder="City, state, or ZIP" autocomplete="postal-code" />
+            <button class="btn" type="submit">Join the club</button>
+          </div>
+          <p class="club-form-note">For patients. Preview build: nothing is sent or stored.</p>
+          <p class="club-form-ok" data-club-ok role="status" hidden>You're in. Welcome to the club.</p>
+        </form>
         <address class="contact-address reveal">
           <strong>Britecyte, Inc.</strong><br />
           <span class="addr-place">Frederick, MD</span><br />
@@ -949,59 +839,9 @@
 </main>
 
 
-<!-- ── Footer ───────────────────────────────────────────────── -->
-<footer class="site-footer" data-theme="light">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <img src="img/logos/lipoderma-logo.svg" width="124" height="30" alt="Lipoderma" />
-        <p class="footer-tagline">Restore what's been lost.<br><span>Not reinvent what's there.</span></p>
-      </div>
-      <div class="footer-col">
-        <h3>Explore</h3>
-        <a href="#structure-detail">How it works</a>
-        <a href="#reframe">The fat</a>
-        <a href="#audience">Patients</a>
-        <a href="#results">Results</a>
-        <a href="#providers">Providers</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h3>Britecyte</h3>
-        <a href="https://britecyte.com" target="_blank" rel="noopener">Britecyte</a>
-        <a href="mailto:brighterlives@britecyte.com">Contact</a>
-        <a href="https://www.instagram.com/restorewithlipoderma/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.youtube.com/@lipoderma" target="_blank" rel="noopener">YouTube</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Britecyte, Inc. All rights reserved.</span>
-      <span>Lipoderma® is a registered trademark of Britecyte, Inc. · Frederick, MD</span>
-    </div>
-  </div>
-</footer>
+<script src="js/chrome.js?v=20261120c" data-part="footer"></script>
 
-<script type="module" src="js/main.js?v=20261120i"></script>
-<script>
-  const product = document.getElementById('product');
-  document.querySelectorAll('[data-layout-pick]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      product.dataset.layout = btn.dataset.layoutPick;
-      document.querySelectorAll('[data-layout-pick]').forEach((b) => {
-        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
-      });
-    });
-  });
-</script>
-<script>
-  const fat = document.querySelector('[data-fat-reveal]');
-  if (fat) {
-    const show = () => fat.classList.add('is-in');
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) show();
-    else setTimeout(show, 900);
-  }
-</script>
+<script type="module" src="js/main.js?v=20261120k"></script>
 <script type="module" src="js/motion.js?v=20261118e"></script>
 </body>
 </html>

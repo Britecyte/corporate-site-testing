@@ -61,15 +61,6 @@
 #contact address { color: #f6f1ea; }
 #contact address a { color: #fd893c; }
 
-.header-nav { gap: clamp(0.7rem, 1.2vw, 1.35rem); }
-.header-nav a { letter-spacing: 0.12em; font-size: 0.62rem; }
-
-.site-header:not(.is-stuck) {
-  color: #002b63;
-}
-.site-header:not(.is-stuck) .header-nav a {
-  opacity: 1;
-}
 
 .brief-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; font-size: 0.9rem; }
 .brief-table th, .brief-table td { border: 1px solid rgba(20, 17, 15, 0.16); padding: 0.7rem 0.8rem; text-align: left; }

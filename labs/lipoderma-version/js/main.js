@@ -5,196 +5,88 @@
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── header state + theme inversion ─────────────────────── */
-function initHeader() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
-
-  const lightSections = Array.from(document.querySelectorAll('[data-theme="light"]'));
-  let ticking = false;
-
-  const update = () => {
-    ticking = false;
-    const headerH = header.offsetHeight;
-
-    header.classList.toggle('is-stuck', window.scrollY > 24);
-
-    // Which section sits beneath the header band?
-    const probe = headerH - 2;
-    let overLight = false;
-    for (const section of lightSections) {
-      const r = section.getBoundingClientRect();
-      if (r.top <= probe && r.bottom >= probe) { overLight = true; break; }
-    }
-    header.classList.toggle('is-over-light', overLight);
-  };
-
-  const onScroll = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  update();
-}
-
-/* ── mobile nav ─────────────────────────────────────────── */
-function initMobileNav() {
-  const toggle = document.querySelector('[data-menu-toggle]');
-  const nav = document.querySelector('[data-mobile-nav]');
-  if (!toggle || !nav) return;
-
-  const setOpen = (open) => {
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    nav.classList.toggle('is-open', open);
-    document.body.classList.toggle('nav-open', open);
-  };
-
-  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
-  });
-
-  const wide = window.matchMedia('(min-aspect-ratio: 1/1)');
-  const headerInner = document.querySelector('.header-inner');
-  const bar = document.querySelector('.header-nav');
-  const brand = document.querySelector('.brand');
-  const actions = document.querySelector('.header-actions');
-
-  let lastWidth = -1;
-  const navFits = (force) => {
-    const root = document.documentElement;
-    if (!wide.matches || !headerInner || !bar || !brand || !actions) {
-      root.classList.remove('is-nav-collapsed');
-      lastWidth = -1;
-      return;
-    }
-    const w = headerInner.clientWidth;
-    if (force !== true && w === lastWidth) return;
-    lastWidth = w;
-    const was = root.classList.contains('is-nav-collapsed');
-    root.classList.remove('is-nav-collapsed');
-    const cs = getComputedStyle(headerInner);
-    const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
-    const gap = parseFloat(cs.columnGap) || 0;
-    const navGap = parseFloat(getComputedStyle(bar).columnGap) || 0;
-    const links = Array.from(bar.querySelectorAll(':scope > a'));
-    const need = links.reduce((sum, link) => sum + link.getBoundingClientRect().width, 0)
-      + navGap * Math.max(0, links.length - 1);
-    const available = w - padX
-      - brand.getBoundingClientRect().width
-      - actions.getBoundingClientRect().width
-      - gap * 2;
-    root.classList.toggle('is-nav-collapsed', need > available + 1);
-    if (was && !root.classList.contains('is-nav-collapsed')) setOpen(false);
-  };
-
-  if (headerInner && typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(() => navFits(false)).observe(headerInner);
-  }
-  wide.addEventListener('change', () => navFits(true));
-  window.addEventListener('resize', () => navFits(false));
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => navFits(true));
-  }
-  navFits(true);
-}
-
-/* ── reveal on scroll ───────────────────────────────────── */
+/* ── reveal on scroll ───────────────────────────────────
+   One observer for the whole page. Blocks fade in once, when any
+   part of them crosses into the reading area (window minus the
+   bottom 12%). Mark blocks with .reveal in the markup, or let the
+   list below tag shared components. */
 const REVEAL_SELECTORS = [
-  '.section-head > *', '.label', '.display', '.lede', '.body-copy', '.reframe-copy p',
-  '.reframe-aside', '.product-figure', '.fact-list li', '.note', '.door-list .door',
-  '.door-panels', '.compare-layout > *', '.result-view', '.providers-head > *', '.provider-shell',
-  '.faq-layout > *', '.footer-top > *', '.footer-bottom',
-  '.page-head .wrap > *', '.hero-eyebrow', '.hero-title', '.hero-lede', '.hero-actions',
-  '.hero-visual', '.hero-foot', '.hero-find', '.contact-intro', '.contact-card',
+  '.section-head > *', '.result-view', '.providers-head > *', '.provider-shell',
+  '.faq-rail', '.faq-group', '.footer-top > *', '.footer-bottom',
+  '.page-head .wrap > *', '.contact-intro', '.contact-card',
 ];
+const REVEAL_STEP = 90;
+const REVEAL_MAX_STEPS = 4;
 
 function tagReveals() {
-  document.querySelectorAll(REVEAL_SELECTORS.join(',')).forEach(el => {
-    if (el.closest('.fact-list')) return;
-    if (el.classList.contains('brief-fat')) return;
-    if (el.closest('.structure')) return;
-    if (el.closest('#audience')) return;
-    if (el.classList.contains('reveal') || el.closest('.reveal')) return;
-    if (el.querySelector('.reveal')) return;
+  document.querySelectorAll(REVEAL_SELECTORS.join(',')).forEach((el) => {
+    if (el.closest('.hero, template')) return;
+    if (el.classList.contains('reveal') || el.closest('.reveal') || el.querySelector('.reveal')) return;
     el.classList.add('reveal');
   });
-  document.querySelectorAll('.structure .structure-visual, .structure .structure-copy').forEach(el => {
+  document.querySelectorAll('.structure:not(.pt-how) .structure-visual, .structure:not(.pt-how) .structure-copy').forEach((el) => {
     el.classList.add('reveal');
   });
 }
 
-function initSectionReveal(section) {
-  const items = [...section.querySelectorAll('.reveal')];
-  if (!items.length) return;
-
-  const show = (el, i = 0) => {
-    el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`;
-    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-visible')));
-  };
-
-  if (REDUCED || !('IntersectionObserver' in window)) {
-    items.forEach(show);
-    return;
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    const visible = entries.filter((entry) => entry.isIntersecting);
-    visible.forEach((entry, i) => {
-      show(entry.target, i);
-      io.unobserve(entry.target);
-    });
-  }, { threshold: 0.35, rootMargin: '0px 0px -8% 0px' });
-
-  let armed = section.id !== 'reframe';
-  // Reveal once the block has entered the reading area. The page end stays generous
-  // so the footer legal line still appears. Reframe waits until the film is on screen.
-  const catchUp = () => {
-    if (!armed) return;
-    const pageEnd = document.documentElement.scrollHeight;
-    items.forEach((el, i) => {
-      if (el.classList.contains('is-visible')) return;
-      const r = el.getBoundingClientRect();
-      if (!r.height || r.bottom <= 0) return;
-      const atEnd = r.bottom + window.scrollY > pageEnd - window.innerHeight * 0.4;
-      const line = atEnd ? 0.98 : 0.72;
-      if (r.top < window.innerHeight * line) show(el, i);
-    });
-  };
-  const arm = () => {
-    if (section.id === 'reframe' && section.getBoundingClientRect().top > window.innerHeight * 0.45) return;
-    armed = true;
-    items.forEach((el) => {
-      if (!el.classList.contains('is-visible')) io.observe(el);
-    });
-    if (section.id === 'reframe') window.removeEventListener('scroll', arm);
-    catchUp();
-  };
-  arm();
-  if (section.id === 'reframe') window.addEventListener('scroll', arm, { passive: true });
-  window.addEventListener('scroll', catchUp, { passive: true });
-  catchUp();
+function showReveal(el, step = 0) {
+  if (el.classList.contains('is-visible')) return;
+  el.style.transitionDelay = `${Math.min(step, REVEAL_MAX_STEPS) * REVEAL_STEP}ms`;
+  el.classList.add('is-visible');
+  // Drop the stagger once it has played, so later hover transitions aren't delayed.
+  el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
 }
 
 function initReveal() {
   tagReveals();
-  const heroBits = [...document.querySelectorAll('.hero .reveal')];
-  const fatWord = document.querySelector('.hero .brief-fat');
-  heroBits.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i, 4) * 90}ms`; });
-  if (fatWord) fatWord.style.transitionDelay = `${Math.min(heroBits.length, 4) * 90 + 900}ms`;
+
+  const hero = document.querySelector('.hero');
+  const heroBits = hero ? [...hero.querySelectorAll('.reveal')] : [];
+  const fatWord = hero?.querySelector('[data-fat-reveal]');
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    heroBits.forEach((el) => el.classList.add('is-visible'));
-    fatWord?.classList.add('is-in');
+    heroBits.forEach((el, i) => showReveal(el, i));
+    if (fatWord) {
+      fatWord.style.transitionDelay = REDUCED ? '0ms' : `${Math.min(heroBits.length, REVEAL_MAX_STEPS) * REVEAL_STEP + 900}ms`;
+      fatWord.classList.add('is-in');
+    }
   }));
-  document.querySelectorAll('section, footer').forEach((section) => {
-    if (section.classList.contains('hero')) return;
-    initSectionReveal(section);
-  });
+
+  const items = [...document.querySelectorAll('.reveal')].filter((el) => !el.closest('.hero'));
+  if (REDUCED || !('IntersectionObserver' in window)) {
+    items.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const pending = new Set(items);
+  const io = new IntersectionObserver((entries) => {
+    // Stagger only what enters together, in document order.
+    entries
+      .filter((entry) => entry.isIntersecting)
+      .map((entry) => entry.target)
+      .sort((x, y) => (x.compareDocumentPosition(y) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+      .forEach((el, i) => {
+        showReveal(el, i);
+        io.unobserve(el);
+        pending.delete(el);
+      });
+  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+  items.forEach((el) => io.observe(el));
+
+  // The last lines of the page may never reach the reading area. Show them at the bottom.
+  const atEnd = () => {
+    if (!pending.size) { window.removeEventListener('scroll', atEnd); return; }
+    const end = document.documentElement.scrollHeight - 4;
+    if (window.scrollY + window.innerHeight < end) return;
+    [...pending].forEach((el, i) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) {
+        showReveal(el, i);
+        io.unobserve(el);
+        pending.delete(el);
+      }
+    });
+  };
+  window.addEventListener('scroll', atEnd, { passive: true });
+  atEnd();
 }
 
 /* ── anatomy cross-section ──────────────────────────────────
@@ -881,6 +773,13 @@ function initContactForm() {
   if (!form) return;
   const ok = form.querySelector('[data-form-success]');
   const bad = form.querySelector('[data-form-error]');
+  const askedSubject = new URLSearchParams(window.location.search).get('subject');
+  if (askedSubject && form.elements.subject) form.elements.subject.value = askedSubject;
+  document.querySelectorAll('a[data-subject]').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (form.elements.subject) form.elements.subject.value = link.dataset.subject;
+    });
+  });
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     ok.hidden = bad.hidden = true;
@@ -947,17 +846,6 @@ function initFacts() {
 }
 
 /* ── boot ───────────────────────────────────────────────── */
-function reloadHome(event) {
-  const link = event.currentTarget;
-  if (!(link instanceof HTMLAnchorElement)) return;
-  event.preventDefault();
-  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  const dest = new URL(link.href);
-  dest.hash = "";
-  dest.search = "reset=1";
-  window.location.replace(dest.pathname + dest.search);
-}
-
 function loopUntil(video, end) {
   if (!(video instanceof HTMLVideoElement)) return;
   const rewind = () => {
@@ -1051,13 +939,10 @@ function initPageGlow() {
 
 function boot() {
   initPageGlow();
-  document.querySelector(".site-header .brand")?.addEventListener("click", reloadHome);
   initHeroLaura();
   initHeroUnbox();
   initProductGesture();
   loopUntil(document.querySelector('.reframe-unbox'), 46);
-  initHeader();
-  initMobileNav();
   initReveal();
   document.querySelectorAll('[data-cross-section]').forEach((s) => initCrossSection(s, s.hasAttribute('data-detail')));
   initDoors();

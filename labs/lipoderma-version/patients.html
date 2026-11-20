@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For the fat curious — Lipoderma</title>
+<meta name="description" content="Fat plays an important role in giving our faces their natural contours. Lipoderma uses human adipose tissue to restore lost fat where it belongs." />
+<meta name="theme-color" content="#8fb0ee" />
+<link rel="preload" as="font" type="font/woff" href="fonts/BodoniFLF-Roman.woff" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="fonts/fba5a26ea33df6a3-s.p.18rizl4rsrl42.woff2" crossorigin />
+<link rel="icon" href="img/logos/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="css/site.css?v=20261119e" />
+<link rel="stylesheet" href="css/glass.css?v=20261120e" />
+<link rel="stylesheet" href="css/motion.css?v=20261114w" />
+<link rel="stylesheet" href="css/layout.css?v=20261120r" />
+<link rel="stylesheet" href="css/brief.css?v=20261120a" />
+<link rel="stylesheet" href="css/sections.css?v=20261120g" />
+<link rel="stylesheet" href="css/chrome.css?v=20261120b" />
+</head>
+<body data-page="patients">
+
+<div class="bg-field" aria-hidden="true"><div class="bg-shift"><i></i><i></i><i></i></div></div>
+
+<script src="js/chrome.js?v=20261120c" data-part="header"></script>
+
+<main id="main" class="subpage">
+
+  <!-- ── Patients ─────────────────────────────────────────── -->
+  <section class="patients" id="audience" data-theme="light" aria-label="Patients">
+    <div class="wrap">
+
+      <div class="pt-open">
+        <div class="pt-open-copy">
+          <h1 class="pt-title reveal">Some things are worth holding on&nbsp;to.<span>The way you see yourself is one of them.</span></h1>
+          <div class="pt-open-body reveal">
+            <p>There's something about looking in the mirror and noticing little changes. Maybe your cheeks aren't quite as full. Maybe your face looks a little more tired than you feel. Nothing dramatic. Just subtle changes that add up over time.</p>
+            <p>And while we spend so much time talking about our skin, sometimes what's changed isn't the skin at all. It's what's beneath it.</p>
+          </div>
+          <ul class="pt-concerns reveal">
+            <li>Facial hollowing after weight loss, especially with GLP-1</li>
+            <li>Under-eyes, temples, and midface</li>
+            <li>Hands that read older than the face</li>
+          </ul>
+        </div>
+        <figure class="pt-open-figure reveal">
+          <div class="compare pt-compare" data-compare role="group" aria-label="Before and after, midface">
+            <img class="compare-before" src="img/gallery/midface-cheek-beccio-before.webp" alt="Midface before" width="1000" height="707" />
+            <img class="compare-after" src="img/gallery/midface-cheek-beccio-after.webp" alt="Midface after" width="1000" height="707" />
+            <span class="compare-handle" aria-hidden="true"></span>
+            <span class="compare-tag compare-tag--before">Before</span>
+            <span class="compare-tag compare-tag--after">After</span>
+            <input type="range" min="0" max="100" value="50" step="1" class="visually-hidden" aria-label="Reveal before or after, midface" data-compare-range />
+          </div>
+          <figcaption>Drag to compare. Midface, before and after.</figcaption>
+        </figure>
+      </div>
+
+    </div>
+
+    <div class="structure pt-how" id="structure-detail" data-detail data-theme="light" data-cross-section aria-labelledby="structure-title-2">
+      <div class="structure-sticky">
+        <div class="structure-inner">
+
+          <div class="structure-visual">
+          <div class="structure-stage" aria-hidden="true">
+            <svg viewBox="-24 160 660 410" id="cross-section-2" role="presentation">
+              <defs>
+                <linearGradient id="cs-band-2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fd893c" stop-opacity="0.62"/>
+                  <stop offset="55%" stop-color="#fd893c" stop-opacity="0.30"/>
+                  <stop offset="100%" stop-color="#fd893c" stop-opacity="0.12"/>
+                </linearGradient>
+                <linearGradient id="cs-skin-2" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.35"/>
+                  <stop offset="48%" stop-color="#f7f2eb" stop-opacity="0.95"/>
+                  <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.35"/>
+                </linearGradient>
+                <linearGradient id="cs-dermis-2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f7f2eb" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#f7f2eb" stop-opacity="0.06"/>
+                </linearGradient>
+                <clipPath id="cs-clip-2"><path id="cs-clip-path-2" d=""/></clipPath>
+              </defs>
+
+              <g id="cs-subject-2">
+              <!-- depth guides -->
+              <g class="cs-guides" stroke="#f7f2eb" stroke-opacity="0.16" fill="none">
+                <path d="M0 250h560M0 340h560M0 430h560M0 520h560"/>
+                <path d="M80 200v340M200 200v340M320 200v340M440 200v340"/>
+              </g>
+
+              <!-- skin: dermis under the surface line -->
+              <path id="cs-dermis-path-2" d="" fill="url(#cs-dermis-2)"/>
+              <path id="cs-basement-2" d="" stroke="#f7f2eb" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+
+              <!-- adipose band -->
+              <path id="cs-band-path-2" d="" fill="url(#cs-band-2)"/>
+
+              <!-- adipocyte cells, clipped to band -->
+              <g clip-path="url(#cs-clip-2)" id="cs-cells-2" stroke="#ffd2ab" stroke-opacity="0.5" fill="#ffcf9f" fill-opacity="0.10"></g>
+
+              <!-- skin surface -->
+              <path id="cs-skin-path-2" d="" stroke="url(#cs-skin-2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- muscle plane -->
+              <path id="cs-muscle-path-2" d="" stroke="#f7f2eb" stroke-opacity="0.55" stroke-width="1.2" fill="none" stroke-dasharray="5 6"/>
+
+              <!-- host vessels (detail) -->
+              <g id="cs-vessels-2" fill="none" stroke="#e08a7a" stroke-opacity="0.8" stroke-width="1.4" stroke-linecap="round"></g>
+
+              <text id="cs-measure-label-2" x="520" y="200" fill="#f7f2eb" fill-opacity="0.8" font-size="10" font-weight="600" letter-spacing="1.6" text-anchor="end">ADIPOSE LAYER</text>
+              <text id="cs-time-2" data-timeline x="560" y="500" fill="#fd893c" font-size="11" font-weight="600" letter-spacing="1.6" text-anchor="end"></text>
+              <g fill="#f7f2eb" font-size="10" font-weight="600" letter-spacing="1.6" fill-opacity="0.72">
+                <text id="cs-skin-label-2" x="0" y="220">SKIN</text>
+                <text id="cs-muscle-label-2" x="0" y="446">MUSCLE / FASCIA</text>
+              </g>
+              <path id="cs-cannula-2" d="" stroke="#fd893c" stroke-width="3" stroke-linecap="round" fill="none"/>
+              </g>
+
+              <!-- refinement tray: hidden under the face until step 3, when it takes the stage -->
+              <g id="cs-tray-2" opacity="0"></g>
+            </svg>
+          </div>
+            <div class="structure-meter" aria-hidden="true">
+              <span id="cs-step-label-2">01 / 06</span>
+              <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
+              <span id="cs-stage-label-2">Healthy layer</span>
+            </div>
+            <p class="structure-note">Illustrative. Based on Danilkovitch et al., 2026 and Chernoff, 2026.</p>
+          </div>
+
+          <div class="structure-copy">
+            <h2 class="visually-hidden" id="structure-title-2">The layer under everything</h2>
+
+            <div class="structure-step is-active" data-step="0">
+              <h3>There's more to fat than losing it.</h3>
+              <p>Fat plays an important role in giving our faces their natural contours, softness, and fullness.</p>
+            </div>
+
+            <div class="structure-step" data-step="1">
+              <h3>Age and weight loss<br>take that layer first.</h3>
+              <p>As we age and lose facial fat, we can begin to look tired or older than we feel. Over time, whether through aging, weight loss, or other factors, these fat pads can diminish or shift, changing the contours we've come to recognize as our own.</p>
+            </div>
+
+            <div class="structure-step" data-step="2">
+              <h3>Refined, not rebuilt.</h3>
+              <p>Donated fat arrives with blood cells and immune cells that would be rejected. Washing and processing remove them. The fat cells stay intact, so what triggers inflammation stays locked inside them.</p>
+            </div>
+
+            <div class="structure-step" data-step="3">
+              <h3>Placed where it was lost.</h3>
+              <p>Through a cannula, into the layer beneath the skin. The tissue goes in as real structure, cell by cell, exactly where the layer thinned.</p>
+            </div>
+
+            <div class="structure-step" data-step="4">
+              <h3>Volume, right away.</h3>
+              <p>The layer refills behind the cannula, and the skin above has something to rest on again.</p>
+            </div>
+
+            <div class="structure-step" data-step="5">
+              <h3>Then your body takes over.</h3>
+              <p>The body's own cells and new blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+
+      <div class="pt-fat">
+        <h3 class="pt-h reveal">Let's talk about fat.</h3>
+        <div class="pt-cols reveal">
+          <p>Facial fat plays an essential role in giving our faces their natural contours, softness, and fullness. Beneath the skin, fat pads provide structural support, helping maintain the smooth transitions that contribute to a naturally refreshed appearance.</p>
+          <p>Over time, whether through aging, weight loss, or other factors, these fat pads can diminish or shift, changing the contours we've come to recognize as our own.</p>
+        </div>
+      </div>
+
+      <div class="pt-ask">
+        <p class="pt-ask-kicker reveal">Meet Lipoderma.</p>
+        <p class="pt-ask-q reveal">What if the answer to lost fat was simply&hellip; <em>fat?</em></p>
+        <div class="pt-cols reveal">
+          <p>Lipoderma offers a different approach to natural-looking rejuvenation, using human adipose tissue to help restore lost fat and bring back the natural contours, softness, and fullness that make your face uniquely yours.</p>
+          <p>The little details that make a face familiar. The ones you've seen in the mirror a thousand times and never really thought twice about. Until one day, you do.</p>
+        </div>
+      </div>
+
+      <div class="pt-stories">
+        <figure class="pt-story reveal">
+          <div class="pt-story-frame">
+            <video controls playsinline preload="metadata" src="https://media.lipoderma.com/videos/patient-laura.mp4#t=2"></video>
+          </div>
+          <figcaption><strong>Laura</strong> Patient story</figcaption>
+        </figure>
+        <figure class="pt-story reveal">
+          <div class="pt-story-frame">
+            <video controls playsinline preload="metadata" src="https://media.lipoderma.com/videos/happy-client.mp4#t=2"></video>
+          </div>
+          <figcaption><strong>Happy client</strong> Patient story</figcaption>
+        </figure>
+      </div>
+
+      <div class="pt-glow">
+        <div class="pt-glow-copy">
+          <h3 class="pt-h reveal">Fat has a glow-up era, too.</h3>
+          <p class="pt-glow-sub reveal">What to expect with Lipoderma</p>
+          <div class="pt-glow-body reveal">
+            <p>Lipoderma provides immediate volume, but the journey doesn't stop there. As the implanted tissue remodels, results continue to evolve over time.</p>
+            <p>Some patients may notice a temporary softening in fullness as the implanted tissue gradually remodels and is replaced by their own tissue. Over time, this natural process contributes to the evolving appearance of the restored area.</p>
+          </div>
+        </div>
+        <figure class="pt-glow-chart reveal" data-glow-chart>
+          <svg viewBox="0 0 600 300" role="img" aria-label="Illustration: fullness rises right away, may soften as tissue remodels, then settles into a natural contour.">
+            <g class="pt-glow-grid">
+              <path d="M40 250H580"/>
+              <path d="M40 40V250"/>
+              <path d="M200 40V250M380 40V250" stroke-dasharray="3 6"/>
+            </g>
+            <path class="pt-glow-base" d="M40 210H70"/>
+            <path class="pt-glow-line" pathLength="1" d="M70 210C76 210 78 92 92 88C150 72 190 112 250 128C300 140 330 134 380 120C440 104 500 104 580 104"/>
+            <circle class="pt-glow-dot" cx="92" cy="88" r="5"/>
+            <circle class="pt-glow-dot" cx="250" cy="128" r="5"/>
+            <circle class="pt-glow-dot" cx="580" cy="104" r="5"/>
+            <text x="40" y="276">Day 1</text>
+            <text x="200" y="276">Months 1–3</text>
+            <text x="380" y="276">Months 3–6</text>
+            <text class="pt-glow-axis" x="34" y="34" text-anchor="start">Fullness</text>
+          </svg>
+          <ol class="pt-glow-steps">
+            <li><span>Day 1</span>Immediate volume</li>
+            <li><span>Months 1–3</span>Gradual remodeling</li>
+            <li><span>Months 3–6</span>Your own tissue takes over</li>
+          </ol>
+          <figcaption>Illustrative. Results vary from person to person.</figcaption>
+        </figure>
+        <p class="pt-glow-foot reveal"><strong>Think of the first 3–6 months as your fat's glow-up era.</strong> Your results are still evolving, and your provider may recommend a touch-up during this time to help optimize fullness and contours.</p>
+      </div>
+
+      <div class="pt-compare-table">
+        <h3 class="pt-h reveal">Before you fill. Let's talk fat.</h3>
+        <div class="pt-table reveal" data-compare-active="1">
+          <div class="pt-table-pick" role="tablist" aria-label="Compare Lipoderma with">
+            <button type="button" role="tab" aria-selected="true" data-pick="1">HA fillers</button>
+            <button type="button" role="tab" aria-selected="false" data-pick="2">Biostimulators</button>
+            <button type="button" role="tab" aria-selected="false" data-pick="3">Fat transfer</button>
+            <button type="button" role="tab" aria-selected="false" data-pick="4">Renuva</button>
+          </div>
+          <table>
+            <thead>
+              <tr class="pt-table-groups">
+                <td></td>
+                <th scope="colgroup" colspan="2">Traditional aesthetic products</th>
+                <th scope="colgroup" colspan="3">Fat-based restoration</th>
+              </tr>
+              <tr>
+                <td></td>
+                <th scope="col">HA fillers</th>
+                <th scope="col">Biostimulators <small>Sculptra / Radiesse</small></th>
+                <th scope="col">Autologous fat transfer</th>
+                <th scope="col">Renuva</th>
+                <th scope="col" class="is-lipo">Lipoderma</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">What's it made of?</th>
+                <td data-col="HA fillers">Hyaluronic acid gel</td>
+                <td data-col="Biostimulators">PLLA or calcium hydroxylapatite (CaHA)</td>
+                <td data-col="Fat transfer">Patient’s own fat, about 90% adipocytes / 10% ECM</td>
+                <td data-col="Renuva">Donated adipose-derived matrix, 100% ECM</td>
+                <td data-col="Lipoderma" class="is-lipo">Donated human adipose tissue, about 90% adipocytes / 10% ECM</td>
+              </tr>
+              <tr>
+                <th scope="row">How does it work?</th>
+                <td data-col="HA fillers">Adds gel-based volume</td>
+                <td data-col="Biostimulators">Stimulates the body’s natural collagen production over time</td>
+                <td data-col="Fat transfer">Transfers the patient’s own fat to restore volume</td>
+                <td data-col="Renuva">Provides a matrix that supports tissue remodeling</td>
+                <td data-col="Lipoderma" class="is-lipo">Replaces fat with fat, followed by gradual tissue remodeling and host tissue replacement</td>
+              </tr>
+              <tr>
+                <th scope="row">When will I see results?</th>
+                <td data-col="HA fillers">Immediate</td>
+                <td data-col="Biostimulators">Gradual, over several weeks to months as collagen production increases</td>
+                <td data-col="Fat transfer">Immediate volume, with results evolving over several months</td>
+                <td data-col="Renuva">Gradual, over several months</td>
+                <td data-col="Lipoderma" class="is-lipo">Immediate volume, with results evolving over several months</td>
+              </tr>
+              <tr>
+                <th scope="row">How long does it last?</th>
+                <td data-col="HA fillers">Typically 6–18 months</td>
+                <td data-col="Biostimulators">Typically 12–24 months, depending on product</td>
+                <td data-col="Fat transfer">Potentially long-lasting, depending on fat survival</td>
+                <td data-col="Renuva">Up to 12–24 months anticipated</td>
+                <td data-col="Lipoderma" class="is-lipo">Up to 12–24 months anticipated; longer-term outcomes still being monitored</td>
+              </tr>
+              <tr>
+                <th scope="row">Will I need more than one session?</th>
+                <td data-col="HA fillers">Maintenance treatments are common</td>
+                <td data-col="Biostimulators">May require a series or maintenance</td>
+                <td data-col="Fat transfer">Additional fat transfer may be needed</td>
+                <td data-col="Renuva">Additional treatment may be recommended</td>
+                <td data-col="Lipoderma" class="is-lipo">Reassessment at 3–6 months; touch-up may be recommended</td>
+              </tr>
+              <tr>
+                <th scope="row">Does it require liposuction?</th>
+                <td data-col="HA fillers">No</td>
+                <td data-col="Biostimulators">No</td>
+                <td data-col="Fat transfer">Yes</td>
+                <td data-col="Renuva">No</td>
+                <td data-col="Lipoderma" class="is-lipo">No</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="brief-section subpage-close" data-theme="light" aria-label="Find a provider">
+    <div class="wrap">
+      <p class="ex-sign reveal">Fat looks good <em>on you.</em></p>
+      <p class="subpage-close-cta reveal"><a class="btn" href="./#providers">Find a provider</a></p>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/chrome.js?v=20261120c" data-part="footer"></script>
+
+<script type="module" src="js/main.js?v=20261120k"></script>
+</body>
+</html>
