@@ -16,7 +16,7 @@
   const root = script.dataset.root || '';
   const page = document.body.dataset.page || 'home';
 
-  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html', gallery: 'gallery/' };
+  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html', gallery: 'gallery/', publications: 'publications.html' };
   const NAV = [
     { label: 'Meet Lipoderma', to: 'home', hash: 'reframe' },
     { label: 'Patients', to: 'patients' },

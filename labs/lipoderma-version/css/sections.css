@@ -205,6 +205,7 @@
 
 /* Comparison: the full table on wide screens, one product at a time on narrow ones. */
 .pt-compare-table { display: grid; gap: clamp(1.25rem, 3svh, 2rem); }
+.pt-table > .pt-h { margin: 0 0 1rem; }
 .pt-table table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: var(--type-small); line-height: var(--lead-small); }
 .pt-table th, .pt-table td { padding: 0.85rem 0.8rem; text-align: left; vertical-align: top; border: 0; background: transparent; }
 .pt-table thead th {
@@ -218,10 +219,10 @@
 .pt-table thead th small { display: block; margin-top: 0.25rem; font-size: var(--type-caption); letter-spacing: var(--track-label); text-transform: none; color: var(--sx-faint); }
 .pt-table .pt-table-groups th {
   padding-bottom: 0.4rem;
-  color: var(--sx-faint);
-  border-bottom: 1px solid var(--sx-hair);
+  color: var(--sx-orange);
+  border-bottom: 1px solid rgba(253, 137, 60, 0.5);
 }
-.pt-table .pt-table-groups th + th { border-bottom-color: rgba(253, 137, 60, 0.5); color: var(--sx-orange); }
+.pt-table .pt-table-groups th + th { border-bottom-color: var(--sx-hair); color: var(--sx-faint); }
 .pt-table tbody tr { border-top: 1px solid var(--sx-hair); }
 .pt-table tbody th {
   font-size: var(--type-small);
@@ -243,6 +244,14 @@
   box-shadow: none;
 }
 .pt-table thead th.is-lipo img { display: block; width: 7.5rem; height: auto; }
+.pt-table thead th.is-lipo .lipo-logo-mark {
+  display: block;
+  width: 7.5rem;
+  height: 1.95rem;
+  background: #002b63;
+  -webkit-mask: url("../img/logos/lipoderma-logo.svg") no-repeat left center / contain;
+  mask: url("../img/logos/lipoderma-logo.svg") no-repeat left center / contain;
+}
 .pt-table-pick { display: none; }
 .pt-table-pick button {
   padding: 0.45rem 0.7rem;
@@ -264,7 +273,39 @@
   .pt-ask .pt-cols { grid-template-columns: 1fr; }
   .pt-stories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pt-glow { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
-  .pt-table tbody th { width: 15%; }
+  .pt-table table, .pt-table thead, .pt-table tbody { display: block; }
+  .pt-table tbody {
+    position: relative;
+    background: linear-gradient(to right, rgba(253, 137, 60, 0.16) 28%, transparent 28%);
+  }
+  .pt-table tbody::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: #fd893c;
+    pointer-events: none;
+  }
+  .pt-table thead tr, .pt-table tbody tr {
+    display: grid;
+    grid-template-columns: 28% repeat(4, 18%);
+  }
+  .pt-table .pt-table-groups th:first-child { grid-column: span 3; }
+  .pt-table .pt-table-groups th:last-child { grid-column: span 2; }
+  .pt-table tbody th {
+    grid-column: 1 / -1;
+    width: auto;
+    padding: 0.85rem 0.8rem 0.15rem;
+    font-size: var(--type-caption);
+    font-weight: var(--weight-strong);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(246, 241, 234, 0.65);
+  }
+  .pt-table tbody td { padding: 0.25rem 0.8rem 0.9rem; }
+  .pt-table tbody td.is-lipo { background: transparent; box-shadow: none; }
 }
 
 @media (max-width: 59.99rem) {
@@ -293,10 +334,10 @@
     -webkit-mask: url("../img/logos/lipoderma-logo.svg") left center / contain no-repeat;
     mask: url("../img/logos/lipoderma-logo.svg") left center / contain no-repeat;
   }
-  .pt-table[data-compare-active="1"] tbody td:nth-of-type(1),
   .pt-table[data-compare-active="2"] tbody td:nth-of-type(2),
   .pt-table[data-compare-active="3"] tbody td:nth-of-type(3),
   .pt-table[data-compare-active="4"] tbody td:nth-of-type(4),
+  .pt-table[data-compare-active="5"] tbody td:nth-of-type(5),
   .pt-table tbody td.is-lipo { display: block; }
 }
 
@@ -391,6 +432,13 @@
   font-size: var(--type-small);
   font-weight: 600;
   color: var(--sx-text);
+}
+.ex-peer blockquote {
+  margin: 0.45rem 0 0;
+  padding: 0;
+  font-size: var(--type-caption);
+  line-height: var(--lead-body);
+  color: rgba(246, 241, 234, 0.78);
 }
 .ex-rows {
   display: grid;
