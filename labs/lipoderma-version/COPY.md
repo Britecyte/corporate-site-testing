@@ -74,7 +74,7 @@ Lipoderma takes a different approach to natural-looking rejuvenation, using huma
 
 Because sometimes, looking like yourself again isn't about changing something. It's about restoring what was there all along.
 
-Restore what’s yours.
+Restore What’s Yours.
 
 01 Fat for fat, put back where it was lost
 

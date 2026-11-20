@@ -55,7 +55,9 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
 .subpage-close-cta { margin-top: clamp(1.25rem, 3svh, 2rem); display: flex; justify-content: center; }
 
 /* ---------- Header bar (was in brief.css and layout.css) ---------- */
-.header-nav { gap: clamp(0.55rem, 0.95vw, 1.1rem); }
+.header-nav { gap: clamp(1rem, 1.8vw, 1.85rem); }
+.mobile-nav-links a { box-shadow: inset 0 -1px 0 rgba(246, 241, 234, 0.2); }
+.mobile-nav-links a:last-child { box-shadow: none; }
 .header-nav a { letter-spacing: var(--track-label); font-size: var(--type-label); }
 
 /* Navy type only while the bar sits on the hero video. Everywhere else it stays cream. */
@@ -156,6 +158,26 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
 }
 
 /* Contact: one form, cream type, a line under each field. */
+#contact {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100svh - 72px);
+  margin-bottom: 0;
+  background-image:
+    linear-gradient(110deg, rgba(0, 26, 66, 0.58) 0%, rgba(0, 26, 66, 0.22) 55%, rgba(0, 26, 66, 0.45) 100%),
+    url("../img/product/jar-plate.jpg");
+  background-repeat: no-repeat;
+  background-size: 125vw auto;
+  background-position: -20vw center;
+  background-attachment: fixed;
+  background-color: #001a42;
+}
+#contact + .site-footer,
+main + .site-footer {
+  margin-top: 0;
+}
+#contact .contact-layout { align-items: start; }
+#contact .serif-italic { white-space: nowrap; }
 #contact .contact-card,
 #contact .contact-card h3,
 #contact .contact-form-label,
@@ -218,6 +240,13 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   box-shadow: 0 0 0 1px #fd893c;
   outline: 0;
 }
+.btn {
+  font-family: var(--font-sans);
+  font-size: var(--type-label);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
 #contact .contact-card .btn {
   width: auto;
   justify-self: start;
@@ -225,57 +254,96 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   padding: 0.85rem 1.4rem;
   background: #fd893c;
   color: #002b63;
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 0.875rem;
 }
 #contact .contact-card .btn:hover { background: #ff9b57; color: #002b63; }
 #contact .contact-form-error { color: #fd893c; }
 
-/* FAQ: match contact frosted glass + cream type. */
+/* FAQ: match contact frosted glass + cream type + clear hierarchy. */
 #faq .faq-layout {
   color: #f6f1ea;
   background: var(--glass-fill);
   -webkit-backdrop-filter: blur(24px) saturate(170%);
   backdrop-filter: blur(24px) saturate(170%);
-  padding: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
-#faq #faq-title,
-#faq .faq-kicker,
-#faq .faq-list,
-#faq .faq-group-head h3,
-#faq .faq-q {
+#faq .faq-rail {
+  display: grid;
+  gap: 0.75rem;
+  padding-bottom: 0;
+}
+#faq #faq-title {
+  color: #f6f1ea;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+#faq #faq-title .serif-italic { color: #fd893c; }
+#faq .faq-kicker {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-md);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
   color: #f6f1ea;
 }
-#faq #faq-title .serif-italic,
-#faq .faq-q:hover,
-#faq .faq-link {
-  color: #fd893c;
+#faq .faq-intro {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: rgba(246, 241, 234, 0.78);
+  max-width: 58ch;
 }
-#faq .faq-intro,
-#faq .faq-a p {
-  color: rgba(246, 241, 234, 0.82);
+#faq .faq-list { color: #f6f1ea; }
+#faq .faq-group + .faq-group { margin-top: 2rem; }
+#faq .faq-group-head {
+  padding: 0 0 0.65rem;
+  box-shadow: inset 0 -1px 0 rgba(253, 137, 60, 0.45);
+}
+#faq .faq-group-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #fd893c;
 }
 #faq .faq-item {
   box-shadow: inset 0 -1px 0 rgba(246, 241, 234, 0.16);
 }
-#faq .faq-group .faq-item:last-child {
-  box-shadow: none;
+#faq .faq-group .faq-item:last-child { box-shadow: none; }
+#faq .faq-q {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: #f6f1ea;
+  padding-block: 1.05rem;
+}
+#faq .faq-q:hover,
+#faq .faq-link { color: #fd893c; }
+#faq .faq-a p {
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  line-height: 1.65;
+  color: rgba(246, 241, 234, 0.82);
+  max-width: 64ch;
 }
 #faq .faq-q i::before,
-#faq .faq-q i::after {
-  background: #f6f1ea;
-}
+#faq .faq-q i::after { background: #f6f1ea; }
 #faq .faq-q:hover i::before,
-#faq .faq-q:hover i::after {
-  background: #fd893c;
-}
+#faq .faq-q:hover i::after { background: #fd893c; }
 
 /* Shared hero frosted glass + cream type: gallery cards, lightbox, comparison table, provider shell, notes. */
 .case,
 .pt-table,
-.provider-search,
-.provider-shell,
 .note {
   color: #f6f1ea;
   background: var(--glass-fill);
@@ -334,29 +402,48 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   color: #002b63;
 }
 
-.provider-search input,
-.provider-list,
-.provider-item,
-.provider-item button,
-.provider-item .p-name,
-.provider-item strong,
-.provider-empty {
-  color: #f6f1ea;
+#providers .provider-item .p-name { color: #002b63; }
+#providers .provider-item {
+  padding: 0.65rem 0.95rem;
+  box-shadow: inset 0 -1px 0 rgba(0, 43, 99, 0.14);
 }
-.provider-item .p-practice,
-.provider-item .p-city,
-.provider-item .p-meta,
-.provider-item .p-dist,
-.provider-item small {
-  color: rgba(246, 241, 234, 0.76);
+#providers .provider-item:last-child { box-shadow: none; }
+@media (min-aspect-ratio: 1/1) {
+  #providers {
+    height: auto;
+    min-height: calc(100svh - 72px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(4rem, 9svh, 6rem) clamp(2.5rem, 6svh, 4rem);
+  }
+  #providers > .wrap { height: auto; }
+  #providers .providers-head {
+    gap: 1.5rem 2.5rem;
+    margin-bottom: clamp(1.75rem, 4svh, 2.75rem);
+  }
+  #providers .provider-lead { margin-top: 0.5rem; }
+  #providers .provider-shell {
+    flex: none;
+    grid-template-columns: minmax(0, 1.3fr) minmax(23.5rem, 0.82fr);
+    height: clamp(29rem, 62svh, 34rem);
+  }
 }
-.provider-item a { color: #fd893c; }
-.provider-search input::placeholder { color: rgba(246, 241, 234, 0.6); }
-.provider-item { box-shadow: inset 0 -1px 0 rgba(246, 241, 234, 0.14); }
-.provider-item:hover,
-.provider-item.is-active { background: rgba(255, 255, 255, 0.14); }
 
-/* Homepage block between the two videos */
+/* Pin the two homepage background videos to the viewport, clipped by their sections (same depth effect as background-attachment: fixed). */
+.hero,
+#reframe {
+  clip-path: inset(0);
+}
+.hero .hero-laura,
+#reframe .reframe-unbox {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Homepage block between the two videos: left-aligned copy + large un-cropped B&A */
 .between-videos {
   padding-block: clamp(3rem, 8svh, 5.5rem);
 }
@@ -365,14 +452,15 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   gap: clamp(1.75rem, 4vw, 3.5rem);
   align-items: center;
 }
-@media (min-width: 56rem) {
+@media (min-aspect-ratio: 1/1) {
   .between-grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   }
 }
 .between-copy {
   display: grid;
   gap: 1rem;
+  text-align: left;
 }
 .between-copy .h2 {
   margin: 0;
@@ -383,21 +471,39 @@ html.nav-open .site-header { padding-right: var(--scrollbar-w, 0px); }
   margin: 0;
   font-size: var(--type-md);
   line-height: var(--lead-body);
-  color: rgba(246, 241, 234, 0.85);
-  max-width: 54ch;
+  color: rgba(246, 241, 234, 0.86);
+  max-width: 48ch;
 }
+.between-copy .hero-find-sub {
+  font-size: var(--type-caption);
+  color: #f6f1ea;
+}
+.between-copy .hero-find-sub a {
+  color: #fff;
+  font-weight: var(--weight-strong);
+}
+.between-copy .hero-find-sub a:hover { color: #fd893c; }
 .between-ba {
   margin: 0;
-  padding: clamp(0.65rem, 1.5vw, 1rem);
-  background: var(--glass-fill);
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
-  backdrop-filter: blur(24px) saturate(170%);
+  width: 100%;
 }
-.between-ba .compare { aspect-ratio: 4 / 3; }
+.between-ba .compare {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 3 / 2;
+}
 .between-ba figcaption {
   margin-top: 0.6rem;
   font-size: var(--type-caption);
   color: rgba(246, 241, 234, 0.72);
+}
+@media (max-aspect-ratio: 1/1) {
+  .between-videos { padding-block: clamp(2rem, 5svh, 3rem); }
+  .between-grid { gap: 1.5rem; }
+  .between-copy { text-align: center; justify-items: center; }
+  .between-ba .compare { aspect-ratio: 4 / 3; }
+  .between-ba figcaption { text-align: center; }
 }
 
 /* Text navigation, same as the hero line: Patients · Results · FAQ */
