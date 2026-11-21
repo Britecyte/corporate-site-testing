@@ -44,10 +44,9 @@ jobs:
           rm -f _site/CNAME
 
           # GitHub Pages root is the Lipoderma version under test.
-          # Source stays in labs/lipoderma-version/; other sites stay at their paths.
-          rm -f _site/index.html
+          # Source stays in labs/lipoderma-version/; /labs/ keeps the full menu.
           rsync -a labs/lipoderma-version/ _site/
-          mv _site/index.html _site/labs/index.html
+          cp labs/index.html _site/labs/index.html
 
           # This fork must never serve the live domains.
           if [ -f CNAME ]; then
@@ -55,9 +54,9 @@ jobs:
             exit 1
           fi
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
