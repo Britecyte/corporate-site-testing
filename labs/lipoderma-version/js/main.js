@@ -209,9 +209,10 @@ function initCrossSection(section, detail = false) {
   //  .62–.80  layer is filled behind it, skin smooths
   //  .80–1.0  host takes over: donor cells gradually turn into native-looking tissue
   const T = detail ? {
-    loss: [0.1, 0.26], tip: [0.5, 0.7], cannulaIn: [0.46, 0.5], cannulaOut: [0.76, 0.8], retract: [0.7, 0.78],
-    smooth: [0.7, 0.86], host: [0.86, 0.99], filter: [0.3, 0.44], trayIn: [0.27, 0.31], trayOut: [0.5, 0.56],
-    stepAt: [0, 0.12, 0.28, 0.46, 0.7, 0.86],
+    loss: [0.1, 0.24], tip: [0.46, 0.64], cannulaIn: [0.42, 0.46], cannulaOut: [0.68, 0.72], retract: [0.64, 0.7],
+    smooth: [0.64, 0.76], host: [0.88, 0.99], filter: [0.28, 0.4], trayIn: [0.25, 0.29], trayOut: [0.44, 0.49],
+    glowIn: [0.75, 0.79], glowOut: [0.86, 0.9],
+    stepAt: [0, 0.12, 0.26, 0.43, 0.63, 0.76, 0.88],
   } : {
     loss: [0.12, 0.34], tip: [0.42, 0.66], cannulaIn: [0.38, 0.42], cannulaOut: [0.72, 0.76], retract: [0.66, 0.74],
     smooth: [0.62, 0.8], host: [0.8, 0.98],
@@ -219,11 +220,11 @@ function initCrossSection(section, detail = false) {
   };
   const STEP_AT = T.stepAt;
   const STAGES = detail
-    ? ['Healthy layer', 'Layer thins', 'Lipoderma', 'Donor tissue', 'Volume restored', 'Your body takes over']
+    ? ['Healthy layer', 'Layer thins', 'Lipoderma', 'Donor tissue', 'Volume restored', 'Glow-up era', 'Your body takes over']
     : ['Healthy layer', 'Layer thins', 'Donor tissue', 'Volume restored', 'Host takes over'];
   // Time labels (data-timeline). Delete the #cs-time element in the HTML to remove them.
   const TIMES = detail
-    ? ['Baseline', 'Over the years', 'Before treatment', 'Day 0 · implantation', 'Day 0 · placed', 'Weeks to months']
+    ? ['Baseline', 'Over the years', 'Before treatment', 'Day 0 · implantation', 'Day 0 · placed', 'Months 1–6', 'Months 3–6+']
     : ['Baseline', 'Over the years', 'Day 0 · implantation', 'Day 0 · placed', 'Weeks to months'];
   const timeLabel = $('cs-time');
   const dermisPath = $('cs-dermis-path');
@@ -389,10 +390,17 @@ function initCrossSection(section, detail = false) {
   }
 
   const subjectGroup = detail ? $('cs-subject') : null;
+  const glowStage = detail ? section.querySelector('#cs-glow-stage') : null;
   const drawDetail = (p, H) => {
     if (!detail) return;
     const f = seg(p, T.filter[0], T.filter[1]);
     const vis = seg(p, T.trayIn[0], T.trayIn[1]) * (1 - seg(p, T.trayOut[0], T.trayOut[1]));
+    const glowVis = glowStage ? seg(p, T.glowIn[0], T.glowIn[1]) * (1 - seg(p, T.glowOut[0], T.glowOut[1])) : 0;
+    if (glowStage) {
+      glowStage.style.opacity = String(glowVis);
+      glowStage.classList.toggle('is-visible', glowVis > 0.25);
+      svg.style.opacity = String(1 - glowVis);
+    }
     trayGroup.style.opacity = String(vis);
     // Step 3: the face leaves and the processing tray takes its place, larger.
     // Step 4: the tray leaves and the face comes back.
@@ -402,7 +410,7 @@ function initCrossSection(section, detail = false) {
     const y = homeY + (destY - homeY) * vis;
     trayGroup.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${scale.toFixed(3)}) translate(${-homeX} ${-homeY})`);
     if (subjectGroup) subjectGroup.style.opacity = String(1 - vis);
-    tray.cap.textContent = f < 0.5 ? 'RAW DONOR TISSUE' : 'REFINED TISSUE';
+    tray.cap.textContent = f < 0.5 ? 'DONOR TISSUE' : 'LIPODERMA';
     tray.rbc.forEach((o) => {
       o.el.setAttribute('cx', (o.x + o.d * f).toFixed(1)); o.el.setAttribute('cy', (o.y + 20 * f).toFixed(1));
       o.el.style.opacity = String(1 - Math.min(1, f * 1.25));

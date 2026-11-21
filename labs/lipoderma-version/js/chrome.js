@@ -16,7 +16,7 @@
   const root = script.dataset.root || '';
   const page = document.body.dataset.page || 'home';
 
-  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html', gallery: 'gallery/', publications: 'publications.html' };
+  const FILES = { home: 'index.html', patients: 'patients.html', work: 'work-with-us.html', safety: 'safety.html', gallery: 'gallery/', publications: 'publications.html', faq: 'faq.html' };
   const NAV = [
     { label: 'Meet Lipoderma', to: 'home', hash: 'reframe' },
     { label: 'Patients', to: 'patients' },
@@ -25,7 +25,7 @@
     { label: 'Providers', to: 'home', hash: 'providers', nav: false },
     { label: 'Work with us', to: 'work' },
     { label: 'Safety', to: 'safety' },
-    { label: 'FAQ', to: 'home', hash: 'faq' },
+    { label: 'FAQ', to: 'faq' },
     { label: 'Contact', to: 'home', hash: 'contact' },
   ];
   const SOCIAL = [

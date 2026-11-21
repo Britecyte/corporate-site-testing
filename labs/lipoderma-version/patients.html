@@ -15,14 +15,14 @@
 <link rel="stylesheet" href="css/motion.css?v=20261114w" />
 <link rel="stylesheet" href="css/layout.css?v=20261120w" />
 <link rel="stylesheet" href="css/brief.css?v=20261120w" />
-<link rel="stylesheet" href="css/sections.css?v=20261121i" />
-<link rel="stylesheet" href="css/chrome.css?v=20261122b" />
+<link rel="stylesheet" href="css/sections.css?v=20261122f" />
+<link rel="stylesheet" href="css/chrome.css?v=20261122v" />
 </head>
 <body data-page="patients">
 
 <div class="bg-field" aria-hidden="true"><div class="bg-shift"><i></i><i></i><i></i></div></div>
 
-<script src="js/chrome.js?v=20261121b" data-part="header"></script>
+<script src="js/chrome.js?v=20261122a" data-part="header"></script>
 
 <main id="main" class="subpage">
 
@@ -122,9 +122,27 @@
               <!-- refinement tray: hidden under the face until step 3, when it takes the stage -->
               <g id="cs-tray-2" opacity="0"></g>
             </svg>
+            <div class="cs-glow-stage" id="cs-glow-stage" data-glow-chart>
+              <svg viewBox="0 0 600 328" role="img" aria-label="Illustration: fullness rises right away, may soften as tissue remodels, then settles into a natural contour.">
+                <g class="pt-glow-grid">
+                  <path d="M40 250H580"/>
+                  <path d="M40 40V250"/>
+                  <path d="M200 40V250M380 40V250" stroke-dasharray="3 6"/>
+                </g>
+                <path class="pt-glow-base" d="M40 210H70"/>
+                <path class="pt-glow-line" pathLength="1" d="M70 210C76 210 78 92 92 88C150 72 190 112 250 128C300 140 330 134 380 120C440 104 500 104 580 104"/>
+                <circle class="pt-glow-dot" cx="92" cy="88" r="5"/>
+                <circle class="pt-glow-dot" cx="250" cy="128" r="5"/>
+                <circle class="pt-glow-dot" cx="580" cy="104" r="5"/>
+                <text x="40" y="276">Day 1<tspan class="pt-glow-note" x="40" dy="18">Immediate volume</tspan></text>
+                <text x="200" y="276">Months 1–3<tspan class="pt-glow-note" x="200" dy="18">Gradual remodeling</tspan></text>
+                <text x="380" y="276">Months 3–6<tspan class="pt-glow-note" x="380" dy="18">Your own tissue takes over</tspan></text>
+                <text class="pt-glow-axis" x="34" y="34" text-anchor="start">Fullness</text>
+              </svg>
+            </div>
           </div>
             <div class="structure-meter" aria-hidden="true">
-              <span id="cs-step-label-2">01 / 06</span>
+              <span id="cs-step-label-2">01 / 07</span>
               <span class="structure-meter-track"><span class="structure-meter-fill" id="cs-meter-2"></span></span>
               <span id="cs-stage-label-2">Healthy layer</span>
             </div>
@@ -160,6 +178,11 @@
             </div>
 
             <div class="structure-step" data-step="5">
+              <h3>Fat has a glow-up era, too.</h3>
+              <p>Lipoderma provides immediate volume, but the journey doesn't stop there. Some patients may notice a temporary softening in fullness as the implanted tissue gradually remodels over the first 3–6 months — and your provider may recommend a touch-up to optimize contours.</p>
+            </div>
+
+            <div class="structure-step" data-step="6">
               <h3>Then your body takes over.</h3>
               <p>The body's own cells and new blood vessels move in and gradually replace the donor tissue with tissue that is theirs. The initial fullness settles into a natural contour.</p>
             </div>
@@ -192,35 +215,6 @@
             <video controls playsinline preload="metadata" src="https://media.lipoderma.com/videos/happy-client.mp4#t=2"></video>
           </div>
         </figure>
-      </div>
-
-      <div class="pt-glow">
-        <div class="pt-glow-copy">
-          <h3 class="pt-h reveal">Fat has a glow-up era, too.<span>What to expect with Lipoderma</span></h3>
-          <div class="pt-glow-body reveal">
-            <p>Lipoderma provides immediate volume, but the journey doesn't stop there. As the implanted tissue remodels, results continue to evolve over time.</p>
-            <p>Some patients may notice a temporary softening in fullness as the implanted tissue gradually remodels and is replaced by their own tissue. Over time, this natural process contributes to the evolving appearance of the restored area.</p>
-          </div>
-        </div>
-        <figure class="pt-glow-chart reveal" data-glow-chart>
-          <svg viewBox="0 0 600 328" role="img" aria-label="Illustration: fullness rises right away, may soften as tissue remodels, then settles into a natural contour.">
-            <g class="pt-glow-grid">
-              <path d="M40 250H580"/>
-              <path d="M40 40V250"/>
-              <path d="M200 40V250M380 40V250" stroke-dasharray="3 6"/>
-            </g>
-            <path class="pt-glow-base" d="M40 210H70"/>
-            <path class="pt-glow-line" pathLength="1" d="M70 210C76 210 78 92 92 88C150 72 190 112 250 128C300 140 330 134 380 120C440 104 500 104 580 104"/>
-            <circle class="pt-glow-dot" cx="92" cy="88" r="5"/>
-            <circle class="pt-glow-dot" cx="250" cy="128" r="5"/>
-            <circle class="pt-glow-dot" cx="580" cy="104" r="5"/>
-            <text x="40" y="276">Day 1<tspan class="pt-glow-note" x="40" dy="18">Immediate volume</tspan></text>
-            <text x="200" y="276">Months 1–3<tspan class="pt-glow-note" x="200" dy="18">Gradual remodeling</tspan></text>
-            <text x="380" y="276">Months 3–6<tspan class="pt-glow-note" x="380" dy="18">Your own tissue takes over</tspan></text>
-            <text class="pt-glow-axis" x="34" y="34" text-anchor="start">Fullness</text>
-          </svg>
-        </figure>
-        <p class="pt-glow-foot reveal"><strong>Think of the first 3–6 months as your fat's glow-up era.</strong> Your results are still evolving, and your provider may recommend a touch-up during this time to help optimize fullness and contours.</p>
       </div>
 
       <div class="pt-compare-table">
@@ -300,6 +294,52 @@
         </div>
       </div>
 
+      <div class="pt-journey reveal">
+        <div class="pt-journey-head">
+          <h3 class="pt-h">Different products, different patient journeys.<span>Volume &amp; structural support over time</span></h3>
+        </div>
+        <div class="pt-journey-grid">
+          <dl class="pt-journey-list">
+            <div class="pt-journey-row is-lipo">
+              <dt>Lipoderma<sup>®</sup></dt>
+              <dd>Immediate adipose structural support, followed by gradual remodeling with adipose tissue replacement and collagen production over time.</dd>
+            </div>
+            <div class="pt-journey-row is-bio">
+              <dt>Biostimulators</dt>
+              <dd>Gradual improvement as collagen production develops over time.</dd>
+            </div>
+            <div class="pt-journey-row is-ha">
+              <dt>Traditional HA Fillers</dt>
+              <dd>Immediate volume correction, with effects that gradually diminish over time; no tissue regeneration.</dd>
+            </div>
+          </dl>
+          <figure class="pt-journey-chart">
+            <svg viewBox="0 0 540 280" role="img" aria-label="Illustrative patient journey chart comparing Lipoderma, biostimulators, and traditional HA fillers over time.">
+              <g class="pj-grid">
+                <path d="M52 220H516"/>
+                <path d="M52 30V220"/>
+                <path d="M52 75H516M52 125H516M52 175H516" stroke-dasharray="2 6"/>
+              </g>
+              <path class="pj-line pj-ha" d="M58 62C130 105 220 160 330 182C400 194 460 196 510 196"/>
+              <path class="pj-line pj-bio" d="M58 196C140 182 230 148 330 118C410 96 460 90 510 88"/>
+              <path class="pj-line pj-lipo" d="M58 62C115 64 155 104 225 104C295 104 375 72 445 70C475 69 495 70 510 72"/>
+              <text class="pj-axis" x="20" y="130" transform="rotate(-90 20 130)" text-anchor="middle">Relative Improvement</text>
+              <text class="pj-axis" x="514" y="242" text-anchor="end">Time →</text>
+              <g class="pj-legend" transform="translate(52, 264)">
+                <line x1="0" y1="-4" x2="22" y2="-4" class="pj-line pj-lipo"/>
+                <text x="28" y="0">Lipoderma®</text>
+                <line x1="138" y1="-4" x2="160" y2="-4" class="pj-line pj-bio"/>
+                <text x="166" y="0">Biostimulators</text>
+                <line x1="292" y1="-4" x2="314" y2="-4" class="pj-line pj-ha"/>
+                <text x="320" y="0">HA Fillers</text>
+              </g>
+            </svg>
+            <figcaption>Illustrative patient journeys only. Individual results and remodeling patterns may vary.</figcaption>
+          </figure>
+        </div>
+        <p class="pt-journey-foot">Lipoderma offers immediate structural support with gradual restoration of missing adipose over time, providing a distinct patient journey compared with traditional fillers and biostimulators.</p>
+      </div>
+
     </div>
   </section>
 
@@ -312,8 +352,8 @@
 
 </main>
 
-<script src="js/chrome.js?v=20261121b" data-part="footer"></script>
+<script src="js/chrome.js?v=20261122a" data-part="footer"></script>
 
-<script type="module" src="js/main.js?v=20261120n"></script>
+<script type="module" src="js/main.js?v=20261122b"></script>
 </body>
 </html>

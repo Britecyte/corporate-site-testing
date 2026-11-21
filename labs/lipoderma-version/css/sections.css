@@ -417,6 +417,58 @@
   color: var(--sx-text);
 }
 .ex-peers { margin-top: var(--sx-gap); }
+.ex-pillars {
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  margin-top: clamp(2rem, 4.5svh, 3rem);
+}
+@media (min-width: 52rem) {
+  .ex-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.ex-pillar {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  padding: clamp(1.35rem, 2.5vw, 1.85rem);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+.ex-pillar-big {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.5vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: #fd893c;
+}
+.ex-pillar-big--text {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1.05;
+  color: #f6f1ea;
+}
+.ex-pillar-head {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f6f1ea;
+}
+.ex-pillar p {
+  margin: 0;
+  font-size: var(--type-small);
+  line-height: var(--lead-body);
+  color: rgba(246, 241, 234, 0.84);
+}
+.ex-pillar .ex-pillar-tag {
+  margin-top: 0.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.15;
+  color: #fd893c;
+}
 .ex-peer-grid { display: grid; gap: 0.75rem; }
 .ex-peer { margin: 0; }
 .ex-peer .ph { aspect-ratio: 4 / 3; }
@@ -439,6 +491,139 @@
   font-size: var(--type-caption);
   line-height: var(--lead-body);
   color: rgba(246, 241, 234, 0.78);
+}
+.structure-stage { position: relative; }
+.cs-glow-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+}
+.cs-glow-stage svg { display: block; width: min(100%, 30rem); height: auto; margin-inline: auto; }
+.cs-glow-stage text { fill: var(--sx-orange); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.cs-glow-stage .pt-glow-note { fill: var(--sx-text); font-size: 13px; font-weight: 500; letter-spacing: 0; text-transform: none; }
+.cs-glow-stage .pt-glow-axis { fill: var(--sx-soft); }
+.cs-glow-stage.is-visible .pt-glow-line { stroke-dashoffset: 0; }
+
+/* Patients .pt-fat cleanup: stacked copy on left, statement on right */
+@media (min-width: 56rem) {
+  .patients .pt-fat {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    gap: 1.25rem clamp(2rem, 4vw, 4rem);
+    align-items: end;
+  }
+  .patients .pt-fat .pt-h { grid-column: 1 / -1; }
+  .patients .pt-fat .pt-cols {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+  .patients .pt-fat .pt-ask-q {
+    grid-column: 2;
+    margin: 0;
+    text-align: right;
+    justify-self: end;
+    max-width: 11ch;
+  }
+}
+
+.subpage-close {
+  min-height: 0;
+  height: auto;
+  padding-block: clamp(2.5rem, 5svh, 3.75rem);
+}
+
+/* Different products, different patient journeys */
+.pt-journey {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+.pt-journey-grid {
+  display: grid;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: center;
+}
+@media (min-width: 58rem) {
+  .pt-journey-grid { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
+}
+.pt-journey-list {
+  margin: 0;
+  display: grid;
+  gap: 1.15rem;
+}
+.pt-journey-row {
+  display: grid;
+  gap: 0.3rem;
+  padding-left: 1rem;
+  box-shadow: inset 3px 0 0 rgba(246, 241, 234, 0.45);
+}
+.pt-journey-row.is-lipo { box-shadow: inset 3px 0 0 #fd893c; }
+.pt-journey-row.is-bio { box-shadow: inset 3px 0 0 #7ab4ff; }
+.pt-journey-row dt {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: 700;
+  color: #f6f1ea;
+}
+.pt-journey-row.is-lipo dt { color: #fd893c; }
+.pt-journey-row dd {
+  margin: 0;
+  font-size: var(--type-small);
+  line-height: var(--lead-body);
+  color: rgba(246, 241, 234, 0.84);
+}
+.pt-journey-chart { margin: 0; }
+.pt-journey-chart svg { display: block; width: 100%; height: auto; }
+.pt-journey-chart .pj-grid path {
+  fill: none;
+  stroke: rgba(246, 241, 234, 0.22);
+  stroke-width: 1;
+}
+.pt-journey-chart .pj-line {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.pt-journey-chart .pj-lipo { stroke: #fd893c; stroke-width: 4; }
+.pt-journey-chart .pj-bio { stroke: #7ab4ff; }
+.pt-journey-chart .pj-ha { stroke: rgba(246, 241, 234, 0.55); stroke-dasharray: 6 5; }
+.pt-journey-chart .pj-axis {
+  fill: rgba(246, 241, 234, 0.72);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pt-journey-chart .pj-legend text {
+  fill: #f6f1ea;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+}
+.pt-journey-chart figcaption {
+  margin-top: 0.6rem;
+  font-size: var(--type-caption);
+  font-style: italic;
+  color: rgba(246, 241, 234, 0.65);
+}
+.pt-journey-foot {
+  margin: 0;
+  padding-top: 1.15rem;
+  box-shadow: inset 0 1px 0 rgba(246, 241, 234, 0.16);
+  font-size: var(--type-md);
+  font-weight: 500;
+  line-height: var(--lead-body);
+  color: #f6f1ea;
+  max-width: 66ch;
 }
 .ex-rows {
   display: grid;
@@ -475,17 +660,18 @@
 /* The three standards, read at a glance. */
 .sf-strip {
   display: grid;
-  gap: 0 clamp(1rem, 2.5vw, 2.5rem);
-  margin: clamp(2.25rem, 5svh, 3.25rem) 0 0;
+  gap: 0.85rem;
+  margin: clamp(2rem, 4.5svh, 3rem) 0 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--sx-hair);
 }
 .sf-strip li {
   display: grid;
-  gap: 0.15rem;
-  padding: 0.9rem 0 0.55rem;
-  border-bottom: 1px solid var(--sx-hair);
+  gap: 0.3rem;
+  padding: clamp(1.1rem, 2.2vw, 1.45rem) clamp(1.25rem, 2.5vw, 1.65rem);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
   font-size: var(--type-small);
   line-height: var(--lead-small);
   color: var(--sx-soft);
@@ -515,8 +701,16 @@
 }
 
 /* Facilities: a small plate beside the name, copy in one readable column. */
-.sf-sites { display: grid; gap: clamp(2rem, 4vw, 3rem); }
-.sf-site { display: grid; gap: 1rem; align-content: start; }
+.sf-sites { display: grid; gap: clamp(1.25rem, 3vw, 2rem); }
+.sf-site {
+  display: grid;
+  gap: 1.1rem;
+  align-content: start;
+  padding: clamp(1.35rem, 2.8vw, 2rem);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
 .sf-site-head {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -599,8 +793,8 @@
   display: grid;
   gap: clamp(1.5rem, 4vw, 4rem);
   margin-top: var(--sf-gap);
-  padding-block: clamp(1.75rem, 4svh, 2.75rem);
-  border-block: 1px solid var(--sx-hair);
+  padding-top: clamp(2rem, 4.5svh, 3rem);
+  border-top: 1px solid var(--sx-hair);
 }
 .sf-close-copy { display: grid; gap: 0.85rem; align-content: start; }
 .sf-close-copy .bs-h { margin-bottom: 0.25rem; }
@@ -610,8 +804,9 @@
   flex-direction: column;
   gap: 0.9rem;
   padding: clamp(1.35rem, 3vw, 2rem);
-  border: 1px solid rgba(253, 137, 60, 0.45);
-  background: rgba(253, 137, 60, 0.07);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
 }
 .brief-section .sf-close-q {
   font-family: var(--font-display);
@@ -626,9 +821,8 @@
 
 @media (min-width: 60rem) {
   .sf-head { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
-  .sf-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .sf-strip li { border-bottom: 0; padding-bottom: 0.9rem; }
-  .sf-sites { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem); }
+  .sf-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .sf-sites { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2rem); }
   .sf-fda { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); align-items: start; }
   .sf-fda-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sf-close { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
