@@ -43,6 +43,12 @@ jobs:
 
           rm -f _site/CNAME
 
+          # GitHub Pages root is the Lipoderma version under test.
+          # Source stays in labs/lipoderma-version/; other sites stay at their paths.
+          rm -f _site/index.html
+          rsync -a labs/lipoderma-version/ _site/
+          mv _site/index.html _site/labs/index.html
+
           # This fork must never serve the live domains.
           if [ -f CNAME ]; then
             echo "Refusing to publish a CNAME from this preview fork."
